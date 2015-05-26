@@ -55,18 +55,43 @@
              </h4>
             </caption>
             <table class="table table-bordered table-striped table-condensed">
-                <ul>
-                {% for dict in entity.dicts %}
-                    <li>
-                        {{ dict.numeroTeleservice }}
-                        {% if dict.dtDictConjointe == true %}
-                            (Conjointe à cette DT)
-                        {% endif %}
-                    </li>
-                {% else %}
-                    Pas de DICT !
-                {% endfor %}
-                </ul>
+              <thead>
+                    <td>
+                        Numero téléservice
+                    </td>
+                    <td>
+                        Dict lié
+                    </td>
+                    <td>
+                        Dict conjointe
+                    </td>
+                </thead>
+                <tbody>
+                   {# On coche selon la relation avec la DICT #}
+                    {% for dict in entity.dicts %}
+                        <tr>                      
+                            {% if dict.dtDictConjointe == true %}
+                                <td>
+                                    <a target="_blank" href="{{ path('dtdict_show', {'id': dict.id})}}">
+                                        {{ dict.numeroTeleservice }}
+                                    </a>
+                                </td>  
+                                <td></td>                 
+                                <td class="text-center"><i class="fa fa-crosshairs"></i></td>        
+                            {% else %}
+                                <td>
+                                    <a target="_blank" href="{{ path('demandeintentionct_show', {'id': dict.id})}}">
+                                        {{ dict.numeroTeleservice }}
+                                    </a>
+                                </td> 
+                                <td class="text-center"><i class="fa fa-crosshairs"></i></td>    
+                                <td></td>                        
+                            {% endif %}
+                        </tr>
+                    {% else %}
+                        Pas de DICT !
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
 </div>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "33807a5fbd701ac85063df2caeba599b",
+    "hash": "4f47b07a0f8d3957d62cba4d1079d061",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1997,12 +1997,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/Gaufrette.git",
-                "reference": "f1734151aecb55b95ed9d6dcfb47b61eb4c753fd"
+                "reference": "9d52413665284f9c96e0cef399fc14e68ac0aa5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/f1734151aecb55b95ed9d6dcfb47b61eb4c753fd",
-                "reference": "f1734151aecb55b95ed9d6dcfb47b61eb4c753fd",
+                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/9d52413665284f9c96e0cef399fc14e68ac0aa5a",
+                "reference": "9d52413665284f9c96e0cef399fc14e68ac0aa5a",
                 "shasum": ""
             },
             "require": {
@@ -2073,7 +2073,7 @@
                 "filesystem",
                 "media"
             ],
-            "time": "2015-04-03 04:28:24"
+            "time": "2015-05-26 08:25:40"
         },
         {
             "name": "knplabs/knp-menu",
@@ -3100,12 +3100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "c26ac009e6f2de4f84b019fd600c0b04f6510bc6"
+                "reference": "0d24a74b06fa160d302b8052de82b0fce0096eea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/c26ac009e6f2de4f84b019fd600c0b04f6510bc6",
-                "reference": "c26ac009e6f2de4f84b019fd600c0b04f6510bc6",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/0d24a74b06fa160d302b8052de82b0fce0096eea",
+                "reference": "0d24a74b06fa160d302b8052de82b0fce0096eea",
                 "shasum": ""
             },
             "require": {
@@ -3114,6 +3114,7 @@
                 "knplabs/knp-menu": ">=2.0,<3.0",
                 "knplabs/knp-menu-bundle": ">=2.0,<3.0.0",
                 "sonata-project/block-bundle": "~2.3",
+                "sonata-project/core-bundle": "^2.3.2",
                 "sonata-project/exporter": "~1.0",
                 "symfony/class-loader": "~2.3",
                 "symfony/config": "~2.3",
@@ -3177,7 +3178,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-05-22 10:11:10"
+            "time": "2015-05-25 10:10:23"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4235,24 +4236,24 @@
         },
         {
             "name": "symfony/intl",
-            "version": "dev-master",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Intl.git",
-                "reference": "64c72f588cdb717d9217121199ef43a93e55640e"
+                "reference": "5d04ded852adb7a7e2c7cd84da6485d0d69956f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Intl/zipball/64c72f588cdb717d9217121199ef43a93e55640e",
-                "reference": "64c72f588cdb717d9217121199ef43a93e55640e",
+                "url": "https://api.github.com/repos/symfony/Intl/zipball/5d04ded852adb7a7e2c7cd84da6485d0d69956f0",
+                "reference": "5d04ded852adb7a7e2c7cd84da6485d0d69956f0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "require-dev": {
-                "symfony/filesystem": "~2.8|~3.0",
-                "symfony/phpunit-bridge": "~2.8|~3.0"
+                "symfony/filesystem": "~2.1|~3.0.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0.0"
             },
             "suggest": {
                 "ext-intl": "to use the component with locales other than \"en\""
@@ -4260,7 +4261,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -4306,7 +4307,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2015-05-15 14:16:35"
+            "time": "2015-05-15 14:11:12"
         },
         {
             "name": "symfony/monolog-bundle",

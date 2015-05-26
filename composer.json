@@ -48,7 +48,7 @@
         "genemu/form-bundle": "2.3.*@dev",
         "egeloen/ckeditor-bundle": "3.0.*@dev",
         "knplabs/knp-snappy-bundle": "1.2.*@dev",
-        "symfony/intl": "3.0.*@dev"
+        "symfony/intl": "2.8.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
