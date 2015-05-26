@@ -1,0 +1,30 @@
+entreprise:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:index" }
+
+entreprise_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:show" }
+
+entreprise_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:new" }
+
+entreprise_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:create" }
+    methods:  POST
+
+entreprise_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:edit" }
+
+entreprise_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:update" }
+    methods:  [POST, PUT]
+
+entreprise_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Entreprise:delete" }
+    methods:  [POST, DELETE]

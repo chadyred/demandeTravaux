@@ -1,0 +1,78 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+
+ {% block travaux_content %}
+    <h1>Liste des travaux</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Numéro téléservice</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}            
+            {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeTravaux') %}
+                 <tr>
+                    <td><a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Demande travaux (DT)</td>
+                    <td>{{ entity.numeroTeleservice }} </td>
+                    <td>
+                         {% if(entity.adresses|length > 0) %}
+                            {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
+                            {{ entity.adresses[0].getAdresseComplete|length > 50 ? entity.adresses[0].getAdresseComplete|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseComplete}}
+                        {% else %}
+                           /!\ Pas d'adresse !
+                       {% endif %}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeIntentionCT') %}
+                <tr>
+                    <td><a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Demande intention commencement de travaux (DICT)</td>
+                    <td>
+                            {{ entity.numeroTeleservice }}                    
+                    </td>
+                    <td>
+                       {% if(entity.adresses|length > 0) %}
+                            {# Limitation du nombre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
+                            {{ entity.adresses[0].getAdresseComplete|length > 50 ? entity.adresses[0].getAdresseComplete|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseComplete}}
+                       {% else %}
+                           /!\ Pas d'adresse !
+                       {% endif %}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>                                
+                                 <a href="{{ path('demandeintentionct_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

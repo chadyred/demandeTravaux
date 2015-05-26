@@ -1,0 +1,7 @@
+maitre_ouvrage:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:index" }
+    
+maitre_ouvrage_ajouter_menu:
+    path:     /ajout-menu-moa
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:ajouter" }

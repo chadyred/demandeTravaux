@@ -1,0 +1,10 @@
+# Bien supprimer le dossier cache qui se recréé avec les commandes php app/console cache:clear sur le serveur
+# si rien ne fonctionne : service apache2 restart
+sudo rm -rf app/cache/*
+sudo rm -rf app/logs/*
+php app/console cache:clear
+php app/console cache:clear --env=prod --no-debug
+sudo chmod -R 777 app/cache
+sudo chmod -R 777 src/MairieVoreppe/DemandeTravauxBundle/Resources/public/components
+sudo chmod -R 777 app/logs
+sudo chmod -R 777 app/cache/*

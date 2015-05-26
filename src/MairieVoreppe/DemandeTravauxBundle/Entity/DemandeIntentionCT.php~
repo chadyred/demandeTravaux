@@ -1,0 +1,182 @@
+<?php
+
+namespace MairieVoreppe\DemandeTravauxBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
+
+
+/**
+ * DemandeIntentionCT
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCTRepository")
+ */
+class DemandeIntentionCT extends Travaux
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    
+    /**
+     * On garde les dicts même si l'entreprise est supprimée ! Si on decide de réutiliser ce dernier, on choisira une autre entreprise.
+     * 
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre", inversedBy="dicts", cascade={"persist"})
+     * 
+     * @var type 
+     */
+    private $maitreOeuvre;
+    
+      /**
+     * Doctrine Array
+     * 
+     * Une ville contient plusieurs adresse. On persiste l'ajout de coordonnées à une ville (DRY), la persistence ce fait dans le controller
+     *      
+     * @ORM\Column(name="dtDictConjointe", type="boolean")
+     * @var type 
+     */
+    private $dtDictConjointe;
+    
+    
+      /**
+     * Doctrine Array
+     * 
+     * Pas de cascade étant donnée que la DT est créé au préalabe
+     * 
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux", inversedBy="dicts")
+     * @ORM\JoinColumn(nullable=true)
+     * 
+     * @var type 
+     */
+    private $dt;
+    
+    
+    /**
+     * Tout arrêté ne sera pas supprimable même si la DICT est supprimée. Et on ajoute un arretePromulge à une DICT.
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue", mappedBy="dict", cascade={"persist"})
+     * 
+     * @var type 
+     */
+    private $arretesPromulgues;
+    
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->arretesPromulgues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dtDictLie = false;
+    }
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Add maitresOeuvre
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\MaitressOeuvre $maitreOeuvre
+     * @return DemandeIntentionCT
+     */
+    public function setMaitreOeuvre(\MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre $maitreOeuvre)
+    {
+        $this->maitreOeuvre = $maitreOeuvre;
+
+        return $this;
+    }
+
+    /**
+     * Get maitresOeuvre
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Model\MaitressOeuvre $maitreOeuvre
+     */
+    public function getMaitreOeuvre()
+    {
+        return $this->maitreOeuvre;
+    }
+   
+
+    /**
+     * Set dt
+     *
+     * Une DICT peut être seul
+     * 
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dt
+     * @return DemandeIntentionCT
+     */
+    public function setDt(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dt = null)
+    {
+        $this->dt = $dt;
+        
+        if($dt != null)
+        {
+            $dt->addDict($this);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get dt
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux 
+     */
+    public function getDt()
+    {
+        return $this->dt;
+    }
+
+    /**
+     * Add arretesPromulgue
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\ArretePromulgue $arretesPromulgue
+     *
+     * @return DemandeIntentionCT
+     */
+    public function addArretesPromulgue(\MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue $arretesPromulgue)
+    {
+        $this->arretesPromulgues[] = $arretesPromulgue;
+
+        return $this;
+    }
+
+    /**
+     * Remove arretesPromulgue
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\ArretePromulgue $arretesPromulgue
+     */
+    public function removeArretesPromulgue(\MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue $arretesPromulgue)
+    {
+        $this->arretesPromulgues->removeElement($arretesPromulgue);
+    }
+
+    /**
+     * Get arretesPromulgues
+     * 
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretesPromulgues()
+    {
+        return $this->arretesPromulgues;
+    }
+
+ 
+}

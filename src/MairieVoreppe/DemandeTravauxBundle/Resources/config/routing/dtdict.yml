@@ -1,0 +1,30 @@
+dtdict:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:index" }
+
+dtdict_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:show" }
+
+dtdict_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:new" }
+
+dtdict_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:create" }
+    methods:  POST
+
+dtdict_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:edit" }
+
+dtdict_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:update" }
+    methods:  [POST, PUT]
+
+dtdict_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DtDict:delete" }
+    methods:  [POST, DELETE]

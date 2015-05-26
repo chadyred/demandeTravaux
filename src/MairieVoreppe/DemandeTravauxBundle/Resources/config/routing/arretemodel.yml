@@ -1,0 +1,34 @@
+arretemodel:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:index" }
+
+arretemodel_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:show" }
+
+arretemodel_download:
+    path:     /{id}/download
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:download" }
+
+arretemodel_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:new" }
+
+arretemodel_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:create" }
+    methods:  POST
+
+arretemodel_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:edit" }
+
+arretemodel_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:update" }
+    methods:  [POST, PUT]
+
+arretemodel_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArreteModel:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,91 @@
+mairie_voreppe_demande_travaux_arretepromulgue:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/arretepromulgue.yml"
+    prefix:   /arretepromulgue
+
+mairie_voreppe_demande_travaux_arretemodel:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/arretemodel.yml"
+    prefix:   /arretemodel
+
+mairie_voreppe_demande_travaux_dtdict:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/dtdict.yml"
+    prefix:   /dtdict
+
+mairie_voreppe_demande_travaux_aturgent:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/aturgent.yml"
+    prefix:   /aturgent
+
+mairie_voreppe_demande_travaux_demandetravaux:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/demandetravaux.yml"
+    prefix:   /demandetravaux
+
+mairie_voreppe_demande_travaux_demandeintentionct:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/demandeintentionct.yml"
+    prefix:   /demandeintentionct
+
+mairie_voreppe_demande_travaux_moepersonnemorale:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moepersonnemorale.yml"
+    prefix:   /moepersonnemorale
+
+mairie_voreppe_demande_travaux_moepersonnephysique:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moepersonnephysique.yml"
+    prefix:   /moepersonnephysique
+
+mairie_voreppe_demande_travaux_maitre_oeuvre:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/maitre_oeuvre.yml"
+    prefix:   /maitre-oeuvre
+    
+mairie_voreppe_demande_travaux_moapersonnemorale:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moapersonnemorale.yml"
+    prefix:   /moapersonnemorale
+
+mairie_voreppe_demande_travaux_moapersonnephysique:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moapersonnephysique.yml"
+    prefix:   /moapersonnephysique
+
+mairie_voreppe_demande_travaux_maitre_ouvrage:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/maitre_ouvrage.yml"
+    prefix:   /maitre-ouvrage
+
+mairie_voreppe_demande_travaux_travaux:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/travaux.yml"
+    prefix:   /travaux
+
+mairie_voreppe_demande_travaux_periode:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/periode.yml"
+    prefix:   /periode
+
+mairie_voreppe_demande_travaux_maire:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/maire.yml"
+    prefix:   /maire
+
+mairie_voreppe_demande_travaux_gerant:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/gerant.yml"
+    prefix:   /gerant
+
+mairie_voreppe_demande_travaux_mairie:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/mairie.yml"
+    prefix:   /mairie
+
+mairie_voreppe_demande_travaux_entreprise:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/entreprise.yml"
+    prefix:   /entreprise
+
+mairie_voreppe_demande_travaux_adresse:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/adresse.yml"
+    prefix:   /adresse
+
+mairie_voreppe_demande_travaux_civil:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/civil.yml"
+    prefix:   /civil
+
+mairie_voreppe_demande_travaux_homepage:
+    path:     /accueil
+    defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Accueil:index }
+
+mairie_voreppe_security_parametrage_service_new:
+    path: /choix-service/new
+    defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Parametrage:choixServiceNew }    
+    
+mairie_voreppe_security_parametrage_service_create:
+    path: /choix-service/create
+    defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Parametrage:choixService }

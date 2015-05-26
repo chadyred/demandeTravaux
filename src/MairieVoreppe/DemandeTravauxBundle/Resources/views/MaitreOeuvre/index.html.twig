@@ -1,0 +1,70 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOeuvre:layout.html.twig' %}
+
+ {% block moa_content %}
+    <h1>Maitre oeuvre liste</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Maitre d'ouvrage</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}            
+            {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonnePhysique') %}
+                 <tr>
+                    <td><a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Personne physique</td>
+                    <td>{{ entity.civil }} </td>
+                    <td>
+                        {{ entity.civil.adresse.getAdresseComplete()|length > 50 ? entity.civil.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseComplete }}
+                    </td>
+                    <td>{{ entity.civil.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonneMorale') %}
+                <tr>
+                    <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Personne morale</td>
+                    <td>
+                            {{ entity.entreprise.raisonSociale }}                    
+                    </td>
+                    <td>
+                        {{ entity.entreprise.adresse.getAdresseComplete()|length > 50 ? entity.entreprise.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseComplete }}
+                    </td>
+                    <td>{{ entity.entreprise.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

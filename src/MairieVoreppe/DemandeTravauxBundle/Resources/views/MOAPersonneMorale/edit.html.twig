@@ -1,0 +1,29 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
+
+ {% block moa_content %}
+    <h1>MOAPersonneMorale edit</h1>
+    
+    
+    {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+    {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}        
+        {# Necessaire afin de garder la première adresse et que ce boutton ne s'affiche pas en bas#}
+        <div hidden>{{ form_row(edit_form.entreprise.adresse.delete) }}</div> 
+    {% endif %}
+    
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                {{ form(edit_form) }}
+            </div>
+        </div>
+
+    <div class="row">
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('moapersonnemorale') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/Default/index.html.twig #}
+{% extends "::base.html.twig" %}
+{% block body %}
+{#Permet de choisir son service pour lequel l'utilisateur est connecté si ce dernier travail au sein de plusieurs. Ceci est nécessaire pour la création de 
+travaux pour un utilisateur au sein d'un service #}
+        <div class="modal" id="infos">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Votre service</h4>
+              </div>
+              <div class="modal-body">
+                Dans quel service opérez-vous?
+
+                {% include "MairieVoreppeDemandeTravauxBundle:MultiService:choix_service.html.twig" %}
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

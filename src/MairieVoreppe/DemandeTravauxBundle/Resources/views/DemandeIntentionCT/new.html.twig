@@ -1,0 +1,85 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+{% block main_content %}
+    
+    {% block bouton %}
+        <div class="row">
+          <div class="col-lg-offset-9">
+              <a class="btn btn-md btn-info" href="{{ path('travaux') }}">
+                  Retour au travaux <i class="fa fa-external-link-square"></i>
+              </a>
+          </div>
+        </div>
+    {% endblock bouton %}
+    
+    {% block travaux_content %}
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <h1>DemandeIntentionCT creation</h1>
+        {# Si un numéro de DT existe, c'est que l'on a lié une DT à la DICT, on affiche alors ce dernier, ainsi que la possibilité de récupérer les informations #}
+        {% if form.numeroDemandeTravauxLiee is defined %}
+            {{ form_errors(form.numeroDemandeTravauxLiee) }}
+            {{ form_label(form.numeroDemandeTravauxLiee) }}
+            {{ form_widget(form.numeroDemandeTravauxLiee) }} 
+            <hr/>
+            <a id="recup-dt"class="btn btn-success btn-sm" href="#" data-dt="{{ dt_serialize }}">Récupérer les informations de la DT </a>
+            
+        {% endif %}
+        
+        {{ form_start(form) }}
+            
+            <span class="information-base">
+                {{ form_row(form.numeroTeleservice) }}
+                {{ form_row(form.dateDebutTravaux) }}
+                {{ form_row(form.duree) }}
+                {{ form_row(form.canalReception) }}
+                {{ form_row(form.descriptionTravaux) }}
+                {{ form_row(form.noteComplementaire) }}
+                {{ form_row(form.dateReceptionDemande) }}
+                {{ form_row(form.dateReponseDemande) }}
+            </span>
+            
+            <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
+            <ul id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
+                {% for adresseChamp in form.adresses %}
+                    <li>
+                        {{ form_row(adresseChamp.autocomplete) }}
+                        {{ form_row(adresseChamp.numeroRue) }}
+                        {{ form_row(adresseChamp.adresse) }}
+                        {{ form_row(adresseChamp.complementAdresse) }}
+                        {{ form_row(adresseChamp.lieuDit) }}
+                        {{ form_row(adresseChamp.ville) }}
+                        {{ form_row(adresseChamp.cp) }}
+
+                   </li>
+                {% endfor %}
+            </ul>
+            <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
+            <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
+                {% for contactUrgentChamp in form.contactsUrgent %}
+                    <li>
+                        {{ form_row(contactUrgentChamp.civilite) }}
+                        {{ form_row(contactUrgentChamp.nom) }}
+                        {{ form_row(contactUrgentChamp.prenom) }}
+                        {{ form_row(contactUrgentChamp.telMobile) }}
+                        {{ form_row(contactUrgentChamp.telFixe) }}
+                        {{ form_row(contactUrgentChamp.email) }}
+                   </li>
+                {% endfor %}
+            </ul>
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+            
+        </div><!-- fin col -->
+    </div><!-- fin row -->
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('demandeintentionct') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+   {% endblock %}
+
+{% endblock main_content %}

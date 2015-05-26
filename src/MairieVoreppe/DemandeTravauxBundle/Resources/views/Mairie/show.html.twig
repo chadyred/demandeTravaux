@@ -1,0 +1,74 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+ <section class="table-responsive">
+    <hr/>
+    <caption>
+    <h1>Mairie</h1>
+    </caption>
+    <table class="table table-bordered table-striped table-condensed">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td><img src="{{ asset(entity.logo.webPath) }}"/></td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ entity.siret }}</td>
+            </tr>
+            <tr>
+                <th>Raisonsociale</th>
+                <td>{{ entity.raisonSociale }}</td>
+            </tr>
+            <tr>
+                <th>Complement</th>
+                <td>{{ entity.complement }}</td>
+            </tr>
+            <tr>
+                <th>Service</th>
+                <td>{{ entity.service }}</td>
+            </tr>
+            <tr>
+                <th>Telfax</th>
+                <td>{{ entity.telFax }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ entity.adresse.getAdresseComplete }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-unstyled list-inline inlinerecord_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('mairie') }}">
+                <i class="fa fa-backward"></i>
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-info" href="{{ path('mairie_edit', { 'id': entity.id }) }}">
+                <i class="fa fa-edit"></i>
+                    Edit
+            </a>
+        </li>
+        <li>
+            {{ form(delete_form) }}
+        </li>
+        <li>
+            
+            <a class="btn btn-success" href="{{ path('periode_by_mairie', {'id' : entity.id } )}}"><i class="fa fa-users"></i>Gestion des maires</a>
+        </li>
+    </ul>
+    
+    <div>
+        Maire
+    
+        
+    </div>
+</section>
+{% endblock %}

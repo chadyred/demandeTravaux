@@ -1,0 +1,30 @@
+{# src/MairieVoreppe/UserBundle/Resources/views/Travaux/menu_travaux.html.twig #}
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1>
+            Ajout d'un maitre d'oeuvre
+        </h1>
+    </div>
+</div>
+<nav class="navbar" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse-01">
+    <div class="nav navbar-nav btn-group">
+            <a type="button" class="btn btn-custom navbar-btn btn3d"  href="{{ path('moapersonnephysique_new') }}">
+               {{ 'MOA Personne Physique'|upper }}
+            </a>			
+            <!-- On ajoute directement une entreprise, car c'est la seul entité MOE personne moral possible, contrairement au MOE -->			
+            <a type="button" class="btn btn-custom navbar-btn btn3d"  href="{{ path('moepersonnemorale_new') }}">
+                {{ 'MOA Personne Morale'|upper }}
+            </a>     
+    </div>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+{% endblock %}

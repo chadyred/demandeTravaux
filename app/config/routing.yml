@@ -1,0 +1,78 @@
+mairie_voreppe_security:
+    resource: "@MairieVoreppeSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+mairie_voreppe_useful:
+    resource: "@MairieVoreppeUsefulBundle/Resources/config/routing.yml"
+    prefix:   /
+
+mairie_voreppe_admin:
+    resource: "@MairieVoreppeAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+mairie_voreppe_demande_travaux:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#login:
+#    pattern: /login
+#    defaults: {_controller: MairieVoreppeUserBundle:Security:login }
+
+#login_check:
+#    pattern: /login-check
+
+#logout:
+#    pattern: /logout
+
+#Route vers les différente page éclaté dans le FOSUserBundle qui nous seront utile
+sonata_user_security:
+    resource: "@MairieVoreppeUserBundle/Resources/config/routing/sonata_security_1.xml"
+
+#Je vais ici override le fichier mère dans le but de pouvoir rendre la route 'fos_user_profile_edit' utilisable dans notre FOSJsRoutingBundle
+#via <option key="expose">true</option>
+sonata_user_profile:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+    prefix: /profile
+
+sonata_user_resetting:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+    prefix: /resetting
+
+sonata_user_register:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+    prefix: /register
+
+# Le changement de mot de passe peut être traiter entièrement dans le PROFIlEFOSUSer1Controller, afin d'avoir deux formulaire traité au même
+# endroit avec un bon jeton csrf et sans boucle de répétition entre le changement de mot de passe et l'authentification.
+# Bien identifier au préalable quell boutton est clické
+sonata_user_change_password:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+    prefix: /profile
+
+admin_login:
+    pattern:  /admin/login
+    defaults: { _controller: MairieVoreppeUserBundle:SecurityFOSUser1:login }
+
+admin_check:
+    pattern:  /admin/login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+
+admin_logout:
+    pattern:  /admin/logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
+
+admin:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /admin
+    
+shtumi_useful:
+    resource: '@ShtumiUsefulBundle/Resources/config/routing.xml'

@@ -1,0 +1,34 @@
+arretepromulgue:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:index" }
+
+arretepromulgue_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:show" }
+
+arretepromulgue_new:
+    path:     /{id_dict}/new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:new" }
+
+arretepromulgue_create:
+    path:     /{id_dict}/create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:create" }
+    methods:  POST
+
+arretepromulgue_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:edit" }
+
+arretepromulgue_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:update" }
+    methods:  [POST, PUT]
+
+arretepromulgue_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:delete" }
+    methods:  [POST, DELETE]
+
+arretepromulgue_generer_arrete:
+    path:     /{id}/generer-arrete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:genererArrete" }

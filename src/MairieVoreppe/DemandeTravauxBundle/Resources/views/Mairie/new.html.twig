@@ -1,0 +1,16 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+
+    <h1>Mairie creation</h1>
+   
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('mairie') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
+
+ {% block moa_content %}
+    <h1>Création - MOA en tant que persone physique</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('moapersonnephysique') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

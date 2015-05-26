@@ -1,0 +1,10 @@
+security:
+    login:
+        service: "Service: "
+        username: "Nom d'utilisateur :"
+        password: "Mot de passe :"
+        remember_me: Se souvenir de moi
+        submit: Connexion
+        username_admin: "Nom d'utilisateur"
+        password_admin: "Mot de passe"
+        submit_admin: Connexion au dashboard

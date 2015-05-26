@@ -1,0 +1,44 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+ {% block travaux_content %}
+    <h1>DtDict list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id dt</th>
+                <th>Id dict</th>
+                <th>Numero téléservice dt</th>
+                <th>Numero téléservice dict</th>
+                <th>Ville dt</th>
+                <th>Ville dict</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.dt.id }}</td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.dt.numeroTeleservice }}</td>
+                <td>{{ entity.numeroTeleservice }} </td>
+                {# On vérifie qu'il est une adresse sur chacun des deux éléments #}
+                <td>{{ entity.dt.adresses|length > 0 ? entity.dt.adresses[0].ville : "-" }}</td>
+                <td>{{ entity.adresses|length > 0 ? entity.adresses[0].ville : "-" }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('dtdict_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('dtdict_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

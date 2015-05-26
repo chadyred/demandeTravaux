@@ -1,0 +1,53 @@
+{# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/ArreteModel/index.html.twig #}
+{% extends "::base.html.twig" %}
+{% block corps %}
+
+
+ <div class="row">    
+
+    <div class="col-lg-12 table-responsive">
+        <hr/>
+        <caption>
+             <h1>Arrêté promulgué</h1>
+         </h4>
+        </caption>
+        <table class="records_list table table-bordered table-striped table-condensed">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Datecreation</th>
+                    <td>{{ entity.dateCreation|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Générer arrêté</th>
+                    <td><i class="fa fa-file-pdf-o"></i><a href="{{ path('arretepromulgue_generer_arrete', {'id' : entity.id} ) }}">Télécharger</a></td>
+                </tr>
+                    <th>Contenu</th>
+                    <td>{{ include(template_from_string(entity.arreteModel.contenu))|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Contenu interprete</th>
+                     <td>  {% include "MairieVoreppeDemandeTravauxBundle:ArretePromulgue:contenu_interprete.html.twig" %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('arretepromulgue') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('arretepromulgue_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

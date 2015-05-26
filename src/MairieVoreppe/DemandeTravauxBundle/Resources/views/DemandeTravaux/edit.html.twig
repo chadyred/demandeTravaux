@@ -1,0 +1,91 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+ {% block travaux_content %}
+    <h1>DemandeTravaux edit</h1>
+           <!--  -->
+    <div class="row">
+        <div class="col-lg-3">
+            <a class="btn btn-md btn-info" href="{{ path('demandeintentionct_lie_dict_dt_new', {"id" : entity.id} ) }}">
+                Ajouter et lier une DICT <i class="fa fa-plus-circle"></i>
+            </a>
+         </div>
+    </div>
+    <hr/>
+      {# Indique un message lorsque la dict est est une dtDictLie#}
+    {% if entity.dicts|length > 0 %}
+       {% for dict in entity.dicts %}
+           {% if dict.dtDictConjointe == true %}
+                <div class="row">
+                    <div class="alert alert-warning">
+                        <strong>IMPORTANT</strong> Cette DT est conjointe à une <a target="_blank" href="{{path('demandeintentionct_show', { 'id' : dict.id}) }}">DICT</a>, le changement de  son numéro de téléservice entrainerae le changement de celui de la DICT !
+                    </div>
+                </div>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-lg-12">
+    
+          {{ form_start(edit_form) }}
+              
+              {{ form_row(edit_form.numeroTeleservice) }}
+              {{ form_row(edit_form.dateDebutTravaux) }}
+              {{ form_row(edit_form.duree) }}
+              {{ form_row(edit_form.canalReception) }}
+              {{ form_row(edit_form.descriptionTravaux) }}
+              {{ form_row(edit_form.noteComplementaire) }}
+              {{ form_row(edit_form.dateReceptionDemande) }}
+              {{ form_row(edit_form.dateReponseDemande) }}
+              
+              <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
+              <ul id="adresse-fields-list" data-prototype="{{ form_widget(edit_form.adresses.vars.prototype) | e('html') }}">
+                  {% for adresseChamp in edit_form.adresses %}
+                      <li>
+                             {{ form_row(adresseChamp.autocomplete) }}
+                             {{ form_row(adresseChamp.numeroRue) }}
+                             {{ form_row(adresseChamp.adresse) }}
+                             {{ form_row(adresseChamp.complementAdresse) }}
+                             {{ form_row(adresseChamp.lieuDit) }}
+                             {{ form_row(adresseChamp.ville) }}
+                             {{ form_row(adresseChamp.cp) }}
+                             
+                             
+                              {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
+                              {% if adresseChamp.delete is defined %}
+                                  {{ form_row(adresseChamp.delete) }}
+                              {% endif %}
+                     </li>
+                  {% endfor %}
+              </ul>
+               <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
+              <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(edit_form.contactsUrgent.vars.prototype) | e('html') }}">
+                  {% for contactUrgentChamp in edit_form.contactsUrgent %}
+                      <li>
+                          {{ form_row(contactUrgentChamp.civilite) }}
+                          {{ form_row(contactUrgentChamp.nom) }}
+                          {{ form_row(contactUrgentChamp.prenom) }}
+                          {{ form_row(contactUrgentChamp.telMobile) }}
+                          {{ form_row(contactUrgentChamp.telFixe) }}
+                          {{ form_row(contactUrgentChamp.email) }}
+                          {{  form_row(contactUrgentChamp.delete)  }}
+                     </li>
+                  {% endfor %}
+              </ul>
+              
+              {{ form_rest(edit_form) }}
+              {{ form_end(edit_form) }}
+ 
+        </div>
+    </div>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('demandetravaux') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}
+
+

@@ -1,0 +1,63 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+ {% block travaux_content %}
+    <div class="row">    
+
+        <div class="col-lg-6 table-responsive">
+            <hr/>
+            <caption>
+                <h4>        
+                    DemandeIntentionCT
+                 <br>
+             </h4>
+            </caption>
+            <table class="table table-bordered table-striped table-condensed">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Numeroteleservice</th>
+                    <td>{{ entity.numeroTeleservice }}</td>
+                </tr>
+                <tr>
+                    <th>Datetravaux</th>
+                    <td>{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Descriptiontravaux</th>
+                    <td>{{ entity.descriptionTravaux }}</td>
+                </tr>
+                <tr>
+                    <th>Notecomplementaire</th>
+                    <td>{{ entity.noteComplementaire }}</td>
+                </tr>
+                <tr>
+                    <th>Datereceptiondemande</th>
+                    <td>{{ entity.dateReceptionDemande|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Datereponsedemande</th>
+                    <td>{{ entity.dateReponseDemande|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+                
+    </div>
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('demandeintentionct') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('demandeintentionct_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

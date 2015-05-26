@@ -1,0 +1,367 @@
+<?php
+
+namespace MairieVoreppe\DemandeTravauxBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+
+/**
+ * ArreteModel
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\ArreteModelRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class ArreteModelPdfEnregistrement
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenu", type="text")
+     */
+    private $contenu;
+
+    
+    /**
+     * Tout arrêté ne sera pas supprimable même si la DICT est supprimée. 
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue", mappedBy="arreteModel")
+     * 
+     * @var type 
+     */
+    private $arretesPromulgues;
+    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="text")
+     */
+    private $url;
+    
+    
+    private $servicePdfGenerator;
+    
+    
+                          /*******************
+                            Upload Avatar
+                            *******************/
+   
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->arretesPromulgues = new \Doctrine\Common\Collections\ArrayCollection();  
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     *
+     * @return ArreteModel
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set contenu
+     *
+     * @param string $contenu
+     *
+     * @return ArreteModel
+     */
+    public function setContenu($contenu)
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    /**
+     * Get contenu
+     *
+     * @return string
+     */
+    public function getContenu()
+    {
+        return $this->contenu;
+    }
+
+    /**
+     * Add arretesPromulgue
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\ArretePromulgue $arretesPromulgue
+     *
+     * @return ArreteModel
+     */
+    public function addArretesPromulgue(\MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue $arretesPromulgue)
+    {
+        $this->arretesPromulgues[] = $arretesPromulgue;
+
+        return $this;
+    }
+
+    /**
+     * Remove arretesPromulgue
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\ArretePromulgue $arretesPromulgue
+     */
+    public function removeArretesPromulgue(\MairieVoreppe\DemandeTravauxBundle\Entity\ArretePromulgue $arretesPromulgue)
+    {
+        $this->arretesPromulgues->removeElement($arretesPromulgue);
+    }
+
+    /**
+     * Get arretesPromulgues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretesPromulgues()
+    {
+        return $this->arretesPromulgues;
+    }
+    
+    
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return ArreteModel
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+    
+    /**
+    * Set tempFilename
+    *
+    * @return Image
+    */
+    public function setTempFilename($tempFilename)
+    {
+        $this->tempFilename = $tempFilename;
+
+        return $this;
+    }
+
+    /**
+    * Get tempFilename
+    *
+    * @return string
+    */
+    public function getTempFilename()
+    {
+        return $this->tempFilename;
+    }
+    
+     /**
+    * @ORM\PrePersist()
+    * @ORM\PreUpdate() 
+    */
+    public function preUpload()
+    {
+          //Si il y a pas de fichier pour cette entité. 
+        if($this->getUrl() != null)
+        {
+            //On sauvegarde son nom via celui de l'url qui est le nom du fichier parce que ce dernier sera modifier par la suite
+            $this->setTempFilename($this->getUrl());
+
+            //On réinitialise les valeur d nos attributs Url et Alt
+            $this->setUrl(null);
+        }         
+
+
+            //L'ULR sera un identifiant aléatoire et unique
+            $idAleatoire = sha1(uniqid(mt_rand(), true));
+            $this->setUrl($idAleatoire . '.pdf');
+
+            var_dump($this->servicePdfGenerator);
+        
+        $this->servicePdfGenerator->generateFromHtml(
+            $this->renderView(
+                'MairieVoreppeDemandeTravauxBundle:ArreteModel:generer_arrete_model.html.twig',
+                array(
+                    'arreteModele'  => $this
+                )
+            ),
+                $entity->getUploadRootDir() . '/' . $this->getUrl()
+        );
+        chmod($this->getUploadRootDir() . '/' . $this->getUrl(), 0700);
+
+    }
+
+    /**
+    * Fonction qui va créé le PDF à chaque UPDATE ou création d'un modele, et ce afin de l'afficher en aperçus dans le 'show' du modèle
+    * 
+    * 
+    * @ORM\PostPersist()
+    * @ORM\PostUpdate()
+    */
+    public function upload()
+    {       
+
+        //Rappel : $url contient un id aléatoire et unique. Si une erreur survient, celle ci sera lié à la non
+        //persistence de celle-ci en base de données         
+        
+        
+        
+        
+        //Si on a un nom de fichier temporaire, c'est qu'un fichier existe
+        if($this->getTempFilename() != null)
+        {
+            //On récupère l'ancien nom pour le concaténer avec le chemin relatif racine vers web/uploads/img
+            //getUrl contient toujours l'ancienne url
+            $ancienFichier= $this->getUploadRootDir().'/'. $this->getTempFilename();
+
+            //Si le fichier existe on le supprime
+            if(file_exists($ancienFichier))
+            {
+                unlink($ancienFichier);
+            }
+
+            //On vide le fichier temporaire
+            $this->setTempFilename(null);
+        }
+    }
+
+    /**
+    * @ORM\PreRemove()
+    */
+    public function preRemoveUpload()
+    {
+        //On va sauvegarder le chemin et le nom du fichier avant suppression
+        $this->setTempFilename($this->getUploadDir().'/'.$this->getUrl());
+    }
+
+    /**
+    * @ORM\PostRemove()
+    */
+    public function removeUpload()
+    {
+        //Ici on a plus accès au nom du fichier, on va alors utiliser le nom du fichier enregistré dans notre tempFileName
+        if(file_exists($this->getTempFilename()))
+        {
+            //On supprime le fichier, puis le répertoire avant de supprimer le répertoire (voir cette foncton astuciese)
+            $this->deleteDirectory($this->getUploadRootDir());
+        }
+    }
+    
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur
+        return 'uploads/pdf_model_arrete/';
+    }
+
+    public function getUploadRootDir()
+    {
+        
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        
+    }
+
+
+    /**
+    * webPath
+    *
+    * Cette fonction va nous permettre de récupérer le chemin vers notre fichier
+    * 
+    * @return chemin de notre fichier de manière relative
+    */
+    public function getWebPath()
+    {
+        return $this->getUploadDir() . '/' . $this->getUrl();
+    }
+    
+    function deleteDirectory($dir) 
+    {
+        //Si ce n'est pas un fichier, c'est un dossier. On va alors vider l'ensemble de ses fichiers avec la fonction suivante
+        if (!file_exists($dir)) {
+            return true;
+        }
+        
+        //Si ce n'est pas un dossier, c'est un fichier on le supprimer
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            
+            //On supprimera les sous dossier avec tout les fichier en exécutant cette fonction
+            //de manière récurssive
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+
+        }
+
+        return rmdir($dir);
+    }
+
+    public function setServicePdfGenerator($service)
+    {
+        $this->servicePdfGenerator = $service;
+    }
+}

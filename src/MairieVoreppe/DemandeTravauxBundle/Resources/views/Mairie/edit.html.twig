@@ -1,0 +1,23 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Mairie edit</h1>
+    {{ form_start(edit_form) }}
+
+    {{ form_label(edit_form.logo) }}
+    {{ form_widget(edit_form.logo.file) }}
+    {% if entity.logo != null %}
+    	<img src="{{ asset(entity.logo.getWebPath()) }}" alt="{{ entity.logo.alt }}"/>
+   	{% endif %}
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('mairie') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+moepersonnemorale:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:index" }
+
+moepersonnemorale_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:show" }
+
+moepersonnemorale_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:new" }
+
+moepersonnemorale_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:create" }
+    methods:  POST
+
+moepersonnemorale_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:edit" }
+
+moepersonnemorale_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:update" }
+    methods:  [POST, PUT]
+
+moepersonnemorale_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonneMorale:delete" }
+    methods:  [POST, DELETE]

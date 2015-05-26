@@ -1,0 +1,116 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Maire edit</h1>
+    
+<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            
+            {{ form_start(edit_form) }}
+                
+            {{ form_row(edit_form.civilite) }}
+            {{ form_row(edit_form.nom)}}
+            {{ form_row(edit_form.prenom)}}
+            {{ form_row(edit_form.telMobile)}}
+            {{ form_row(edit_form.telFixe)}}
+            {{ form_row(edit_form.email)}}
+            {{ form_row(edit_form.adresse)}}
+            {{ form_row(edit_form.noteDivers)}}
+        </div>        
+    </div>
+    <div class="row">   
+         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <a class="btn btn-info" href="#" id="ajouter-periode">Ajouter une nouvelle période d'exercice au maire <i class="fa fa-plus"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">   
+            <ul class="list-unstealed list-inline" id="periode-fields-list" data-prototype="{{ form_widget(edit_form.periodes.vars.prototype) | e('html') }}">
+                {% for periodeChamp in edit_form.periodes %}
+                     <li class="border-right-dark">
+                         {{ form_label(periodeChamp.dateDebut, "Du : ") }}
+                         {{ form_errors(periodeChamp.dateDebut) }}
+                         {{ form_widget(periodeChamp.dateDebut) }}
+                         {{ form_label(periodeChamp.dateFin, "au : ") }}
+                         {{ form_errors(periodeChamp.dateFin) }}
+                         {{ form_widget(periodeChamp.dateFin) }}
+                         {{ form_label(periodeChamp.mairie, "de la mairie") }}
+                         {{ form_errors(periodeChamp.mairie) }}
+                         {{ form_widget(periodeChamp.mairie) }}
+                         {# Le maire étant caché, si on ne le met pas ici pour haque instance de période, on aura alors un 0 qui apparait#}
+                         {{ form_errors(periodeChamp.maire) }}
+                         {{ form_widget(periodeChamp.maire) }}
+                         <br/>
+                         {{ form_widget(periodeChamp.delete) }}
+                         
+                         
+                       
+                     </li>
+                 {% endfor %}
+
+            </ul> 
+        
+        </div>
+    </div>
+         {{ form_end(edit_form) }}
+    </form>
+    
+    
+    <script type="text/javascript">
+        // garde une trace du nombre de champs email qui ont été affichés
+        var periodeCount = '{{ edit_form.periodes | length }}';
+
+        jQuery(document).ready(function() {
+            jQuery('#ajouter-periode').click(function() {
+                var periodeListe = jQuery('#periode-fields-list');
+                
+                // parcourt le template prototype
+                var newWidget = periodeListe.attr('data-prototype');
+                // remplace les "__name__" utilisés dans l'id et le nom du prototype
+                // par un nombre unique pour chaque periode d'exercice
+                // le nom de l'attribut final ressemblera à name="contact[emails][2]"
+                newWidget = newWidget.replace(/__name__/g, periodeCount);
+               
+               //On retire le boutton qui supprime un enregistrement ( différent de celui qui supprime une instance du prototype créé via la fonction addDeleteLink()) 
+                newWidget = newWidget.replace(/<button type="submit"(.*)<\/button><\/div>/ , "");
+                periodeCount++;
+                
+
+                // créer une nouvelle liste d'éléments et l'ajoute à notre liste
+                var newLi = jQuery('<li></li>').html(newWidget);
+                addDeleteLink(newLi);
+                newLi.appendTo(jQuery('#periode-fields-list'));
+
+                return false;
+            });
+            
+           
+        });
+        // La fonction qui ajoute un lien de suppression d'une catégorie
+        function addDeleteLink(prototype) {
+          // Création du lien
+          var deleteLink = jQuery('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+          // Ajout du lien
+          prototype.append(deleteLink);
+
+          // Ajout du listener sur le clic du lien
+          deleteLink.click(function(e) {
+            prototype.remove();
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+          });
+         }
+    </script>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('maire') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+</section>
+{% endblock %}

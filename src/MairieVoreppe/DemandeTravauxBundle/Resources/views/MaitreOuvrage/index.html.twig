@@ -1,0 +1,73 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
+
+
+ {% block moa_content %}
+    <h1>Maitre ouvrage liste</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Maitre d'ouvrage</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}            
+            {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonnePhysique') %}
+                 <tr>
+                    <td><a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Personne physique</td>
+                    <td>{{ entity.civil }} </td>
+                    <td>{{ entity.civil.adresse.getAdresseComplete|length > 50 ? entity.civil.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseComplete}}</td>
+                    <td>{{ entity.civil.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonneMorale') %}
+                <tr>
+                    <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Personne morale</td>
+                    <td>
+                            {{ entity.personneMorale.raisonSociale }}                    
+                    </td>
+                    <td>
+                        {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
+                        {{ entity.personneMorale.adresse.getAdresseComplete|length > 50 ? entity.personneMorale.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseComplete }}
+                    </td>
+                    <td>{{ entity.personneMorale.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>                                
+                                {# instance of est une extension persionnalisé afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+                                {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
+                                    <a href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">edit</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,110 @@
+<?php
+
+namespace MairieVoreppe\DemandeTravauxBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
+
+/**
+ * DemandeTravaux
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravauxRepository")
+ */
+class DemandeTravaux extends Travaux
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+     /**
+     * Doctrine Array
+     * 
+     * Une DICT ne peut être lié qu'à une DT au travers d'une seule DT DICT lié
+     * 
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DtDict", mappedBy="dt", orphanRemoval=true, cascade={"persist"})
+     * 
+     * @var type 
+     */
+    private $dtDict;
+    
+    /**
+     * Doctrine Array
+     * 
+     * Toute les DICT sont supprimées en cascade si la DT est supprimée le sont
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT", mappedBy="dt", cascade={"persist", "remove"})
+     * 
+     * @var type 
+     */
+    private $dicts;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\MaitreOuvrage", inversedBy="dts")
+     * 
+     * @var type 
+     */
+    private $maitreOuvrage;
+   
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add dtDict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DtDict $dtDict
+     * @return DemandeTravaux
+     */
+    public function setDtDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DtDict $dtDict = null)
+    {
+        $this->dtDict[] = $dtDict;
+
+        return $this;
+    }
+
+    /**
+     * Get dtDict
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDtDict()
+    {
+        return $this->dtDict;
+    }
+
+    /**
+     * Add maitreOuvrage
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\MaitresOuvrage $maitreOuvrage
+     * @return DemandeTravaux
+     */
+    public function setMaitreOuvrage(\MairieVoreppe\DemandeTravauxBundle\Model\MaitreOuvrage $maitreOuvrage)
+    {
+        $this->maitreOuvrage = $maitreOuvrage;
+
+        return $this;
+    }
+
+    /**
+     * Get maitresOuvrage
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaitreOuvrage()
+    {
+        return $this->maitreOuvrage;
+    }
+}

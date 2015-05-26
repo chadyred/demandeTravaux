@@ -1,0 +1,25 @@
+{# empty Twig template #}
+
+{% extends '::base.html.twig' %}
+
+{% block corps %}
+
+  <div class="row">
+    <div class="col-lg-12">
+        {# S'il y a des messages des controleur tel que les erreurs qui seront créé en temps que message flash via les global session#}
+        {# on les affiche #}
+
+        
+            <div id="header-wrapper">
+                <div id="alert-info" style="background-color:#0193CC;text-align: center;color:white;font-family: 'Arvo', serif;">
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        {{ flashMessage }}     
+                    {% endfor %}
+                </div>
+            </div>
+                {# Ici on insérera tous le contenu de nos vues du fos user bundle#}
+                {% block main_content %}
+                {% endblock main_content %}  
+    </div>
+  </div>
+{% endblock corps %}

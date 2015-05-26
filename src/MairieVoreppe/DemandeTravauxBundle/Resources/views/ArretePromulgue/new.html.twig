@@ -1,0 +1,16 @@
+{# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/ArreteModel/index.html.twig #}
+{% extends "::base.html.twig" %}
+{% block corps %}
+    
+    <h1>ArretePromulgue creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('arretepromulgue') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

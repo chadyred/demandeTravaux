@@ -1,0 +1,45 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+ {% block travaux_content %}
+    <h1>DemandeIntentionCT list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numeroteleservice</th>
+                <th>Datetravaux</th>
+                <th>Descriptiontravaux</th>
+                <th>Notecomplementaire</th>
+                <th>Datereceptiondemande</th>
+                <th>Datereponsedemande</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.numeroTeleservice }}</td>
+                <td>{% if entity.dateDebutTravaux %}{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.descriptionTravaux }}</td>
+                <td>{{ entity.noteComplementaire }}</td>
+                <td>{% if entity.dateReceptionDemande %}{{ entity.dateReceptionDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateReponseDemande %}{{ entity.dateReponseDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('demandeintentionct_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

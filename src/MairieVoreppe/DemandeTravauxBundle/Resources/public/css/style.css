@@ -1,0 +1,471 @@
+/*Hauteur du menu fixé*/
+body 
+{
+	padding-top: 100px; 
+}
+
+[class*="col"], footer {
+    border-radius: 6px;
+}
+
+/*Le menu sera empilé plus tôt (plus rapide que de le réaliser avec SASS/LESS)*/
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}
+/*Permet de faire en sorte que l'orsque l'on empile le menu, ce dernier ne soit plus fixée, afin que lorsqu'on le déroule, le contenu passe bien en dessous*/
+@media (max-width: 991px) {
+    .navbar-fixed-top {
+        position: relative;
+        top: auto;
+    }
+    .navbar-collapse {
+        max-height: none;
+    }
+    /* On retire les marge du haut créé prédement pour la position fixée*/
+    body {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* navbar */
+.navbar-custom {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+/* title */
+.navbar-custom .navbar-brand {
+    color: #777;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+    color: #5E5E5E;
+}
+/* link */
+.navbar-custom .navbar-nav > li > a {
+    color: #777;
+}
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus {
+    color: #333;
+}
+.navbar-custom .navbar-nav > .active > a, 
+.navbar-custom .navbar-nav > .active > a:hover, 
+.navbar-custom .navbar-nav > .active > a:focus {
+    color: #1abc9c;
+    background-color: #E7E7E7;
+}
+.navbar-custom .navbar-nav > .open > a, 
+.navbar-custom .navbar-nav > .open > a:hover, 
+.navbar-custom .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+/* caret */
+.navbar-custom .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+.navbar-custom .navbar-nav > .dropdown > a:hover .caret,
+.navbar-custom .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+.navbar-custom .navbar-nav > .open > a .caret, 
+.navbar-custom .navbar-nav > .open > a:hover .caret, 
+.navbar-custom .navbar-nav > .open > a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+/* mobile version */
+.navbar-custom .navbar-toggle {
+    border-color: #DDD;
+}
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+    background-color: #DDD;
+}
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+@media (max-width: 767px) {
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+    }
+}
+
+    
+/*On rajoute une marge intérieur au formulaire */
+.well {
+        background-color:#CCC;
+        padding: 20px;
+}
+
+.btn3d {
+    position:relative;
+    border:0;
+    border-radius:3px;
+    margin:15px 10px 0 0;
+    transition:all .09s linear;
+    box-shadow:0 0 0 1px transparent inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 6px 6px 0 0 #ccc, 6px 6px 0 1px rgba(0,0,0,0.2), 6px 6px 3px 0px rgba(0,0,0,0.3);
+    outline:medium none;
+    -moz-outline-style:none;
+}
+.btn3d:active {
+    top:7px;
+}
+.btn3d:focus {
+    outline:medium none;
+    -moz-outline-style:none;
+}
+.btn3d.btn-default {
+    background-color:#f5f5f5;
+}
+
+/* for social colors */
+.btn-facebook {
+	background-color:#3b5998;
+    color:#fff;
+}
+.btn-google {
+	background-color:#dd4b39;
+    color:#fff;
+}
+.btn-twitter {
+	background-color:#2ba9e1;
+    color:#fff;
+}
+.btn-pinterest {
+	background-color:#cb2027;
+    color:#fff;
+}
+.btn-tumblr {
+	background-color:#2c4762;
+    color:#fff;
+}
+.btn-facebook:hover,.btn-facebook:focus,
+.btn-twitter:hover,.btn-twitter:focus,
+.btn-google:hover,.btn-google:focus,
+.btn-tumblr:hover,.btn-tumblr:focus,
+.btn-pinterest:hover,.btn-pinterest:focus{
+	color:#ebebeb;
+}
+
+/* Btn custom fabriqué sur charlieparks */
+.btn-custom {
+  background-color: #f2f1f1;
+  border-color: #f2f1f1;
+}
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active {
+  background-color: #e6e4e4;
+  border-color: #d9d7d7;
+}
+.btn-custom.disabled:hover,
+.btn-custom.disabled:focus,
+.btn-custom.disabled:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled]:hover,
+.btn-custom[disabled]:focus,
+.btn-custom[disabled]:active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom:hover,
+fieldset[disabled] .btn-custom:focus,
+fieldset[disabled] .btn-custom:active,
+fieldset[disabled] .btn-custom.active {
+  background-color: #f2f1f1;
+  border-color: #f2f1f1;
+}
+
+
+
+
+/* On rajoute une bordure autour du corps*/
+#corps
+{
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px black;
+    padding: 4px;
+    
+}
+
+footer
+{    
+    margin-top: 30px;
+    padding: 30px;
+}
+
+/*
+    Permet de mettre en form le jquery-ui et l'autocompletion. Elle est déjà personnalisé grâce au 'shtumi/ShtumiUsefulBundle'
+*/
+.ui-autocomplete
+{
+    background-color: white;
+    max-width: 50%;
+    list-style-type: none;
+    padding: 0;
+    
+}
+
+.ui-autocomplete:hover
+{
+    cursor:pointer;
+}
+
+/*
+Autocomplete des ville remplacer par google place autocomplete
+*/
+input[autocomplete]
+{
+    width: 50%;
+}
+
+.image-loading-dt-dict
+{
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
+
+#corps
+{
+    margin:auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+span.cke_wrapper cke_ltr,table.cke_editor, td.cke_contents, span.cke_skin_kama, span.cke_wrapper, span.cke_browser_webkit{
+    height: 100%!important;
+}
+
+p { margin:0px 0px 0px 0px!important; }
+
+
+/*Mise en place de possibilité d'ajout de bordure*/
+[class*=border] {
+border-color:#999;
+border-style:solid;
+border-width:0;
+}
+
+.border-light {
+border-color:#ccc;
+border-width:1px;
+}
+
+.border-dark {
+border-color:#666;
+border-width:1px;
+}
+
+.border-dashed {
+border-style:dashed;
+border-width:1px;
+}
+
+.border-double {
+border-style:double;
+border-width:3px;
+}
+
+.border-left-light {
+border-left-color:#ccc;
+border-left-width:1px;
+}
+
+.border-left-dark {
+border-left-color:#666;
+border-left-width:1px;
+}
+
+.border-left-dashed {
+border-left-style:dashed;
+border-left-width:1px;
+}
+
+.border-left-double {
+border-left-style:double;
+border-left-width:3px;
+}
+
+.border-right-light {
+border-right-color:#ccc;
+border-right-width:1px;
+}
+
+.border-right-dark {
+border-right-color:#666;
+border-right-width:1px;
+}
+
+.border-right-dashed {
+border-right-style:dashed;
+border-right-width:1px;
+}
+
+.border-right-double {
+border-right-style:double;
+border-right-width:3px;
+}
+
+.border-top-light {
+border-top-color:#ccc;
+border-top-width:1px;
+}
+
+.border-top-dark {
+border-top-color:#666;
+border-top-width:1px;
+}
+
+.border-top-dashed {
+border-top-style:dashed;
+border-top-width:1px;
+}
+
+.border-top-double {
+border-top-style:double;
+border-top-width:3px;
+}
+
+.border-bottom-light {
+border-bottom-color:#ccc;
+border-bottom-width:1px;
+}
+
+.border-bottom-dark {
+border-bottom-color:#666;
+border-bottom-width:1px;
+}
+
+.border-bottom-dashed {
+border-bottom-style:dashed;
+border-bottom-width:1px;
+}
+
+.border-bottom-double {
+border-bottom-style:double;
+border-bottom-width:3px;
+}
+
+.border {
+border-radius:1px;
+border-width:1px;
+}
+
+.border-none {
+border-width:0;
+}
+
+.border-large {
+border-width:2px;
+}
+
+.border-xlarge {
+border-width:4px;
+}
+
+.border-left {
+border-left-width:1px;
+}
+
+.border-left-none {
+border-left-width:0;
+}
+
+.border-left-large {
+border-left-width:2px;
+}
+
+.border-left-xlarge {
+border-left-width:4px;
+}
+
+.border-right {
+border-right-width:1px;
+}
+
+.border-right-none {
+border-right-width:0;
+}
+
+.border-right-large {
+border-right-width:2px;
+}
+
+.border-right-xlarge {
+border-right-width:4px;
+}
+
+.border-top {
+border-top-width:1px;
+}
+
+.border-top-none {
+border-top-width:0;
+}
+
+.border-top-large {
+border-top-width:2px;
+}
+
+.border-top-xlarge {
+border-top-width:4px;
+}
+
+.border-bottom {
+border-bottom-width:1px;
+}
+
+.border-bottom-none {
+border-bottom-width:0;
+}
+
+.border-bottom-large {
+border-bottom-width:2px;
+}
+
+.border-bottom-xlarge {
+border-bottom-width:4px;
+}

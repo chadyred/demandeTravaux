@@ -1,0 +1,40 @@
+{# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/ArreteModel/index.html.twig #}
+{% extends "::base.html.twig" %}
+{% block corps %}
+    <h1>ArreteModel</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ entity.titre }}</td>
+            </tr>
+            <tr>
+                <th>Télécharger</th>
+                <td><i class="fa fa-file-pdf-o"></i><a href="{{ path('arretemodel_download', {'id' : entity.id }) }}">PDF du modèle</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ entity.contenu|raw }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('arretemodel') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('arretemodel_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

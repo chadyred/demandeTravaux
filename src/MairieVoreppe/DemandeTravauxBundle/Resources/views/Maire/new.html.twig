@@ -1,0 +1,30 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Maire creation</h1>
+    {{ form_start(form) }}
+        
+        {{ form_row(form.civilite)}}
+        {{ form_row(form.nom)}}
+        {{ form_row(form.prenom)}}
+        {{ form_row(form.telMobile)}}
+        {{ form_row(form.telFixe)}}
+        {{ form_row(form.email)}}
+        {{ form_row(form.adresse)}}
+        {{ form_row(form.noteDivers)}}     
+
+
+         {{ form_rest(form) }}
+   
+    {{ form_end(form) }}
+    
+    
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('maire_by_mairie', {'id' : mairie.id } )}}">
+                Revenir à {{ mairie.raisonSociale }}
+            </a>
+        </li>
+    </ul>
+{% endblock %}

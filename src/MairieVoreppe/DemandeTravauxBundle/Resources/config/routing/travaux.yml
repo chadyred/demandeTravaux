@@ -1,0 +1,7 @@
+travaux:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Travaux:index" }
+    
+travaux_ajouter_menu:
+    path:     /ajout-menu-travaux
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Travaux:ajouter" }

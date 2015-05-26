@@ -1,0 +1,30 @@
+aturgent:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:index" }
+
+aturgent_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:show" }
+
+aturgent_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:new" }
+
+aturgent_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:create" }
+    methods:  POST
+
+aturgent_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:edit" }
+
+aturgent_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:update" }
+    methods:  [POST, PUT]
+
+aturgent_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:ATUrgent:delete" }
+    methods:  [POST, DELETE]

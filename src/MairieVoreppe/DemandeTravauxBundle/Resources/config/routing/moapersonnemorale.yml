@@ -1,0 +1,31 @@
+moapersonnemorale:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:index" }
+
+moapersonnemorale_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:show" }
+
+#Si une nouvelle forme de PM apparait tel qu'un association, ces quatres URL avec leur controleur serait à dupliquer
+moapersonnemorale_new_entreprise:
+    path:     /new-entreprise
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:newMOAEntreprise" }
+
+moapersonnemorale_create_entreprise:
+    path:     /create-entreprise
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:createMOAEntreprise" }
+    methods:  POST
+
+moapersonnemorale_edit_entreprise:
+    path:     /{id}/edit-entreprise
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:editMOAEntreprise" }
+
+moapersonnemorale_update_entreprise:
+    path:     /{id}/update-entreprise
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:updateMOAEntreprise" }
+    methods:  [POST, PUT]
+
+moapersonnemorale_delete:
+    path:     /{id}/delete-entreprise
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOAPersonneMorale:delete" }
+    methods:  [POST, DELETE]

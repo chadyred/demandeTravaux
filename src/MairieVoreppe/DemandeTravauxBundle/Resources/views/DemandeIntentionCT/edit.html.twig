@@ -1,0 +1,107 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+ {% block travaux_content %}
+    <h1>DemandeIntentionCT edit</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="{{ path('arretepromulgue_new', {'id_dict': entity.id}) }}" class="btn btn-default">
+                Générer un arrêté
+            </a>
+        </div>        
+    </div>
+    {# Indique un message lorsque la dict est est une dtDictLie. Celui-ci peut apparaitre si on choisie une DT déjà conjointe lors de l'action update qui rééxécute s
+    se formulaire car la DICT sera tout de même hydratée par la DT.#}
+ 
+    {% if entity.dtDictConjointe  == true and entity.dt != null and edit_form.dtDictConjointe.vars.errors|length == 0 and edit_form.dt.vars.errors|length == 0%}
+        <div class="row">
+            <div class="alert alert-warning">
+                <strong>IMPORTANT</strong> Cette DICT est conjointe à une <a target="_blank" href="{{ path('demandetravaux_show', {'id': entity.dt.id }) }}">DT</a>, le changement de DT aurait pour effet de récupérer son numéro de téléservice et de l'affecter à cette DT!
+            </div>
+        </div>
+    {% endif %}
+    
+    {{ form_start(edit_form) }}
+        
+        {% if edit_form.numeroDemandeTravauxLiee is defined %}
+             {{ form_row(edit_form.numeroDemandeTravauxLiee) }}
+        {% else %}
+            <div class="row">
+                <div class="alert alert-info">
+                    Cette DICT est lié à aucune DT !
+                </div>
+            </div>             
+        {% endif %}    
+        {{ form_row(edit_form.numeroTeleservice) }}
+        {{ form_row(edit_form.dateDebutTravaux) }}
+        {{ form_row(edit_form.duree) }}
+        {{ form_row(edit_form.canalReception) }}
+        {{ form_row(edit_form.descriptionTravaux) }}
+        {{ form_row(edit_form.noteComplementaire) }}
+        {{ form_row(edit_form.dateReceptionDemande) }}
+        {{ form_row(edit_form.dateReponseDemande) }}
+        {{ form_row(edit_form.maitreOeuvre) }}
+        
+        {#Il est nécessaire de redéfinir le block en lui même de twig sur les block, ainsi on peut appliquer un filtre pour interprété le HTML retiré au sen d'une erreur
+        en l'occurence c'est le lien de la DT conjointe vers laquelle la DICT pointe#}
+        {%- block form_errors -%}
+            {%- if edit_form.dt.vars.errors|length > 0 -%}
+            <ul>
+                {%- for error in  edit_form.dt.vars.errors -%}
+                    {#Permet d'interpréter à la fois du HTML (comme le filtre raw) et des liens twig ({{ path }}) .#}
+                    <li>{% include template_from_string(error.messageTemplate|trans(error.messageParameters, 'validators')) %}</li>
+                {%- endfor -%}
+            </ul>
+            {%- endif -%}
+        {%- endblock form_errors -%}
+        {{ form_label(edit_form.dt) }}
+        {{ form_widget(edit_form.dt) }}
+        {#Permet de mettre la DT choisie comme étant conjointe à notre DICT#}
+        {{ form_row(edit_form.dtDictConjointe) }}
+        
+        <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
+        <ul id="adresse-fields-list" data-prototype="{{ form_widget(edit_form.adresses.vars.prototype) | e('html') }}">
+            {% for adresseChamp in edit_form.adresses %}
+                <li>
+                    {{ form_row(adresseChamp.autocomplete) }}
+                    {{ form_row(adresseChamp.numeroRue) }}
+                    {{ form_row(adresseChamp.adresse) }}
+                    {{ form_row(adresseChamp.complementAdresse) }}
+                    {{ form_row(adresseChamp.lieuDit) }}
+                    {{ form_row(adresseChamp.ville) }}
+                    {{ form_row(adresseChamp.cp) }}
+                    {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
+                    {% if adresseChamp.delete is defined %}
+                        {{ form_row(adresseChamp.delete) }}
+                    {% endif %}
+                    
+               </li>
+            {% endfor %}
+        </ul>
+        <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
+        <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(edit_form.contactsUrgent.vars.prototype) | e('html') }}">
+            {% for contactUrgentChamp in edit_form.contactsUrgent %}
+                <li>
+                    {{ form_row(contactUrgentChamp.civilite) }}
+                    {{ form_row(contactUrgentChamp.nom) }}
+                    {{ form_row(contactUrgentChamp.prenom) }}
+                    {{ form_row(contactUrgentChamp.telMobile) }}
+                    {{ form_row(contactUrgentChamp.telFixe) }}
+                    {{ form_row(contactUrgentChamp.email) }}
+                    {{ form_row(contactUrgentChamp.delete)  }}
+               </li>
+            {% endfor %}
+        </ul>
+        {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+ 
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('demandeintentionct') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
+

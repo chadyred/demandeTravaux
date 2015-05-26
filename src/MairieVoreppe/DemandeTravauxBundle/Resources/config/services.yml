@@ -1,0 +1,17 @@
+services:
+    demandetravaux.twig.instanceof_extension:
+        class: MairieVoreppe\DemandeTravauxBundle\Twig\Extension\InstanceOfExtension
+        tags:
+            - { name: twig.extension }
+    demandetravaux.ckeditor:
+        class:  MairieVoreppe\DemandeTravauxBundle\Form\Type\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }
+    demandetravaux.twig.extension.loader:
+        class:        Twig_Extension_StringLoader
+        tags:
+            - { name: 'twig.extension' }
+    demandetravaux.entity.arretemodel:
+        class: MairieVoreppe\DemandeTravauxBundle\Entity\ArreteModel
+        calls:
+            - [setServicePdfGenerator, [ @knp_snappy.pdf ]]

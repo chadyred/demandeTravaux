@@ -1,0 +1,22 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Adresse edit</h1>
+    {{ form_start(edit_form) }}  
+    {{ form_rest(edit_form) }}
+    
+    {{ form_widget(edit_form.ville, {'attr': {'class': 'list-unstyled'}}) }}
+    {{ form_label(edit_form.ville, "Choisir une ville : ")}}
+    
+    {# ne pas rendre les champs non définis #}
+    {{ form_end(edit_form, {'render_rest': false}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('adresse') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock main_content %}

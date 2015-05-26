@@ -1,0 +1,229 @@
+{# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/ArreteModel/index.html.twig #}
+{% extends "::base.html.twig" %}
+{% block corps %}
+    <h1>ArreteModel edit</h1> 
+    
+{#    {{ dump(reflectionClass) }}#}
+     <div class="row">
+            <div class=" col-lg-12">
+            Information sur les travaux : 
+             <select>
+                  {% for propertyDict in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeIntentionCT'].properties %}
+                        {% if propertyDict.name == 'dateDebut' %}
+                          <option>
+                            {{  "{{ %s.%s }}"|format(edit_form.dict.vars.name, propertyDict.name) }}
+                          </option>
+                        {% else %}
+                          {# on retire les arrays collection, aisni que le debutDateTravaux qui est un DAteTime (les filtre bug sous ckeditor car les guillement de ('Y-m-d') sont encrypter) #}
+                          {% if propertyDict.name != 'dateDebutTravaux' and propertyDict.name|last != 's' and propertyDict.name != 'maitreOeuvre' and propertyDict.name != 'user' and propertyDict.name != 'service' %}
+                              <option>
+                                  {{  "{{ %s.%s }}"|format(edit_form.dict.vars.name, propertyDict.name) }}
+                              </option>
+                          {% endif %}
+                        {% endif %}
+                  {% endfor %}
+              </select>
+              
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-12">
+            Information sur la Mairie : 
+             <select>
+                  {% for propertyMairie in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Mairie'].properties %}
+                        {# on retire les arrays collection#}
+                        {% if propertyMairie.name == "adresse" %}
+                          {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
+                               <option>
+                              {{  "{{ %s.service.mairie.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
+                          </option>
+                          {% endfor %}
+                        {% else %}
+                            {% if propertyMairie.name == 'maireEnCours' %}
+                               {% for propertyMaire in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Maire'].properties %}
+                               <option>
+                                  {{  "{{ %s.service.mairie.maireEnCours.%s }}"|format(edit_form.dict.vars.name, propertyMaire.name) }}
+                               </option>
+                               {% endfor %}
+                            {% endif %}
+                            {% if propertyMairie.name|last != 's' %}
+                              <option>
+                                  {{  "{{ %s.service.mairie.%s }}"|format(edit_form.dict.vars.name, propertyMairie.name) }}
+                              </option>
+                            {% endif %}
+                        {% endif %}
+                  {% endfor %}
+              </select>
+              
+            </div>
+        </div>
+        
+              
+        <div class="row">
+            <div class=" col-lg-12">
+            Information sur le service : 
+           <select>
+                  {% for propertyService in reflectionClass['MairieVoreppe\\UserBundle\\Entity\\Service'].properties %}
+                          {# on retire les arrays collection#}
+                          {% if propertyService.name|last != 's' and propertyService.name|last != 'x' and propertyService.name != 'mairie' %}
+                            <option>
+                                {{  "{{ %s.service.%s }}"|format(edit_form.dict.vars.name, propertyService.name) }}
+                            </option>
+                          {% endif %}
+                  {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-12">
+            Information sur le maitre d'oeuvre en tant qu'entreprise : 
+           <select>
+                 
+                  {% for propertyMaitreOeuvre in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonneMorale'].properties %}
+                       {% if propertyMaitreOeuvre.name == "entreprise" %}
+                            {% for propertyEntreprise in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise'].properties %}
+                                {# on retire les arrays collection et on dispatch les attribut de l'adresse#}
+                                     {% if propertyEntreprise.name == "adresse" %}
+                                        {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
+                                            {% if propertyAdresse.name|last != 's' and propertyAdresse.name|last != 'x' and propertyAdresse.name != 'personne' %}
+                                                <option>
+                                                    {{  "{{ %s.maitreOeuvre.entreprise.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
+                                                </option>
+                                            {% endif %}  
+                                        {% endfor %}                       
+                                    {% else %} 
+                                        {% if propertyEntreprise.name == "gerant" %}
+                                            {% for propertyGerant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Gerant'].properties %}
+                                                {% if propertyGerant.name|last != 's' and propertyGerant.name|last != 'x' and propertyGerant.name != 'personne' %}
+                                                    <option>
+                                                        {{  "{{ %s.maitreOeuvre.entreprise.gerant.%s }}"|format(edit_form.dict.vars.name, propertyGerant.name) }}
+                                                    </option>
+                                                {% endif %}  
+                                            {% endfor %}                       
+                                        {% else %} 
+                                            {% if propertyEntreprise.name|last != 's' and propertyEntreprise.name|last != 'x' and propertyEntreprise.name != 'mairie' %}
+                                               <option>
+                                                   {{  "{{ %s.maitreOeuvre.entreprise.%s }}"|format(edit_form.dict.vars.name, propertyEntreprise.name) }}
+                                               </option>
+                                             {% endif %}    
+                                        {% endif %}     
+                                    {% endif %}                               
+                             {% endfor %}
+                          {#Sinon il s'agit des autres propriétés pour l'entreprise#}
+                        {% else %}                            
+                            {% if propertyMaitreOeuvre.name|last != 's' and propertyMaitreOeuvre.name|last != 'x' and propertyMaitreOeuvre.name != 'mairie' %}
+                              <option>
+                                  {{  "{{ %s.maitreOeuvre.%s }}"|format(edit_form.dict.vars.name, propertyMaitreOeuvre.name) }}
+                              </option>
+                            {% endif %}
+                        {% endif %}
+                  {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-12">
+            Information sur le maitre d'oeuvre en tant que personne physique : 
+           <select>               
+                  {% for propertyMaitreOeuvre in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonnePhysique'].properties %}
+                       {% if propertyMaitreOeuvre.name == "civil" %}
+                            {% for propertyCivil in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Civil'].properties %}
+                                {# on retire les arrays collection#}
+                                {% if propertyCivil.name|last != 's' and propertyCivil.name|last != 'x' and propertyCivil.name != 'mairie' %}
+                                  <option>
+                                      {{  "{{ %s.maitreOeuvre.civil.%s }}"|format(edit_form.dict.vars.name, propertyCivil.name) }}
+                                  </option>
+                                {% endif %}
+                            {% endfor %}                            
+                        {% else %}                            
+                            {% if propertyMaitreOeuvre.name|last != 's' and propertyMaitreOeuvre.name|last != 'x' and propertyMaitreOeuvre.name != 'mairie' %}
+                              <option>
+                                  {{  "{{ %s.maitreOeuvre.%s }}"|format(edit_form.dict.vars.name, propertyMaitreOeuvre.name) }}
+                              </option>
+                            {% endif %}
+                        {% endif %}
+                  {% endfor %}
+              </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-12">
+                Information sur le maitre d'ouvrage lié à la DT en tant que personne physique : 
+                <select>
+
+                      {% for propertyMaitreOuvrage in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonnePhysique'].properties %}
+                           {% if propertyMaitreOuvrage.name == "civil" %}
+                                {% for propertyCivil in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Civil'].properties %}
+                                    {# on retire les arrays collection#}
+                                    {% if propertyCivil.name|last != 's' and propertyCivil.name|last != 'x' and propertyCivil.name != 'mairie' %}
+                                      <option>
+                                          {{  "{{ %s.dt.maitreOuvrage.civil.%s }}"|format(edit_form.dict.vars.name, propertyCivil.name) }}
+                                      </option>
+                                    {% endif %}
+                                {% endfor %}                            
+                            {% else %}                            
+                                {% if propertyMaitreOuvrage.name|last != 's' and propertyMaitreOuvrage.name|last != 'x' and propertyMaitreOuvrage.name != 'mairie' %}
+                                  <option>
+                                      {{  "{{ %s.dt.maitreOuvrage.%s }}"|format(edit_form.dict.vars.name, propertyMaitreOuvrage.name) }}
+                                  </option>
+                                {% endif %}
+                            {% endif %}
+                      {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-lg-12">
+                Information sur le maitre d'ouvrage lié à la DT en tant que personne morale : 
+                <select>
+
+                      {% for propertyMaitreOuvrage in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonneMorale'].properties %}
+                           {% if propertyMaitreOuvrage.name == "personneMorale" %}
+                                {% for propertyPersonneMorale in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Model\\PersonneMorale'].properties %}
+                                    {# on retire les arrays collection#}
+                                      {% if propertyPersonneMorale.name == "adresse" %}
+                                        {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
+                                            {% if propertyAdresse.name|last != 's' and propertyAdresse.name|last != 'x' and propertyAdresse.name != 'personne' %}
+                                                <option>
+                                                    {{  "{{ %s.dt.maitreOuvrage.personneMorale.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
+                                                </option>
+                                            {% endif %}  
+                                        {% endfor %} 
+                                     {% else %}
+                                         {% if propertyPersonneMorale.name|last != 's' and propertyPersonneMorale.name|last != 'x' and propertyPersonneMorale.name != 'mairie' %}
+                                            <option>
+                                                {{  "{{ %s.dt.maitreOuvrage.personneMorale.%s }}"|format(edit_form.dict.vars.name, propertyPersonneMorale.name) }}
+                                            </option>
+                                         {% endif %}
+                                    {% endif %}
+                                {% endfor %}                            
+                            {% else %}                            
+                                {% if propertyMaitreOuvrage.name|last != 's' and propertyMaitreOuvrage.name|last != 'x' and propertyMaitreOuvrage.name != 'mairie' %}
+                                  <option>
+                                      {{  "{{ %s.dt.maitreOuvrage.%s }}"|format(edit_form.dict.vars.name, propertyMaitreOuvrage.name) }}
+                                  </option>
+                                {% endif %}
+                            {% endif %}
+                      {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-6">
+                {{ form_start(edit_form) }}
+                {{ form_row(edit_form.titre) }}
+                {{ form_row(edit_form.contenu) }}
+            </div>
+        </div>
+                {{ form_rest(edit_form) }}
+            {{form_end(edit_form)}}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('arretemodel') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

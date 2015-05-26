@@ -1,0 +1,40 @@
+demandeintentionct:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:index" }
+
+demandeintentionct_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:show" }
+
+demandeintentionct_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:new" }
+
+demandeintentionct_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:create" }
+    methods:  POST
+
+#Route permettant de lier une dict à une DT
+demandeintentionct_lie_dict_dt_new:
+    path:     /new-lie-dict-dt/{id}/dt/
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:new" }
+
+demandeintentionct_lie_dict_dt_create:
+    path:     /create-lie-dict-dt/{id}/dt/
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:create" }
+    methods:  POST
+
+demandeintentionct_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:edit" }
+
+demandeintentionct_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:update" }
+    methods:  [POST, PUT]
+
+demandeintentionct_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:delete" }
+    methods:  [POST, DELETE]

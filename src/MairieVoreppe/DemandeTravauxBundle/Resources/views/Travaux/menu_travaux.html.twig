@@ -1,0 +1,50 @@
+
+{% block menu_travaux %}
+<nav class="navbar  navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse-01">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('travaux') }}">
+                    {{ 'Travaux'|upper }}
+            </a>
+	</li>	
+        <li>
+            <a href="{{ path('demandetravaux') }}">
+                    {{ 'Travaux DT'|upper }}
+            </a>
+
+	</li>	
+	<li>
+            <a href="{{ path('demandeintentionct') }}">
+                    {{ 'Travaux DICT'|upper }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('dtdict') }}">
+                    {{ 'Travaux DT_DICT conjointe'|upper }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('aturgent') }}">
+                    {{ 'Travaux ATU'|upper}}
+            </a>
+        </li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+{% endblock menu_travaux %}
+
+{% block bouton %}
+    <div class="row">
+      <div class="col-lg-offset-9">
+          <a class="btn btn-md btn-info" href="{{ path('travaux_ajouter_menu') }}">
+              Ajouter un travaux <i class="fa fa-plus-circle"></i>
+          </a>
+      </div>
+    </div>
+{% endblock bouton %}

@@ -1,0 +1,74 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
+
+{% block main_content %}
+    
+    {% block bouton %}
+        <div class="row">
+          <div class="col-lg-offset-9">
+              <a class="btn btn-md btn-info" href="{{ path('travaux') }}">
+                  Retour au travaux <i class="fa fa-external-link-square"></i>
+              </a>
+          </div>
+        </div>
+    {% endblock bouton %}
+    {% block travaux_content %}
+    <h1>ATUrgent creation</h1>
+    
+    {{ form_start(form) }}
+        
+        {{ form_row(form.numeroTeleservice) }}
+        {{ form_row(form.dateDebutTravaux) }}
+         {{ form_row(form.duree) }}
+        {{ form_row(form.canalReception) }}
+        {{ form_row(form.descriptionTravaux) }}
+        {{ form_row(form.noteComplementaire) }}
+        {{ form_row(form.dateReceptionDemande) }}
+        {{ form_row(form.dateReponseDemande) }}
+        
+        <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
+        <ul id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
+            {% for adresseChamp in form.adresses %}
+                <li>
+                       {{ form_row(adresseChamp.autocomplete) }}
+                       {{ form_row(adresseChamp.numeroRue) }}
+                       {{ form_row(adresseChamp.adresse) }}
+                       {{ form_row(adresseChamp.complementAdresse) }}
+                       {{ form_row(adresseChamp.lieuDit) }}
+                       {{ form_row(adresseChamp.ville) }}
+                       {{ form_row(adresseChamp.cp) }}   
+                       {# Necessaire afin de garder la première adresse et que ce boutton ne s'affiche pas en bas#}
+                       {% if not loop.first %}
+                          {{  form_row(adresseChamp.delete)  }}
+                       {% else %}
+                           <div hidden>{{ form_row(adresseChamp.delete) }}</div> 
+                       {% endif %}
+               </li>
+            {% endfor %}
+        </ul>
+         <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
+        <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
+            {% for contactUrgentChamp in form.contactsUrgent %}
+                <li>
+                    {{ form_row(contactUrgentChamp.civilite) }}
+                    {{ form_row(contactUrgentChamp.nom) }}
+                    {{ form_row(contactUrgentChamp.prenom) }}
+                    {{ form_row(contactUrgentChamp.telMobile) }}
+                    {{ form_row(contactUrgentChamp.telFixe) }}
+                    {{ form_row(contactUrgentChamp.email) }}
+               </li>
+            {% endfor %}
+        </ul>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+        <ul class="record_actions">
+    
+    <li>
+        <a href="{{ path('aturgent') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+   {% endblock %}
+
+{% endblock main_content %}

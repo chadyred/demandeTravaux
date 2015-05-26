@@ -1,0 +1,38 @@
+periode:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:index" }
+
+periode_by_mairie:
+    path:     /{id}/by_mairie
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:indexByMairie" }
+    
+periode_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:show" }
+
+periode_new:
+    path:     /{id}/new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:new" }
+
+periode_create:
+    path:     /{id}/create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:create" }
+    methods:  POST
+
+periode_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:edit" }
+
+periode_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:update" }
+    methods:  [POST, PUT]
+
+periode_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:delete" }
+    methods:  [POST, DELETE]
+    
+periode_remove:
+    path:     /{id}/remove
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:remove" }

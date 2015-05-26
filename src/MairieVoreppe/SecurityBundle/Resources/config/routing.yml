@@ -1,0 +1,3 @@
+mairie_voreppe_security_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MairieVoreppeSecurityBundle:Default:index }

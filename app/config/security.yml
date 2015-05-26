@@ -1,0 +1,90 @@
+# you can read more about security in the related section of the documentation
+# http://symfony.com/doc/current/book/security.html
+security:
+    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+    encoders:
+        Symfony\Component\Security\Core\User\User: sha512
+        MairieVoreppe\UserBundle\Entity\User: sha512
+
+    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_MANAGER:
+            - ROLE_USER
+            - ROLE_SONATA_STUFF # have no effect on the UI
+            - ROLE_SONATA_ADMIN # with this role you have a nice navbar with search box
+            # user
+            - ROLE_SONATA_ADMIN_USER_LIST
+            - ROLE_SONATA_ADMIN_USER_VIEW
+            # product
+            - ROLE_SONATA_ADMIN_PRODUCT_LIST
+            - ROLE_SONATA_ADMIN_PRODUCT_VIEW
+            - ROLE_SONATA_ADMIN_PRODUCT_EDIT
+            # product category
+            - ROLE_SONATA_ADMIN_PRODUCT_CATEGORY_LIST
+            - ROLE_SONATA_ADMIN_PRODUCT_CATEGORY_VIEW
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory:
+            memory:
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    
+        fos_userbundle:
+            id: fos_user.user_manager
+            
+    # the main part of the security, where you can set up firewalls
+    # for specific sections of your app
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false   
+            
+        admin:
+            pattern:      /admin(.*)
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                check_path:     /admin/login_check
+                use_forward:    false
+                failure_path: /admin/login
+                always_use_default_target_path: true
+                default_target_path: /admin/dashboard
+                use_referer: true
+                csrf_provider: form.csrf_provider
+            logout:
+                path:   /admin/logout
+                target: /admin/login
+            anonymous:    true 
+            
+        main_login:
+             pattern: ^/login$
+             anonymous: true
+             
+        main:
+            pattern: ^/
+            anonymous: false
+            provider: fos_userbundle
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check  
+                success_handler: mairie_voreppe_user_security.component.authentication.handler.login_success_handler                
+                default_target_path: /accueil
+                csrf_provider: form.csrf_provider
+            logout:
+                path: fos_user_security_logout
+                target:  fos_user_security_login
+                success_handler: mairie_voreppe_user_security.component.authentication.handler.logout_success_handler 
+            remember_me: 
+                key: %secret%
+    acl:
+        connection: default
+    # with these settings you can restrict or allow access for different parts
+    # of your application based on roles, ip, host or methods
+    # http://symfony.com/doc/current/cookbook/security/access_control.html
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

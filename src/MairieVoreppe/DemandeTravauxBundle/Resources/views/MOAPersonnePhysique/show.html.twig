@@ -1,0 +1,36 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
+
+ {% block moa_content %}
+    <h1>Un maitre d'ouvrage en tant que persone physique</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.civil.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ entity.civil.prenom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('moapersonnephysique') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

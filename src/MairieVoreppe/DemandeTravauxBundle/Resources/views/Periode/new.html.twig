@@ -1,0 +1,15 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Ajout d'un maire et de sa periode à {{ mairie.raisonSociale }}</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('maire') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+moepersonnephysique:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:index" }
+
+moepersonnephysique_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:show" }
+
+moepersonnephysique_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:new" }
+
+moepersonnephysique_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:create" }
+    methods:  POST
+
+moepersonnephysique_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:edit" }
+
+moepersonnephysique_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:update" }
+    methods:  [POST, PUT]
+
+moepersonnephysique_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:MOEPersonnePhysique:delete" }
+    methods:  [POST, DELETE]
