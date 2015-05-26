@@ -33,11 +33,11 @@ class AppKernel extends Kernel
             new Shtumi\UsefulBundle\ShtumiUsefulBundle(),      
             new MairieVoreppe\UsefulBundle\MairieVoreppeUsefulBundle(),
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new MairieVoreppe\SecurityBundle\MairieVoreppeSecurityBundle(),
             new MairieVoreppe\UserBundle\MairieVoreppeUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -106,8 +106,8 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('maire') }}">
-                Back to the list
+            <a href="{{ path('maire_show', {'id' : entity.id }) }}">
+                Voir le Maire
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

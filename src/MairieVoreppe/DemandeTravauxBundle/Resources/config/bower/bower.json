@@ -5,6 +5,7 @@
         "bootstrap": "latest",
         "components-font-awesome":"latest",
         "jquery-ui":"latest",
-        "flat-ui":"latest"
+        "flat-ui":"latest",
+        "bootstrap-datepicker": "latest"
     }
 }

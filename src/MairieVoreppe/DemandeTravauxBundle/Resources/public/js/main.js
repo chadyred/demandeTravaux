@@ -7,21 +7,22 @@ var autocompletesWraps = new Array();
 
 $(document).ready(function(){
     
-    
-    /**
-     * 
-     * Fenêtre pop-up qui permet de choisir son service s'il y en a plusieurs
-     * 
-     */
-    if($('.modal') !== undefined)
-    {
-     $('.modal').modal({         
-        backdrop: 'static',
-        keyboard: false
-        });
-        
-     $('.modal').modal('show');
-   }
+
+     /**
+      * 
+      * Fenêtre pop-up qui permet de choisir son service s'il y en a plusieurs
+      * 
+      */
+     if($('.modal') !== undefined)
+     {
+        $('.modal').modal({         
+           backdrop: 'static',
+           keyboard: false
+           });
+          
+        $('.modal').modal('show');
+     }
+
     /*********************
      * 
      *      Permet de remplir le numéro de téléservice similaire dans une procédure de dt dict lié si la case est coché parce qu'elle est lié
@@ -791,6 +792,7 @@ function remplirDictLieeDtInformationBase()
         var dataDt = $('#recup-dt').attr('data-dt');
         var arr = $.parseJSON(dataDt);
         var dateDebutTravaux = dateStringToInputFormDate(arr.date_debut_travaux);
+        console.log(dateDebutTravaux);
 
         // console.log(arr);
 
@@ -1066,6 +1068,13 @@ function setElementInSelectListeByString(list, textvalue)
           }).attr('selected', true);
 }
 
+function afficherCalendrier(idInputDate)
+{
+    $('#' + idInputDate).datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1
+    });
+}
 /**
  * Fonction qui permet de générer un nombre aléatoire
  */

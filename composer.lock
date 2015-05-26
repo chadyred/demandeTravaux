@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f47b07a0f8d3957d62cba4d1079d061",
+    "hash": "4eb435064d41edcbe9c63d8d77c865a0",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1251,76 +1251,6 @@
                 "User management"
             ],
             "time": "2015-04-30 13:35:32"
-        },
-        {
-            "name": "genemu/form-bundle",
-            "version": "dev-master",
-            "target-dir": "Genemu/Bundle/FormBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/genemu/GenemuFormBundle.git",
-                "reference": "99678a43d82c4e6ec393f1698ef73d6cb1fd9912"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/99678a43d82c4e6ec393f1698ef73d6cb1fd9912",
-                "reference": "99678a43d82c4e6ec393f1698ef73d6cb1fd9912",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/form": "~2.6",
-                "symfony/framework-bundle": "~2.6"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "1.*",
-                "doctrine/mongodb-odm-bundle": "*",
-                "doctrine/orm": "2.*",
-                "propel/propel-bundle": "*",
-                "symfony/doctrine-bridge": "~2.6",
-                "symfony/finder": "2.*"
-            },
-            "suggest": {
-                "doctrine/doctrine-bundle": "In order to use some form types with Doctrine",
-                "doctrine/mongodb-odm-bundle": "For MongoDB integration",
-                "symfony/finder": "For an image type",
-                "symfony/twig-bridge": "For integration into Twig templates"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Genemu\\Bundle\\FormBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Olivier Chauvel",
-                    "email": "olivier@generation-multiple.com"
-                },
-                {
-                    "name": "Community contributions",
-                    "homepage": "https://github.com/genemu/GenemuFormBundle/contributors"
-                },
-                {
-                    "name": "Bilal Amarni",
-                    "email": "bilal.amarni@gmail.com"
-                }
-            ],
-            "description": "Extra form types for your Symfony2 projects",
-            "keywords": [
-                "extra form",
-                "form"
-            ],
-            "time": "2014-12-14 14:37:13"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -3100,12 +3030,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "0d24a74b06fa160d302b8052de82b0fce0096eea"
+                "reference": "f7d24251f0790fe6dc703a94f1a62ac108665228"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/0d24a74b06fa160d302b8052de82b0fce0096eea",
-                "reference": "0d24a74b06fa160d302b8052de82b0fce0096eea",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/f7d24251f0790fe6dc703a94f1a62ac108665228",
+                "reference": "f7d24251f0790fe6dc703a94f1a62ac108665228",
                 "shasum": ""
             },
             "require": {
@@ -3178,7 +3108,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-05-25 10:10:23"
+            "time": "2015-05-26 13:34:59"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4121,6 +4051,52 @@
             "time": "2015-02-19 18:10:24"
         },
         {
+            "name": "stephanecollot/datetimepicker-bundle",
+            "version": "dev-master",
+            "target-dir": "SC/DatetimepickerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephanecollot/DatetimepickerBundle.git",
+                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
+                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "symfony/framework-bundle": "2.*",
+                "symfony/symfony": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "SC\\DatetimepickerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephane Collot"
+                }
+            ],
+            "description": "Symfony bundle for Bootstrap DateTime picker",
+            "keywords": [
+                "bootstrap",
+                "bundle",
+                "datepicker",
+                "picker",
+                "symfony",
+                "timepicker"
+            ],
+            "time": "2015-05-11 20:47:22"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.0",
             "source": {
@@ -4827,10 +4803,10 @@
         "jms/serializer-bundle": 20,
         "shtumi/useful-bundle": 20,
         "misd/phone-number-bundle": 20,
-        "genemu/form-bundle": 20,
         "egeloen/ckeditor-bundle": 20,
         "knplabs/knp-snappy-bundle": 20,
-        "symfony/intl": 20
+        "symfony/intl": 20,
+        "stephanecollot/datetimepicker-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

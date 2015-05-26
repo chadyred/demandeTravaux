@@ -45,10 +45,10 @@
         "willdurand/jsonp-callback-validator": "~1.0",
         "shtumi/useful-bundle": "dev-master",
         "misd/phone-number-bundle": "1.1.*@dev",
-        "genemu/form-bundle": "2.3.*@dev",
         "egeloen/ckeditor-bundle": "3.0.*@dev",
         "knplabs/knp-snappy-bundle": "1.2.*@dev",
-        "symfony/intl": "2.8.*@dev"
+        "symfony/intl": "2.8.*@dev",
+        "stephanecollot/datetimepicker-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

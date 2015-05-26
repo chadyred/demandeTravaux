@@ -30,9 +30,13 @@ class DemandeIntentionCTType extends AbstractType
     {
         $builder
             ->add('numeroTeleservice', 'text', array('disabled' => $this->dtDict ))
-            ->add('dateDebutTravaux', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))
+            ->add('dateDebutTravaux', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
@@ -49,12 +53,20 @@ class DemandeIntentionCTType extends AbstractType
               ))            
             ->add('descriptionTravaux')
             ->add('noteComplementaire')
-            ->add('dateReceptionDemande', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))
-            ->add('dateReponseDemande', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))            
+            ->add('dateReceptionDemande','collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
+            ->add('dateReponseDemande', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -64,7 +76,7 @@ class DemandeIntentionCTType extends AbstractType
             ->add('dtDictConjointe', 'choice', array('choices' => array('0' => 'Non', '1' => 'Oui'), 'label' => 'La DT conjointe lié à sa DICT ?'))
         ;
         
-        //Permet de géré avant le chargement du formulaire si des champs ou des données doivent être changer AVANT l'hydratation du formulaire. Ici ce sera le 
+        //Permet de gérer avant le chargement du formulaire si des champs ou des données doivent être changer AVANT l'hydratation du formulaire. Ici ce sera le 
         //cas lorsque l'on va créer une DICT pour une DT, on ne permet pas de changer de DT.
         //En HTML, un champ disable n'est pas validée. En outre, si on est en présence d'une DT liée à une DICT, ce champs sera inactif,
         //or il faut tout de même validée à quel DT il est rattaché.

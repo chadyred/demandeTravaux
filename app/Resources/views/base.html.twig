@@ -7,6 +7,7 @@
         ses police avec font-awesome#}
         {% stylesheets filter='css_url_rewrite,uglifycss'
                 '@bootstrap_css' 
+                '@bootstrap_datepicker_css'
                 '@flat_ui_css' 
                 '@components_font_awesome_css'
                 '@MairieVoreppeDemandeTravauxBundle/Resources/public/css/style.css' 
@@ -31,6 +32,8 @@
                  "@jquery_js"
                  "@jquery_ui_js"
                  "@bootstrap_js"
+                 "@bootstrap_datepicker_js"
+                 "@bootstrap_datepicker_js_fr"
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/main.js'
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/ckeditor_content.js'
               %} 
@@ -44,6 +47,7 @@
         {% block body %}  
             {#Block qui englobe tout#}
             <div class="container-fluid">
+
                 {% if app.session.get('service') == true %}
                     Vous travaillez pour le service {{ app.session.get('service') }}.
                 {% endif %}

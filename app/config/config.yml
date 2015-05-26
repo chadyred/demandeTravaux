@@ -57,6 +57,10 @@ assetic:
             bin: %kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
         uglifycss:
             bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
+    assets:
+        bootstrap_datepicker_js_fr:
+            inputs:
+                - "bundles/mairievoreppedemandetravaux/components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"
                 
 # Doctrine Configuration
 doctrine:
@@ -219,9 +223,6 @@ shtumi_useful:
             #role: ROLE_ADMIN
             property: villeNom
             search: begins_with
-            
-genemu_form:
-    date: ~
 
 knp_snappy:
     pdf:
@@ -232,3 +233,7 @@ knp_snappy:
         enabled:    true
         binary:     /usr/local/bin/wkhtmltoimage
         options:    []
+
+# 
+sc_datetimepicker:
+    picker: ~

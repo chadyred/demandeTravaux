@@ -18,12 +18,20 @@ class PeriodeType extends AbstractType
     {
         $builder
             ->add('maire',  new MaireType())
-            ->add('dateDebut', 'genemu_jquerydate', array(
-            'widget' => 'single_text', 'label' => 'Du : '
-            ))
-            ->add('dateFin', 'genemu_jquerydate', array(
-            'widget' => 'single_text', 'required' => false, 'label' => 'Au : '
-            ))
+            ->add('dateDebut', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
+            ->add('dateFin', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
         ;
     }
     

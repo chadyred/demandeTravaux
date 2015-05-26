@@ -19,9 +19,13 @@ class ATUrgentType extends AbstractType
     {
         $builder
             ->add('numeroTeleservice')
-            ->add('dateDebutTravaux', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))
+            ->add('dateDebutTravaux', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             //placeholder remplace empty_value de 2.6
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
@@ -30,12 +34,20 @@ class ATUrgentType extends AbstractType
                 'placeholder' => '-'))         
             ->add('descriptionTravaux')
             ->add('noteComplementaire')
-            ->add('dateReceptionDemande', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))
-            ->add('dateReponseDemande', 'genemu_jquerydate', array(
-            'widget' => 'single_text'
-            ))
+            ->add('dateReceptionDemande', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
+            ->add('dateReponseDemande', 'collot_datetime', array( 
+              "attr" => array('data-provide'=>"datepicker", 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd/mm/yyyy',
+                  'language' => 'fr'
+              )))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,
