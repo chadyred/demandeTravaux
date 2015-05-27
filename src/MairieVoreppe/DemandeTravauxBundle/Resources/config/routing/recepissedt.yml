@@ -1,0 +1,30 @@
+recepissedt:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:index" }
+
+recepissedt_show:
+    path:     /{id}/show
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:show" }
+
+recepissedt_new:
+    path:     /new
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:new" }
+
+recepissedt_create:
+    path:     /create
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:create" }
+    methods:  POST
+
+recepissedt_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:edit" }
+
+recepissedt_update:
+    path:     /{id}/update
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:update" }
+    methods:  [POST, PUT]
+
+recepissedt_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:delete" }
+    methods:  [POST, DELETE]

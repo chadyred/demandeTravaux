@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>RecepisseDICT</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{{ entity.dateCreation|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Extensionprevue</th>
+                <td>{{ entity.extensionPrevue }}</td>
+            </tr>
+            <tr>
+                <th>Modificationencours</th>
+                <td>{{ entity.modificationEnCours }}</td>
+            </tr>
+            <tr>
+                <th>Nomrepresentant</th>
+                <td>{{ entity.nomRepresentant }}</td>
+            </tr>
+            <tr>
+                <th>Telephonerepresentant</th>
+                <td>{{ entity.telephoneRepresentant }}</td>
+            </tr>
+            <tr>
+                <th>Planjoint</th>
+                <td>{{ entity.planJoint }}</td>
+            </tr>
+            <tr>
+                <th>Prendreencompteservitude</th>
+                <td>{{ entity.prendreEnCompteServitude }}</td>
+            </tr>
+            <tr>
+                <th>Branchementrattache</th>
+                <td>{{ entity.branchementRattache }}</td>
+            </tr>
+            <tr>
+                <th>Recommandationsecurite</th>
+                <td>{{ entity.recommandationSecurite }}</td>
+            </tr>
+            <tr>
+                <th>Rubriqueguidetechsecurite</th>
+                <td>{{ entity.rubriqueGuideTechSecurite }}</td>
+            </tr>
+            <tr>
+                <th>Mesuresecurite</th>
+                <td>{{ entity.mesureSecurite }}</td>
+            </tr>
+            <tr>
+                <th>Telservicedegradation</th>
+                <td>{{ entity.telServiceDegradation }}</td>
+            </tr>
+            <tr>
+                <th>Servicedepartementincendiesecours</th>
+                <td>{{ entity.serviceDepartementIncendieSecours }}</td>
+            </tr>
+            <tr>
+                <th>Telservicedepartementincendiesecours</th>
+                <td>{{ entity.telServiceDepartementIncendieSecours }}</td>
+            </tr>
+            <tr>
+                <th>Responsabledossier</th>
+                <td>{{ entity.responsableDossier }}</td>
+            </tr>
+            <tr>
+                <th>Telresponsabledossier</th>
+                <td>{{ entity.telResponsableDossier }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('recepissedict') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('recepissedict_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

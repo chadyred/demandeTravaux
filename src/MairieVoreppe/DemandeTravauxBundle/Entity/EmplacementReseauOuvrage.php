@@ -225,4 +225,3 @@ class EmplacementReseauOuvrage
         return $this->materiauxReseau;
     }
 }
-

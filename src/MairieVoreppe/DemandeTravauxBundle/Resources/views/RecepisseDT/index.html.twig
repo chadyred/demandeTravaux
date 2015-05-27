@@ -1,0 +1,73 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>RecepisseDT list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prevoirinvestiguation</th>
+                <th>Datecreation</th>
+                <th>Extensionprevue</th>
+                <th>Modificationencours</th>
+                <th>Nomrepresentant</th>
+                <th>Telephonerepresentant</th>
+                <th>Planjoint</th>
+                <th>Prendreencompteservitude</th>
+                <th>Branchementrattache</th>
+                <th>Recommandationsecurite</th>
+                <th>Rubriqueguidetechsecurite</th>
+                <th>Mesuresecurite</th>
+                <th>Telservicedegradation</th>
+                <th>Servicedepartementincendiesecours</th>
+                <th>Telservicedepartementincendiesecours</th>
+                <th>Responsabledossier</th>
+                <th>Telresponsabledossier</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.prevoirInvestiguation }}</td>
+                <td>{% if entity.dateCreation %}{{ entity.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.extensionPrevue }}</td>
+                <td>{{ entity.modificationEnCours }}</td>
+                <td>{{ entity.nomRepresentant }}</td>
+                <td>{{ entity.telephoneRepresentant }}</td>
+                <td>{{ entity.planJoint }}</td>
+                <td>{{ entity.prendreEnCompteServitude }}</td>
+                <td>{{ entity.branchementRattache }}</td>
+                <td>{{ entity.recommandationSecurite }}</td>
+                <td>{{ entity.rubriqueGuideTechSecurite }}</td>
+                <td>{{ entity.mesureSecurite }}</td>
+                <td>{{ entity.telServiceDegradation }}</td>
+                <td>{{ entity.serviceDepartementIncendieSecours }}</td>
+                <td>{{ entity.telServiceDepartementIncendieSecours }}</td>
+                <td>{{ entity.responsableDossier }}</td>
+                <td>{{ entity.telResponsableDossier }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('recepissedt_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('recepissedt_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

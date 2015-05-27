@@ -1,3 +1,11 @@
+mairie_voreppe_demande_travaux_recepissedict:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/recepissedict.yml"
+    prefix:   /recepissedict
+
+mairie_voreppe_demande_travaux_recepissedt:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/recepissedt.yml"
+    prefix:   /recepissedt
+
 mairie_voreppe_demande_travaux_arretepromulgue:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/arretepromulgue.yml"
     prefix:   /arretepromulgue
