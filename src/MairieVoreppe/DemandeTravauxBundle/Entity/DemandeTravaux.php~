@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * DemandeTravaux
@@ -21,17 +22,43 @@ class DemandeTravaux extends Travaux
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
      /**
-     * Doctrine Array
-     * 
-     * Une DICT ne peut être lié qu'à une DT au travers d'une seule DT DICT lié
-     * 
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DtDict", mappedBy="dt", orphanRemoval=true, cascade={"persist"})
-     * 
-     * @var type 
+     * @Groups({"dt"})
      */
-    private $dtDict;
+    protected $dateDebutTravaux;
+
+     /**
+     * @Groups({"dt"})
+     */
+    protected $duree;
+
+     /**
+     * @Groups({"dt"})
+     */
+    protected $descriptionTravaux;
+
+     /**
+     * @Groups({"dt"})
+     */
+    protected $noteComplementaire;
+
+     /**
+     * @Groups({"dt"})
+     */
+    protected $contactsUrgent; 
+
+     /**
+     * @Groups({"dt"})
+     */
+    protected $adresses; 
+
+     /**
+     * @Groups({"dt"}) 
+     */
+    protected $canalReception; 
+
+    
     
     /**
      * Doctrine Array
@@ -51,6 +78,21 @@ class DemandeTravaux extends Travaux
      */
     private $maitreOuvrage;
    
+   /**
+    * RecepisseDt : récpissé résultant d'un traitement sur cette entité
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt")
+    * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+    */
+    private $recepisseDt;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -62,29 +104,7 @@ class DemandeTravaux extends Travaux
         return $this->id;
     }
 
-    /**
-     * Add dtDict
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DtDict $dtDict
-     * @return DemandeTravaux
-     */
-    public function setDtDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DtDict $dtDict = null)
-    {
-        $this->dtDict[] = $dtDict;
-
-        return $this;
-    }
-
-    /**
-     * Get dtDict
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDtDict()
-    {
-        return $this->dtDict;
-    }
-
+   
     /**
      * Add maitreOuvrage
      *
@@ -107,4 +127,40 @@ class DemandeTravaux extends Travaux
     {
         return $this->maitreOuvrage;
     }
+   
+
+    /**
+     * Add dicts
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dicts
+     * @return DemandeTravaux
+     */
+    public function addDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dicts)
+    {
+        $this->dicts[] = $dicts;
+
+        return $this;
+    }
+
+    /**
+     * Remove dicts
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dicts
+     */
+    public function removeDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dicts)
+    {
+        $this->dicts->removeElement($dicts);
+    }
+
+    /**
+     * Get dicts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDicts()
+    {
+        return $this->dicts;
+    }
+
+  
 }

@@ -4,6 +4,9 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
+	use Symfony\Component\Validator\Constraints as Assert;
+//Permet de récupérer les valeur des objets en cours de vie dans notre classe
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 
 /**
@@ -11,6 +14,7 @@ use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCTRepository")
+ * @Assert\Callback(methods={"isDtDictConjointeValid" , "isDtValid"})
  */
 class DemandeIntentionCT extends Travaux
 {
@@ -66,7 +70,13 @@ class DemandeIntentionCT extends Travaux
      */
     private $arretesPromulgues;
     
-    
+    /**
+    * RecepisseDICT
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict")
+    * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+    */
+    private $recepisseDict;
     
     /**
      * Constructor
@@ -74,7 +84,7 @@ class DemandeIntentionCT extends Travaux
     public function __construct()
     {
         $this->arretesPromulgues = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->dtDictLie = false;
+        $this->dtDictConjointe = false;
     }
     
     
@@ -130,6 +140,10 @@ class DemandeIntentionCT extends Travaux
         {
             $dt->addDict($this);
         }
+        else
+        {
+            $this->setDtDictConjointe(false);
+        }
         
         return $this;
     }
@@ -179,4 +193,74 @@ class DemandeIntentionCT extends Travaux
     }
 
  
+
+    /**
+     * Set dtDictConjointe
+     *
+     * @param boolean $dtDictConjointe
+     *
+     * @return DemandeIntentionCT
+     */
+    public function setDtDictConjointe($dtDictConjointe)
+    {
+        $this->dtDictConjointe = $dtDictConjointe;
+
+        return $this;
+    }
+
+    /**
+     * Get dtDictConjointe
+     *
+     * @return boolean
+     */
+    public function getDtDictConjointe()
+    {
+        return $this->dtDictConjointe;
+    }
+    
+    /**
+    * Condition de validation qui permet de vérifier lorsque l'on souhaite rendre une DICT conjointe, si la DT désiré n'est pas déjà conjointe à une autre. En générale
+    * il s'agit d'une demande fait au début du dossier.
+    */
+    public function isDtValid(ExecutionContextInterface $context)
+    {
+
+        if($this->getDtDictConjointe() && $this->getDt() != NULL)
+        {
+            foreach($this->getDt()->getDicts() as $dict)
+            {
+               if($dict->getDtDictConjointe() && $dict->getId() != $this->getId())
+               {
+                    //Mise à jour
+                    //$context->addViolationAt('duree', 'Veuillez indiquer une durée plus grande que 0 !', array(), null);            
+                    $context->buildViolation('La DT n° <a target="_blank" href="{{ path("demandetravaux_edit", { "id" : {{ id }} } ) }}">{{ id }}</a> possède déjà une DICT conjointe, et ne peut en avoir qu\'une seule. Il faut au préalable retirer la DICT conjointe à la DT désirée !')
+                            ->atPath('dt')
+                            ->setParameter('{{ id }}', $this->getDt()->getId())
+                            ->addViolation();
+                    
+               }
+            }
+        }                
+    }
+    
+    /**
+    * Condition de validation qui permet de vérifier lorsque l'on souhaite rendre une DICT conjointe, si la DT désiré n'est pas déjà conjointe à une autre. En générale
+    * il s'agit d'une demande fait au début du dossier.
+    */
+    public function isDtDictConjointeValid(ExecutionContextInterface $context)
+    {
+        if($this->getDtDictConjointe())
+        {
+            if($this->getDt() == NULL)
+            {
+              
+                    //Mise à jour
+                    //$context->addViolationAt('duree', 'Veuillez indiquer une durée plus grande que 0 !', array(), null);            
+                    $context->buildViolation('Veuillez choisir une DT avant !')
+                            ->atPath('dtDictConjointe')
+                            ->addViolation();
+               
+            }
+        }                
+    }
 }

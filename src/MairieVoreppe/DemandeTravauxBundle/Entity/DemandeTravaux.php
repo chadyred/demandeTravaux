@@ -78,6 +78,13 @@ class DemandeTravaux extends Travaux
      */
     private $maitreOuvrage;
    
+   /**
+    * RecepisseDt : récpissé résultant d'un traitement sur cette entité
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt")
+    * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+    */
+    private $recepisseDt;
     
     /**
      * Constructor
@@ -156,4 +163,28 @@ class DemandeTravaux extends Travaux
     }
 
   
+
+    /**
+     * Set recepisseDt
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt $recepisseDt
+     *
+     * @return DemandeTravaux
+     */
+    public function setRecepisseDt(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt $recepisseDt = null)
+    {
+        $this->recepisseDt = $recepisseDt;
+
+        return $this;
+    }
+
+    /**
+     * Get recepisseDt
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt
+     */
+    public function getRecepisseDt()
+    {
+        return $this->recepisseDt;
+    }
 }

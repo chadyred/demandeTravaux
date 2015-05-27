@@ -70,7 +70,13 @@ class DemandeIntentionCT extends Travaux
      */
     private $arretesPromulgues;
     
-    
+    /**
+    * RecepisseDICT
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict")
+    * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+    */
+    private $recepisseDict;
     
     /**
      * Constructor
@@ -256,5 +262,29 @@ class DemandeIntentionCT extends Travaux
                
             }
         }                
+    }
+
+    /**
+     * Set recepisseDict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict $recepisseDict
+     *
+     * @return DemandeIntentionCT
+     */
+    public function setRecepisseDict(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict $recepsseDict = null)
+    {
+        $this->recepisseDict = $recepisseDict;
+
+        return $this;
+    }
+
+    /**
+     * Get recepisseDict
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict
+     */
+    public function getRecepisseDict()
+    {
+        return $this->recepisseDict;
     }
 }

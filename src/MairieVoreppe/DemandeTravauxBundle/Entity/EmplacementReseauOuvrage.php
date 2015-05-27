@@ -63,6 +63,13 @@ class EmplacementReseauOuvrage
      */
     private $materiauxReseau;
 
+    /**
+    * Recepisse
+    *
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="emplacementsReseauOuvrage")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $emplacementReseauOuvrage;
 
     /**
      * Get id

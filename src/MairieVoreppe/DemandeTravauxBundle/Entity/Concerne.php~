@@ -4,15 +4,13 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use MairieVoreppe\DemandeTravauxBundle\Model\Recepisse;
-
 /**
- * RecepisseDICT
+ * Concerne
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICTRepository")
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\ConcerneRepository")
  */
-class RecepisseDICT extends Recepisse
+class Concerne
 {
     /**
      * @var integer
@@ -21,7 +19,16 @@ class RecepisseDICT extends Recepisse
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
+
+    /**
+    * Doctrine Array
+    *
+    * Liste des catégorie réseau concernée de l'exploitant Mairie
+    *
+    * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\CategorieReseauOuvrage")
+    */
+    private $categorieReseauOuvrage;
 
 
     /**
@@ -33,5 +40,7 @@ class RecepisseDICT extends Recepisse
     {
         return $this->id;
     }
+
+
 }
 

@@ -1,16 +1,20 @@
 <?php
 
-namespace MairieVoreppe\DemandeTravauxBundle\Entity;
+namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Recepisse
- *
- * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({ 
+ * "recepisseDt"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt", 
+ * "recepisseDict"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict"
+ *  })
  */
-class Recepisse
+abstract class Recepisse
 {
     /**
      * @var integer
@@ -19,120 +23,170 @@ class Recepisse
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="datetime")
      */
-    private $dateCreation;
+    protected $dateCreation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="extensionPrevue", type="text")
      */
-    private $extensionPrevue;
+    protected $extensionPrevue;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="modificationEnCours", type="boolean")
      */
-    private $modificationEnCours;
+    protected $modificationEnCours;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nomRepresentant", type="string", length=255)
      */
-    private $nomRepresentant;
+    protected $nomRepresentant;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telephoneRepresentant", type="string", length=255)
      */
-    private $telephoneRepresentant;
+    protected $telephoneRepresentant;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="planJoint", type="boolean")
      */
-    private $planJoint;
+    protected $planJoint;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="prendreEnCompteServitude", type="boolean")
      */
-    private $prendreEnCompteServitude;
+    protected $prendreEnCompteServitude;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="branchementRattache", type="boolean")
      */
-    private $branchementRattache;
+    protected $branchementRattache;
 
     /**
      * @var string
      *
      * @ORM\Column(name="recommandationSecurite", type="text")
      */
-    private $recommandationSecurite;
+    protected $recommandationSecurite;
 
     /**
      * @var string
      *
      * @ORM\Column(name="rubriqueGuideTechSecurite", type="text")
      */
-    private $rubriqueGuideTechSecurite;
+    protected $rubriqueGuideTechSecurite;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mesureSecurite", type="text")
      */
-    private $mesureSecurite;
+    protected $mesureSecurite;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telServiceDegradation", type="string", length=255)
      */
-    private $telServiceDegradation;
+    protected $telServiceDegradation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="serviceDepartementIncendieSecours", type="string", length=255)
      */
-    private $serviceDepartementIncendieSecours;
+    protected $serviceDepartementIncendieSecours;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telServiceDepartementIncendieSecours", type="string", length=255)
      */
-    private $telServiceDepartementIncendieSecours;
+    protected $telServiceDepartementIncendieSecours;
 
     /**
      * @var string
      *
      * @ORM\Column(name="responsableDossier", type="string", length=255)
      */
-    private $responsableDossier;
+    protected $responsableDossier;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telResponsableDossier", type="string", length=255)
      */
-    private $telResponsableDossier;
+    protected $telResponsableDossier;
 
+   /**
+    * RecepisseDICT
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    protected $reponse;
+
+
+   /**
+    * RecepisseDICT
+    *
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous")
+    *
+    */
+    protected $rendezVous;
+
+   /**
+    * Recepisse
+    *
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    protected $emplacementsReseauOuvrage;
+
+
+   /**
+    * Recepisse
+    *
+    * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", inversedBy="recepisses")
+    */
+    protected $miseHorsTension;
+
+
+    /**
+    * Doctrine Array
+    *
+    * Liste des catégorie réseau concernée de l'exploitant Mairie
+    *
+    * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite")
+    */
+    private $dispositifsSecurite;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->emplacementReseauOuvrage = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -527,5 +581,144 @@ class Recepisse
     {
         return $this->telResponsableDossier;
     }
-}
 
+    /**
+     * Set reponse
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse
+     *
+     * @return Recepisse
+     */
+    public function setReponse(\MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse)
+    {
+        $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * Get reponse
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Model\Reponse
+     */
+    public function getReponse()
+    {
+        return $this->reponse;
+    }
+
+    /**
+     * Add emplacementsReseauOuvrage
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $emplacementReseauOuvrage
+     *
+     * @return Recepisse
+     */
+    public function addEmplacementsReseauOuvrage(\MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $emplacementReseauOuvrage)
+    {
+        $this->emplacementsReseauOuvrage[] = $emplacementReseauOuvrage;
+
+        return $this;
+    }
+
+    /**
+     * Remove emplacementsReseauOuvrage
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $emplacementReseauOuvrage
+     */
+    public function removeEmplacementsReseauOuvrage(\MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $emplacementReseauOuvrage)
+    {
+        $this->emplacementsReseauOuvrage->removeElement($emplacementReseauOuvrage);
+    }
+
+    /**
+     * Get emplacementsReseauOuvrage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmplacementsReseauOuvrage()
+    {
+        return $this->emplacementsReseauOuvrage;
+    }
+
+    /**
+     * Set rendezVous
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous $rendezVous
+     *
+     * @return Recepisse
+     */
+    public function setRendezVous(\MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous $rendezVous = null)
+    {
+        $this->rendezVous = $rendezVous;
+
+        return $this;
+    }
+
+    /**
+     * Get rendezVous
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous
+     */
+    public function getRendezVous()
+    {
+        return $this->rendezVous;
+    }
+
+    /**
+     * Set miseHorsTension
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $miseHorsTension
+     *
+     * @return Recepisse
+     */
+    public function setMiseHorsTension(\MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $miseHorsTension = null)
+    {
+        $this->miseHorsTension = $miseHorsTension;
+
+        return $this;
+    }
+
+    /**
+     * Get miseHorsTension
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage
+     */
+    public function getMiseHorsTension()
+    {
+        return $this->miseHorsTension;
+    }
+
+    /**
+     * Add dispositifsSecurite
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite
+     *
+     * @return Recepisse
+     */
+    public function addDispositifsSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite)
+    {
+        $this->dispositifsSecurite[] = $dispositifsSecurite;
+
+        return $this;
+    }
+
+    /**
+     * Remove dispositifsSecurite
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite
+     */
+    public function removeDispositifsSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite)
+    {
+        $this->dispositifsSecurite->removeElement($dispositifsSecurite);
+    }
+
+    /**
+     * Get dispositifsSecurite
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDispositifsSecurite()
+    {
+        return $this->dispositifsSecurite;
+    }
+}

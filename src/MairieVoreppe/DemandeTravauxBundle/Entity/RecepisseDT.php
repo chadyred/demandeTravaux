@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MairieVoreppe\DemandeTravauxBundle\Model\Recepisse;
 
 /**
  * RecepisseDT
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDTRepository")
  */
-class RecepisseDT
+class RecepisseDT extends Recepisse
 {
     /**
      * @var integer
@@ -19,7 +20,7 @@ class RecepisseDT
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var boolean
