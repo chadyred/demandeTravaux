@@ -7,11 +7,11 @@ recepissedict_show:
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDICT:show" }
 
 recepissedict_new:
-    path:     /new
+    path:     /{id_dict}/new
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDICT:new" }
 
 recepissedict_create:
-    path:     /create
+    path:     /{id_dict}/create
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDICT:create" }
     methods:  POST
 

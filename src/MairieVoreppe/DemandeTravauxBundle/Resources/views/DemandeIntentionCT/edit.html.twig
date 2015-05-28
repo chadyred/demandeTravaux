@@ -4,11 +4,16 @@
  {% block travaux_content %}
     <h1>DemandeIntentionCT edit</h1>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-3">
             <a href="{{ path('arretepromulgue_new', {'id_dict': entity.id}) }}" class="btn btn-default">
                 Générer un arrêté
             </a>
-        </div>        
+        </div>       
+        <div class="col-lg-3">
+            <a href="{{ path('recepissedict_new', {'id_dict': entity.id}) }}" class="btn btn-default">
+                Créer un récépissé
+            </a>
+        </div>      
     </div>
     {# Indique un message lorsque la dict est est une dtDictLie. Celui-ci peut apparaitre si on choisie une DT déjà conjointe lors de l'action update qui rééxécute s
     se formulaire car la DICT sera tout de même hydratée par la DT.#}

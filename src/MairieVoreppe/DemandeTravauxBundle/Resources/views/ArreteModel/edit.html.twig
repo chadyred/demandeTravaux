@@ -3,7 +3,7 @@
 {% block corps %}
     <h1>ArreteModel edit</h1> 
     
-{#    {{ dump(reflectionClass) }}#}
+{# {{ dump(reflectionClass) }} #}
      <div class="row">
             <div class=" col-lg-12">
             Information sur les travaux : 
@@ -38,7 +38,7 @@
                               {{  "{{ %s.service.mairie.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
                           </option>
                           {% endfor %}
-                        {% else %}
+                         {% else %}
                             {% if propertyMairie.name == 'maireEnCours' %}
                                {% for propertyMaire in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Maire'].properties %}
                                <option>

@@ -143,12 +143,12 @@ class ArreteModelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        //Ces instance sont nécessaire pour la réflexivité sans quoi, 
-        $pm = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonneMorale();
-        $pm = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique();
-        $pm = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale();
-        $pm = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique();
-        $pm = new \MairieVoreppe\DemandeTravauxBundle\Entity\Maire();
+        //Ces instance sont nécessaire pour la réflexivité sans quoi elle ne seront pas trouvée 
+        $pma = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonneMorale();
+        $pme = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique();
+        $pmi = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale();
+        $pms = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique();
+        $pmd = new \MairieVoreppe\DemandeTravauxBundle\Entity\Maire();
         
         $classeArreteModel = new \ReflectionClass('MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT');
         
@@ -275,12 +275,13 @@ class ArreteModelController extends Controller
         $this->reflectionClass[$classe->name] = $classe;
         $attribut_method[$classe->name][] = array();
 
-        //var_dump($classe);
+        //var_dump(get_declared_classes());
          foreach ($classe->getProperties() as $attribut) {
              //ReflectionException
             //var_dump($attribut);
             $trouveSet = false;
             $trouveAdd = false;
+
             foreach($classe->getMethods() as $method){
                 if($method->getName() === 'set' . ucfirst($attribut->name))
                     $trouveSet = true;
@@ -310,6 +311,7 @@ class ArreteModelController extends Controller
                 //var_dump("Parameter => ");
                 $parameter = $methodAttribut->getParameters()[0];
                 $classAssociation = $parameter->getClass();
+
                 if($classAssociation != NULL)
                 {                
                     //On récupère la classe associé présente dans el type du paramêtre de la fonction
@@ -326,8 +328,18 @@ class ArreteModelController extends Controller
                     */
                     if(!array_key_exists($nameClassAssociation, $this->reflectionClass) && $nameClassAssociation && !in_array($nameClassAssociation, $classExlus))
                     {
-                       
-                            $this->reflection($classAssociation);
+                            // var_dump("classAssociationName => " . $classAssociation->getName());
+
+                        //Intrspection de la classe 
+                        $this->reflection($classAssociation);
+
+                        //Les classe enfants ne sont pas prise en compte automatiquement. Il est nécessaire de le faire manuellement
+                       $result = $this->getSubclassesOf($classAssociation);
+                       foreach($result as $subclass){
+                             // var_dump("Sous classe trouvé => " . $subclass);
+                            $this->reflection(new \ReflectionClass($subclass));
+                        }
+
 
                     }
                     else
@@ -339,12 +351,16 @@ class ArreteModelController extends Controller
         }  
     }
     
+    /**
+    * Fonction qui me permet de comparé le nom d'un namepace avec un autre, en situant une entité en particulié 
+    * et permet de vérifier si des enfants d'une entités existe.
+    */
     private function getSubclassesOf($parent) {
         $result = array();
         foreach (get_declared_classes() as $class) {
-            if (is_subclass_of($class, $parent)){
+            // var_dump($class);
+            if (is_subclass_of($class, $parent->getName())){
                 $result[] = $class;
-//            var_dump($class);
             }
         }
         return $result;

@@ -1,6 +1,6 @@
 <?php
 
-namespace MairieVoreppe\DemandeTravauxBundle\Entity;
+namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 /**
  * RecepisseRepository

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT;
+use MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT;
 use MairieVoreppe\DemandeTravauxBundle\Form\RecepisseDICTType;
 
 /**
@@ -33,9 +34,21 @@ class RecepisseDICTController extends Controller
      * Creates a new RecepisseDICT entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id_dict)
     {
+         $em = $this->getDoctrine()->getManager();
+
+        //Je récupère la dict à laquelle le récépissé est lié
+        $dict = $em->getRepository('MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT')->find($id_dict);
+
+        if (!$dict) {
+            throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
+        }
+
+        //On indique la DICT que l'on désire récupérer
         $entity = new RecepisseDICT();
+        $entity->setDict($dict);
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -60,10 +73,10 @@ class RecepisseDICTController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(RecepisseDICT $entity)
+    private function createCreateForm(RecepisseDICT $entity, DemandeIntentionCT $dict)
     {
         $form = $this->createForm(new RecepisseDICTType(), $entity, array(
-            'action' => $this->generateUrl('recepissedict_create'),
+            'action' => $this->generateUrl('recepissedict_create', array('id_dict' => $dict->getId() )),
             'method' => 'POST',
         ));
 
@@ -76,14 +89,25 @@ class RecepisseDICTController extends Controller
      * Displays a form to create a new RecepisseDICT entity.
      *
      */
-    public function newAction()
+    public function newAction($id_dict)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        //Je récupère la dict à laquelle le récépissé est lié
+        $dict = $em->getRepository('MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT')->find($id_dict);
+
+        if (!$dict) {
+            throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
+        }
+
         $entity = new RecepisseDICT();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $dict);
+
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDICT:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'dict'   => $dict
         ));
     }
 

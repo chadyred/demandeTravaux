@@ -81,7 +81,7 @@ class DemandeTravaux extends Travaux
    /**
     * RecepisseDt : récpissé résultant d'un traitement sur cette entité
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT")
     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
     */
     private $recepisseDt;
@@ -171,7 +171,7 @@ class DemandeTravaux extends Travaux
      *
      * @return DemandeTravaux
      */
-    public function setRecepisseDt(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt $recepisseDt = null)
+    public function setRecepisseDt(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT $recepisseDt = null)
     {
         $this->recepisseDt = $recepisseDt;
 

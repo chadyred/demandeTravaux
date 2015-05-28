@@ -7,7 +7,7 @@ recepissedt_show:
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:show" }
 
 recepissedt_new:
-    path:     /new
+    path:     /{id_dt}/new
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:new" }
 
 recepissedt_create:

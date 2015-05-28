@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseRepository")
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Model\RecepisseRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({ 
- * "recepisseDt"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDt", 
- * "recepisseDict"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict"
+ * "recepisseDt"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT", 
+ * "recepisseDict"="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT"
  *  })
  */
 abstract class Recepisse
@@ -45,6 +45,17 @@ abstract class Recepisse
      * @ORM\Column(name="modificationEnCours", type="boolean")
      */
     protected $modificationEnCours;
+
+
+    /**
+     * @var boolean
+     *
+     * Permet de voir rapidement si le chantier est sensible ou non
+     *
+     * @ORM\Column(name="chantierSensible", type="boolean")
+     */
+    protected $chantierSensible;
+
 
     /**
      * @var string
@@ -186,6 +197,7 @@ abstract class Recepisse
     public function __construct()
     {
         $this->emplacementReseauOuvrage = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dateCreation = new \DateTime('now');
     }
 
     /**
@@ -268,6 +280,31 @@ abstract class Recepisse
     public function getModificationEnCours()
     {
         return $this->modificationEnCours;
+    }
+
+
+    /**
+     * Set chantierSensible
+     *
+     * @param boolean $chantierSensible
+     *
+     * @return Recepisse
+     */
+    public function setChantierSensible($chantierSensible)
+    {
+        $this->chantierSensible = $chantierSensible;
+
+        return $this;
+    }
+
+    /**
+     * Get modificationEnCours
+     *
+     * @return boolean
+     */
+    public function getChantierSensible()
+    {
+        return $this->chantierSensible;
     }
 
     /**

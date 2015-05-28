@@ -73,7 +73,7 @@ class DemandeIntentionCT extends Travaux
     /**
     * RecepisseDICT
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT")
     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
     */
     private $recepisseDict;
@@ -271,7 +271,7 @@ class DemandeIntentionCT extends Travaux
      *
      * @return DemandeIntentionCT
      */
-    public function setRecepisseDict(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDict $recepsseDict = null)
+    public function setRecepisseDict(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT $recepsseDict = null)
     {
         $this->recepisseDict = $recepisseDict;
 

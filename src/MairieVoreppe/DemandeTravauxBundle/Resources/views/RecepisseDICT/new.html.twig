@@ -1,15 +1,32 @@
-{% extends '::base.html.twig' %}
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Recepisse:layout.html.twig' %}
+{% block main_content %}
 
-{% block body -%}
-    <h1>RecepisseDICT creation</h1>
 
-    {{ form(form) }}
+    {% block recepisse_content -%}
+	    <h1>RecepisseDICT creation</h1>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('recepissedict') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+        {{ form_start(form) }}
+	    	<div class="row">
+	    		<div class="col-lg-3">
+					Entity de création: {{ entity.dateCreation|date('Y-m-d H:i:s') }}
+	    		</div>
+	    		<div class="col-lg-3">
+					Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
+	    		</div>
+	    		<div class="col-lg-3 form-group">
+	    			{{ form_row(form.chantierSensible) }}
+	    		</div>
+	    	</div>
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+
+		        <ul class="record_actions">
+		    <li>
+		        <a href="{{ path('recepissedict') }}">
+		            Back to the list
+		        </a>
+		    </li>
+		</ul>
+	{% endblock recepisse_content %}
 {% endblock %}

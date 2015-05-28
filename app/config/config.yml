@@ -34,7 +34,7 @@ twig:
     form:
         resources:
             - MairieVoreppeUsefulBundle::fields.html.twig #redefinition de l'autocomplete
-            - 'bootstrap_3_layout.html.twig'
+            - 'bootstrap_3_layout.html.twig' #le form_label(variable, string) ne marche plus 
 
 # Assetic Configuration
 assetic:

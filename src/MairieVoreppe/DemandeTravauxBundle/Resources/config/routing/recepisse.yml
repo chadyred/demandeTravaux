@@ -1,0 +1,3 @@
+recepisse:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Recepisse:index" }

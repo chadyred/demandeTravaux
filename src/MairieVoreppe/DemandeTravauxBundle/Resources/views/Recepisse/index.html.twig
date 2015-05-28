@@ -1,0 +1,59 @@
+{# Cette vue à pour but de listé l'ensemble des récépissés, c'est-à-dire ceux de DT et de DICT #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Recepisse:layout.html.twig' %}
+
+{% block recepisse_content -%}
+   
+
+    <div class="row">    
+
+        <div class="col-lg-8 table-responsive">
+            <hr/>
+            <caption>
+                  <h1>Recepisse list</h1>
+            </caption>
+            <table class="records_list table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Délai de réponse</th>
+                    <th>Destinataire</th>
+                    <th>Description</th>
+                    <th>Type récépissé</th>
+                    <th>Type d'envoie</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('recepisse_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                             {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
+                                DT
+                             {% else %}
+                                {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT') %}
+                                    DICT
+                                {% endif %}
+                             {% endif %}
+                        </td>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('recepisse_show', { 'id': entity.id }) }}">show</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('recepisse_edit', { 'id': entity.id }) }}">edit</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock recepisse_content %}

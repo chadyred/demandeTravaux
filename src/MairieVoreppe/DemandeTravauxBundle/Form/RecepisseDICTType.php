@@ -15,7 +15,7 @@ class RecepisseDICTType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateCreation')
+            ->add('chantierSensible')
             ->add('extensionPrevue')
             ->add('modificationEnCours')
             ->add('nomRepresentant')
@@ -31,9 +31,7 @@ class RecepisseDICTType extends AbstractType
             ->add('telServiceDepartementIncendieSecours')
             ->add('responsableDossier')
             ->add('telResponsableDossier')
-            ->add('concerne', new ConcerneType())
-            ->add('concerne', new ConcerneType())
-            ->add('concerne', new ConcerneType())
+            ->add('reponse', new ConcerneType())
             ->add('rendezVous', new RendezVousType())
             ->add('miseHorsTension', new MiseHorsTensionType())
         ;
