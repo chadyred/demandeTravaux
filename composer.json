@@ -49,7 +49,7 @@
         "knplabs/knp-snappy-bundle": "1.2.*@dev",
         "symfony/intl": "2.8.*@dev",
         "stephanecollot/datetimepicker-bundle": "dev-master",
-        "chadyred/fpdf-fpdi-symfony2": "dev-master"
+        "chadyred/fpdf-fpdi-symfony2": "dev-lib"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

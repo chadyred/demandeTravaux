@@ -24,20 +24,17 @@ class AccueilController extends Controller
 		$dt = new \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux();
 		$recepisseDT = new \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT();
 
-		$swissNumberStr = "0476911238";
+		$numeroTelephone = "0476911238";
 		$phoneUtil = PhoneNumberUtil::getInstance();
 
 		try {
-		    $swissNumberProto = $phoneUtil->parse($swissNumberStr, "FR");
+		    $numeroTelephoneProto = $phoneUtil->parse($numeroTelephone, "FR");
 		    // var_dump($swissNumberProto);
 		} catch (\libphonenumber\NumberParseException $e) {
 		    var_dump($e);
 		}
 
-		$recepisseDT->setTelephoneRepresentant($swissNumberProto);
-
-
-
+		$recepisseDT->setTelephoneRepresentant($numeroTelephoneProto);
 		$dt->setRecepisseDt($recepisseDT);
 
 
@@ -56,14 +53,23 @@ class AccueilController extends Controller
 		// now write some text above the imported page
 		$pdf->SetFont('Helvetica', "", 8);
 		$pdf->SetTextColor(0, 0, 0);
-
 		
-		$pdf->ajouterNumeroRepresentant($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
 		
-		//TODO : il faut plutot envoyé la dict directement et identifier son type
-		$pdf->checkboxTypeDemande(get_class($dt));
+		/**
+		* Affichage des différents éléments
+		*/
+		$pdf->checkboxTypeDemande($dt);
 		$pdf->destinataireDenomination("Zone destinataire>denomination");
 		$pdf->destinataireComplement("Zone destinataire>complement");
+		$pdf->ajouterNumeroRepresentant($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
+		$pdf->destinataireNumeroRueTravaux("Zone destinataire>numeroRue");
+		$pdf->destinataireLieuDitBp("Zone destinataire>lieuDitBp");
+		$pdf->destinataireCodePostal("38140");
+		$pdf->destinataireCommune("Zone destinataire>commune");
+
+		
+		$pdf->SetFont('Helvetica', "", 8);
+		$pdf->SetTextColor(0, 0, 0);
 
 
 		$pdf->Output();

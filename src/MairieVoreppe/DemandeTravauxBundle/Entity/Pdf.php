@@ -2,30 +2,14 @@
 
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
+
 class Pdf extends \FPDI
 {
-
-
-	//Fonction qui représente une zone ciblée destinataireDenomination
-	function destinataireDenomination($string)
-	{ 
-
-		// Décalage de 10 cm vers la droite et 40 vers le bas
-		$this->SetXY(102, 47);
-		$this->Cell(200,10,$string,0,0,'l',0); 
-	} 
-
-	//Fonction qui représente une zone ciblée destinataireComplement
-	function destinataireComplement($string)
-	{ 
-		// Décalage de 8 cm à droite
-		$this->SetXY(102, 52);
-		$this->Cell(200,10,$string,0,0,'l',0); 
-	} 
-
 	
 	/**
+	*
 	* Checkbox qui cochera la demande
+	*
 	*/
 	function checkboxDemandeDt()
 	{
@@ -64,23 +48,108 @@ class Pdf extends \FPDI
 	/**
 	* Cette fonction cochera la case sur le PDF
 	*/
-	function checkboxTypeDemande($classeTypeDemande)
+	function checkboxTypeDemande($typeDemande)
 	{
+		$classeTypeDemande = get_class($typeDemande);
 
 		switch($classeTypeDemande)
 		{
 			case 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux':
 			{
 				$this->checkboxDemandeDt();
+
+				//TODO : Controle si conjointe avec une DICT
 				break;
 			}
 			case 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT':
 			{
 				$this->checkboxDemandeDict();
+
+				//TODO : Controle si conjointe avec une DT
 				break;
 			}
 		}
 
+	}
+
+
+	/**
+	*
+	* Partie destinataire
+	*
+	*/
+
+	//Fonction qui représente une zone ciblée destinataireDenomination
+	function destinataireDenomination($string)
+	{ 
+		// Décalage de 10 cm vers la droite et 40 vers le bas
+		$this->SetXY(102, 47);
+		$this->Cell(200,10,$string,0,0,'l',0); 
+	} 
+
+	//Fonction qui représente une zone ciblée destinataireComplement
+	function destinataireComplement($string)
+	{ 
+		$this->SetXY(102, 52);
+		$this->Cell(200,10,$string,0,0,'l',0); 
+	} 
+
+
+	//Fonction qui représente une zone ciblée concernant la rue du destinataire
+	function destinataireNumeroRueTravaux($string)
+	{ 
+		$this->SetXY(102, 57);
+		$this->Cell(200,10,$string,0,0,'l',0); 
+	} 
+
+	//Fonction qui représente une zone ciblée concernant l'adresse peut avoir un lieuDit  du destinataire
+	function destinataireLieuDitBp($string)
+	{ 
+
+		$this->SetXY(102, 62);
+		$this->Cell(200,10,$string,0,0,'l',0); 
+	} 
+
+	//Fonction qui représente une zone ciblée concernant le code postale de l'adresse   du destinataire
+	function destinataireCodePostal($string)
+	{ 
+
+		// Helvetica 12
+		$this->SetFont('Helvetica',"",12);
+
+		//-1 signifie aucune limite, PREG_SPLIT_NO_EMPTY retourne que ce qui n'est pas vide
+		$chars = preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY);
+
+		//Chaine vide qui comportera le code postale final
+		$codePostale = "";
+
+		$cellfit = new \FPDF_CellFit();
+
+		//PArcours des lettre
+		for($i = 0;$i < count($chars);$i++)
+		{
+			//Je met un espace après les deux premier charactères
+			if($i != 0)
+				$codePostale .= " " . $chars[$i];
+			else
+				$codePostale .= $chars[$i];
+		}
+
+
+		$this->SetXY(102, 67);
+		// $this->Cell(200,10,$codePostale,0,0,'l',0); 
+		$cellfit->CellFitSpaceForce(200,10,$codePostale,1,1,'',1);
+
+		//Retour à la police normal
+		$this->mainFont();
+	}
+
+
+	//Fonction qui représente une zone ciblée concernant l'adresse peut avoir un lieuDit  du destinataire
+	function destinataireCommune($string)
+	{ 
+		$this->SetXY(120, 67);
+		$this->Cell(200,10,$string,0,0,'l',0); 
 	}
 
 	/**
@@ -89,15 +158,15 @@ class Pdf extends \FPDI
 	public function ajouterNumeroRepresentant($string)
 	{
 		
-		// Arial bold 14
+		// Helvetica 12
 		$this->SetFont('Helvetica',"",12);
 
 		$this->SetXY(170, 150);
 		$this->Cell(200,10,$string,0,0,'l',0); 
 
-		// now write some text above the imported page
-		$this->SetFont('Helvetica', "", 8);
-		$this->SetTextColor(0, 0, 0);
+		//Retour à la police normal
+		$this->mainFont();
+
 	}
 
 	public function getUploadDir()
@@ -127,4 +196,15 @@ class Pdf extends \FPDI
     }
 
 
+	/**
+	*
+	* Lorsque l'on change de police il faut remettre la principale. En effet, il n'y a qu'une seul et même police définissable pour un document
+	*
+	*/
+    public function mainFont()
+    {
+
+		$this->SetFont('Helvetica', "", 8);
+		$this->SetTextColor(0, 0, 0);
+    }
 }
