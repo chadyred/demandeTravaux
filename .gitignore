@@ -8,6 +8,9 @@ vendor/*
 web/uploads/*
 web/bundles/*
 
+#Allow
+!web/uploads/pdf/*
+
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
