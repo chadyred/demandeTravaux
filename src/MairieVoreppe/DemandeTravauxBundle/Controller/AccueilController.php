@@ -4,13 +4,15 @@ namespace MairieVoreppe\DemandeTravauxBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MairieVoreppe\DemandeTravauxBundle\Entity\Pdf;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumber;
+use libphonenumber\PhoneNumberUtil;
 
 class AccueilController extends Controller
 {
     public function indexAction()
     {
         $this->generationPdf();
-
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Accueil:index.html.twig');
     }
@@ -19,9 +21,24 @@ class AccueilController extends Controller
 	{
 		// initiate FPDI
 		$pdf = new Pdf();
+		$dt = new \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux();
 		$recepisseDT = new \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT();
-		$recepisseDT->setTelephoneRepresentant('+33476932334');
 
+		$swissNumberStr = "0476911238";
+		$phoneUtil = PhoneNumberUtil::getInstance();
+
+		try {
+		    $swissNumberProto = $phoneUtil->parse($swissNumberStr, "FR");
+		    // var_dump($swissNumberProto);
+		} catch (\libphonenumber\NumberParseException $e) {
+		    var_dump($e);
+		}
+
+		$recepisseDT->setTelephoneRepresentant($swissNumberProto);
+
+
+
+		$dt->setRecepisseDt($recepisseDT);
 
 
 		// add a page
@@ -40,10 +57,11 @@ class AccueilController extends Controller
 		$pdf->SetFont('Helvetica', "", 8);
 		$pdf->SetTextColor(0, 0, 0);
 
-		$pdf->ajouterNumeroRepresentant($recepisseDT->getTelephoneRepresentant());
+		
+		$pdf->ajouterNumeroRepresentant($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
 		
 		//TODO : il faut plutot envoyé la dict directement et identifier son type
-		$pdf->checkboxTypeDemande(get_class($dict));
+		$pdf->checkboxTypeDemande(get_class($dt));
 		$pdf->destinataireDenomination("Zone destinataire>denomination");
 		$pdf->destinataireComplement("Zone destinataire>complement");
 

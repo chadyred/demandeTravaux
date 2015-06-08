@@ -5,6 +5,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 class Pdf extends \FPDI
 {
 
+
 	//Fonction qui représente une zone ciblée destinataireDenomination
 	function destinataireDenomination($string)
 	{ 
@@ -87,9 +88,16 @@ class Pdf extends \FPDI
 	*/
 	public function ajouterNumeroRepresentant($string)
 	{
-		// Décalage de 8 cm à droite
-		$this->SetXY(105, 150);
+		
+		// Arial bold 14
+		$this->SetFont('Helvetica',"",12);
+
+		$this->SetXY(170, 150);
 		$this->Cell(200,10,$string,0,0,'l',0); 
+
+		// now write some text above the imported page
+		$this->SetFont('Helvetica', "", 8);
+		$this->SetTextColor(0, 0, 0);
 	}
 
 	public function getUploadDir()

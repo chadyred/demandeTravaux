@@ -8,7 +8,7 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "symfony/symfony": "2.7.*@dev",
+        "symfony/symfony": "2.8.*@dev",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/dbal":"~2.2",
@@ -48,7 +48,8 @@
         "egeloen/ckeditor-bundle": "3.0.*@dev",
         "knplabs/knp-snappy-bundle": "1.2.*@dev",
         "symfony/intl": "2.8.*@dev",
-        "stephanecollot/datetimepicker-bundle": "dev-master"
+        "stephanecollot/datetimepicker-bundle": "dev-master",
+        "chadyred/fpdf-fpdi-symfony2": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -85,7 +86,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "2.7-dev"
+            "dev-master": "2.8-dev"
         }
     }
 }

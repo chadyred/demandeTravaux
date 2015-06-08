@@ -29,6 +29,8 @@ class RecepisseDT extends Recepisse
      */
     private $prevoirInvestiguation;
 
+    
+    private $dt;
 
     /**
      * Get id

@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 
 
 /**
@@ -67,7 +68,8 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="telephoneRepresentant", type="string", length=255)
+     * @ORM\Column(name="telephoneRepresentant", type="phone_number", length=255)
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telephoneRepresentant;
 
