@@ -271,7 +271,7 @@ class DemandeIntentionCT extends Travaux
      *
      * @return DemandeIntentionCT
      */
-    public function setRecepisseDict(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT $recepsseDict = null)
+    public function setRecepisseDict(\MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT $recepisseDict = null)
     {
         $this->recepisseDict = $recepisseDict;
 

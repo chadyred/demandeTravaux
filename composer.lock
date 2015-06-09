@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chadyred/fpdf-fpdi-symfony2.git",
-                "reference": "078d1e72361bdf2ca288efd692580aed17dd6a49"
+                "reference": "1bcc0c45caf5daab29191f4717e1e782150ef49a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chadyred/fpdf-fpdi-symfony2/zipball/078d1e72361bdf2ca288efd692580aed17dd6a49",
-                "reference": "078d1e72361bdf2ca288efd692580aed17dd6a49",
+                "url": "https://api.github.com/repos/chadyred/fpdf-fpdi-symfony2/zipball/1bcc0c45caf5daab29191f4717e1e782150ef49a",
+                "reference": "1bcc0c45caf5daab29191f4717e1e782150ef49a",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,8 @@
             "autoload": {
                 "classmap": [
                     "lib/draw/draw.php",
-                    "lib/cellfit/cellfit.php"
+                    "lib/cellfit/cellfit.php",
+                    "lib/DecoratorPdf.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -43,7 +44,7 @@
             ],
             "description": "fpdf vendor for use with symfony2, based on toooni/fpdf",
             "homepage": "http://github.com/chadyred",
-            "time": "2015-06-08 14:54:47"
+            "time": "2015-06-09 09:57:57"
         },
         {
             "name": "cocur/slugify",
@@ -3201,12 +3202,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "dccac1c6000683a89ea928629745ac8bb1aa1a5a"
+                "reference": "61300928d08bf9a20fae974266759e4f76cb54e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/dccac1c6000683a89ea928629745ac8bb1aa1a5a",
-                "reference": "dccac1c6000683a89ea928629745ac8bb1aa1a5a",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/61300928d08bf9a20fae974266759e4f76cb54e2",
+                "reference": "61300928d08bf9a20fae974266759e4f76cb54e2",
                 "shasum": ""
             },
             "require": {
@@ -3279,7 +3280,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-06-08 13:13:38"
+            "time": "2015-06-08 19:53:01"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3411,12 +3412,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataClassificationBundle.git",
-                "reference": "c06b58de29ce0856599afe17247c5787f8be9ce0"
+                "reference": "afd0e4c9ea6b17300d186b0d74700bc0b21a0cba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataClassificationBundle/zipball/c06b58de29ce0856599afe17247c5787f8be9ce0",
-                "reference": "c06b58de29ce0856599afe17247c5787f8be9ce0",
+                "url": "https://api.github.com/repos/sonata-project/SonataClassificationBundle/zipball/afd0e4c9ea6b17300d186b0d74700bc0b21a0cba",
+                "reference": "afd0e4c9ea6b17300d186b0d74700bc0b21a0cba",
                 "shasum": ""
             },
             "require": {
@@ -3467,7 +3468,7 @@
                 "tag",
                 "taxonomy"
             ],
-            "time": "2015-06-08 12:52:56"
+            "time": "2015-06-08 15:48:11"
         },
         {
             "name": "sonata-project/core-bundle",
@@ -4504,12 +4505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "90f771c751849818357eb88c66515ddf4e7ad4bf"
+                "reference": "0315e5dd51186fe377a07c502ca0574eedbdd320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/90f771c751849818357eb88c66515ddf4e7ad4bf",
-                "reference": "90f771c751849818357eb88c66515ddf4e7ad4bf",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/0315e5dd51186fe377a07c502ca0574eedbdd320",
+                "reference": "0315e5dd51186fe377a07c502ca0574eedbdd320",
                 "shasum": ""
             },
             "require": {
@@ -4618,7 +4619,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-06-08 14:00:21"
+            "time": "2015-06-08 18:23:00"
         },
         {
             "name": "twig/extensions",

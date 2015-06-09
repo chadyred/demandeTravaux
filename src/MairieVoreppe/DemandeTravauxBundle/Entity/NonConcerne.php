@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
 
 /**
  * NonConcerne
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\NonConcerneRepository")
  */
-class NonConcerne
+class NonConcerne extends Reponse
 {
     /**
      * @var integer
