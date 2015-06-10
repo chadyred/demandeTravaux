@@ -68,7 +68,6 @@ class AccueilController extends Controller
 		//Partie destinataire
 		$pdf->destinataireDenomination("Zone destinataire>denomination");
 		$pdf->destinataireComplement("Zone destinataire>complement");
-		$pdf->ajouterNumeroRepresentant($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
 		$pdf->destinataireNumeroRueTravaux("Zone destinataire>numeroRue");
 		$pdf->destinataireLieuDitBp("Zone destinataire>lieuDitBp");
 		$pdf->destinataireCodePostal("38140");
@@ -96,9 +95,43 @@ class AccueilController extends Controller
 
 		//Partie réponse
 		$pdf->reponseCheckboxTypeReponse($recepisseDT->getReponse());
+		$pdf->reponseInformationDemandeImprecise('reponseInformationDemandeImprecise');
+		$pdf->reponseDistanceNonConcerne(150);
+		$categories = array('HC', 'PC', 'GA');
+		$pdf->reponseCategorieConcernee($categories);
+
+		//Partie 'Modification ou extension de nos réseau ou ouvrage'
+		$pdf->modificationOuvrageEnvisagee("modificationOuvrageEnvisagee");
+		$pdf->modificationCheckboxOuvrageEnCours();
+		$pdf->modificationContactRepresentant("modificationContactRepresentant");
+		$pdf->modificationAjouterNumeroRepresentant($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
 		
-		$pdf->SetFont('Helvetica', "", 8);
-		$pdf->SetTextColor(0, 0, 0);
+		//Partie Emplacement réseaux et ouvrages
+		$pdf->reseauCheckboxPlanJoint();
+		$pdf->reseauPremiereReference("premiereReference");
+		$pdf->reseauPremiereEchelle("premiereEchelle");
+		$pdf->reseauPremiereDateEditionPlan(new \DateTime('now'));
+		$pdf->reseauPremiereCheckboxSensible();
+		$pdf->reseauPremiereProfReglMini(133);
+		$pdf->reseauPremiereMateriaux("materiaux1");
+		$pdf->reseauDeuxiemeReference("DeuxiemeReference");
+		$pdf->reseauDeuxiemeEchelle("DeuxiemeEchelle");
+		$pdf->reseauDeuxiemeDateEditionPlan(new \DateTime('now'));
+		$pdf->reseauDeuxiemeCheckboxSensible();
+		$pdf->reseauDeuxiemeProfReglMini(133);
+		$pdf->reseauDeuxiemeMateriaux("materiaux2");
+		$pdf->reseauCheckboxDateRetenueCommunAccord();
+		$pdf->reseauDateHeureRetenueCommunAccord(new \DateTime('now'));
+		$pdf->reseauCheckboxPriseRendezVousInitiativeDeclarant();
+		$pdf->reseauPriseRendezVousInitiativeDeclarant(new \DateTime('now'));
+		$pdf->securiteRecommandationTechnique("securiteRecommandationTechnique");
+		$pdf->securiteRubriqueGuideTechnique("securiteRubriqueGuideTechnique");
+		$pdf->securiteMesureMettreEnOeuvre("Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant im. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.");
+
+		$pdf->reseauCheckboxReunionChantier();
+		$pdf->reseauCheckboxTenirCompteServitude();
+		$pdf->reseauCheckboxRecepisseDtInvestigationComplementaire();
+		$pdf->reseauCheckboxBranchementRattache();
 
 
 		$pdf->Output();
