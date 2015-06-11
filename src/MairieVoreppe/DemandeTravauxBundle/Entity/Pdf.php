@@ -5,7 +5,9 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 class Pdf extends \FPDI
 {
-	
+	//Valeur définis dans le controller et insérer dans le footer
+	public $numServiceResponsable = "";
+
 	/**
 	*
 	* Checkbox qui cochera la demande
@@ -777,6 +779,24 @@ class Pdf extends \FPDI
 		$this->Cell(200,10,$string,0,0,'l',0); 	
 	}
 
+	public function securiteMiseHorsTension($bool)
+	{
+		//Permet de faire un point noir
+		$style = array('width' => 1, 'cap' => 'butt', 'join' => 'miter', 'dash' => null, 
+			'color' => array(0, 0, 0));
+
+		//PdfDraw enrichie avec la pattern Decorator mon PDF
+		$draw = new \PDF_Draw($this);
+		//Cercle classique
+		// $draw->Circle(110.3, 219.8, 20);
+
+		//Le premier point sera pour la mise hors tension
+		if($bool)
+			$draw->Circle(152.1, 229.3, 0.8, 0, 360, 'F', $style);
+		else
+			$draw->Circle(170.3, 229.3, 0.8, 0, 360, 'F', $style);			
+	}
+
 	//Fonction qui permet d'indiquer sur deux ligne les mesure de sécurité à mettre en oeuvre
 	public function securiteMesureMettreEnOeuvre($string)
 	{
@@ -835,6 +855,124 @@ class Pdf extends \FPDI
 
 	
 	}
+
+	//Fonction qui permet d'indiquer les dispositif de sécurité importants.
+	public function securiteDispositifImportant($string)
+	{
+			//Sinon seul la première ligne existe
+			$this->SetXY(64.5, 239.4);
+			$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 	
+	}
+
+	/***********
+	*
+	* Partie cas de dégradation d'un ouvrage
+	*
+	******/
+	//Numéro de téléphone a contacté en cas de dégradation
+	public function degradationNumeroService($string)
+	{
+		// Helvetica 12
+		$this->SetFont('Helvetica',"",10);
+
+		$cellfit = new \FPDF_CellFit($this);
+
+		//Sinon seul la première ligne existe
+		$this->SetXY(138.3, 246.8);
+
+		//Permet d'espacer les lettres de manière égale
+		$cellfit->CellFitSpaceForce(30.3, 10, $string, 0, 0, 'l', 0);
+
+		//Retour à la police normal
+		$this->mainFont();
+	}
+
+
+	//Anomalie suceptible de mettre en cause la sécurite
+	public function securiteAnomalie($string)
+	{
+		//Sinon seul la première ligne existe
+		$this->SetXY(57, 258);
+		$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+	}
+
+	/***********
+	*
+	* Partie cas 'Responsable du dossier'
+	*
+	******/
+	public function responsableDossierNom($string)
+	{
+		//Sinon seul la première ligne existe
+		$this->SetXY(18.5, 268.3);
+		$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+
+	}
+
+	//NOm du service responsable du dossier
+	public function responsableDossierService($string)
+	{
+		//Sinon seul la première ligne existe
+		$this->SetXY(40, 272.3);
+		$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+
+	}
+
+
+	/**
+	*
+	* CETTE FONCTION EST PLACEE DANS LE FOOTER, CELUI EST DEFINI PAR LA CLASSE MERE A - 1.5 LA Où SE SITUE 
+	* LE NUMERO DE TELEPHONE DU RESPONSABLE DU SERVICE. LA FONCTION CELL (ou ici CELLFITSPACEFORCE)
+	* REDÉFINIS CEPENDANT CETTE POSITION.
+	* 
+	* Numéro de téléphone du service responsable du dossier
+	*
+	*/
+	public function responsableNumeroService($string)
+	{
+		// Helvetica 12
+		$this->SetFont('Helvetica',"",10);
+
+		$cellfit = new \FPDF_CellFit($this);
+
+		//Sinon seul la première ligne existe
+		$this->SetXY(17, 277);
+
+		//Permet d'espacer les lettres de manière égale
+		$cellfit->CellFitSpaceForce(30.3, 5, $string, 0, 0, 'l', 0);
+
+		//Retour à la police normal
+		$this->mainFont();
+		// Sinon seul la première ligne existe
+		// $this->SetXY(15, 272.5);
+		// $this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+	}
+
+	/***********
+	*
+	* Partie cas 'Signature exploitant représentant'
+	*
+	******/
+	//Numéro de téléphone du service responsable du dossier
+	public function signatureExploitantReprésentant($string)
+	{
+		$this->SetXY(135, 268.3);
+		$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+
+	}
+
+	/**
+	*
+	* The footer of FPDF is defined here. I trigger in code whiche instanciate this. 
+	*
+	*/
+    function Footer() 
+     {
+     	//Le footer comment à -1.5cm de la fin. Le seul moyen de le définir est d'appeler une fonction tel que cell qui insère du contenu.
+     	//On va alors appeler celle ci lorsque l'on insère le numéro du responsable du service. En effet, ce numéro ce situe
+     	//dans le footer du PDF.
+     	$this->responsableNumeroService($this->numServiceResponsable);
+     } 
 
 	public function getUploadDir()
     {

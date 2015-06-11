@@ -47,16 +47,18 @@ class AccueilController extends Controller
 		// set the source file
 		$pdf->setSourceFile($pdf->getWebPath());
 
+		$pdf->footer = 1;	
+
 		// import page 1
 		$tplIdx = $pdf->importPage(1);
 
 		// use the imported page and place it at point 0,0 with a width of 210 mm
-		$pdf->useTemplate($tplIdx, 0, 0, 210);
+		$pdf->useTemplate($tplIdx, 0, 0, 210, 297, true);
 
 		// now write some text above the imported page
 		$pdf->SetFont('Helvetica', "", 8);
-		$pdf->SetTextColor(0, 0, 0);
-		
+		$pdf->SetTextColor(0, 0, 0);	
+	
 		
 		/**
 		* Affichage des différents éléments
@@ -108,6 +110,10 @@ class AccueilController extends Controller
 		
 		//Partie Emplacement réseaux et ouvrages
 		$pdf->reseauCheckboxPlanJoint();
+		$pdf->reseauCheckboxReunionChantier();
+		$pdf->reseauCheckboxTenirCompteServitude();
+		$pdf->reseauCheckboxRecepisseDtInvestigationComplementaire();
+		$pdf->reseauCheckboxBranchementRattache();
 		$pdf->reseauPremiereReference("premiereReference");
 		$pdf->reseauPremiereEchelle("premiereEchelle");
 		$pdf->reseauPremiereDateEditionPlan(new \DateTime('now'));
@@ -126,12 +132,21 @@ class AccueilController extends Controller
 		$pdf->reseauPriseRendezVousInitiativeDeclarant(new \DateTime('now'));
 		$pdf->securiteRecommandationTechnique("securiteRecommandationTechnique");
 		$pdf->securiteRubriqueGuideTechnique("securiteRubriqueGuideTechnique");
-		$pdf->securiteMesureMettreEnOeuvre("Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant im. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.");
+		$pdf->securiteMesureMettreEnOeuvre("Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant im. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme ");
+		$pdf->securiteDispositifImportant("securiteDispositifImportant");
+		$pdf->securiteMiseHorsTension(true);
 
-		$pdf->reseauCheckboxReunionChantier();
-		$pdf->reseauCheckboxTenirCompteServitude();
-		$pdf->reseauCheckboxRecepisseDtInvestigationComplementaire();
-		$pdf->reseauCheckboxBranchementRattache();
+		//Partie dégradation
+		$pdf->degradationNumeroService($phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
+		$pdf->securiteAnomalie("securiteAnomalie");
+
+		//Partie responsable projet
+		$pdf->responsableDossierNom("responsableDossierNom");
+		$pdf->responsableDossierService("responsableDossierService");
+		$pdf->numServiceResponsable = $phoneUtil->format($recepisseDT->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL);
+
+		//Partie signature
+		$pdf->signatureExploitantReprésentant("signatureExploitantReprésentant");
 
 
 		$pdf->Output();
