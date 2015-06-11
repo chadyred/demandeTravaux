@@ -1,0 +1,1 @@
+$(document).ready(function(){$("select").on("click",function(){$.fn.insertAtCaret(this.value)})});$.fn.insertAtCaret=function(myValue){myValue=myValue.trim();CKEDITOR.instances["mairievoreppe_demandetravauxbundle_arretemodel_contenu"].insertText(myValue)};

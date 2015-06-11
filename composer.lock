@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5157a5849ef404221d71550b3487f16",
+    "hash": "eb9bf9ecc8fc5543d56b94a556afda54",
     "packages": [
         {
             "name": "chadyred/fpdf-fpdi-symfony2",
@@ -2403,6 +2403,64 @@
                 "http client"
             ],
             "time": "2015-06-02 16:48:29"
+        },
+        {
+            "name": "lexik/maintenance-bundle",
+            "version": "dev-master",
+            "target-dir": "Lexik/Bundle/MaintenanceBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lexik/LexikMaintenanceBundle.git",
+                "reference": "a88c311484b9a18b0595fa15768297cbb163c0da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lexik/LexikMaintenanceBundle/zipball/a88c311484b9a18b0595fa15768297cbb163c0da",
+                "reference": "a88c311484b9a18b0595fa15768297cbb163c0da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/dependency-injection": "~2.1",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Lexik\\Bundle\\MaintenanceBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dev Lexik",
+                    "email": "dev@lexik.fr"
+                },
+                {
+                    "name": "Gilles Gauthier",
+                    "email": "g.gauthier@lexik.fr"
+                },
+                {
+                    "name": "Djuri Baars",
+                    "email": "info@djurict.nl"
+                }
+            ],
+            "description": "This bundle allows you to place your website in maintenance mode by calling two commands from your console.",
+            "homepage": "https://github.com/lexik/LexikMaintenanceBundle",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "maintenance"
+            ],
+            "time": "2015-06-01 13:58:35"
         },
         {
             "name": "michelf/php-markdown",
@@ -4907,7 +4965,8 @@
         "knplabs/knp-snappy-bundle": 20,
         "symfony/intl": 20,
         "stephanecollot/datetimepicker-bundle": 20,
-        "chadyred/fpdf-fpdi-symfony2": 20
+        "chadyred/fpdf-fpdi-symfony2": 20,
+        "lexik/maintenance-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

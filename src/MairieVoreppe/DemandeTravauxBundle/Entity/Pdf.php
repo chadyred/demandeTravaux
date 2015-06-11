@@ -806,6 +806,7 @@ class Pdf extends \FPDI
 		$string1 = "";
 		$string2 = "";
 		// var_dump(count(str_split($string)));
+		
 		if(count(str_split($string)) > $maxCharacterePremiereLigne)
 		{
 			if($string[$maxCharacterePremiereLigne] == " ")

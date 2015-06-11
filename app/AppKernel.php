@@ -37,7 +37,8 @@ class AppKernel extends Kernel
             new MairieVoreppe\UserBundle\MairieVoreppeUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new SC\DatetimepickerBundle\SCDatetimepickerBundle()
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

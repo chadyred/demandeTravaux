@@ -12,7 +12,7 @@ class AccueilController extends Controller
 {
     public function indexAction()
     {	
-        $this->generationFullPdfExemple();
+        // $this->generationFullPdfExemple();
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Accueil:index.html.twig');
     }

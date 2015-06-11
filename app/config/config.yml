@@ -237,3 +237,43 @@ knp_snappy:
 # 
 sc_datetimepicker:
     picker: ~
+
+#Permet de mettre le site en maintenance pendant une durée 'lexik:maintenance:lock [--set-ttl]' -> 'lexik:maintenance:unlock'
+lexik_maintenance:
+    authorized:
+        ips: ['172.17.9.66', '127.0.0.1', '::1']
+    driver:        
+          # File driver    
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'                # class for file driver 
+        options: {file_path: %kernel.root_dir%/cache/lock}                         # file_path is the complete path for create the file
+
+    #Optional. response code and status of the maintenance page
+    response:
+        code: 503
+        status: "Service Temporarily Unavailable"    
+
+        Salut Véronique,
+
+voici l'application dans son état de développement actuel (=évoluera). Il me reste encore des fonctionnalités, des détails, de l'ortografe.
+​
+Pour ce connecter:
+
+adresse à ajouter dans vos favoris: http://172.17.0.153:8038/login 
+user: admin
+password: admin
+
+Cette utilisateur est nécessaire pour la phase de test. Il vous permet de tester l'application durant les phases de livrable, sur des versions en BETA TEST (non terminée, les données peuvent ne pas être conservées s'il y a des grosses modifications !).
+Durant cette phase, vous pourrez vous familiariser avec l'application qui changera fréquemment avec des versions corrigées au fur et à mesure.
+
+Vous pouvez dans un premier temps créer la mairie de Voreppe:
+Menu > La Mairie > le lien (pas encore traduit) "Create a new entry" > Remplir les informations:
+- vous pouvez mettre un logo
+- tapez une adresse dans le champs de recherche pour que tout ce remplisse automatiquement, (vous pouvez taper directement "Mairie de Voreppe", et si Mozilla ou Chrome demande une question, il faut répondre "Autoriser" (après il ne la demande plus jamais))
+
+Vous pouvez dans un deuxième temps créer le service de l' "ADTU":
+- en haut tout à droite > Menu déroulant > Administration > Vers la droite, cliquez sur "Service" > Mettre un nom > Cliquez sur l'onglet "Mairie" (petit rectangle un peut au dessus) > Choisir la Mairie fraîchement créée dans la liste > Validé !
+
+Je finis les cours la semaine prochaine, du coup je serai plein gaz par la suite sur cette application.
+
+Cordialement.
+

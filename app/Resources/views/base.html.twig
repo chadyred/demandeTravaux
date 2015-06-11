@@ -27,11 +27,11 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <!-- Bootstrap_js est déjà inclue par bootstrap_datepicker_js (php app/console sp:bower:list) -->
          {% block javascript  %}
               {% javascripts filter='uglifyjs'
                  "@jquery_js"
                  "@jquery_ui_js"
-                 "@bootstrap_js"
                  "@bootstrap_datepicker_js"
                  "@bootstrap_datepicker_js_fr"
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/main.js'
