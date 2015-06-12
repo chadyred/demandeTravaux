@@ -469,3 +469,18 @@ border-bottom-width:2px;
 .border-bottom-xlarge {
 border-bottom-width:4px;
 }
+
+/**
+* Gestion des récépissés
+*/
+
+#bloc-reponse,#bloc-element-reponse, #info-recepisse-creation, #extension-reseau-ouvrage, #recommandations-securite
+{
+    border:black 2px solid;
+}
+
+#reponse
+{
+    height: 500px;
+    overflow: auto;
+}
