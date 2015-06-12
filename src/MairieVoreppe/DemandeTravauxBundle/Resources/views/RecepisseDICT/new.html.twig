@@ -18,20 +18,35 @@
 	    			{{ form_row(form.chantierSensible) }}
 	    		</div>
 	    	</div>
+
 			{% block polycollection_row %}
-					<select id="proto-reponse">
+				<div class="row">
+					<div class="col-lg-8">
+						<h4>
+							Votre réponse au déclarant
+						</h4>
+						<select id="proto-reponse">
 
-			 			{% for type, line in form.reponse.vars.prototypes %}
-			 				<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
-						{% endfor %}
+				 			{% for type, line in form.reponse.vars.prototypes %}
+				 				<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+							{% endfor %}
 
-					</select>
-
-					 <ul class="list-unstyled" id="reponse">
-		                {{ form_label(form.reponse) }}
-		                {{ form_widget(form.reponse) }}
-		            </ul>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-8">
+						<h4>
+							Elément généraux de réponse
+						</h4>
+						 <ul class="list-unstyled" id="reponse">
+			                {{ form_label(form.reponse) }}
+			                {{ form_widget(form.reponse) }}
+			            </ul>
+			        </div>
+	         	</div>
 			{% endblock polycollection_row %}
+
             {{ form_rest(form) }}
         {{ form_end(form) }}
 
