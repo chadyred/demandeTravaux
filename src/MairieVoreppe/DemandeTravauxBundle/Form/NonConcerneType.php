@@ -6,26 +6,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class NonConcerneType extends AbstractType
+class NonConcerneType extends ReponseType
 {
+    protected $dataClass = 'MairieVoreppe\\DemandeTravauxBundle\\Entity\\NonConcerne';
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
             ->add('distanceNC')
         ;
-    }
-    
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\NonConcerne'
+
+         $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
         ));
     }
 

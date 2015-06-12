@@ -14,7 +14,14 @@ class RecepisseDTType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $builder            
+            ->add('reponse', 'infinite_form_polycollection', array(
+                'types' => array(
+                    'mairievoreppe_demandetravauxbundle_demandeimprecise',
+                    'mairievoreppe_demandetravauxbundle_nonconcerne', // The first defined Type becomes the default
+                    'mairievoreppe_demandetravauxbundle_concerne'
+                    ))
+                )
             ->add('prevoirInvestiguation')
             ->add('dateCreation')
             ->add('extensionPrevue')
@@ -31,10 +38,13 @@ class RecepisseDTType extends AbstractType
             ->add('serviceDepartementIncendieSecours')
             ->add('telServiceDepartementIncendieSecours')
             ->add('responsableDossier')
-            ->add('telResponsableDossier')
-            ->add('reponse')
+            ->add('telResponsableDossier')                
             ->add('rendezVous')
             ->add('miseHorsTension')
+            ->add('_type', 'hidden', array(
+                'data'   => $this->getName(),
+                'mapped' => false
+             ))
         ;
     }
     
@@ -44,7 +54,8 @@ class RecepisseDTType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT'
+            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT',
+            'model_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT'
         ));
     }
 

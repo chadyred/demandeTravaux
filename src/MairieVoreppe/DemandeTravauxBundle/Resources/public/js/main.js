@@ -124,7 +124,7 @@ $(document).ready(function(){
 
 /*******************************************************
  * 
- *      Fonction qui permet de gérer les adresse multiple des différents travaux.
+ *      Fonction qui permet de gérer les adresses multiple des différents travaux.
  *  
  ****************************************/
   // J'indique l'instance du prototype corespondant, sont index, ainsi que le nombre de champs obligatoire
@@ -135,8 +135,7 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
        * 
        *      Gestion de l'insertion des adresses obligatoire
        * 
-       ****************************************/
-    
+       ****************************************/    
       
       //Je récupère chaque élément de la liste
       var listeAdresseElmt = instance.find('li');      

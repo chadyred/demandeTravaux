@@ -93,5 +93,10 @@ class CategorieReseauOuvrage
     {
         return $this->description;
     }
+
+    public function __toString()
+    {
+        return $this->getCode() . " - " . $this->getDescription();
+    }
 }
 

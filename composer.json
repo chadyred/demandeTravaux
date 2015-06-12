@@ -50,7 +50,8 @@
         "symfony/intl": "2.8.*@dev",
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "chadyred/fpdf-fpdi-symfony2": "dev-lib",
-        "lexik/maintenance-bundle": "1.0.*@dev"
+        "lexik/maintenance-bundle": "1.0.*@dev",
+        "infinite-networks/form-bundle": "1.0.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

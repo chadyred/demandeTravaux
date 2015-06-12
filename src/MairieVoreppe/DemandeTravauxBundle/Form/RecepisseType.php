@@ -31,7 +31,15 @@ class RecepisseType extends AbstractType
             ->add('telServiceDepartementIncendieSecours')
             ->add('responsableDossier')
             ->add('telResponsableDossier')
-            ->add('reponse')
+            ->add('reponse', 'infinite_form_polycollection', array(
+                'types' => array(
+                    'mairievoreppe_demandetravauxbundle_nonconcerne' => "Concerné", // The first defined Type becomes the default
+                    'mairievoreppe_demandetravauxbundle_concerne' => "Non concerné",
+                    'mairievoreppe_demandetravauxbundle_demandeimprecise' => "Demande imprécise"
+                    ),
+                    'allow_add' => false,
+                    'allow_delete' => false
+               ))
             ->add('rendezVous')
             ->add('miseHorsTension')
             ->add('dispositifsSecurite')

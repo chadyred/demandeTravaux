@@ -18,6 +18,20 @@
 	    			{{ form_row(form.chantierSensible) }}
 	    		</div>
 	    	</div>
+			{% block polycollection_row %}
+					<select id="proto-reponse">
+
+			 			{% for type, line in form.reponse.vars.prototypes %}
+			 				<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+						{% endfor %}
+
+					</select>
+
+					 <ul class="list-unstyled" id="reponse">
+		                {{ form_label(form.reponse) }}
+		                {{ form_widget(form.reponse) }}
+		            </ul>
+			{% endblock polycollection_row %}
             {{ form_rest(form) }}
         {{ form_end(form) }}
 

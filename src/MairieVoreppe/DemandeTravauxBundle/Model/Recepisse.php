@@ -151,7 +151,7 @@ abstract class Recepisse
     protected $telResponsableDossier;
 
    /**
-    * RecepisseDICT
+    * reponse
     *
     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse")
     * @ORM\JoinColumn(nullable=false)

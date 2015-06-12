@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb9bf9ecc8fc5543d56b94a556afda54",
+    "hash": "550810c59bca15c21d6446cc46654797",
     "packages": [
         {
             "name": "chadyred/fpdf-fpdi-symfony2",
@@ -1462,6 +1462,57 @@
             "time": "2015-06-03 08:27:03"
         },
         {
+            "name": "infinite-networks/form-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/infinite-networks/InfiniteFormBundle.git",
+                "reference": "924e3f2c39bbe4f0609e14cb064dd046986d7440"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/infinite-networks/InfiniteFormBundle/zipball/924e3f2c39bbe4f0609e14cb064dd046986d7440",
+                "reference": "924e3f2c39bbe4f0609e14cb064dd046986d7440",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.3",
+                "php": ">=5.3.2",
+                "symfony/form": "~2.2",
+                "symfony/framework-bundle": "~2.2"
+            },
+            "require-dev": {
+                "components/jquery": "*",
+                "components/qunit": "*",
+                "doctrine/doctrine-bundle": "~1.2",
+                "doctrine/orm": "~2.3",
+                "symfony/symfony": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Infinite\\FormBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Nagel",
+                    "email": "t.nagel@infinite.net.au"
+                }
+            ],
+            "description": "A collection of useful form types and extensions for Symfony2",
+            "time": "2014-12-10 21:45:49"
+        },
+        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1764,7 +1815,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/59b777ebaa37803a75803982ddab18c08a47e48f",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/9e9a697fd39c8cd2f6af73fbe4762227848f8e31",
                 "reference": "59b777ebaa37803a75803982ddab18c08a47e48f",
                 "shasum": ""
             },
@@ -2883,7 +2934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f1758b30096202aeede61f79a1dffd69da091517",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/97929c0a642977acead3d911b2c5c1a944739d40",
                 "reference": "f1758b30096202aeede61f79a1dffd69da091517",
                 "shasum": ""
             },
@@ -3264,7 +3315,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/2bb5c41dd77f73f8b449021278dc23dc0826e76e",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/e3aed7419b3cf0a5795985048e86444b5b0b753b",
                 "reference": "2bb5c41dd77f73f8b449021278dc23dc0826e76e",
                 "shasum": ""
             },
@@ -3350,7 +3401,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/7a429165bb4c53682d272c1d71a4cc546865a267",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/95068d0ae8d8a5dae08193d34aa06fac23c2386e",
                 "reference": "7a429165bb4c53682d272c1d71a4cc546865a267",
                 "shasum": ""
             },
@@ -3538,7 +3589,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/97b5139a7e7cf89c45f086b3907ca2672f6cea09",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/9ba1cb53567d47d5aa451bded764fda7d280282e",
                 "reference": "97b5139a7e7cf89c45f086b3907ca2672f6cea09",
                 "shasum": ""
             },
@@ -3936,7 +3987,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/e9f39b7ce83991077f693410b1e17b85d7f4d323",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/84b81f4aeff9e30c52a2cbd9d138159c3dc357bb",
                 "reference": "e9f39b7ce83991077f693410b1e17b85d7f4d323",
                 "shasum": ""
             },
@@ -3998,7 +4049,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/5ed4ac66ccf0bbc73e506074409737e977e389c6",
+                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/49ec9d8d263e65f69abb3c7434ed63c7aa079170",
                 "reference": "5ed4ac66ccf0bbc73e506074409737e977e389c6",
                 "shasum": ""
             },
@@ -4157,7 +4208,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/2f5b1abfbf2edc91203c1bfd2e2c346c761362a8",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/afe239b7f2cde0337dc1ebb6c89b4117b9271ab1",
                 "reference": "2f5b1abfbf2edc91203c1bfd2e2c346c761362a8",
                 "shasum": ""
             },
@@ -4569,7 +4620,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/a44ceb3156e549ffc17baaab7a206be39b636d4f",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/5f36605e0e2264a1f52a8caa4bbe35a6f4ece8b4",
                 "reference": "a44ceb3156e549ffc17baaab7a206be39b636d4f",
                 "shasum": ""
             },
@@ -4966,7 +5017,8 @@
         "symfony/intl": 20,
         "stephanecollot/datetimepicker-bundle": 20,
         "chadyred/fpdf-fpdi-symfony2": 20,
-        "lexik/maintenance-bundle": 20
+        "lexik/maintenance-bundle": 20,
+        "infinite-networks/form-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

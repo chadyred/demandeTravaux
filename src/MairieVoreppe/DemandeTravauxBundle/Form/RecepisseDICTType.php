@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RecepisseDICTType extends AbstractType
+class RecepisseDICTType extends ReponseType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,17 @@ class RecepisseDICTType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('chantierSensible')
+            ->add('reponse', 'infinite_form_polycollection', array(
+                'types' => array(
+                    'mairievoreppe_demandetravauxbundle_nonconcerne', // The first defined Type becomes the default
+                    'mairievoreppe_demandetravauxbundle_concerne',
+                    'mairievoreppe_demandetravauxbundle_demandeimprecise'
+                    ),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'label' => false
+               ))
+            ->add('chantierSensible')             
             ->add('extensionPrevue')
             ->add('modificationEnCours')
             ->add('nomRepresentant')
@@ -31,9 +41,12 @@ class RecepisseDICTType extends AbstractType
             ->add('telServiceDepartementIncendieSecours')
             ->add('responsableDossier')
             ->add('telResponsableDossier')
-            ->add('reponse', new ConcerneType())
             ->add('rendezVous', new RendezVousType())
             ->add('miseHorsTension', new MiseHorsTensionType())
+            ->add('_type', 'hidden', array(
+                'data'   => $this->getName(),
+                'mapped' => false
+             ))
         ;
     }
     

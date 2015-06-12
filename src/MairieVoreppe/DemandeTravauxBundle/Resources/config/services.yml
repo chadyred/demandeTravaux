@@ -15,3 +15,15 @@ services:
         class: MairieVoreppe\DemandeTravauxBundle\Entity\ArreteModel
         calls:
             - [setServicePdfGenerator, [ @knp_snappy.pdf ]]
+    demandetravaux.form.type.reponse.nonconcernee:
+        class: MairieVoreppe\DemandeTravauxBundle\Form\NonConcerneType
+        tags:
+            - { name: form.type, alias: mairievoreppe_demandetravauxbundle_nonconcerne }
+    demandetravaux.form.type.reponse.concerne:
+        class: MairieVoreppe\DemandeTravauxBundle\Form\ConcerneType
+        tags:
+            - { name: form.type, alias: mairievoreppe_demandetravauxbundle_concerne }
+    demandetravaux.form.type.reponse.demandeimprecise:
+        class: MairieVoreppe\DemandeTravauxBundle\Form\DemandeImpreciseType
+        tags:
+            - { name: form.type, alias: mairievoreppe_demandetravauxbundle_demandeimprecise }

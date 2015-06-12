@@ -6,29 +6,25 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ConcerneType extends AbstractType
+class ConcerneType extends ReponseType
 {
+    protected $dataClass = 'MairieVoreppe\\DemandeTravauxBundle\\Entity\\Concerne';
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('categorieReseauOuvrage')
+            ->add('categorieReseauOuvrage', 'entity', array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\CategorieReseauOuvrage",
+                'multiple' => true,
+                'expanded' => true))
+
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Concerne'
-        ));
-    }
-
     /**
      * @return string
      */

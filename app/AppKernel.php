@@ -38,7 +38,8 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
-            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle()
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
+            new Infinite\FormBundle\InfiniteFormBundle,
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
