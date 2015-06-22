@@ -31,7 +31,7 @@ class TypeRendezVous
     /**
     * @var rendezVous
     *
-    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous", mappedBy="typeRendezVous")
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous", mappedBy="typeRendezVous")
     */
     protected $rendezVous;
     

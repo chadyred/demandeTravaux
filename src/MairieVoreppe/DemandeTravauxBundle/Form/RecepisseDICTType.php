@@ -31,6 +31,16 @@ class RecepisseDICTType extends ReponseType
             ->add('nomRepresentant')
             ->add('telephoneRepresentant')
             ->add('planJoint')
+            ->add('priseRendezVous')
+            ->add('rendezVous','infinite_form_polycollection', array(
+                'types' => array(
+                    'mairievoreppe_demandetravauxbundle_communaccord', // The first defined Type becomes the default
+                    'mairievoreppe_demandetravauxbundle_initiativedeclarant'
+                    ),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'label' => false
+               ))
             ->add('prendreEnCompteServitude')
             ->add('branchementRattache')
             ->add('recommandationSecurite')
@@ -39,9 +49,14 @@ class RecepisseDICTType extends ReponseType
             ->add('telServiceDegradation')
             ->add('serviceDepartementIncendieSecours')
             ->add('telServiceDepartementIncendieSecours')
+            ->add('emplacementsReseauOuvrage', 'collection', array(
+                'type' => new EmplacementReseauOuvrageType(),
+                'allow_add' => true,
+                'allow_delete' => false,
+                'label' => false
+            ))
             ->add('responsableDossier')
             ->add('telResponsableDossier')
-            ->add('rendezVous', new RendezVousType())
             ->add('miseHorsTension', new MiseHorsTensionType())
             ->add('_type', 'hidden', array(
                 'data'   => $this->getName(),

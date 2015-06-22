@@ -65,6 +65,16 @@ abstract class Recepisse
      */
     protected $nomRepresentant;
 
+
+    /**
+     * @var boolean
+     *
+     * Permet de valider la prise de rendez-vous (un rendez-vous est facultatif si décoché les rendez vous ne sont pas prise en compte à vérifier dans le controller)
+     *
+     * @ORM\Column(name="priseRendezVous", type="boolean")
+     */
+    protected $priseRendezVous;
+
     /**
      * @var string
      *
@@ -162,7 +172,7 @@ abstract class Recepisse
    /**
     * RecepisseDICT
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous")
     *
     */
     protected $rendezVous;
@@ -284,6 +294,30 @@ abstract class Recepisse
         return $this->modificationEnCours;
     }
 
+     /**
+     * Set priseRendezVous
+     *
+     * @param boolean $priseRendezVous
+     *
+     * @return Recepisse
+     */
+    public function setPriseRendezVous($priseRendezVous)
+    {
+        $this->priseRendezVous = $priseRendezVous;
+
+        return $this;
+    }
+
+    /**
+     * Get priseRendezVous
+     *
+     * @return boolean
+     */
+    public function getPriseRendezVous()
+    {
+        return $this->priseRendezVous;
+    }
+
 
     /**
      * Set chantierSensible
@@ -300,7 +334,7 @@ abstract class Recepisse
     }
 
     /**
-     * Get modificationEnCours
+     * Get chantierSensible
      *
      * @return boolean
      */
@@ -686,7 +720,7 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setRendezVous(\MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous $rendezVous = null)
+    public function setRendezVous(\MairieVoreppe\DemandeTravauxBundle\Model\RendezVous $rendezVous = null)
     {
         $this->rendezVous = $rendezVous;
 

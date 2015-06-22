@@ -27,3 +27,11 @@ services:
         class: MairieVoreppe\DemandeTravauxBundle\Form\DemandeImpreciseType
         tags:
             - { name: form.type, alias: mairievoreppe_demandetravauxbundle_demandeimprecise }
+    demandetravaux.form.type.rendezvous.communaccord:
+        class: MairieVoreppe\DemandeTravauxBundle\Form\CommunAccordType
+        tags:
+            - { name: form.type, alias: mairievoreppe_demandetravauxbundle_communaccord }
+    demandetravaux.form.type.rendezvous.initiativedeclarant:
+        class: MairieVoreppe\DemandeTravauxBundle\Form\InitiativeDeclarantType
+        tags:
+            - { name: form.type, alias: mairievoreppe_demandetravauxbundle_initiativedeclarant }

@@ -3,85 +3,172 @@
 {% block main_content %}
 
 
-    {% block recepisse_content -%}
-	    <h1>RecepisseDICT creation</h1>
+{% block recepisse_content -%}
+<h1>RecepisseDICT creation</h1>
 
-        {{ form_start(form) }}
-	    	<div id="info-recepisse-creation" class="row">
-	    		<div class="col-lg-3">
-					Entity de création: {{ entity.dateCreation|date('Y-m-d H:i:s') }}
-	    		</div>
-	    		<div class="col-lg-3">
-					Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
-	    		</div>
-	    		<div class="col-lg-3 form-group">
-	    			{{ form_row(form.chantierSensible) }}
-	    		</div>
-	    	</div>
+{{ form_start(form) }}
+<div id="info-recepisse-creation" class="row">
+	<div class="col-lg-3">
+		Entity de création: {{ entity.dateCreation|date('Y-m-d H:i:s') }}
+	</div>
+	<div class="col-lg-3">
+		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
+	</div>
+	<div class="col-lg-3 form-group">
+		{{ form_row(form.chantierSensible) }}
+	</div>
+</div>
 
-			<div class="row">
-				<div class="col-lg-8">
-			    	{#Zone de gestion de la polycollection #}
-					{% block polycollection_row %}
-						<div  id="bloc-reponse" class="row">
-								<h4>
-									Votre réponse au déclarant
-								</h4>
-								<select id="proto-reponse">
+<div class="row">
+	<div class="col-lg-8">
+		{#Zone de gestion de la polycollection #}
+		{% block polycollection_row %}
+			<div  id="bloc-reponse" class="row">
+				<h4>
+					Votre réponse au déclarant
+				</h4>
+				<select id="proto-reponse">
+					{# Liste les différente forme de réponse#}
+					{% for type, line in form.reponse.vars.prototypes %}
+						<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+					{% endfor %}
+				
 
-						 			{% for type, line in form.reponse.vars.prototypes %}
-						 				<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+				</select>
+			</div>
+			<div  id="bloc-element-reponse" class="row">
+				<h4>
+					Elément généraux de réponse
+				</h4>
+				<ul class="list-unstyled" id="reponse">
+					{{ form_label(form.reponse) }}
+					{{ form_widget(form.reponse) }}
+				</ul>
+			</div>
+		{% endblock polycollection_row %}
+
+		<div id="extension-reseau-ouvrage" class="row">
+			<h4>
+				Modification ou extension de nos réseaux ouvrages!
+			</h4>
+			{{ form_row(form.extensionPrevue) }}
+			{{ form_row(form.modificationEnCours) }}
+			{{ form_row(form.nomRepresentant) }}
+			{{ form_row(form.telephoneRepresentant) }}
+		</div>						
+	</div><!--fin colonne de gauche qui prend 8 colonne-->
+	<div class="col-lg-4">
+		<h4>
+			Information sur le chantier.
+		</h4>
+	</div>
+</div><!-- fin de la row -->
+
+<!-- Zone de gestion des ouvrages -->
+<div class="row">
+	<div id="extension-reseau-ouvrage" class="col-lg-12">
+		<h4>
+			Emplacement de nos réseaux ouvrages!
+		</h4>
+
+		{# Ensemble des champs des emplacements du réseau #}
+		<div class="row">
+			<div class="col-lg-offset-1 col-lg-10">
+
+				{{ form_row(form.planJoint) }}
+				{# {{ dump (form.emplacementsReseauOuvrage)}} #}
+
+				{# Ligne contenant le tableau d'informations sur les REO #}
+						<section class="table-responsive">
+							<hr/>
+							<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" data-prototype="{{ form_widget(form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
+								<thead>
+									<tr>
+										<td>
+											Reference
+										</td>
+										<td>
+											Echelle
+										</td>
+										<td>
+											Date édition
+										</td>
+										<td>
+											Sensible
+										</td>
+										<td>
+											Profondeur mini
+										</td>
+										<td>
+											Matériaux chantier
+										</td>
+									</tr>
+								</thead>
+								{# L'insertion du contenu du tableau est éalisé en JS dans #}
+								<tbody>
+									{#Nécesaire pour l'édition TODO à retirer !
+									{% for champsEmplacementReseauOuvrage in form.emplacementsReseauOuvrage %}
+										<tr>
+											<td>
+												{{ form_row(champsEmplacementReseauOuvrage.reference) }}
+											</td>
+										</tr>
+									{% endfor %}#}
+								</tbody>
+
+							</table>
+						</section>
+						{#Case à cocher de la prise de rendez vous#}
+						<div  id="bloc-rendez-vous">
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								
+								{{ form_row(form.priseRendezVous)}}	
+							</div>
+							<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+								<select id="proto-rendez-vous">
+									
+								{# Liste les différente forme de réponse#. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
+								en jQuery #}
+									{% for type, line in form.rendezVous.vars.prototypes %}
+										<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
 									{% endfor %}
+								
 
 								</select>
-						</div>
-						<div  id="bloc-element-reponse" class="row">
-								<h4>
-									Elément généraux de réponse
-								</h4>
-								 <ul class="list-unstyled" id="reponse">
-					                {{ form_label(form.reponse) }}
-					                {{ form_widget(form.reponse) }}
-					            </ul>
-			         	</div>
-					{% endblock polycollection_row %}
-
-						<div id="extension-reseau-ouvrage" class="row">
-								<h4>
-									Modification ou extension de nos réseaux ouvrages!
-								</h4>
-								{{ form_row(form.extensionPrevue) }}
-								{{ form_row(form.modificationEnCours) }}
-								{{ form_row(form.nomRepresentant) }}
-								{{ form_row(form.telephoneRepresentant) }}
-						</div>
-						<div id="extension-reseau-ouvrage" class="row">
-								<h4>
-									Emplacement de nos réseaux ouvrages!
-								</h4>
-								{{ form_row(form.planJoint) }}
-								{{ form_row(form.prendreEnCompteServitude) }}
-								{{ form_row(form.branchementRattache) }}
+								
+							</div>
+							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="rendez-vous">		
+								{{ form_widget(form.rendezVous) }}
+							</div>
 						</div>
 
-				</div><!--fin colonne de gauche qui prend 8 colonne-->
-			</div><!-- fin de la row -->
-			<div class="row">
-				<div id="recommandations-securite" class="col-lg-12">
-					<h4>
-						Recommandations de sécurité
-					</h4>
-				</div>
+						{#Deux dernière case de la section Emplacement de nos réseaux ouvrages!#}
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+							{{ form_row(form.prendreEnCompteServitude) }}
+							
+						</div>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+							{{ form_row(form.branchementRattache) }}	
+							
+						</div>	
 			</div>
-            {{ form_rest(form) }}
-        {{ form_end(form) }}
+		</div>
+	</div>
+	<div id="recommandations-securite" class="col-lg-12">
+		<h4>
+			Recommandations de sécurité
+		</h4>
+	</div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}
 
-		        <ul class="record_actions">
-		    <li>
-		        <a href="{{ path('recepissedict') }}">
-		            Back to the list
-		        </a>
-		    </li>
-		</ul>
-	{% endblock recepisse_content %}
+<ul class="record_actions">
+	<li>
+		<a href="{{ path('recepissedict') }}">
+			Back to the list
+		</a>
+	</li>
+</ul>
+{% endblock recepisse_content %}
 {% endblock %}

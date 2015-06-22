@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RendezVousType extends AbstractType
+class CommunAccordType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,16 +17,13 @@ class RendezVousType extends AbstractType
         $builder
             ->add('dateRetenue', 'collot_datetime', array("label" => false, "attr" => array(
                 'data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-                 'format' => 'dd/mm/yyyy',
-                  'language' => 'fr', 
+                "data-date-format"=>"dd/mm/yyyy - HH:ii", "data-date-language" => "fr"),
+              'pickerOptions' => array(
+                  'format' => 'dd MM yyyy - HH:ii p',
+                  'language' => 'fr',
                   'minView' => 'hour',
                   'minuteStep' => 5,
               )))
-            ->add('typeRendezVous', 'entity', array(
-                'class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\TypeRendezVous',
-                "property" => "libelle"
-                ))
         ;
     }
     
@@ -36,7 +33,7 @@ class RendezVousType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous'
+            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CommunAccord'
         ));
     }
 
@@ -45,6 +42,6 @@ class RendezVousType extends AbstractType
      */
     public function getName()
     {
-        return 'mairievoreppe_demandetravauxbundle_rendezvous';
+        return 'mairievoreppe_demandetravauxbundle_communaccord';
     }
 }

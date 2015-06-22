@@ -224,28 +224,4 @@ class EmplacementReseauOuvrage
     {
         return $this->materiauxReseau;
     }
-
-    /**
-     * Set recepisse
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepisse
-     *
-     * @return EmplacementReseauOuvrage
-     */
-    public function setRecepisse(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepisse)
-    {
-        $this->recepisse = $recepisse;
-
-        return $this;
-    }
-
-    /**
-     * Get recepisse
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Model\Recepisse
-     */
-    public function getRecepisse()
-    {
-        return $this->recepisse;
-    }
 }
