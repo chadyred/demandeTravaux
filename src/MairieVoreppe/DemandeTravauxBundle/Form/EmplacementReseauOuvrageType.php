@@ -18,13 +18,7 @@ class EmplacementReseauOuvrageType extends AbstractType
         $builder
             ->add('reference', 'text', array("label" => false, "attr" => array("field" => "reference")))
             ->add('echelle','text' , array("label" => false, "attr" => array("field" => "echelle")))
-            ->add('dateEdition', 'collot_datetime', array("label" => false, "attr" => array("field" => "dateEdition", 
-                'data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+            ->add('dateEdition', 'date', array("label" => false, "attr" => array("field" => "dateEdition")))
             ->add('sensible',"checkbox", array("label" => false, "attr" => array("field" => "sensible")))
             ->add('profondeurReglMini', "number", array("label" => false, "attr" => array("field" => "profondeurReglMini")))
             ->add('materiauxReseau', "text", array("label" => false, "attr" => array("field" => "materiauxReseau")))

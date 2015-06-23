@@ -21,7 +21,6 @@ class ConcerneType extends ReponseType
             ->add('categorieReseauOuvrage', 'entity', array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\CategorieReseauOuvrage",
                 'multiple' => true,
                 'expanded' => true))
-
         ;
     }
     

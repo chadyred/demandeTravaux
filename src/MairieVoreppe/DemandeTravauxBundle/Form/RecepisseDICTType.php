@@ -31,6 +31,12 @@ class RecepisseDICTType extends ReponseType
             ->add('nomRepresentant')
             ->add('telephoneRepresentant')
             ->add('planJoint')
+            ->add('emplacementsReseauOuvrage', 'collection', array(
+                'type' => new EmplacementReseauOuvrageType(),
+                'allow_add' => true,
+                'allow_delete' => false,
+                'label' => false
+            ))
             ->add('priseRendezVous')
             ->add('rendezVous','infinite_form_polycollection', array(
                 'types' => array(
@@ -46,22 +52,22 @@ class RecepisseDICTType extends ReponseType
             ->add('recommandationSecurite')
             ->add('rubriqueGuideTechSecurite')
             ->add('mesureSecurite')
+            ->add('miseHorsTension', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension",
+                "property" => 'libelle',
+                'multiple' => false,
+                'expanded' => true
+            ))
+            ->add('dispositifsSecurite', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite",
+                "property" => 'description',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => false
+            ))
             ->add('telServiceDegradation')
             ->add('serviceDepartementIncendieSecours')
             ->add('telServiceDepartementIncendieSecours')
-            ->add('emplacementsReseauOuvrage', 'collection', array(
-                'type' => new EmplacementReseauOuvrageType(),
-                'allow_add' => true,
-                'allow_delete' => false,
-                'label' => false
-            ))
             ->add('responsableDossier')
             ->add('telResponsableDossier')
-            ->add('miseHorsTension', new MiseHorsTensionType())
-            ->add('_type', 'hidden', array(
-                'data'   => $this->getName(),
-                'mapped' => false
-             ))
         ;
     }
     

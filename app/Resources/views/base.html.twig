@@ -7,9 +7,9 @@
         ses police avec font-awesome#}
         {% stylesheets filter='css_url_rewrite,uglifycss'
                 '@bootstrap_css' 
-                '@bootstrap_datepicker_css'
                 '@flat_ui_css' 
                 '@components_font_awesome_css'
+                '@eonasdan_bootstrap_datetimepicker_css'
                 '@MairieVoreppeDemandeTravauxBundle/Resources/public/css/style.css' 
         %}			
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
@@ -27,20 +27,25 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <!-- Bootstrap_js est déjà inclue par bootstrap_datepicker_js (php app/console sp:bower:list) -->
+        <!-- Bootstrap_js est déjà inclue par eonasdan_bootstrap_datetimepicker_js (php app/console sp:bower:list) 
+
+                 "@moment_js"
+                 "@eonasdan_bootstrap_datetimepicker_js"
+
+                 En conflit avec bootstrap_js-->
          {% block javascript  %}
               {% javascripts filter='uglifyjs'
                  "@jquery_js"
                  "@jquery_ui_js"
-                 "@bootstrap_datepicker_js"
-                 "@bootstrap_datepicker_js_fr"
+                 "@bootstrap_js"
+                 '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/ckeditor_content.js'
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/main.js'
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/recepisse.js'
-                 '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/ckeditor_content.js'
+
               %} 
                   <script type="text/javascript" src="{{ asset_url }}"></script> 
               {% endjavascripts %}
-            {% endblock javascript %}
+        {% endblock javascript %}
             <!-- Le paramètre "sensor" indique si cette application utilise détecteur pour déterminer la position de l'utilisateur -->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     </head>

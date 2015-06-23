@@ -6,6 +6,6 @@
         "components-font-awesome":"latest",
         "jquery-ui":"latest",
         "flat-ui":"latest",
-        "bootstrap-datepicker": "latest"
+        "eonasdan-bootstrap-datetimepicker":"latest"
     }
 }

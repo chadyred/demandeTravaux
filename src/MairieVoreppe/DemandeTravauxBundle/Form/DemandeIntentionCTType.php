@@ -30,13 +30,7 @@ class DemandeIntentionCTType extends AbstractType
     {
         $builder
             ->add('numeroTeleservice', 'text', array('disabled' => $this->dtDict ))
-            ->add('dateDebutTravaux', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+            ->add('dateDebutTravaux', 'datetime')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
@@ -53,27 +47,21 @@ class DemandeIntentionCTType extends AbstractType
               ))            
             ->add('descriptionTravaux')
             ->add('noteComplementaire')
-            ->add('dateReceptionDemande','collot_datetime', array( 
+            ->add('dateReceptionDemande','datetime', array( 
               "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
-            ->add('dateReponseDemande', 'collot_datetime', array( 
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr")
+              ))
+            ->add('dateReponseDemande', 'datetime', array( 
               "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr")
+              ))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'options' => array('required' => false),
                 'label' => false
               ))      
-            ->add('dtDictConjointe', 'choice', array('choices' => array('0' => 'Non', '1' => 'Oui'), 'label' => 'La DT conjointe lié à sa DICT ?'))
+            ->add('dtDictConjointe', 'choice', array('choices' => array('0' => 'Non', '1' => 'Oui'), 'label' => 'DT conjointe lié à sa DICT ?'))
         ;
         
         //Permet de gérer avant le chargement du formulaire si des champs ou des données doivent être changer AVANT l'hydratation du formulaire. Ici ce sera le 

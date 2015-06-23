@@ -23,13 +23,7 @@ class DtDictType extends AbstractType
             ->add('dt', new DemandeTravauxType(), array('label' => false))
              ->add('numeroTeleservice', 'text', array('disabled' => true ))
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
-            ->add('dateDebutTravaux', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+            ->add('dateDebutTravaux',  'datetime')
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
                 'empty_data' => false,
@@ -45,20 +39,8 @@ class DtDictType extends AbstractType
               ))            
             ->add('descriptionTravaux')
             ->add('noteComplementaire')
-            ->add('dateReceptionDemande', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
-            ->add('dateReponseDemande', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+            ->add('dateReceptionDemande',  'datetime')
+            ->add('dateReponseDemande',  'datetime')
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,

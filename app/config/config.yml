@@ -59,9 +59,15 @@ assetic:
         uglifycss:
             bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
-        bootstrap_datepicker_js_fr:
+        # bootstrap_datepicker_js_fr:
+        #     inputs:
+        #         - "bundles/mairievoreppedemandetravaux/components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"
+        bootstrap_css:
             inputs:
-                - "bundles/mairievoreppedemandetravaux/components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"
+                - "bundles/mairievoreppedemandetravaux/components/bootstrap/dist/css/bootstrap.css"
+        moment_js:
+            inputs:
+                - "bundles/mairievoreppedemandetravaux/components/moment/moment.js"
                 
 # Doctrine Configuration
 doctrine:
@@ -111,7 +117,7 @@ sp_bower:
     #On applique des filtre à notre package de Bower, uniquement en prod
     assetic:
         enabled: true
-        nest_dependencies: true
+        nest_dependencies: true #Je le passe finalement à false à cause des nombreux conflit
         filters:
             css:
                 - ?uglifycss
@@ -234,10 +240,6 @@ knp_snappy:
         enabled:    true
         binary:     /usr/local/bin/wkhtmltoimage
         options:    []
-
-# 
-sc_datetimepicker:
-    picker: ~
 
 #Permet de mettre le site en maintenance pendant une durée 'lexik:maintenance:lock [--set-ttl]' -> 'lexik:maintenance:unlock'
 lexik_maintenance:

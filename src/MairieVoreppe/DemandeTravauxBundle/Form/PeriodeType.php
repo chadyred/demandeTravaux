@@ -18,20 +18,8 @@ class PeriodeType extends AbstractType
     {
         $builder
             ->add('maire',  new MaireType())
-            ->add('dateDebut', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
-            ->add('dateFin', 'collot_datetime', array( 
-              "attr" => array('data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-              'pickerOptions' => array(
-                  'format' => 'dd/mm/yyyy',
-                  'language' => 'fr'
-              )))
+            ->add('dateDebut',  'datetime')
+            ->add('dateFin',  'datetime')
         ;
     }
     

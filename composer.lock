@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "48dcf1ae85474cb6ebdd02adb8927b24",
+    "hash": "46d577d6811bf92c16bfeced9df92da3",
     "packages": [
         {
             "name": "chadyred/fpdf-fpdi-symfony2",
@@ -2462,12 +2462,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikMaintenanceBundle.git",
-                "reference": "a88c311484b9a18b0595fa15768297cbb163c0da"
+                "reference": "db730c0109cd1c7601815e354a5eba10f74f3fa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikMaintenanceBundle/zipball/a88c311484b9a18b0595fa15768297cbb163c0da",
-                "reference": "a88c311484b9a18b0595fa15768297cbb163c0da",
+                "url": "https://api.github.com/repos/lexik/LexikMaintenanceBundle/zipball/db730c0109cd1c7601815e354a5eba10f74f3fa8",
+                "reference": "db730c0109cd1c7601815e354a5eba10f74f3fa8",
                 "shasum": ""
             },
             "require": {
@@ -2511,7 +2511,7 @@
                 "bundle",
                 "maintenance"
             ],
-            "time": "2015-06-01 13:58:35"
+            "time": "2015-06-22 11:54:37"
         },
         {
             "name": "michelf/php-markdown",
@@ -3314,12 +3314,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "d720519ed1483426e0a6267256e0f34de4718ed6"
+                "reference": "d09cdb17ba50a8c9be12715ea4c0bcd87c54da72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d720519ed1483426e0a6267256e0f34de4718ed6",
-                "reference": "d720519ed1483426e0a6267256e0f34de4718ed6",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d09cdb17ba50a8c9be12715ea4c0bcd87c54da72",
+                "reference": "d09cdb17ba50a8c9be12715ea4c0bcd87c54da72",
                 "shasum": ""
             },
             "require": {
@@ -3393,7 +3393,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-06-18 19:01:10"
+            "time": "2015-06-22 13:23:56"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3593,12 +3593,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "d3cddc80753c233e9b9a5888c1d58cc95642024b"
+                "reference": "1f155644f01e53081409eba21d7f98604242a946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/d3cddc80753c233e9b9a5888c1d58cc95642024b",
-                "reference": "d3cddc80753c233e9b9a5888c1d58cc95642024b",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/1f155644f01e53081409eba21d7f98604242a946",
+                "reference": "1f155644f01e53081409eba21d7f98604242a946",
                 "shasum": ""
             },
             "require": {
@@ -3654,7 +3654,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-06-17 13:40:12"
+            "time": "2015-06-22 10:59:19"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4367,52 +4367,6 @@
             "time": "2015-06-07 21:11:22"
         },
         {
-            "name": "stephanecollot/datetimepicker-bundle",
-            "version": "dev-master",
-            "target-dir": "SC/DatetimepickerBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stephanecollot/DatetimepickerBundle.git",
-                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
-                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3",
-                "symfony/framework-bundle": "2.*",
-                "symfony/symfony": "2.*"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "SC\\DatetimepickerBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stephane Collot"
-                }
-            ],
-            "description": "Symfony bundle for Bootstrap DateTime picker",
-            "keywords": [
-                "bootstrap",
-                "bundle",
-                "datepicker",
-                "picker",
-                "symfony",
-                "timepicker"
-            ],
-            "time": "2015-05-11 20:47:22"
-        },
-        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.1",
             "source": {
@@ -4649,12 +4603,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "351174be88372f135921460be01784ff1c68243a"
+                "reference": "9f86195158db1712f3d9944cb7e1a28c5e91f0ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/351174be88372f135921460be01784ff1c68243a",
-                "reference": "351174be88372f135921460be01784ff1c68243a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9f86195158db1712f3d9944cb7e1a28c5e91f0ee",
+                "reference": "9f86195158db1712f3d9944cb7e1a28c5e91f0ee",
                 "shasum": ""
             },
             "require": {
@@ -4763,7 +4717,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-06-19 15:11:11"
+            "time": "2015-06-22 16:34:55"
         },
         {
             "name": "twig/extensions",
@@ -5047,7 +5001,6 @@
         "egeloen/ckeditor-bundle": 20,
         "knplabs/knp-snappy-bundle": 20,
         "symfony/intl": 20,
-        "stephanecollot/datetimepicker-bundle": 20,
         "chadyred/fpdf-fpdi-symfony2": 20,
         "lexik/maintenance-bundle": 20,
         "infinite-networks/form-bundle": 20

@@ -7,7 +7,7 @@
 
 $(document).ready(function(){
     //alert("document prêt");
-    $('select').on('click', function() {
+    $('#ckeditor_arrete_model select').on('click', function() {
     $.fn.insertAtCaret(this.value); // or $(this).val()
     });
     
@@ -16,5 +16,8 @@ $(document).ready(function(){
       //  alert("dans caret");
     myValue = myValue.trim();
     //alert("myValue" + myValue);
-    CKEDITOR.instances["mairievoreppe_demandetravauxbundle_arretemodel_contenu"].insertText(myValue);
+    if(CKEDITOR !== undefined)
+    	CKEDITOR.instances["mairievoreppe_demandetravauxbundle_arretemodel_contenu"].insertText(myValue);
+    else
+    	console.log("Ckeditor n'est pas instancié !");
 };

@@ -37,7 +37,7 @@ class AppKernel extends Kernel
             new MairieVoreppe\UserBundle\MairieVoreppeUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            // new SC\DatetimepickerBundle\SCDatetimepickerBundle(), bundle mal pensé
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Infinite\FormBundle\InfiniteFormBundle,
         );

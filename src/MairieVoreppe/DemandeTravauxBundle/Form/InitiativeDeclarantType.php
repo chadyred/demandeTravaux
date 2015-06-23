@@ -6,29 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InitiativeDeclarantType extends AbstractType
+class InitiativeDeclarantType extends RendezVousType
 {
+    protected $dataClass = 'MairieVoreppe\\DemandeTravauxBundle\\Entity\\InitiativeDeclarant';
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('dateRetenue')
+            ->add('dateRetenue', 'date', array("label" => false))
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\InitiativeDeclarant'
-        ));
-    }
-
     /**
      * @return string
      */

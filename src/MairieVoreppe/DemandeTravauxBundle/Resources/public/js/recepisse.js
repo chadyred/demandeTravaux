@@ -2,6 +2,17 @@ $(document).ready(function(){
 
 	/**
 	*
+	* Partie qui initialise les partie en javascript nécessaire
+	*
+	* La bibliothèque est en conflit avec bootstrap_js
+	*/
+	 // $('.datetimepicker').datepicker({
+  //               inline: true,
+  //               sideBySide: true
+  //           });
+
+	/**
+	*
 	* Partie qui gère les différents type de réponse
 	*
 	*/
@@ -46,7 +57,7 @@ $(document).ready(function(){
         // unChamp = unChamp.replace(/<label(.*)<\/label>/, "");
 
 
-		// console.log(unChamp);
+		console.log(unChamp);
 
         var newTr = $("<tr id=RO_" + i +"></tr>");
 		var containerHtml = $("<div></div>").html(unChamp);
@@ -54,7 +65,8 @@ $(document).ready(function(){
 		//Je recupère tout le block des champs : le champs et le <div> qui le contient (nécessaire puisqu'il est définit avec bootstrap)
 		var inputReference = containerHtml.find('input[field="reference"]').parent();
 		var inputEchelle = containerHtml.find('input[field="echelle"]').parent();
-		var inputDateEdition = containerHtml.find('input[field="dateEdition"]').parent();
+		//Pour ce champ, la date est contenu dans un bloc avec l'id du champ placé dans le formType
+		var inputDateEdition = containerHtml.find('div[field="dateEdition"]'); 
 		var inputSensible = containerHtml.find('input[field="sensible"]').parent();
 		var inputProfondeurReglMini = containerHtml.find('input[field="profondeurReglMini"]').parent();
 		var inputMateriauxReseau = containerHtml.find('input[field="materiauxReseau"]').parent();
@@ -88,6 +100,9 @@ $(document).ready(function(){
 	*/
 	$('#proto-rendez-vous').on('click', function(){
 
+		//On coche la case si un choix se fait
+		$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', true);
+
 		var prototypeDeChamps = $(this).find('option:selected').attr('data-prototype');
 
 		// console.log(prototypeDeChamps);
@@ -104,6 +119,18 @@ $(document).ready(function(){
 
         var newLi = $('<p id="' + $(this).val() + '"></p>').html(ensembleDeChampConcret); 
         newLi.appendTo($('#rendez-vous'));
-	})
+	});
 
+	
+	//Détection si la case n'est pas acoché afin de 
+	$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").click( function(){
+   		if($(this).is(':checked') == false ){
+   			// alert("décoché");
+   			$('#rendez-vous').empty();
+			$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', false);
+   		}
+   		 
+
+	});
+   		
 });

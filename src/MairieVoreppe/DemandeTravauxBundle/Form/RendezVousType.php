@@ -1,48 +1,33 @@
 <?php
+// src/Infinite/InvoiceBundle/Form/RendezVousType.php
 
 namespace MairieVoreppe\DemandeTravauxBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\AbstractType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RendezVousType extends AbstractType
+class RendezVousType extends BaseType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
+    protected $dataClass = 'MairieVoreppe\\DemandeTravauxBundle\\Model\\RendezVous';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('dateRetenue', 'collot_datetime', array("label" => false, "attr" => array(
-                'data-provide'=>"datepicker", 
-                "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr"),
-                 'format' => 'dd/mm/yyyy',
-                  'language' => 'fr', 
-                  'minView' => 'hour',
-                  'minuteStep' => 5,
-              )))
-            ->add('typeRendezVous', 'entity', array(
-                'class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\TypeRendezVous',
-                "property" => "libelle"
-                ))
-        ;
-    }
-    
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous'
+
+        $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
         ));
     }
 
-    /**
-     * @return string
-     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class'  => $this->dataClass,
+            'model_class' => $this->dataClass,
+        ));
+    }
+
     public function getName()
     {
         return 'mairievoreppe_demandetravauxbundle_rendezvous';
