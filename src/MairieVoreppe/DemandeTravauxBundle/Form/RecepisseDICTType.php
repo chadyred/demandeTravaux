@@ -5,6 +5,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use libphonenumber\PhoneNumberFormat;
+
 
 class RecepisseDICTType extends ReponseType
 {
@@ -29,7 +31,7 @@ class RecepisseDICTType extends ReponseType
             ->add('extensionPrevue')
             ->add('modificationEnCours')
             ->add('nomRepresentant')
-            ->add('telephoneRepresentant')
+            ->add('telephoneRepresentant', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('planJoint')
             ->add('emplacementsReseauOuvrage', 'collection', array(
                 'type' => new EmplacementReseauOuvrageType(),
@@ -63,11 +65,11 @@ class RecepisseDICTType extends ReponseType
                 'expanded' => true,
                 'label' => false
             ))
-            ->add('telServiceDegradation')
+            ->add('telServiceDegradation', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('serviceDepartementIncendieSecours')
-            ->add('telServiceDepartementIncendieSecours')
+            ->add('telServiceDepartementIncendieSecours', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('responsableDossier')
-            ->add('telResponsableDossier')
+            ->add('telResponsableDossier', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
         ;
     }
     

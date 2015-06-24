@@ -9,7 +9,7 @@
 {{ form_start(form) }}
 <div id="info-recepisse-creation" class="row">
 	<div class="col-lg-3">
-		Entity de création: {{ entity.dateCreation|date('Y-m-d H:i:s') }}
+		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
 	</div>
 	<div class="col-lg-3">
 		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
@@ -70,6 +70,65 @@
 		{# reçu le...par canal, déclarant, numéro d'affaire du déclarant
 		- emplacement du chantier : numéro de voir, commune, adresse
 		- Calendrier: date de début, durée, date de fin  #}
+		<div class="col-lg-offset-2 col-lg-10">			
+			<p>
+				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dict.canalReception.libelle }}
+				<br/>
+				{# Les __toString() personnalise l'affichage #}
+				Déclarant : {{ dict.dt != null ? dict.dt.maitreOuvrage : dict.maitreOeuvre }}
+				<br/>
+				Numéro d'affaire du déclarant : {{ dict.numeroAffaireDeclarant }}
+			</p>
+		</div>
+
+		{# Affichage des informations sur l'emplacement de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Emplacement du chantier:
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+					<br/>
+					Commune : {{ dict.adresses[0].ville }} 
+					<br/>
+					Adresse : {{ dict.adresses[0].adresse }} 
+				</p>
+			</div>
+
+		</div>
+
+		{# Affichage des informations sur le calendrié de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Calendrié :
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					Date de début :  {{ dict.dateDebutTravaux|date('d-m-Y H:i:s') }} 
+					<br/>
+					Durée : {{ dict.duree }} {{ dict.duree > 1 ? "jours" : "jour" }} 
+					<br/>
+					Date de fin : {{ dict.adresses[0].adresse }} 
+				</p>
+			</div>
+
+
+		</div>
+
+		{# Affichage des informations sur les travaux de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Description des travaux :
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					{{ dict.descriptionTravaux }} 				
+				</p>
+			</div>
+
+
+		</div>
 	</div>
 </div><!-- fin de la row -->
 
@@ -115,14 +174,38 @@
 						</thead>
 						{# L'insertion du contenu du tableau est éalisé en JS dans #}
 						<tbody>
-							{#Nécesaire pour l'édition TODO à retirer !
 							{% for champsEmplacementReseauOuvrage in form.emplacementsReseauOuvrage %}
 								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.reference) }}
 									</td>
 								</tr>
-							{% endfor %}#}
+								<tr>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.echelle) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.dateEdition) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.sensible) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.profondeurReglMini) }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.materiauxReseau) }}
+									</td>
+								</tr>
+							{% endfor %}
 						</tbody>
 
 					</table>
@@ -136,7 +219,7 @@
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 						<select id="proto-rendez-vous">
 							
-						{# Liste les différente forme de réponse#. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
+						{# Liste les différentes forme de réponse. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
 						en jQuery #}
 							{% for type, line in form.rendezVous.vars.prototypes %}
 								<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>

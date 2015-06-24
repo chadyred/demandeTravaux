@@ -15,13 +15,15 @@ class DtDictType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      * 
-     * RAppel: ici on trduit le fait que la DT lié à la DICT peut être lié et ainsi le numéro de téléservice est unique
+     * RAppel: ici on traduit le fait que la DT lié à la DICT peut être liée et ainsi le numéro de téléservice est unique
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('dt', new DemandeTravauxType(), array('label' => false))
+            
              ->add('numeroTeleservice', 'text', array('disabled' => true ))
+            ->add('numeroAffaireDeclarant', 'text')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             ->add('dateDebutTravaux',  'datetime')
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',

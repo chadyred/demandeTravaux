@@ -16,7 +16,7 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
  * "moePersonnePhysique"="MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique"
  *  })
  */
-abstract class Intervenant
+abstract class Declarant
 {
     /**
      * @var integer
@@ -27,7 +27,6 @@ abstract class Intervenant
      */
     protected $id;
  
-  
 
        
     /**
@@ -39,4 +38,5 @@ abstract class Intervenant
     {
         return $this->id;
     }
+
 }

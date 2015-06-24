@@ -163,7 +163,7 @@ abstract class Recepisse
    /**
     * reponse
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     protected $reponse;
@@ -172,7 +172,7 @@ abstract class Recepisse
    /**
     * RecepisseDICT
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous", cascade={"persist"})
     *
     */
     protected $rendezVous;
@@ -180,7 +180,7 @@ abstract class Recepisse
    /**
     * Recepisse
     *
-    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse")
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     protected $emplacementsReseauOuvrage;
@@ -189,9 +189,11 @@ abstract class Recepisse
    /**
     * Recepisse
     *
-    * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", inversedBy="recepisses")
+    * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension", inversedBy="recepisses")
     */
     protected $miseHorsTension;
+
+    protected $types;
 
 
     /**
@@ -199,7 +201,7 @@ abstract class Recepisse
     *
     * Liste des catégorie réseau concernée de l'exploitant Mairie
     *
-    * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite")
+    * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite", inversedBy="recepisses")
     */
     private $dispositifsSecurite;
 
@@ -662,9 +664,9 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setReponse(\MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse)
+    public function setReponse(array $reponse)
     {
-        $this->reponse = $reponse;
+        $this->reponse = $reponse[0];
 
         return $this;
     }
@@ -689,6 +691,7 @@ abstract class Recepisse
     public function addEmplacementsReseauOuvrage(\MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $emplacementReseauOuvrage)
     {
         $this->emplacementsReseauOuvrage[] = $emplacementReseauOuvrage;
+        $emplacementReseauOuvrage->setRecepisse($this);
 
         return $this;
     }
@@ -720,9 +723,9 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setRendezVous(\MairieVoreppe\DemandeTravauxBundle\Model\RendezVous $rendezVous = null)
+    public function setRendezVous(array $rendezVous = null)
     {
-        $this->rendezVous = $rendezVous;
+        $this->rendezVous = $rendezVous[0];
 
         return $this;
     }
@@ -744,7 +747,7 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setMiseHorsTension(\MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage $miseHorsTension = null)
+    public function setMiseHorsTension(\MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension $miseHorsTension = null)
     {
         $this->miseHorsTension = $miseHorsTension;
 
@@ -771,6 +774,7 @@ abstract class Recepisse
     public function addDispositifsSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite)
     {
         $this->dispositifsSecurite[] = $dispositifsSecurite;
+        $dispositifsSecurite->addRecepiss($this);
 
         return $this;
     }
@@ -793,5 +797,15 @@ abstract class Recepisse
     public function getDispositifsSecurite()
     {
         return $this->dispositifsSecurite;
+    }
+
+    public function getTypes()
+    {
+        $this->types;
+    }
+
+    public function setTypes(array $_types)
+    {
+        $this->types = _types;
     }
 }

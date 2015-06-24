@@ -7,9 +7,6 @@ use MairieVoreppe\DemandeTravauxBundle\Model\PersonnePhysique;
 
 /**
  * Civil
-/**
- * Avatar
- *
  * @ORM\Table(name="civil")
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\CivilRepository")
  *

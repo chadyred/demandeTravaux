@@ -19,6 +19,7 @@ class DemandeTravauxType extends AbstractType
     {
         $builder
             ->add('numeroTeleservice')
+            ->add('numeroAffaireDeclarant', 'text')
             ->add('dateDebutTravaux',  'datetime')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',

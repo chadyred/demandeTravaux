@@ -40,6 +40,15 @@ abstract class Travaux
      */
     protected $numeroTeleservice;
 
+
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numeroAffaireDeclarant", type="string", length=255)
+     */
+    protected $numeroAffaireDeclarant;
+
     /**
      * @var \DateTime
      *
@@ -89,7 +98,7 @@ abstract class Travaux
     
     /**
      * @var \DateTime
-     *getDateDebutTravaux
+     *
      * @ORM\Column(name="dateReponseDemande", type="datetime")
      */
      protected $dateReponseDemande;
@@ -471,4 +480,30 @@ abstract class Travaux
         //Cette fonction est la seul à déterminer la langue. On récupère le timestamp de la date du début de chantier
         return strftime('%A %d %B %Y', $this->getDateDebutTravaux()->getTimestamp());
     }
+
+    
+
+    /**
+     * Set numeroAffaireDeclarant
+     *
+     * @param string $numeroTeleservice
+     * @return Travaux
+     */
+    public function setNumeroAffaireDeclarant($numeroAffaireDeclarant)
+    {
+        $this->numeroAffaireDeclarant = $numeroAffaireDeclarant;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroAffaireDeclarant
+     *
+     * @return string
+     */
+    public function getNumeroAffaireDeclarant()
+    {
+        return $this->numeroAffaireDeclarant;
+    }
+
 }

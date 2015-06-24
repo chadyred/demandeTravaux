@@ -36,13 +36,6 @@ class DispositifSecurite
      */
     private $recepisses;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->recepisses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -77,38 +70,5 @@ class DispositifSecurite
     {
         return $this->description;
     }
-
-    /**
-     * Add recepiss
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepiss
-     *
-     * @return DispositifSecurite
-     */
-    public function addRecepiss(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepiss)
-    {
-        $this->recepisses[] = $recepiss;
-
-        return $this;
-    }
-
-    /**
-     * Remove recepiss
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepiss
-     */
-    public function removeRecepiss(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepiss)
-    {
-        $this->recepisses->removeElement($recepiss);
-    }
-
-    /**
-     * Get recepisses
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRecepisses()
-    {
-        return $this->recepisses;
-    }
 }
+

@@ -47,14 +47,18 @@ class RecepisseDICTController extends Controller
 
         //On indique la DICT que l'on désire récupérer
         $entity = new RecepisseDICT();
-        $entity->setDict($dict);
 
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $dict);
+
+
+
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            
+            $dict->setRecepisseDict($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('recepissedict_show', array('id' => $entity->getId())));
@@ -63,6 +67,7 @@ class RecepisseDICTController extends Controller
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDICT:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'dict' => $dict
         ));
     }
 

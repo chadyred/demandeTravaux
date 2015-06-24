@@ -5,30 +5,35 @@ namespace MairieVoreppe\DemandeTravauxBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use libphonenumber\PhoneNumberFormat;
 
-class MOAPersonnePhysiqueType extends DeclarantType
+class DeclarantType extends AbstractType
 {
-    
-    protected $class = 'MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique';
-        
+    protected $class = "MairieVoreppe\DemandeTravauxBundle\Model\Declarant";
+          
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-        $builder
-            ->add('civil', new CivilType())
-        ;
     }
     
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => $this->class
+        ));
+    }
 
     /**
      * @return string
      */
     public function getName()
     {
-        return 'mairievoreppe_demandetravauxbundle_moapersonnephysique';
+        return 'mairievoreppe_demandetravauxbundle_declarant';
     }
 }

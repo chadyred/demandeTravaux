@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * 
  */
-abstract class MaitreOeuvre extends Intervenant
+abstract class MaitreOeuvre extends Declarant
 {
   /**
      * @var integer

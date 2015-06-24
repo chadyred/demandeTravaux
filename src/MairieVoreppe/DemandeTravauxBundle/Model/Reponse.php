@@ -28,13 +28,6 @@ abstract class Reponse
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="libelle", type="string", length=255)
-     */
-    private $libelle;
-
     
 
     /**
@@ -47,28 +40,5 @@ abstract class Reponse
         return $this->id;
     }
 
-    /**
-     * Set libelle
-     *
-     * @param string $libelle
-     *
-     * @return Reponse
-     */
-    public function setLibelle($libelle)
-    {
-        $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * Get libelle
-     *
-     * @return string
-     */
-    public function getLibelle()
-    {
-        return $this->libelle;
-    }
 }
 
