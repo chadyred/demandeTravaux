@@ -24,7 +24,7 @@ class RecepisseDICTType extends ReponseType
                     'mairievoreppe_demandetravauxbundle_demandeimprecise'
                     ),
                     'allow_add' => true,
-                    'allow_delete' => true,
+                    'allow_delete' => false,
                     'label' => false
                ))
             ->add('chantierSensible')             

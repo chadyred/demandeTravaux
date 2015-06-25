@@ -42,28 +42,5 @@ class RecepisseDICT extends Recepisse
     {
         return $this->id;
     }
-
-    /**
-     * Set dict
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
-     *
-     * @return RecepisseDICT
-     */
-    public function setDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict = null)
-    {
-        $this->dict = $dict;
-
-        return $this;
-    }
-
-    /**
-     * Get dict
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT
-     */
-    public function getDict()
-    {
-        return $this->dict;
-    }
 }
+

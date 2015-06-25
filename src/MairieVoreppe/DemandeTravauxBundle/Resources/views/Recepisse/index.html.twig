@@ -26,7 +26,16 @@
             <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('recepisse_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>
+                             {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
+                                <a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                             {% else %}
+                                {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT') %}
+                                    <a href="{{ path('recepissedict_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                {% endif %}
+                             {% endif %}
+
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -42,12 +51,23 @@
                         <td></td>
                         <td>
                             <ul>
-                                <li>
-                                    <a href="{{ path('recepisse_show', { 'id': entity.id }) }}">show</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('recepisse_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
+                                {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
+                                        <li>                                        
+                                             <a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('recepissedt_edit', { 'id': entity.id }) }}">edit</a>
+                                        </li>
+                                 {% else %}
+                                    {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT') %}
+                                        <li>                                        
+                                             <a href="{{ path('recepissedict_show', { 'id': entity.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('recepissedict_edit', { 'id': entity.id }) }}">edit</a>
+                                        </li>
+                                    {% endif %}
+                                 {% endif %}
                             </ul>
                         </td>
                     </tr>

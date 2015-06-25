@@ -35,7 +35,7 @@ class MiseHorsTension
     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="miseHorsTension")
     * @ORM\JoinColumn(nullable=false)
     */
-    protected $emplacementsReseauOuvrage;
+    private $recepisses;
 
 
     /**
@@ -43,7 +43,7 @@ class MiseHorsTension
      */
     public function __construct()
     {
-        $this->emplacementsReseauOuvrage = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recepisses = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -87,9 +87,9 @@ class MiseHorsTension
      *
      * @return MiseHorsTension
      */
-    public function addEmplacementsReseauOuvrage(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $emplacementsReseauOuvrage)
+    public function addRecepiss(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepisse)
     {
-        $this->emplacementsReseauOuvrage[] = $emplacementsReseauOuvrage;
+        $this->recepisses[] = $recepisse;
 
         return $this;
     }
@@ -99,9 +99,9 @@ class MiseHorsTension
      *
      * @param \MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $emplacementsReseauOuvrage
      */
-    public function removeEmplacementsReseauOuvrage(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $emplacementsReseauOuvrage)
+    public function removeRecepiss(\MairieVoreppe\DemandeTravauxBundle\Model\Recepisse $recepisse)
     {
-        $this->emplacementsReseauOuvrage->removeElement($emplacementsReseauOuvrage);
+        $this->recepisses->removeElement($recepisse);
     }
 
     /**
@@ -109,8 +109,8 @@ class MiseHorsTension
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEmplacementsReseauOuvrage()
+    public function getRecepisses()
     {
-        return $this->emplacementsReseauOuvrage;
+        return $this->recepisses;
     }
 }

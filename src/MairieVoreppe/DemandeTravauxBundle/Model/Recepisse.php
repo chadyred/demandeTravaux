@@ -128,7 +128,8 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="telServiceDegradation", type="string", length=255)
+     * @ORM\Column(name="telServiceDegradation", type="phone_number", length=255)
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telServiceDegradation;
 
@@ -142,7 +143,8 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="telServiceDepartementIncendieSecours", type="string", length=255)
+     * @ORM\Column(name="telServiceDepartementIncendieSecours", type="phone_number", length=255)
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telServiceDepartementIncendieSecours;
 
@@ -156,7 +158,8 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="telResponsableDossier", type="string", length=255)
+     * @ORM\Column(name="telResponsableDossier", type="phone_number", length=255)
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telResponsableDossier;
 
@@ -192,8 +195,6 @@ abstract class Recepisse
     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension", inversedBy="recepisses")
     */
     protected $miseHorsTension;
-
-    protected $types;
 
 
     /**
@@ -664,9 +665,9 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setReponse(array $reponse)
+    public function setReponse(array $types)
     {
-        $this->reponse = $reponse[0];
+        $this->reponse = $types[0];
 
         return $this;
     }
@@ -678,7 +679,7 @@ abstract class Recepisse
      */
     public function getReponse()
     {
-        return $this->reponse;
+        return array($this->reponse);
     }
 
     /**
@@ -737,7 +738,7 @@ abstract class Recepisse
      */
     public function getRendezVous()
     {
-        return $this->rendezVous;
+        return array($this->rendezVous);
     }
 
     /**
@@ -750,6 +751,7 @@ abstract class Recepisse
     public function setMiseHorsTension(\MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension $miseHorsTension = null)
     {
         $this->miseHorsTension = $miseHorsTension;
+        $miseHorsTension->addRecepiss($this);
 
         return $this;
     }
@@ -797,15 +799,5 @@ abstract class Recepisse
     public function getDispositifsSecurite()
     {
         return $this->dispositifsSecurite;
-    }
-
-    public function getTypes()
-    {
-        $this->types;
-    }
-
-    public function setTypes(array $_types)
-    {
-        $this->types = _types;
     }
 }

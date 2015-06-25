@@ -73,7 +73,7 @@ class DemandeIntentionCT extends Travaux
     /**
     * RecepisseDICT
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT", cascade={"persist"}, inversedBy="dict")
     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
     */
     private $recepisseDict;

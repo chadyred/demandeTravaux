@@ -151,7 +151,7 @@ class RecepisseDICTController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
-
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -159,6 +159,7 @@ class RecepisseDICTController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dict' => $entity->getDict()
         ));
     }
 
@@ -194,6 +195,7 @@ class RecepisseDICTController extends Controller
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
 
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -208,6 +210,7 @@ class RecepisseDICTController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dict' => $entity->getDict()
         ));
     }
     /**

@@ -6,7 +6,7 @@
 {% block recepisse_content -%}
 <h1>RecepisseDICT edit</h1>
 
-{{ form_start(form) }}
+{{ form_start(edit_form) }}
 <div id="info-recepisse-creation" class="row">
 	<div class="col-lg-3">
 		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
@@ -14,8 +14,8 @@
 	<div class="col-lg-3">
 		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
 	</div>
-	<div class="col-lg-3 form-group">
-		{{ form_row(form.chantierSensible) }}
+	<div class="col-lg-3 edit_form-group">
+		{{ form_row(edit_form.chantierSensible) }}
 	</div>
 </div>
 
@@ -29,8 +29,8 @@
 						Votre réponse au déclarant
 					</h4>
 					<select id="proto-reponse">
-						{# Liste les différente forme de réponse#}
-						{% for type, line in form.reponse.vars.prototypes %}
+						{# Liste les différente edit_forme de réponse#}
+						{% for type, line in edit_form.reponse.vars.prototypes %}
 							<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
 						{% endfor %}
 					
@@ -44,8 +44,8 @@
 						Elément généraux de réponse
 					</h4>
 					<ul class="list-unstyled" id="reponse">
-						{{ form_label(form.reponse) }}
-						{{ form_widget(form.reponse) }}
+						{{ form_label(edit_form.reponse) }}
+						{{ form_widget(edit_form.reponse) }}
 					</ul>
 				</div>
 			</div>
@@ -56,16 +56,16 @@
 				<h4>
 					Modification ou extension de nos réseaux ouvrages!
 				</h4>
-				{{ form_row(form.extensionPrevue) }}
-				{{ form_row(form.modificationEnCours) }}
-				{{ form_row(form.nomRepresentant) }}
-				{{ form_row(form.telephoneRepresentant) }}
+				{{ form_row(edit_form.extensionPrevue) }}
+				{{ form_row(edit_form.modificationEnCours) }}
+				{{ form_row(edit_form.nomRepresentant) }}
+				{{ form_row(edit_form.telephoneRepresentant) }}
 			</div>
 		</div>						
 	</div><!--fin colonne de gauche qui prend 8 colonne-->
 	<div class="col-lg-4">
 		<h4>
-			Information sur le chantier.
+			Inedit_formation sur le chantier.
 		</h4>
 		{# reçu le...par canal, déclarant, numéro d'affaire du déclarant
 		- emplacement du chantier : numéro de voir, commune, adresse
@@ -81,7 +81,7 @@
 			</p>
 		</div>
 
-		{# Affichage des informations sur l'emplacement de la demande #}
+		{# Affichage des inedit_formations sur l'emplacement de la demande #}
 		<div class="col-lg-offset-1 col-lg-11">	
 			<h6>
 				Emplacement du chantier:
@@ -98,7 +98,7 @@
 
 		</div>
 
-		{# Affichage des informations sur le calendrié de la demande #}
+		{# Affichage des inedit_formations sur le calendrié de la demande #}
 		<div class="col-lg-offset-1 col-lg-11">	
 			<h6>
 				Calendrié :
@@ -116,7 +116,7 @@
 
 		</div>
 
-		{# Affichage des informations sur les travaux de la demande #}
+		{# Affichage des inedit_formations sur les travaux de la demande #}
 		<div class="col-lg-offset-1 col-lg-11">	
 			<h6>
 				Description des travaux :
@@ -143,13 +143,13 @@
 		<div class="row">
 			<div class="col-lg-offset-1 col-lg-10">
 
-				{{ form_row(form.planJoint) }}
-				{# {{ dump (form.emplacementsReseauOuvrage)}} #}
+				{{ form_row(edit_form.planJoint) }}
+				{# {{ dump (edit_form.emplacementsReseauOuvrage)}} #}
 
-				{# Ligne contenant le tableau d'informations sur les REO #}
+				{# Ligne contenant le tableau d'inedit_formations sur les REO #}
 				<section class="table-responsive">
 					<hr/>
-					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" data-prototype="{{ form_widget(form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
+					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" data-prototype="{{ form_widget(edit_form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
 						<thead>
 							<tr>
 								<td>
@@ -174,7 +174,7 @@
 						</thead>
 						{# L'insertion du contenu du tableau est éalisé en JS dans #}
 						<tbody>
-							{% for champsEmplacementReseauOuvrage in form.emplacementsReseauOuvrage %}
+							{% for champsEmplacementReseauOuvrage in edit_form.emplacementsReseauOuvrage %}
 								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.reference) }}
@@ -214,14 +214,14 @@
 				<div  id="bloc-rendez-vous">
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 						
-						{{ form_row(form.priseRendezVous)}}	
+						{{ form_row(edit_form.priseRendezVous)}}	
 					</div>
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 						<select id="proto-rendez-vous">
 							
-						{# Liste les différentes forme de réponse. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
+						{# Liste les différentes edit_forme de réponse. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme 
 						en jQuery #}
-							{% for type, line in form.rendezVous.vars.prototypes %}
+							{% for type, line in edit_form.rendezVous.vars.prototypes %}
 								<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
 							{% endfor %}
 						
@@ -230,19 +230,19 @@
 						
 					</div>
 					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
-						{# Affichage des informations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
-						{{ form_widget(form.rendezVous) }}
+						{# Affichage des inedit_formations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
+						{{ form_widget(edit_form.rendezVous) }}
 						
 					</div>
 				</div>
 
 				{#Deux dernière case de la section Emplacement de nos réseaux ouvrages!#}
 				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-					{{ form_row(form.prendreEnCompteServitude) }}
+					{{ form_row(edit_form.prendreEnCompteServitude) }}
 					
 				</div>
 				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-					{{ form_row(form.branchementRattache) }}	
+					{{ form_row(edit_form.branchementRattache) }}	
 					
 				</div>	
 			</div>
@@ -254,23 +254,23 @@
 		<h4>
 			Recommandations de sécurité
 		</h4>
-		{{ form_row(form.recommandationSecurite) }}
+		{{ form_row(edit_form.recommandationSecurite) }}
 		{# Je sors du template bootstrap mes block afin de pouvoir les mettre inline#}
-		<div class="form-group">
-			{{ form_errors(form.rubriqueGuideTechSecurite) }}
-			{{ form_label(form.rubriqueGuideTechSecurite) }}
-			{{ form_widget(form.rubriqueGuideTechSecurite) }}
+		<div class="edit_form-group">
+			{{ form_errors(edit_form.rubriqueGuideTechSecurite) }}
+			{{ form_label(edit_form.rubriqueGuideTechSecurite) }}
+			{{ form_widget(edit_form.rubriqueGuideTechSecurite) }}
 		</div>
-		<div class="form-inline">
-			{{ form_errors(form.miseHorsTension) }}
+		<div class="edit_form-inline">
+			{{ form_errors(edit_form.miseHorsTension) }}
 			{# Label global du groupe de champs #}
-			{{ form_label(form.miseHorsTension) }}
-			{% for elementFormMHT in form.miseHorsTension %}
+			{{ form_label(edit_form.miseHorsTension) }}
+			{% for elementFormMHT in edit_form.miseHorsTension %}
 				{{ form_label(elementFormMHT) }}
 				{{ form_widget(elementFormMHT) }}
 			{% endfor %}
 		</div>
-		{{ form_row(form.mesureSecurite) }}
+		{{ form_row(edit_form.mesureSecurite) }}
 	</div>
 
 	{# Partie sur les Dispositifs important pour la sécurité #}
@@ -278,61 +278,61 @@
 		<h4>
 			Dispositifs important pour la sécurité
 		</h4>
-		<div class="form-inline">
+		<div class="edit_form-inline">
 			{# Label et erreur global du groupe de champs #}
-			{{ form_errors(form.dispositifsSecurite) }}
-			{{ form_label(form.dispositifsSecurite) }}
-			{% for elementFormDS in form.dispositifsSecurite %}
-				{{ form_label(elementFormDS) }}
-				{{ form_widget(elementFormDS) }}
+			{{ form_errors(edit_form.dispositifsSecurite) }}
+			{{ form_label(edit_form.dispositifsSecurite) }}
+			{% for elementedit_formDS in edit_form.dispositifsSecurite %}
+				{{ form_label(elementedit_formDS) }}
+				{{ form_widget(elementedit_formDS) }}
 			{% endfor %}
 		</div>
-		{{ form_row(form.rubriqueGuideTechSecurite) }}
-		{{ form_row(form.miseHorsTension) }}
-		{{ form_row(form.mesureSecurite) }}
+		{{ form_row(edit_form.rubriqueGuideTechSecurite) }}
+		{{ form_row(edit_form.miseHorsTension) }}
+		{{ form_row(edit_form.mesureSecurite) }}
 	</div>
 
 	<div id="recommandations-securite" class="col-lg-12">
 		<h4>
 			Cas de dégradation d'un de nos ouvrages
 		</h4>
-		<div class="form-inline">
-			{{ form_errors(form.telServiceDegradation) }}
-			{{ form_label(form.telServiceDegradation) }}
-			{{ form_widget(form.telServiceDegradation) }}
+		<div class="edit_form-inline">
+			{{ form_errors(edit_form.telServiceDegradation) }}
+			{{ form_label(edit_form.telServiceDegradation) }}
+			{{ form_widget(edit_form.telServiceDegradation) }}
 		</div>
-		<div class="form-inline">
+		<div class="edit_form-inline">
 			<p>
 				Pour toute anomalie susceptible de mettre en cause la sécurité au cours du déroulement du chantier, prévenir le service départemental d’incendie et de secours (par défaut le 
 				18 ou le 112) :
 			</p>
-			{{ form_errors(form.serviceDepartementIncendieSecours) }}
-			{{ form_label(form.serviceDepartementIncendieSecours) }}
-			{{ form_widget(form.serviceDepartementIncendieSecours) }}
-			{{ form_errors(form.telServiceDepartementIncendieSecours) }}
-			{{ form_label(form.telServiceDepartementIncendieSecours) }}
-			{{ form_widget(form.telServiceDepartementIncendieSecours) }}
+			{{ form_errors(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_label(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_widget(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_errors(edit_form.telServiceDepartementIncendieSecours) }}
+			{{ form_label(edit_form.telServiceDepartementIncendieSecours) }}
+			{{ form_widget(edit_form.telServiceDepartementIncendieSecours) }}
 		</div>
 	</div>
 	<div id="recommandations-securite" class="col-lg-12">
 		<h4>
 			Responsable du dossier
 		</h4>
-		<div class="form-inline">
+		<div class="edit_form-inline">
 			{# responsableDossier #}
-			{{ form_errors(form.responsableDossier) }}
-			{{ form_label(form.responsableDossier) }}
-			{{ form_widget(form.responsableDossier) }}
+			{{ form_errors(edit_form.responsableDossier) }}
+			{{ form_label(edit_form.responsableDossier) }}
+			{{ form_widget(edit_form.responsableDossier) }}
 
 			{# telResponsableDossier #}
-			{{ form_errors(form.telResponsableDossier) }}
-			{{ form_label(form.telResponsableDossier) }}
-			{{ form_widget(form.telResponsableDossier) }}
+			{{ form_errors(edit_form.telResponsableDossier) }}
+			{{ form_label(edit_form.telResponsableDossier) }}
+			{{ form_widget(edit_form.telResponsableDossier) }}
 		</div>
 	</div>
 </div>
-{{ form_rest(form) }}
-{{ form_end(form) }}
+{{ form_rest(edit_form) }}
+{{ form_end(edit_form) }}
 
 <ul class="record_actions">
 	<li>
