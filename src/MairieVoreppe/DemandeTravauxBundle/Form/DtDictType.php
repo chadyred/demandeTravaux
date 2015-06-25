@@ -15,13 +15,13 @@ class DtDictType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      * 
-     * RAppel: ici on traduit le fait que la DT lié à la DICT peut être liée et ainsi le numéro de téléservice est unique
+     * RAppel: ici on traduit le fait que la DT lié à la DICT peut être CONJOINTE et ainsi le numéro de téléservice est unique.
+      * Je ne reprends pas le formulaire de la DICT car certaines chose on du être modifiée
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dt', new DemandeTravauxType(), array('label' => false))
-            
+            ->add('dt', new DemandeTravauxType(), array('label' => false))            
              ->add('numeroTeleservice', 'text', array('disabled' => true ))
             ->add('numeroAffaireDeclarant', 'text')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
@@ -37,7 +37,6 @@ class DtDictType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'options' => array('required' => false),
-                'label' => false,
               ))            
             ->add('descriptionTravaux')
             ->add('noteComplementaire')
@@ -46,8 +45,7 @@ class DtDictType extends AbstractType
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
-                'label' => false
+                'options' => array('required' => false)
               ))   
                 //Tous ce passe ici: la dict est lié à la DT à laquelle il est attaché.
                 ->add('dtDictConjointe', 'checkbox', array("data" => true, 

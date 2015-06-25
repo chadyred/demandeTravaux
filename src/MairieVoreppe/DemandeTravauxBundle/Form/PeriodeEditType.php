@@ -22,6 +22,7 @@ class PeriodeEditType extends PeriodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //TODO:  passer l'objet directement via le controller au travers de l'en-tête du formulaire.
         parent::buildForm($builder, $options);
         $builder
             ->add('maire', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Maire',

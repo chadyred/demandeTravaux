@@ -665,7 +665,7 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function setReponse(array $types)
+    public function setReponse(array $types = null, \MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse = null)
     {
         $this->reponse = $types[0];
 

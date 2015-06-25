@@ -31,7 +31,11 @@
 					<select id="proto-reponse">
 						{# Liste les différente edit_forme de réponse#}
 						{% for type, line in edit_form.reponse.vars.prototypes %}
-							<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+							{% set twig_content_variable= type %}
+							{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
+							{% set replace_with_value_var = '' %}
+
+							<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
 						{% endfor %}
 					
 
@@ -44,8 +48,11 @@
 						Elément généraux de réponse
 					</h4>
 					<ul class="list-unstyled" id="reponse">
-						{{ form_label(edit_form.reponse) }}
-						{{ form_widget(edit_form.reponse) }}
+						<li>
+						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+							{{form_errors(edit_form.reponse) }}
+							{{ form_widget(edit_form.reponse[0]) }}					
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -174,33 +181,23 @@
 						</thead>
 						{# L'insertion du contenu du tableau est éalisé en JS dans #}
 						<tbody>
-							{% for champsEmplacementReseauOuvrage in edit_form.emplacementsReseauOuvrage %}
-								<tr>
+							{% for key, champsEmplacementReseauOuvrage in edit_form.emplacementsReseauOuvrage %}
+								<tr id={{'"RO_' ~ key ~ '"' }}>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.reference) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.echelle) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.dateEdition) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.sensible) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.profondeurReglMini) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.materiauxReseau) }}
 									</td>
@@ -222,7 +219,13 @@
 						{# Liste les différentes edit_forme de réponse. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme 
 						en jQuery #}
 							{% for type, line in edit_form.rendezVous.vars.prototypes %}
-								<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+
+								{% set twig_content_variable= type %}
+								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
+								{% set replace_with_value_var = '' %}
+
+								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
+								
 							{% endfor %}
 						
 
@@ -231,7 +234,10 @@
 					</div>
 					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
 						{# Affichage des inedit_formations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
-						{{ form_widget(edit_form.rendezVous) }}
+						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+						<section>
+							{{ form_widget(edit_form.rendezVous) }}
+						</section>
 						
 					</div>
 				</div>

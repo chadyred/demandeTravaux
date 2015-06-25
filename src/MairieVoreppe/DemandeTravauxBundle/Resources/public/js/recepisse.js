@@ -7,15 +7,26 @@ $(document).ready(function(){
 	* La bibliothèque est en conflit avec bootstrap_js
 	*/
 	 // $('.datetimepicker').datepicker({
-  //               inline: true,
-  //               sideBySide: true
-  //           });
+	 //               inline: true,
+	 //               sideBySide: true
+	 //           });
 
-	/**
-	*
-	* Partie qui gère les différents type de réponse
-	*
-	*/
+	
+	typeReponse();
+	emplacementChantier();
+	typeRendezVous();
+   		
+});
+
+
+
+/**
+*
+* Fonction qui gère les différents type de réponse
+*
+*/
+function typeReponse()
+{
 	$('#proto-reponse').on('click', function(){
 
 		var prototypeDeChamps = $(this).find('option:selected').attr('data-prototype');
@@ -36,21 +47,25 @@ $(document).ready(function(){
         var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
         newLi.appendTo($('#reponse'));
 	})
+}
 
-
-	/**
-	*
-	* Partie qui gère les emplacement du chantier
-	*
-	*/
+/**
+*
+* Fonction qui gère les emplacement du chantier
+*
+*/
+function emplacementChantier()
+{
 	var prototypeDeChampsRO = $("table#list-emplacement-reseau-ouvrage").attr("data-prototype");
+	//Nécessaire lors de l'update
+	var nbChampsROExistant= $("table#list-emplacement-reseau-ouvrage tbody tr").length;
 
 	// console.log(prototypeDeChampsRO);
 
 	//On souhaite avoir deux ligne
 	var nombreDeChamps = 2, i = 0;
 
-	while(i < nombreDeChamps)
+	while(i < nombreDeChamps - nbChampsROExistant)
 	{
         unChamp = prototypeDeChampsRO.replace(/__name__/g, i);
 
@@ -59,7 +74,7 @@ $(document).ready(function(){
 
 		console.log(unChamp);
 
-        var newTr = $("<tr id=RO_" + i +"></tr>");
+        var newTr = $('<tr id="RO_' + i + '"></tr>');
 		var containerHtml = $("<div></div>").html(unChamp);
 
 		//Je recupère tout le block des champs : le champs et le <div> qui le contient (nécessaire puisqu'il est définit avec bootstrap)
@@ -92,12 +107,16 @@ $(document).ready(function(){
 
 		i++;
 	}
+}
+
 
 	/**
 	*
 	* Partie qui gère les différents type de rendez vous
 	*
 	*/
+function typeRendezVous()
+{
 	$('#proto-rendez-vous').on('click', function(){
 
 		//On coche la case si un choix se fait
@@ -111,14 +130,17 @@ $(document).ready(function(){
         //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
         prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
 
-		if($('#rendez-vous p').length > 0)
-			$('#rendez-vous p').remove();
+        //Je retire le label du début du prototype
+        prototypeDeChamps = prototypeDeChamps.replace(/<label(.*)<\/label>/ , "");
+
+		if($('#rendez-vous section').length > 0)
+			$('#rendez-vous section').remove();
 
         ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
-        var newLi = $('<p id="' + $(this).val() + '"></p>').html(ensembleDeChampConcret); 
-        newLi.appendTo($('#rendez-vous'));
+        var newSection = $('<section id="' + $(this).val() + '"></section>').html(ensembleDeChampConcret); 
+        newSection.appendTo($('#rendez-vous'));
 	});
 
 	
@@ -132,5 +154,4 @@ $(document).ready(function(){
    		 
 
 	});
-   		
-});
+}

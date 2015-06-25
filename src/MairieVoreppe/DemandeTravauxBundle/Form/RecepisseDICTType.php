@@ -57,7 +57,7 @@ class RecepisseDICTType extends ReponseType
             ->add('miseHorsTension', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension",
                 "property" => 'libelle',
                 'multiple' => false,
-                'expanded' => true
+                'expanded' => false
             ))
             ->add('dispositifsSecurite', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite",
                 "property" => 'description',

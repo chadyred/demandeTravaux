@@ -243,8 +243,7 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
             var newLi = jQuery('<li id="adresse_'+ nombreAleatoire +'_' + adresseCount + '_' + index + '"></li>').html(newWidget);
             autocompletesWraps.push("adresse_" + nombreAleatoire + '_' + adresseCount + '_' + index);
             
-            // console.log(autocompletesWraps);
-            
+            // console.log(autocompletesWraps);            
             addDeleteLink(newLi);
             newLi.appendTo(instance);
             

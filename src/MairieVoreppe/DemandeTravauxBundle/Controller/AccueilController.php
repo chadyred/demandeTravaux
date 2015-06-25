@@ -12,7 +12,7 @@ class AccueilController extends Controller
 {
     public function indexAction()
     {	
-        // $this->generationFullPdfExemple();
+        $this->generationFullPdfExemple();
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Accueil:index.html.twig');
     }
@@ -37,7 +37,7 @@ class AccueilController extends Controller
 		}
 
 		$recepisseDT->setTelephoneRepresentant($numeroTelephoneProto);
-		$recepisseDT->setReponse($reponse);
+		$recepisseDT->setReponse(null, $reponse);
 		$dt->setRecepisseDt($recepisseDT);
 
 
@@ -96,7 +96,7 @@ class AccueilController extends Controller
 		$pdf->exploitantFax($phoneUtil->format($numeroTelephoneProto, \libphonenumber\PhoneNumberFormat::NATIONAL));
 
 		//Partie réponse
-		$pdf->reponseCheckboxTypeReponse($recepisseDT->getReponse());
+		$pdf->reponseCheckboxTypeReponse($recepisseDT->getReponse()[0]);
 		$pdf->reponseInformationDemandeImprecise('reponseInformationDemandeImprecise');
 		$pdf->reponseDistanceNonConcerne(150);
 		$categories = array('HC', 'PC', 'GA');
