@@ -31,7 +31,11 @@
 					<select id="proto-reponse">
 						{# Liste les différente forme de réponse#}
 						{% for type, line in form.reponse.vars.prototypes %}
-							<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+							{% set twig_content_variable= type %}
+								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
+								{% set replace_with_value_var = '' %}
+
+								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
 						{% endfor %}
 					
 
@@ -46,7 +50,7 @@
 					<ul class="list-unstyled" id="reponse">
 						<li>
 							{{ form_label(form.reponse) }}
-							{{ form_widget(form.reponse) }}
+							{{ form_widget(form.reponse[0]) }}
 						</li>
 					</ul>
 				</div>
@@ -224,7 +228,12 @@
 						{# Liste les différentes forme de réponse. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
 						en jQuery #}
 							{% for type, line in form.rendezVous.vars.prototypes %}
-								<option data-prototype="{{ form_row(line) | escape }}">{{ type }}</option>
+
+
+								{% set twig_content_variable= type %}
+								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
+								{% set replace_with_value_var = '' %}
+								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
 							{% endfor %}
 						
 
@@ -233,7 +242,7 @@
 					</div>
 					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
 						{# Affichage des informations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
-						{{ form_widget(form.rendezVous) }}
+						{{ form_widget(form.rendezVous[0]) }}
 						
 					</div>
 				</div>
@@ -333,7 +342,6 @@
 		</div>
 	</div>
 </div>
-{{ form_rest(form) }}
 {{ form_end(form) }}
 
 <ul class="record_actions">

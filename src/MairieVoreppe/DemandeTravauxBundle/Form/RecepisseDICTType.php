@@ -47,7 +47,8 @@ class RecepisseDICTType extends ReponseType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'label' => false
+                    'label' => false,                    
+                    'by_reference' => false
                ))
             ->add('prendreEnCompteServitude')
             ->add('branchementRattache')

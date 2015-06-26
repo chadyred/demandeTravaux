@@ -10,10 +10,17 @@
             </a>
         </div>       
         <div class="col-lg-3">
+        {% if entity.recepisseDict == null %}
             <a href="{{ path('recepissedict_new', {'id_dict': entity.id}) }}" class="btn btn-default">
                 Créer un récépissé
             </a>
-        </div>      
+        {% else %}
+            <a href="{{ path('recepissedict_edit', {'id': entity.recepisseDict.id}) }}" class="btn btn-success">
+                Editer  le récépissé
+            </a>
+        {% endif %}  
+
+        </div>    
     </div>
     {# Indique un message lorsque la dict est est une dtDictLie. Celui-ci peut apparaitre si on choisie une DT déjà conjointe lors de l'action update qui rééxécute s
     se formulaire car la DICT sera tout de même hydratée par la DT.#}
@@ -97,7 +104,6 @@
                </li>
             {% endfor %}
         </ul>
-        {{ form_rest(edit_form) }}
     {{ form_end(edit_form) }}
  
         <ul class="record_actions">

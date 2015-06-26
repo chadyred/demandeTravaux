@@ -11,12 +11,23 @@
 
         
             <div id="header-wrapper">
-                <div id="alert-info" style="background-color:#0193CC;text-align: center;color:white;font-family: 'Arvo', serif;">
+
+            <div class="row">
                     {% for flashMessage in app.session.flashbag.get('notice') %}
-                        {{ flashMessage }}     
-                    {% endfor %}
-                </div>
+                        <div class="alert alert-success col-xs-12 col-sm-12 col-md-12 col-lg-12 alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>{{ flashMessage }}</strong>
+                        </div>    
+                    {% endfor %}     
+
+                    {% for flashMessage in app.session.flashbag.get('error') %}
+                        <div class="alert alert-success col-xs-12 col-sm-12 col-md-12 col-lg-12 alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>{{ flashMessage }}</strong>
+                        </div>    
+                    {% endfor %}          
             </div>
+               
                 {# Ici on insérera tous le contenu de nos vues du fos user bundle#}
                 {% block main_content %}
                 {% endblock main_content %}  

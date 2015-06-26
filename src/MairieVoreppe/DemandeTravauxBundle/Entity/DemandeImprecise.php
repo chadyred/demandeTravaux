@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * DemandeImprecise
@@ -26,6 +27,7 @@ class DemandeImprecise extends Reponse
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+    * @Groups({"reponse_recepisse"})
      */
     private $description;
 

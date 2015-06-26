@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * NonConcerne
@@ -26,6 +27,7 @@ class NonConcerne extends Reponse
      * @var string
      *
      * @ORM\Column(name="distanceNC", type="decimal")
+    * @Groups({"reponse_recepisse"})
      */
     private $distanceNC;
 

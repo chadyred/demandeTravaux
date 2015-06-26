@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT;
 use MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT;
 use MairieVoreppe\DemandeTravauxBundle\Form\RecepisseDICTType;
+use JMS\Serializer\SerializationContext;
 
 /**
  * RecepisseDICT controller.
@@ -44,6 +45,8 @@ class RecepisseDICTController extends Controller
         if (!$dict) {
             throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
         }
+
+        $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
 
         //On indique la DICT que l'on désire récupérer
         $entity = new RecepisseDICT();
@@ -151,6 +154,10 @@ class RecepisseDICTController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
+
+
+        $serializer = $this->get('jms_serializer');
+        $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
         
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -159,7 +166,8 @@ class RecepisseDICTController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'dict' => $entity->getDict()
+            'dict' => $entity->getDict(),
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize
         ));
     }
 
@@ -200,8 +208,15 @@ class RecepisseDICTController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        $serializer = $this->get('jms_serializer');
+        $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
+        
+
         if ($editForm->isValid()) {
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'édition du récépissé');
+
 
             return $this->redirect($this->generateUrl('recepissedict_edit', array('id' => $id)));
         }
@@ -210,7 +225,8 @@ class RecepisseDICTController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'dict' => $entity->getDict()
+            'dict' => $entity->getDict(),
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize
         ));
     }
     /**

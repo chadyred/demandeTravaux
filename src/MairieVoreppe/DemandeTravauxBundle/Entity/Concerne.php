@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Concerne
@@ -28,6 +29,7 @@ class Concerne extends Reponse
     * Liste des catégorie réseau concernée de l'exploitant Mairie
     *
     * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\CategorieReseauOuvrage")
+    * @Groups({"reponse_recepisse"})
     */
     private $categorieReseauOuvrage;
 
