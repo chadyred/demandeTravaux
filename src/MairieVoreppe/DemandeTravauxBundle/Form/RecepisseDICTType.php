@@ -17,7 +17,7 @@ class RecepisseDICTType extends ReponseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reponse', 'infinite_form_polycollection', array(
+            ->add('types', 'infinite_form_polycollection', array(
                 'types' => array(
                     'mairievoreppe_demandetravauxbundle_nonconcerne', // The first defined Type becomes the default
                     'mairievoreppe_demandetravauxbundle_demandeimprecise',
@@ -25,8 +25,11 @@ class RecepisseDICTType extends ReponseType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'by_reference' => false
+                    'mapped' => false
                ))
+            ->add('reponse', null, array(
+                'choices' => array( new NonConcerneType() => 'NC', new DemandeImpreciseType() => 'DI', new  ConcerneType() => "C")
+                ))
             ->add('chantierSensible')             
             ->add('extensionPrevue')
             ->add('modificationEnCours')

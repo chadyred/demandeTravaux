@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Reponse
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\ReponseRepository")
+ * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Model\ReponseRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({ 

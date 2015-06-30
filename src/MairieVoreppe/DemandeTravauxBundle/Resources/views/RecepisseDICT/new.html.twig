@@ -22,8 +22,9 @@
 
 <div class="row">
 	<div class="col-lg-8">
+
 		{#Zone de gestion de la polycollection #}
-		{% block polycollection_row %}
+
 			<div id="bloc-reponse" class="row">
 				<div class="col-lg-12">
 					<h4>
@@ -36,7 +37,9 @@
 								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
 								{% set replace_with_value_var = '' %}
 
-								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
+							{# 	<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option> #} 	
+							<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable }}</option> 
+
 						{% endfor %}
 					
 
@@ -49,14 +52,15 @@
 						Elément généraux de réponse
 					</h4>
 					<ul class="list-unstyled" id="reponse">
-					{{ dump(form.reponse)}}
+					<!-- {{ dump(form.reponse)}} -->
 						<li>
 							{{ form_widget(form.reponse) }}
 						</li>
 					</ul>
+
+
 				</div>
 			</div>
-		{% endblock polycollection_row %}
 
 		<div id="extension-reseau-ouvrage" class="row">
 			<div class="col-lg-12">
@@ -156,7 +160,7 @@
 				{# Ligne contenant le tableau d'informations sur les REO #}
 				<section class="table-responsive">
 					<hr/>
-					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" data-prototype="{{ form_widget(form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
+					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" prototype-reo="{{ form_widget(form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
 						<thead>
 							<tr>
 								<td>

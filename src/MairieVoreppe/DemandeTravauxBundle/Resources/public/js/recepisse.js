@@ -15,6 +15,8 @@ $(document).ready(function(){
 	typeReponse();
 	emplacementChantier();
 	typeRendezVous();
+
+
    		
 });
 
@@ -71,7 +73,7 @@ function typeReponse()
 */
 function emplacementChantier()
 {
-	var prototypeDeChampsRO = $("table#list-emplacement-reseau-ouvrage").attr("data-prototype");
+	var prototypeDeChampsRO = $("table#list-emplacement-reseau-ouvrage").attr("prototype-reo");
 	//Nécessaire lors de l'update
 	var nbChampsROExistant= $("table#list-emplacement-reseau-ouvrage tbody tr").length;
 

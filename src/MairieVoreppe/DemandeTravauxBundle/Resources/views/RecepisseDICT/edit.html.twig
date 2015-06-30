@@ -30,7 +30,7 @@
 					</h4>
 					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
 						{# Liste les différente edit_forme de réponse#}
-						{% for type, line in edit_form.reponse.vars.prototypes %}
+						{% for type, line in edit_form.types.vars.prototypes %}
 							{% set twig_content_variable= type %}
 							{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
 							{% set replace_with_value_var = '' %}
@@ -155,7 +155,7 @@
 				{# Ligne contenant le tableau d'inedit_formations sur les REO #}
 				<section class="table-responsive">
 					<hr/>
-					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" data-prototype="{{ form_widget(edit_form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
+					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" prototype-reo="{{ form_widget(edit_form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
 						<thead>
 							<tr>
 								<td>
