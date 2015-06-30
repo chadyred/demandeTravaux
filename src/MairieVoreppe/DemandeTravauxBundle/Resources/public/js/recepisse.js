@@ -35,18 +35,33 @@ function typeReponse()
 
 
         //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
 
-		if($('#reponse li').length > 0)
-			$('#reponse li').remove();
+		if($('ul#reponse li').length > 0)
+			$('ul#reponse li').remove();
 
         ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
 
-        var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
-        newLi.appendTo($('#reponse'));
-	})
+        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+        newLi.appendTo($('ul#reponse'));
+	});
+
+	// var prototypeDeChamps = $('#proto-reponse').find('option:eq(1)').attr('data-prototype');
+
+ //    //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+ //    prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+
+ //     ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, "0");
+
+
+
+ //        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+ //        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+ //        newLi.appendTo($('ul#reponse'));
+
 }
 
 /**
@@ -128,10 +143,10 @@ function typeRendezVous()
 
 
         //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+        // prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
 
         //Je retire le label du début du prototype
-        prototypeDeChamps = prototypeDeChamps.replace(/<label(.*)<\/label>/ , "");
+        // prototypeDeChamps = prototypeDeChamps.replace(/<label(.*)<\/label>/ , "");
 
 		if($('#rendez-vous section').length > 0)
 			$('#rendez-vous section').remove();
@@ -139,7 +154,7 @@ function typeRendezVous()
         ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
-        var newSection = $('<section id="' + $(this).val() + '"></section>').html(ensembleDeChampConcret); 
+        var newSection = $('<section></section>').html(ensembleDeChampConcret); 
         newSection.appendTo($('#rendez-vous'));
 	});
 

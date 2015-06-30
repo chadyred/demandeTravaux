@@ -20,12 +20,12 @@ class RecepisseDICTType extends ReponseType
             ->add('reponse', 'infinite_form_polycollection', array(
                 'types' => array(
                     'mairievoreppe_demandetravauxbundle_nonconcerne', // The first defined Type becomes the default
-                    'mairievoreppe_demandetravauxbundle_concerne',
-                    'mairievoreppe_demandetravauxbundle_demandeimprecise'
+                    'mairievoreppe_demandetravauxbundle_demandeimprecise',
+                    'mairievoreppe_demandetravauxbundle_concerne'
                     ),
                     'allow_add' => true,
-                    'allow_delete' => false,
-                    'label' => false
+                    'allow_delete' => true,
+                    'by_reference' => false
                ))
             ->add('chantierSensible')             
             ->add('extensionPrevue')
@@ -47,7 +47,6 @@ class RecepisseDICTType extends ReponseType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'label' => false,                    
                     'by_reference' => false
                ))
             ->add('prendreEnCompteServitude')

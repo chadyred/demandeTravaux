@@ -28,7 +28,6 @@ abstract class Reponse
      */
     private $id;
 
-    
 
     /**
      * Get id
@@ -40,5 +39,6 @@ abstract class Reponse
         return $this->id;
     }
 
+   
 }
 

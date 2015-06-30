@@ -4,7 +4,6 @@ namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use JMS\Serializer\Annotation\Groups;
 
 
 /**
@@ -167,9 +166,10 @@ abstract class Recepisse
    /**
     * reponse
     *
+    * Peut être null si le recepisse est en cours de création ( penser à un système de brouillon)
+    *
     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
-    * @Groups({"reponse_recepisse"})
+    * @ORM\JoinColumn(nullable=true)
     */
     protected $reponse;
 
@@ -663,7 +663,6 @@ abstract class Recepisse
     /**
      * Set reponse
      *
-     * @param $types: tableau nécvessaire pour la polycollien, un type permettant d'avoir plusieurs formulaire dans un seul formulaire
      * @param \MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse
      *
      * @return Recepisse

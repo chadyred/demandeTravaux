@@ -7,6 +7,7 @@
 <h1>RecepisseDICT creation</h1>
 
 {{ form_start(form) }}
+{{ form_errors(form) }}
 <div id="info-recepisse-creation" class="row">
 	<div class="col-lg-3">
 		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
@@ -48,9 +49,9 @@
 						Elément généraux de réponse
 					</h4>
 					<ul class="list-unstyled" id="reponse">
+					{{ dump(form.reponse)}}
 						<li>
-							{{ form_label(form.reponse) }}
-							{{ form_widget(form.reponse[0]) }}
+							{{ form_widget(form.reponse) }}
 						</li>
 					</ul>
 				</div>
@@ -242,7 +243,9 @@
 					</div>
 					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
 						{# Affichage des informations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
-						{{ form_widget(form.rendezVous[0]) }}
+						<section>	
+							{{ form_widget(form.rendezVous[0]) }}
+						</section>
 						
 					</div>
 				</div>

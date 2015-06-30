@@ -46,8 +46,6 @@ class RecepisseDICTController extends Controller
             throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
         }
 
-        $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
-
         //On indique la DICT que l'on désire récupérer
         $entity = new RecepisseDICT();
 
@@ -60,6 +58,8 @@ class RecepisseDICTController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+             $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
             
             $dict->setRecepisseDict($entity);
             $em->flush();
@@ -156,6 +156,7 @@ class RecepisseDICTController extends Controller
         }
 
 
+
         $serializer = $this->get('jms_serializer');
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
         
@@ -202,6 +203,10 @@ class RecepisseDICTController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
+
+        $entity->setReponse(null);
+            $em->flush();
+        
 
 
         $deleteForm = $this->createDeleteForm($id);

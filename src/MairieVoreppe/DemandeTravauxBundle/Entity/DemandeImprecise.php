@@ -21,7 +21,7 @@ class DemandeImprecise extends Reponse
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string

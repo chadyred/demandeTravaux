@@ -40,7 +40,6 @@
         "simplethings/entity-audit-bundle": "v0.6",
         "sonata-project/core-bundle": "dev-master",
         "jms/security-extra-bundle": "dev-master",
-        "jms/serializer": "0.17.*@dev",
         "jms/serializer-bundle": "0.13.*@dev",
         "willdurand/jsonp-callback-validator": "~1.0",
         "shtumi/useful-bundle": "dev-master",
