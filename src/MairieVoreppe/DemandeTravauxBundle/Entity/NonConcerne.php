@@ -65,5 +65,10 @@ class NonConcerne extends Reponse
     {
         return $this->distanceNC;
     }
+
+    public function __toString()
+    {
+        return "Non concernée";
+    }
 }
 

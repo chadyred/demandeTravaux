@@ -33,6 +33,8 @@ class Concerne extends Reponse
     */
     private $categorieReseauOuvrage;
 
+
+
     /**
      * Constructor
      */
@@ -85,5 +87,13 @@ class Concerne extends Reponse
     public function getCategorieReseauOuvrage()
     {
         return $this->categorieReseauOuvrage;
+    }
+
+    
+
+
+    public function __toString()
+    {
+        return "Concerné";
     }
 }

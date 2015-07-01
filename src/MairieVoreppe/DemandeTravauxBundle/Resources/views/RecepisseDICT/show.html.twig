@@ -1,9 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>RecepisseDICT</h1>
 
-    <table class="record_properties">
+<section class="table-responsive">
+    <hr/>
+    <caption>
+        <h1>RecepisseDICT</h1>
+    </caption>
+    <table class="table table-bordered table-striped table-condensed">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -12,6 +16,10 @@
             <tr>
                 <th>Datecreation</th>
                 <td>{{ entity.dateCreation|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ entity.reponse[0] }}</td>
             </tr>
             <tr>
                 <th>Extensionprevue</th>
@@ -88,5 +96,5 @@
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
-</ul>
+</section>
 {% endblock %}

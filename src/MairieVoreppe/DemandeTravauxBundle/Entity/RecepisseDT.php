@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Recepisse;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * RecepisseDT

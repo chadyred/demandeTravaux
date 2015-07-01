@@ -6,10 +6,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use libphonenumber\PhoneNumberFormat;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT;
 
 
 class RecepisseDICTType extends ReponseType
 {
+    public $entity;
+
+    public function __construct($recepisseDict = null)
+    {
+        $this->entity=  $recepisseDict;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,7 +27,7 @@ class RecepisseDICTType extends ReponseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('types', 'infinite_form_polycollection', array(
+            ->add('reponse', 'infinite_form_polycollection', array(
                 'types' => array(
                     'mairievoreppe_demandetravauxbundle_nonconcerne', // The first defined Type becomes the default
                     'mairievoreppe_demandetravauxbundle_demandeimprecise',
@@ -27,9 +37,9 @@ class RecepisseDICTType extends ReponseType
                     'allow_delete' => true,
                     'mapped' => false
                ))
-            ->add('reponse', null, array(
-                'choices' => array( new NonConcerneType() => 'NC', new DemandeImpreciseType() => 'DI', new  ConcerneType() => "C")
-                ))
+            //->add('reponse', null, array(
+             //   'choices' => array( new NonConcerneType() => 'NC', new DemandeImpreciseType() => 'DI', new  ConcerneType() => "C")
+              //  ))
             ->add('chantierSensible')             
             ->add('extensionPrevue')
             ->add('modificationEnCours')
@@ -74,6 +84,22 @@ class RecepisseDICTType extends ReponseType
             ->add('responsableDossier')
             ->add('telResponsableDossier', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
         ;
+
+         /**
+         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est obligatoire
+         */
+         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $form = $event->getForm();
+                $reponse = $event->getData();
+
+                if( $this->entity != null)
+                    $form->add('reponse_edit', 'entity', array('class' => get_class($this->entity->getReponse()[0]),
+                        'mapped' => false, 
+                        'data' => $this->entity->getReponse()));
+
+
+       
+        });
     }
     
     /**

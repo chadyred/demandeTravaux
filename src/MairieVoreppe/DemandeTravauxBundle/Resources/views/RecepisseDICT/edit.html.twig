@@ -28,16 +28,19 @@
 					<h4>
 						Votre réponse au déclarant
 					</h4>
-					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
-						{# Liste les différente edit_forme de réponse#}
-						{% for type, line in edit_form.types.vars.prototypes %}
-							{% set twig_content_variable= type %}
-							{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
-							{% set replace_with_value_var = '' %}
 
-							<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
-						{% endfor %}
-					
+					{# Liste les différente edit_forme de réponse#}
+					{% set mairievoreppe_demandetravauxbundle_nonconcerne = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_nonconcerne') %}
+					{% set mairievoreppe_demandetravauxbundle_concerne = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_concerne') %}
+					{% set mairievoreppe_demandetravauxbundle_demandeimprecise = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_demandeimprecise') %}
+					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
+
+							
+
+							<option id="mairievoreppe_demandetravauxbundle_nonconcerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_nonconcerne) | escape }}">Non concerné</option>
+							<option id="mairievoreppe_demandetravauxbundle_concerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_concerne) | escape }}">Concerne</option>
+							<option id="mairievoreppe_demandetravauxbundle_demandeimprecise" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_demandeimprecise) | escape }}">Demande imprécise</option>
+
 
 					</select>
 				</div>
@@ -48,10 +51,14 @@
 						Elément généraux de réponse
 					</h4>
 					{{form_errors(edit_form.reponse) }}
+					{{ dump(entity)}}
 					<ul class="list-unstyled" id="reponse">
 						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
 						<li>
-						{{ form_widget(edit_form.reponse) }}			
+						{{ dump(edit_form.reponse) }}
+							{{ form_widget(edit_form.reponse_edit) }}
+						
+						
 						</li>
 					</ul>
 				</div>

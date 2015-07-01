@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+use JMS\Serializer\Annotation\Groups;
 
 
 /**
@@ -170,7 +171,8 @@ abstract class Recepisse
     *
     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Reponse", cascade={"persist"})
     * @ORM\JoinColumn(nullable=true)
-    */
+    * @Groups({"reponse_recepisse"})
+    */    
     protected $reponse;
 
 
@@ -185,7 +187,7 @@ abstract class Recepisse
    /**
     * Recepisse
     *
-    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse", cascade={"persist", "remove"})
     * @ORM\JoinColumn(nullable=false)
     */
     protected $emplacementsReseauOuvrage;
@@ -213,8 +215,9 @@ abstract class Recepisse
      */
     public function __construct()
     {
-        $this->emplacementReseauOuvrage = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emplacementsReseauOuvrage = new \Doctrine\Common\Collections\ArrayCollection();
         $this->dateCreation = new \DateTime('now');
+        
     }
 
     /**
@@ -721,6 +724,9 @@ abstract class Recepisse
 
     /**
      * Set rendezVous
+     *
+     * On a un tableau car le bundle Infinite retourne un tableau, puisqu'il ne gère pas les OneToOne. En effet, on pourrait avoir 50 reponse or nous ils 
+     * nous en faut qu'une.
      *
      * @param \MairieVoreppe\DemandeTravauxBundle\Entity\RendezVous $rendezVous
      *

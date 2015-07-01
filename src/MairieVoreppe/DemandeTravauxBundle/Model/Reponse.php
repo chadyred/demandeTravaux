@@ -4,6 +4,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation\Groups;
+
 /**
  * Reponse
  *
@@ -28,6 +30,11 @@ abstract class Reponse
      */
     private $id;
 
+    /**
+    * @Groups({"reponse_recepisse"})
+    */
+    protected $class;
+
 
     /**
      * Get id
@@ -39,6 +46,15 @@ abstract class Reponse
         return $this->id;
     }
 
-   
+     /**
+     * Get categorieReseauOuvrage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
 }
 

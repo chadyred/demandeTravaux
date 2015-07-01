@@ -17,6 +17,7 @@ $(document).ready(function(){
 	typeRendezVous();
 
 
+
    		
 });
 
@@ -51,18 +52,143 @@ function typeReponse()
         newLi.appendTo($('ul#reponse'));
 	});
 
-	// var prototypeDeChamps = $('#proto-reponse').find('option:eq(1)').attr('data-prototype');
+	/**
+	*
+	* Partie qui va créer l'entité qui correspond à l'édition
+	*
+	*/
+	var serialisationReponse = $("select#proto-reponse").attr("data-reponse-prev");
+	var jsonToJavascriptObject = $.parseJSON(serialisationReponse);
 
- //    //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
- //    prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+	switch(jsonToJavascriptObject.reponse.class)
+	{
+		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\NonConcerne":
+		{
+			/**
+			* Récupération et création de la sctructure
+			*/
+			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_nonconcerne").attr("data-prototype");
+			var distance = jsonToJavascriptObject.reponse.distance_n_c;
 
- //     ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, "0");
+			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
+
+			if($('ul#reponse li').length > 0)
+				$('ul#reponse li').remove();
+
+	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
+	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
 
- //        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
- //        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
- //        newLi.appendTo($('ul#reponse'));
+	        console.log("distance => " + distance);
+
+			/**
+			* Insertion des données
+			*/
+			newLi.find('input#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_distanceNC').val(distance);
+
+			/**
+			* Affichage du formulaire
+			*/ 
+	        newLi.appendTo($('ul#reponse'));
+
+	        break;
+		}
+
+		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeImprecise":
+		{
+			/**
+			* Récupération et création de la sctructure
+			*/
+			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_demandeimprecise").attr("data-prototype");
+			var description = jsonToJavascriptObject.reponse.description;
+
+			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
+
+			if($('ul#reponse li').length > 0)
+				$('ul#reponse li').remove();
+
+	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+	        console.log("description => " + description);
+	        
+			/**
+			* Insertion des données
+			*/
+			newLi.find('textarea#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_description').val(description);
+
+			/**
+			* Affichage du formulaire
+			*/ 
+	        newLi.appendTo($('ul#reponse'));
+
+	        break;
+		}
+
+		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\Concerne":
+		{
+			/**
+			* Récupération et création de la sctructure
+			*/
+			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_concerne").attr("data-prototype");
+			var cat_roa = jsonToJavascriptObject.reponse.categorie_reseau_ouvrage;
+
+			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
+
+			if($('ul#reponse li').length > 0)
+				$('ul#reponse li').remove();
+
+	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+	        console.log("description => " + cat_roa);
+	        
+			/**
+			* Insertion des données
+			*/
+			$.each(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input"), function(index, value){
+				var labelTypeReseau = $(this).parent().text();
+
+				var abreviation = $(this).parent().text().substr(0, 2);
+				console.log(cat_roa.abreviation);
+
+				for(int i = 0;i < cat_roa.length;i++)
+				{					
+					if(cat_roa[i].abreviation == abreviation )
+					{
+						alert(trouve + "abreviation => " + abreviation + "cat_roa =>" + cat_roa[i].abreviation)
+						$(this).prop('checked', "checked");
+					}
+				}
+
+				});
+			});
+			/**
+			* Affichage du formulaire
+			*/ 
+	        newLi.appendTo($('ul#reponse'));
+
+	        break;
+		}
+		default: 
+		{
+			alert("dans la switch");
+			alert("pas de type de réponse identifiée");
+			break;
+		}
+
+	}
 
 }
 

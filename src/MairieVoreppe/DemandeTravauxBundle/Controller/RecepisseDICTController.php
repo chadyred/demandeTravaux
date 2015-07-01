@@ -61,7 +61,13 @@ class RecepisseDICTController extends Controller
 
              $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
             
+            //On écite de ce répéter: on a une persistence automatique (DRY)
             $dict->setRecepisseDict($entity);
+
+
+            $reponse = $editForm->get('reponse')->getData();
+            $entity->setReponse($reponse);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('recepissedict_show', array('id' => $entity->getId())));
@@ -158,6 +164,7 @@ class RecepisseDICTController extends Controller
 
 
         $serializer = $this->get('jms_serializer');
+        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
         
         $editForm = $this->createEditForm($entity);
@@ -181,7 +188,7 @@ class RecepisseDICTController extends Controller
     */
     private function createEditForm(RecepisseDICT $entity)
     {
-        $form = $this->createForm(new RecepisseDICTType(), $entity, array(
+        $form = $this->createForm(new RecepisseDICTType($entity), $entity, array(
             'action' => $this->generateUrl('recepissedict_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -204,8 +211,7 @@ class RecepisseDICTController extends Controller
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
 
-        $entity->setReponse(null);
-            $em->flush();
+        
         
 
 
@@ -218,6 +224,16 @@ class RecepisseDICTController extends Controller
         
 
         if ($editForm->isValid()) {
+
+            //si une réponse est donné on met à jour celle-ci sinon on ne touche rien
+            $reponse = $editForm->get('reponse')->getData();
+
+            if($reponse != null) {
+                $ancienneReponse =  $entity->getReponse();
+                $em->remove($ancienneReponse[0]);
+                 $entity->setReponse($reponse);
+            }
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'édition du récépissé');

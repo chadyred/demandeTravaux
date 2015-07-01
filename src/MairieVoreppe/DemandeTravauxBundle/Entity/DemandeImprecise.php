@@ -65,5 +65,10 @@ class DemandeImprecise extends Reponse
     {
         return $this->description;
     }
+
+    public function __toString()
+    {
+        return "Demande imprécise";
+    }
 }
 
