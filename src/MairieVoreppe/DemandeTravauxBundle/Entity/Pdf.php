@@ -883,22 +883,25 @@ class Pdf extends \FPDI
 	*/
 	public function responsableNumeroService($string)
 	{
-		// Helvetica 12
-		$this->SetFont('Helvetica',"",10);
-
-		$cellfit = new \FPDF_CellFit($this);
-
-		//Sinon seul la première ligne existe
-		$this->SetXY(17, 277);
-
-		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 5, utf8_decode($string), 0, 0, 'l', 0);
-
-		//Retour à la police normal
-		$this->mainFont();
-		// Sinon seul la première ligne existe
-		// $this->SetXY(15, 272.5);
-		// $this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+		if($string != null && $string != "")
+		{
+					// Helvetica 12
+					$this->SetFont('Helvetica',"",10);
+		
+					$cellfit = new \FPDF_CellFit($this);
+		
+					//Sinon seul la première ligne existe
+					$this->SetXY(17, 277);
+		
+					//Permet d'espacer les lettres de manière égale
+					$cellfit->CellFitSpaceForce(30.3, 5, utf8_decode($string), 0, 0, 'l', 0);
+		
+					//Retour à la police normal
+					$this->mainFont();
+					// Sinon seul la première ligne existe
+					// $this->SetXY(15, 272.5);
+					// $this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
+			}
 	}
 
 	/***********
