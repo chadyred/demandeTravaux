@@ -32,7 +32,7 @@ class DispositifSecurite
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="dispositifsSecurite")
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="dispositifSecurite")
      */
     private $recepisses;
 

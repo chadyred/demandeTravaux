@@ -96,6 +96,14 @@ class Adresse
     //Permet de récupérer l'adresse complète. Utilie pour l'introspection pour le publipostage
     //des modèles d'arrêtés
     private $adresseComplete;
+
+    /**
+     * @var type Ville
+     *
+     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
+     */
+    private $pays; 
     
     /**
      * Get id
@@ -303,7 +311,7 @@ class Adresse
 
     
     //Méthode personnalisé
-    public function getAdresseComplete()
+    public function getAdresseCompleteAvecLieuDit()
     {
         $adresseComplete = "";
         $adresseComplete .= $this->getNumeroRue();
@@ -311,5 +319,51 @@ class Adresse
         $adresseComplete .= $this->getCp() . ' ' . $this->getVille();
                 
         return $adresseComplete;       
+    }
+
+     //Méthode personnalisé
+    public function getAdresseCompleteSansLieuDit()
+    {
+        $adresseComplete = "";
+        $adresseComplete .= $this->getNumeroRue();
+        $adresseComplete .=  ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse() . ' ';
+        $adresseComplete .= $this->getCp() . ' ' . $this->getVille();
+                 
+    }
+
+
+     //Méthode personnalisé
+    public function getAdresseCompleteNumRueAdresse()
+    {
+         $adresseComplete = "";
+        $adresseComplete .= $this->getNumeroRue();
+        $adresseComplete .=  ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse();
+
+
+        return $adresseComplete;      
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return Adresse
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 }

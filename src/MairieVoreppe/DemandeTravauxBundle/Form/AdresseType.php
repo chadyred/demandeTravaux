@@ -31,7 +31,9 @@ class AdresseType extends AbstractType
             ->add('complementAdresse', 'text',  array('required' => false))
             ->add('lieuDit', 'text',  array('required' => false, 'attr' => array('lieuDit' => 'lieuDit')))       
             ->add('ville', 'text', array('attr' => array('locality' => 'locality')))
-            ->add('cp', 'text', array('attr' => array('postal_code' => 'postal_code')));
+            ->add('cp', 'text', array('attr' => array('postal_code' => 'postal_code')))
+            ->add('pays', 'text', array('attr' => array('country' => 'country')))
+        ;
                 
           
     }

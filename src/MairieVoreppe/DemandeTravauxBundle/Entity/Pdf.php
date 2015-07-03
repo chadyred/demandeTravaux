@@ -59,32 +59,6 @@ class Pdf extends \FPDI
 		$draw->Line(13, 72.5, 15, 68.5, $style);
 	}
 
-	/**
-	* Cette fonction cochera la case sur le PDF
-	*/
-	function checkboxTypeDemande($typeDemande)
-	{
-		$classeTypeDemande = get_class($typeDemande);
-
-		switch($classeTypeDemande)
-		{
-			case 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux':
-			{
-				$this->checkboxDemandeDt();
-
-				//TODO : Controle si conjointe avec une DICT
-				break;
-			}
-			case 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT':
-			{
-				$this->checkboxDemandeDict();
-
-				//TODO : Controle si conjointe avec une DT
-				break;
-			}
-		}
-
-	}
 
 
 	/**
@@ -98,14 +72,14 @@ class Pdf extends \FPDI
 	{ 
 		// Décalage de 10 cm vers la droite et 40 vers le bas
 		$this->SetXY(102, 47.5);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	} 
 
 	//Fonction qui représente une zone ciblée destinataireComplement
 	function destinataireComplement($string)
 	{ 
 		$this->SetXY(102, 52.5);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	} 
 
 
@@ -113,7 +87,7 @@ class Pdf extends \FPDI
 	function destinataireNumeroRueTravaux($string)
 	{ 
 		$this->SetXY(102, 57.5);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	} 
 
 	//Fonction qui représente une zone ciblée concernant l'adresse peut avoir un lieuDit  du destinataire
@@ -121,7 +95,7 @@ class Pdf extends \FPDI
 	{ 
 
 		$this->SetXY(102, 62.5);
-		$this->Cell(200,10,$string,0,0,'l',0);
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0);
  	} 
 
 	//Fonction qui représente une zone ciblée concernant le code postale de l'adresse   du destinataire
@@ -139,7 +113,7 @@ class Pdf extends \FPDI
 		$this->SetXY(102, 67.3);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(15.5, 10, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(15.5, 10, utf8_decode($string), 0, 0, 'l', 0);
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -150,7 +124,7 @@ class Pdf extends \FPDI
 	function destinataireCommune($string)
 	{ 
 		$this->SetXY(120, 67.4);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	}
 
 
@@ -158,7 +132,7 @@ class Pdf extends \FPDI
 	function destinataireVille($string)
 	{ 
 		$this->SetXY(102, 73);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	}
 
 
@@ -177,7 +151,7 @@ class Pdf extends \FPDI
 		$cellfit = new \FPDF_CellFit($this);
 
 		$this->SetXY(54.4, 81);
-		$cellfit->CellFitSpaceForce(48.3,10,$string,0,0,'l',0); 
+		$cellfit->CellFitSpaceForce(48.3,10,utf8_decode($string),0,0,'l',0); 
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -284,7 +258,7 @@ class Pdf extends \FPDI
 		$this->SetXY(141.5, 101);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(15.5, 10, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(15.5, 10, utf8_decode($string), 0, 0, 'l', 0);
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -308,14 +282,15 @@ class Pdf extends \FPDI
 		$this->SetFont('Helvetica',"",10);
 
 		//PdfDraw enrichie avec la pattern Decorator mon PDF
-		//$draw = new \PDF_Draw($this);
+		//$draw = new \PDF_Draw($this); 
 		$cellfit = new \FPDF_CellFit($this);
 
 		$this->SetXY(117, 105.3);
 		// $this->Cell(113,10,utf8_decode($string),0,0,'l',0);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 10, $string, 0, 0, 'l', 0);
+		// Le calcul se fait en divisant la taille de la chaine. Si le numéro est vide, on ne fait rien
+		$cellfit->CellFitSpaceForce(30.3, 10, utf8_decode($string), 0, 0, 'l', 0);
 		
 		//Retour à la police normal
 		$this->mainFont();
@@ -337,46 +312,14 @@ class Pdf extends \FPDI
 		$this->SetXY(169.3, 105.3);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 10, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(30.3, 10, utf8_decode($string), 0, 0, 'l', 0);
 		
 		//Retour à la police normal
 		$this->mainFont();
 	}
 
 
-	/**
-	*
-	* Partie 'Elément généraux de réponse'
-	*
-	*/ 
-	/**
-	* Cette fonction cochera la case sur le PDF
-	*/
-	function reponseCheckboxTypeReponse($typeReponse)
-	{
-		$classeTypeReponse = get_class($typeReponse);
-
-		switch($classeTypeReponse)
-		{
-			case 'MairieVoreppe\DemandeTravauxBundle\Entity\Concerne':
-			{
-				$this->reponseCheckboxConcerne();
-				//TODO: Mettre les précisions
-				break;
-			}
-			case 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeImprecise':
-			{
-				$this->reponseCheckboxDemandeImprecise();
-				break;
-			}
-			case 'MairieVoreppe\DemandeTravauxBundle\Entity\NonConcerne':
-			{
-				$this->reponseCheckboxNonConcerne();
-
-				break;
-			}
-		}
-	}
+	
 
 	//Checkbox qui permet de cocher le fait que la demande est imprécise
 	function reponseCheckboxDemandeImprecise()
@@ -453,9 +396,18 @@ class Pdf extends \FPDI
 
 		foreach($categories as $key => $categorie)
 	    {
-	    	//On rajoute l'écart à key position
-			$this->SetXY(110 + ($key * 8), 129.5);
-			$this->Cell(200,10,utf8_decode($categorie),0,0,'l',0);		
+
+			if($key < 3)
+			{
+		    	//On rajoute l'écart à key position
+				$this->SetXY(110 + ($key * 8), 129.5);
+			}
+			else
+			{
+				$this->SetXY(155 + ($key * 8), 130);
+			}
+
+			$this->Cell(200,10,utf8_decode($categorie->getCode()),0,0,'l',0);
 
 	    }
 
@@ -474,7 +426,7 @@ class Pdf extends \FPDI
 	{
 
 		$this->SetXY(122.8, 141);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	}
 
 
@@ -498,7 +450,7 @@ class Pdf extends \FPDI
 	{
 
 		$this->SetXY(59, 150);
-		$this->Cell(200,10,$string,0,0,'l',0); 
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 
 	}
 
 
@@ -520,7 +472,7 @@ class Pdf extends \FPDI
 		$this->SetXY(170, 149.5);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 10, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(30.3, 10, utf8_decode($string), 0, 0, 'l', 0);
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -549,7 +501,7 @@ class Pdf extends \FPDI
 	public function reseauPremiereReference($string)
 	{
 		$this->SetXY(41.9, 168.6);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 
@@ -557,7 +509,7 @@ class Pdf extends \FPDI
 	public function reseauPremiereEchelle($string)
 	{
 		$this->SetXY(72, 168.6);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Fonction qui représente la date de réception de la déclaration
@@ -591,21 +543,21 @@ class Pdf extends \FPDI
 	function reseauPremiereProfReglMini($string)
 	{
 		$this->SetXY(152.1, 168.6);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Fonction choix matériaux réseau
 	function reseauPremiereMateriaux($string)
 	{
 		$this->SetXY(177.5, 168.6);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Fonction qui indique la première référence 
 	public function reseauDeuxiemeReference($string)
 	{
 		$this->SetXY(41.9, 173.3);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 
@@ -613,7 +565,7 @@ class Pdf extends \FPDI
 	public function reseauDeuxiemeEchelle($string)
 	{
 		$this->SetXY(72, 173.3);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Fonction qui représente la date de réception de la déclaration
@@ -647,14 +599,14 @@ class Pdf extends \FPDI
 	function reseauDeuxiemeProfReglMini($string)
 	{
 		$this->SetXY(152.1, 173.3);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Fonction choix matériaux réseau
 	function reseauDeuxiemeMateriaux($string)
 	{
 		$this->SetXY(177.5, 173.3);
-		$this->Cell(200,10,$string,0,0,'l',0); 		
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 		
 	}
 
 	//Checkbox réunion de chantier
@@ -690,7 +642,7 @@ class Pdf extends \FPDI
 		$this->SetFont('Helvetica',"",10);
 
 		$this->SetXY(129, 177.5);
-		$this->Cell(200,10,$date->format('d   m   Y      h    m'),0,0,'l',0); 
+		$this->Cell(200,10,$date->format('d   m   Y      h    i'),0,0,'l',0); 
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -768,7 +720,7 @@ class Pdf extends \FPDI
 	public function securiteRecommandationTechnique($string)
 	{
 		$this->SetXY(9, 215.8);
-		$this->Cell(200,10,$string,0,0,'l',0); 	
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 	
 
 	}
 
@@ -776,7 +728,7 @@ class Pdf extends \FPDI
 	public function securiteRubriqueGuideTechnique($string)
 	{
 		$this->SetXY(110.3, 219.8);
-		$this->Cell(200,10,$string,0,0,'l',0); 	
+		$this->Cell(200,10,utf8_decode($string),0,0,'l',0); 	
 	}
 
 	public function securiteMiseHorsTension($bool)
@@ -882,7 +834,7 @@ class Pdf extends \FPDI
 		$this->SetXY(138.3, 246.8);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 10, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(30.3, 10, utf8_decode($string), 0, 0, 'l', 0);
 
 		//Retour à la police normal
 		$this->mainFont();
@@ -911,7 +863,7 @@ class Pdf extends \FPDI
 	}
 
 	//NOm du service responsable du dossier
-	public function responsableDossierService($string)
+	public function designationService($string)
 	{
 		//Sinon seul la première ligne existe
 		$this->SetXY(40, 272.3);
@@ -940,7 +892,7 @@ class Pdf extends \FPDI
 		$this->SetXY(17, 277);
 
 		//Permet d'espacer les lettres de manière égale
-		$cellfit->CellFitSpaceForce(30.3, 5, $string, 0, 0, 'l', 0);
+		$cellfit->CellFitSpaceForce(30.3, 5, utf8_decode($string), 0, 0, 'l', 0);
 
 		//Retour à la police normal
 		$this->mainFont();

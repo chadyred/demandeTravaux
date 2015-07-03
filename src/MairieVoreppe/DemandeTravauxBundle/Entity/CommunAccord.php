@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\RendezVous;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * CommunAccord
@@ -25,7 +26,8 @@ class CommunAccord extends RendezVous
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRetenue", type="datetime")
+     * @ORM\Column(name="dateRetenue", type="datetime") 
+     * @Groups({"rendezvous_recepisse"})
      */
     private $dateRetenue;
 

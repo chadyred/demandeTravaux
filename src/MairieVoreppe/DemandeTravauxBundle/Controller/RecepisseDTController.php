@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT;
 use MairieVoreppe\DemandeTravauxBundle\Form\RecepisseDTType;
+use MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux;
+use JMS\Serializer\SerializationContext;
 
 /**
  * RecepisseDT controller.
@@ -33,8 +35,18 @@ class RecepisseDTController extends Controller
      * Creates a new RecepisseDT entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id_dt)
     {
+
+       $em = $this->getDoctrine()->getManager();
+
+        //Je récupère la dict à laquelle le récépissé est lié
+        $dt = $em->getRepository('MairieVoreppeDemandeTravauxBundle:DemandeTravaux')->find($id_dt);
+
+        if (!$dt) {
+            throw $this->createNotFoundException('Unable to find DemandeTravaux entity.');
+        }
+
         $entity = new RecepisseDT();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -50,6 +62,7 @@ class RecepisseDTController extends Controller
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'dt' => $dt
         ));
     }
 
@@ -60,10 +73,10 @@ class RecepisseDTController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(RecepisseDT $entity)
+    private function createCreateForm(RecepisseDT $entity,  DemandeTravaux $dt)
     {
         $form = $this->createForm(new RecepisseDTType(), $entity, array(
-            'action' => $this->generateUrl('recepissedt_create'),
+            'action' => $this->generateUrl('recepissedt_create', array('id_dt' => $dt->getId() )),
             'method' => 'POST',
         ));
 
@@ -76,14 +89,27 @@ class RecepisseDTController extends Controller
      * Displays a form to create a new RecepisseDT entity.
      *
      */
-    public function newAction()
+    public function newAction($id_dt)
     {
         $entity = new RecepisseDT();
-        $form   = $this->createCreateForm($entity);
+
+        $em = $this->getDoctrine()->getManager();
+
+        //Je récupère la dict à laquelle le récépissé est lié
+        $dt = $em->getRepository('MairieVoreppeDemandeTravauxBundle:DemandeTravaux')->find($id_dt);
+
+        if (!$dt) {
+            throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
+        }
+
+
+
+        $form   = $this->createCreateForm($entity, $dt);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'dt' => $dt
         ));
     }
 
@@ -106,6 +132,7 @@ class RecepisseDTController extends Controller
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'dt' => $entity->getDt()
         ));
     }
 
@@ -126,11 +153,29 @@ class RecepisseDTController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
+
+         /**
+        * Sérialisation de la réponse et du rendez vous nécessaire afin d'enrichir les prototypes: 
+        * - lorsque l'on charge l'édition
+        * TODO - lorsque l'on change et que l'on revien sur le type de base
+        */
+        $serializer = $this->get('jms_serializer');
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+        $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
+
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
+
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize,
+            'rendezvous_recepisse_serialize' => $rendezvous_recepisse_serialize,
+            'dt' => $entity->getDt()
+       ));
     }
 
     /**
@@ -169,8 +214,42 @@ class RecepisseDTController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        /**
+        * Sérialisation de la réponse et du rendez vous nécessaire afin d'enrichir les prototypes: 
+        * - lorsque l'on charge l'édition
+        * TODO - lorsque l'on change et que l'on revien sur le type de base
+        */
+        $serializer = $this->get('jms_serializer');
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+        $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
+
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
+        
+
         if ($editForm->isValid()) {
+            
+            //Seule solution trouvée : pas de mapping pour les champs reponse et rendez-vous sans quoi en remplacant sa structure attendun on aura une erreur/
+            //si une réponse est donné on met à jour celle-ci sinon on ne touche rien
+            $reponse = $editForm->get('reponse')->getData();
+            $rdv = $editForm->get('rendezVous')->getData();
+
+            if($reponse != null) {
+                $ancienneReponse =  $entity->getReponse();
+                $em->remove($ancienneReponse[0]);
+                 $entity->setReponse($reponse);
+            }
+
+            if($rdv != null) {
+                 $ancienneRdv =  $entity->getRendezVous();
+                $em->remove($ancienneRdv[0]);
+                 $entity->setRendezVous($rdv);
+            }
+
             $em->flush();
+
 
             return $this->redirect($this->generateUrl('recepissedt_edit', array('id' => $id)));
         }
@@ -179,6 +258,9 @@ class RecepisseDTController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize,
+            'rendezvous_recepisse_serialize' => $rendezvous_recepisse_serialize,
+            'dt' => $entity->getDt()
         ));
     }
     /**

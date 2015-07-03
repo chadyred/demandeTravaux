@@ -26,7 +26,7 @@
                     <td>
                          {% if(entity.adresses|length > 0) %}
                             {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
-                            {{ entity.adresses[0].getAdresseComplete|length > 50 ? entity.adresses[0].getAdresseComplete|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseComplete}}
+                            {{ entity.adresses[0].getAdresseCompleteAvecLieuDit|length > 50 ? entity.adresses[0].getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseCompleteAvecLieuDit}}
                         {% else %}
                            /!\ Pas d'adresse !
                        {% endif %}
@@ -53,7 +53,7 @@
                     <td>
                        {% if(entity.adresses|length > 0) %}
                             {# Limitation du nombre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
-                            {{ entity.adresses[0].getAdresseComplete|length > 50 ? entity.adresses[0].getAdresseComplete|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseComplete}}
+                            {{ entity.adresses[0].getAdresseCompleteAvecLieuDit|length > 50 ? entity.adresses[0].getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.adresses[0].getAdresseCompleteAvecLieuDit}}
                        {% else %}
                            /!\ Pas d'adresse !
                        {% endif %}

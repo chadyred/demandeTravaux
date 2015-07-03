@@ -24,7 +24,7 @@
                     <td>Personne physique</td>
                     <td>{{ entity.civil }} </td>
                     <td>
-                        {{ entity.civil.adresse.getAdresseComplete()|length > 50 ? entity.civil.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseComplete }}
+                        {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit }}
                     </td>
                     <td>{{ entity.civil.telFixe }}</td>
                     <td>
@@ -47,7 +47,7 @@
                             {{ entity.entreprise.raisonSociale }}                    
                     </td>
                     <td>
-                        {{ entity.entreprise.adresse.getAdresseComplete()|length > 50 ? entity.entreprise.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseComplete }}
+                        {{ entity.entreprise.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.entreprise.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseCompleteAvecLieuDit }}
                     </td>
                     <td>{{ entity.entreprise.telFixe }}</td>
                     <td>

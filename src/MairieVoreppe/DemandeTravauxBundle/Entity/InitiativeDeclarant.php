@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\RendezVous;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * InitiativeDeclarant
@@ -25,7 +26,8 @@ class InitiativeDeclarant extends RendezVous
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRetenue", type="date")
+     * @ORM\Column(name="dateRetenue", type="date")     
+     * @Groups({"rendezvous_recepisse"})
      */
     private $dateRetenue;
 

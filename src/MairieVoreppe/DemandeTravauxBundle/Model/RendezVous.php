@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * RendezVous
@@ -27,6 +28,10 @@ abstract class RendezVous
     private $id;
 
 
+    /**
+    * @Groups({"rendezvous_recepisse"})
+    */
+    protected $class;
 
 
     /**
@@ -39,6 +44,15 @@ abstract class RendezVous
         return $this->id;
     }
 
+   /**
+     * Get categorieReseauOuvrage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
 
    
 }

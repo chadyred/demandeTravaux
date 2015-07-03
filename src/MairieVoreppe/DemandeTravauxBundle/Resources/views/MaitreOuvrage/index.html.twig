@@ -24,7 +24,7 @@
                     <td><a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>Personne physique</td>
                     <td>{{ entity.civil }} </td>
-                    <td>{{ entity.civil.adresse.getAdresseComplete|length > 50 ? entity.civil.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseComplete}}</td>
+                    <td>{{ entity.civil.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit}}</td>
                     <td>{{ entity.civil.telFixe }}</td>
                     <td>
                         <ul>
@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
-                        {{ entity.personneMorale.adresse.getAdresseComplete|length > 50 ? entity.personneMorale.adresse.getAdresseComplete|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseComplete }}
+                        {{ entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit }}
                     </td>
                     <td>{{ entity.personneMorale.telFixe }}</td>
                     <td>

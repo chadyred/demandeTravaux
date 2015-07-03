@@ -1,16 +1,356 @@
-{% extends '::base.html.twig' %}
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Recepisse:layout.html.twig' %}
+{% block main_content %}
 
-{% block body -%}
-    <h1>RecepisseDT edit</h1>
 
-    {{ form(edit_form) }}
+{% block recepisse_content -%}
+<h1>RecepisseDICT edit</h1>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('recepissedt') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+{{ form_start(edit_form) }}
+{{ form_errors(edit_form) }}
+<div id="info-recepisse-creation" class="row">
+	<div class="col-lg-3">
+		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
+	</div>
+	<div class="col-lg-3">
+		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
+	</div>
+	<div class="col-lg-3 edit_form-group">
+		{{ form_row(edit_form.chantierSensible) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-8">
+		{#Zone de gestion de la polycollection #}
+			<div id="bloc-reponse" class="row">
+				<div class="col-lg-12">
+					<h4>
+						Votre réponse au déclarant
+					</h4>
+
+					{# Liste les différente edit_forme de réponse#}
+					{% set mairievoreppe_demandetravauxbundle_nonconcerne = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_nonconcerne') %}
+					{% set mairievoreppe_demandetravauxbundle_concerne = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_concerne') %}
+					{% set mairievoreppe_demandetravauxbundle_demandeimprecise = attribute(edit_form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_demandeimprecise') %}
+					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
+
+							
+
+							<option id="mairievoreppe_demandetravauxbundle_nonconcerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_nonconcerne) | escape }}">Non concerné</option>
+							<option id="mairievoreppe_demandetravauxbundle_concerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_concerne) | escape }}">Concerne</option>
+							<option id="mairievoreppe_demandetravauxbundle_demandeimprecise" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_demandeimprecise) | escape }}">Demande imprécise</option>
+
+
+					</select>
+				</div>
+			</div>
+			<div  id="bloc-element-reponse" class="row">
+				<div class="col-lg-12">
+					<h4>
+						Elément généraux de réponse
+					</h4>
+					{{form_errors(edit_form.reponse) }}
+					
+					<ul class="list-unstyled" id="reponse">
+						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+						<li>
+							{{ form_row(edit_form.reponse) }}
+						
+						
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		<div id="extension-reseau-ouvrage" class="row">
+			<div class="col-lg-12">
+				<h4>
+					Modification ou extension de nos réseaux ouvrages!
+				</h4>
+				{{ form_row(edit_form.extensionPrevue) }}
+				{{ form_row(edit_form.modificationEnCours) }}
+				{{ form_row(edit_form.nomRepresentant) }}
+				{{ form_row(edit_form.telephoneRepresentant) }}
+			</div>
+		</div>						
+	</div><!--fin colonne de gauche qui prend 8 colonne-->
+	<div class="col-lg-4">
+		<h4>
+			Inedit_formation sur le chantier.
+		</h4>
+		{# reçu le...par canal, déclarant, numéro d'affaire du déclarant
+		- emplacement du chantier : numéro de voir, commune, adresse
+		- Calendrier: date de début, durée, date de fin  #}
+		<div class="col-lg-offset-2 col-lg-10">			
+			<p>
+				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dict.canalReception.libelle }}
+				<br/>
+				{# Les __toString() personnalise l'affichage #}
+				Déclarant : {{ dict.dt != null ? dict.dt.maitreOuvrage : dict.maitreOeuvre }}
+				<br/>
+				Numéro d'affaire du déclarant : {{ dict.numeroAffaireDeclarant }}
+			</p>
+		</div>
+
+		{# Affichage des inedit_formations sur l'emplacement de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Emplacement du chantier:
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+					<br/>
+					Commune : {{ dict.adresses[0].ville }} 
+					<br/>
+					Adresse : {{ dict.adresses[0].adresse }} 
+				</p>
+			</div>
+
+		</div>
+
+		{# Affichage des inedit_formations sur le calendrié de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Calendrié :
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					Date de début :  {{ dict.dateDebutTravaux|date('d-m-Y H:i:s') }} 
+					<br/>
+					Durée : {{ dict.duree }} {{ dict.duree > 1 ? "jours" : "jour" }} 
+					<br/>
+					Date de fin : {{ dict.adresses[0].adresse }} 
+				</p>
+			</div>
+
+
+		</div>
+
+		{# Affichage des inedit_formations sur les travaux de la demande #}
+		<div class="col-lg-offset-1 col-lg-11">	
+			<h6>
+				Description des travaux :
+			</h6>	
+			<div class="col-lg-offset-1 col-lg-11">
+				<p>
+					{{ dict.descriptionTravaux }} 				
+				</p>
+			</div>
+
+
+		</div>
+	</div>
+</div><!-- fin de la row -->
+
+<!-- Zone de gestion des ouvrages -->
+<div class="row">
+	<div id="extension-reseau-ouvrage" class="col-lg-12">
+		<h4>
+			Emplacement de nos réseaux ouvrages!
+		</h4>
+
+		{# Ensemble des champs des emplacements du réseau #}
+		<div class="row">
+			<div class="col-lg-offset-1 col-lg-10">
+
+				{{ form_row(edit_form.planJoint) }}
+				{# {{ dump (edit_form.emplacementsReseauOuvrage)}} #}
+
+				{# Ligne contenant le tableau d'inedit_formations sur les REO #}
+				<section class="table-responsive">
+					<hr/>
+					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" prototype-reo="{{ form_widget(edit_form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
+						<thead>
+							<tr>
+								<td>
+									Reference
+								</td>
+								<td>
+									Echelle
+								</td>
+								<td>
+									Date édition
+								</td>
+								<td>
+									Sensible
+								</td>
+								<td>
+									Profondeur mini
+								</td>
+								<td>
+									Matériaux chantier
+								</td>
+							</tr>
+						</thead>
+						{# L'insertion du contenu du tableau est éalisé en JS dans #}
+						<tbody>
+							{% for key, champsEmplacementReseauOuvrage in edit_form.emplacementsReseauOuvrage %}
+								<tr id={{'"RO_' ~ key ~ '"' }}>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.reference) }}
+									</td>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.echelle) }}
+									</td>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.dateEdition) }}
+									</td>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.sensible) }}
+									</td>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.profondeurReglMini) }}
+									</td>
+									<td>
+										{{ form_row(champsEmplacementReseauOuvrage.materiauxReseau) }}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+
+					</table>
+				</section>
+				{#Case à cocher de la prise de rendez vous#}
+				<div  id="bloc-rendez-vous">
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+						
+						{{ form_row(edit_form.priseRendezVous)}}	
+					</div>
+					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">>
+							
+							{# Liste les différentes edit_forme de rendez-vous. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme en jQuery #}
+								{# Liste les différente edit_forme de rendez-vous#}
+							{% set mairievoreppe_demandetravauxbundle_communaccord = attribute(edit_form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_communaccord') %}
+							{% set mairievoreppe_demandetravauxbundle_initiativedeclarant = attribute(edit_form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_initiativedeclarant') %}
+
+								
+
+								<option id="mairievoreppe_demandetravauxbundle_communaccord" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_communaccord) | escape }}">Commun accord</option>
+								<option id="mairievoreppe_demandetravauxbundle_initiativedeclarant" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_initiativedeclarant) | escape }}">Initiative du déclarant</option>						
+
+						</select>
+						
+					</div>
+					<div id="bloc-element-rendez-vous" class="col-offset-lg-3 col-lg-7">		
+						{# Affichage des inedit_formations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
+						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+						<ul  class="list-unstyled" id="rendez-vous">
+							{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+							<li>
+								{{ form_row(edit_form.rendezVous) }}						
+							
+							</li>
+					</ul>
+						
+					</div>
+				</div>
+
+				{#Deux dernière case de la section Emplacement de nos réseaux ouvrages!#}
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+					{{ form_row(edit_form.prendreEnCompteServitude) }}
+					
+				</div>
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+					{{ form_row(edit_form.prevoirInvestiguation) }}
+					
+				</div>
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+					{{ form_row(edit_form.branchementRattache) }}	
+					
+				</div>	
+			</div>
+		</div>
+	</div><!--fin Emplacement Reseaux-->
+
+	{# Partie sur les recommandation de sécrutité #}
+	<div id="recommandations-securite" class="col-lg-12">
+		<h4>
+			Recommandations de sécurité
+		</h4>
+		{{ form_row(edit_form.recommandationSecurite) }}
+		{# Je sors du template bootstrap mes block afin de pouvoir les mettre inline#}
+		<div class="edit_form-group">
+			{{ form_errors(edit_form.rubriqueGuideTechSecurite) }}
+			{{ form_label(edit_form.rubriqueGuideTechSecurite) }}
+			{{ form_widget(edit_form.rubriqueGuideTechSecurite) }}
+		</div>
+		<div class="edit_form-inline">
+			{{ form_errors(edit_form.miseHorsTension) }}
+			{# Label global du groupe de champs #}
+			{{ form_label(edit_form.miseHorsTension) }}
+			{% for elementFormMHT in edit_form.miseHorsTension %}
+				{{ form_label(elementFormMHT) }}
+				{{ form_widget(elementFormMHT) }}
+			{% endfor %}
+		</div>
+		{{ form_row(edit_form.mesureSecurite) }}
+	</div>
+
+	{# Partie sur les Dispositifs important pour la sécurité #}
+	<div id="recommandations-securite" class="col-lg-12">
+		<h4>
+			Dispositif important pour la sécurité
+		</h4>
+		<div class="edit_form-inline">
+			{# Label et erreur global du groupe de champs #}
+			{{ form_row(edit_form.dispositifSecurite) }}
+		</div>
+		{{ form_row(edit_form.rubriqueGuideTechSecurite) }}
+		{{ form_row(edit_form.miseHorsTension) }}
+		{{ form_row(edit_form.mesureSecurite) }}
+	</div>
+
+	<div id="recommandations-securite" class="col-lg-12">
+		<h4>
+			Cas de dégradation d'un de nos ouvrages
+		</h4>
+		<div class="edit_form-inline">
+			{{ form_errors(edit_form.telServiceDegradation) }}
+			{{ form_label(edit_form.telServiceDegradation) }}
+			{{ form_widget(edit_form.telServiceDegradation) }}
+		</div>
+		<div class="edit_form-inline">
+			<p>
+				Pour toute anomalie susceptible de mettre en cause la sécurité au cours du déroulement du chantier, prévenir le service départemental d’incendie et de secours (par défaut le 
+				18 ou le 112) :
+			</p>
+			{{ form_errors(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_label(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_widget(edit_form.serviceDepartementIncendieSecours) }}
+			{{ form_errors(edit_form.telServiceDepartementIncendieSecours) }}
+			{{ form_label(edit_form.telServiceDepartementIncendieSecours) }}
+			{{ form_widget(edit_form.telServiceDepartementIncendieSecours) }}
+		</div>
+	</div>
+	<div id="recommandations-securite" class="col-lg-12">
+		<h4>
+			Responsable du dossier
+		</h4>
+		<div class="edit_form-inline">
+			{# responsableDossier #}
+			{{ form_errors(edit_form.responsableDossier) }}
+			{{ form_label(edit_form.responsableDossier) }}
+			{{ form_widget(edit_form.responsableDossier) }}
+
+			{# telResponsableDossier #}
+			{{ form_errors(edit_form.telResponsableDossier) }}
+			{{ form_label(edit_form.telResponsableDossier) }}
+			{{ form_widget(edit_form.telResponsableDossier) }}
+		</div>
+	</div>
+</div>
+{{ form_rest(edit_form) }}
+{{ form_end(edit_form) }}
+
+<ul class="record_actions">
+	<li>
+		<a href="{{ path('recepissedict') }}">
+			Back to the list
+		</a>
+	</li>
 </ul>
+{% endblock recepisse_content %}
 {% endblock %}

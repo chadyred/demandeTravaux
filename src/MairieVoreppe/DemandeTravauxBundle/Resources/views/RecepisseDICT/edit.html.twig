@@ -51,12 +51,11 @@
 						Elément généraux de réponse
 					</h4>
 					{{form_errors(edit_form.reponse) }}
-					{{ dump(entity)}}
+					
 					<ul class="list-unstyled" id="reponse">
 						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
 						<li>
-						{{ dump(edit_form.reponse) }}
-							{{ form_widget(edit_form.reponse_edit) }}
+							{{ form_row(edit_form.reponse) }}
 						
 						
 						</li>
@@ -220,30 +219,31 @@
 						{{ form_row(edit_form.priseRendezVous)}}	
 					</div>
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-						<select id="proto-rendez-vous">
+						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">>
 							
-						{# Liste les différentes edit_forme de réponse. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme 
-						en jQuery #}
-							{% for type, line in edit_form.rendezVous.vars.prototypes %}
+							{# Liste les différentes edit_forme de rendez-vous. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme en jQuery #}
+								{# Liste les différente edit_forme de rendez-vous#}
+							{% set mairievoreppe_demandetravauxbundle_communaccord = attribute(edit_form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_communaccord') %}
+							{% set mairievoreppe_demandetravauxbundle_initiativedeclarant = attribute(edit_form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_initiativedeclarant') %}
 
-								{% set twig_content_variable= type %}
-								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
-								{% set replace_with_value_var = '' %}
-
-								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
 								
-							{% endfor %}
-						
+
+								<option id="mairievoreppe_demandetravauxbundle_communaccord" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_communaccord) | escape }}">Commun accord</option>
+								<option id="mairievoreppe_demandetravauxbundle_initiativedeclarant" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_initiativedeclarant) | escape }}">Initiative du déclarant</option>						
 
 						</select>
 						
 					</div>
-					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
+					<div id="bloc-element-rendez-vous" class="col-offset-lg-3 col-lg-7">		
 						{# Affichage des inedit_formations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
 						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
-						<section>
-							{{ form_widget(edit_form.rendezVous[0]) }}
-						</section>
+						<ul  class="list-unstyled" id="rendez-vous">
+							{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+							<li>
+								{{ form_row(edit_form.rendezVous) }}							
+							
+							</li>
+					</ul>
 						
 					</div>
 				</div>
@@ -273,7 +273,7 @@
 			{{ form_label(edit_form.rubriqueGuideTechSecurite) }}
 			{{ form_widget(edit_form.rubriqueGuideTechSecurite) }}
 		</div>
-		<div class="edit_form-inline">
+		<div class="form-inline">
 			{{ form_errors(edit_form.miseHorsTension) }}
 			{# Label global du groupe de champs #}
 			{{ form_label(edit_form.miseHorsTension) }}
@@ -288,16 +288,11 @@
 	{# Partie sur les Dispositifs important pour la sécurité #}
 	<div id="recommandations-securite" class="col-lg-12">
 		<h4>
-			Dispositifs important pour la sécurité
+			Dispositif important pour la sécurité
 		</h4>
-		<div class="edit_form-inline">
+		<div class="form-inline">
 			{# Label et erreur global du groupe de champs #}
-			{{ form_errors(edit_form.dispositifsSecurite) }}
-			{{ form_label(edit_form.dispositifsSecurite) }}
-			{% for elementedit_formDS in edit_form.dispositifsSecurite %}
-				{{ form_label(elementedit_formDS) }}
-				{{ form_widget(elementedit_formDS) }}
-			{% endfor %}
+			{{ form_row(edit_form.dispositifSecurite) }}
 		</div>
 		{{ form_row(edit_form.rubriqueGuideTechSecurite) }}
 		{{ form_row(edit_form.miseHorsTension) }}
@@ -308,12 +303,12 @@
 		<h4>
 			Cas de dégradation d'un de nos ouvrages
 		</h4>
-		<div class="edit_form-inline">
+		<div class="form-inline">
 			{{ form_errors(edit_form.telServiceDegradation) }}
 			{{ form_label(edit_form.telServiceDegradation) }}
 			{{ form_widget(edit_form.telServiceDegradation) }}
 		</div>
-		<div class="edit_form-inline">
+		<div class="form-inline">
 			<p>
 				Pour toute anomalie susceptible de mettre en cause la sécurité au cours du déroulement du chantier, prévenir le service départemental d’incendie et de secours (par défaut le 
 				18 ou le 112) :
@@ -330,7 +325,7 @@
 		<h4>
 			Responsable du dossier
 		</h4>
-		<div class="edit_form-inline">
+		<div class="form-inline">
 			{# responsableDossier #}
 			{{ form_errors(edit_form.responsableDossier) }}
 			{{ form_label(edit_form.responsableDossier) }}

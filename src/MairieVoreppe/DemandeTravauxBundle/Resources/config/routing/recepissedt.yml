@@ -11,7 +11,7 @@ recepissedt_new:
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:new" }
 
 recepissedt_create:
-    path:     /create
+    path:     /{id_dt}/create
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:create" }
     methods:  POST
 

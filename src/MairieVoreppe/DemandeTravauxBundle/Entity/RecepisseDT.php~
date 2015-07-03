@@ -71,28 +71,5 @@ class RecepisseDT extends Recepisse
     {
         return $this->prevoirInvestiguation;
     }
-
-    /**
-     * Set dt
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dt
-     *
-     * @return RecepisseDT
-     */
-    public function setDt(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dt)
-    {
-        $this->dt = $dt;
-
-        return $this;
-    }
-
-    /**
-     * Get dt
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux
-     */
-    public function getDt()
-    {
-        return $this->dt;
-    }
 }
+

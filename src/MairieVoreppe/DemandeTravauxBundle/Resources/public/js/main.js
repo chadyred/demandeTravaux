@@ -285,7 +285,8 @@ var componentForm = {
   street_number: 'short_name',
   route: 'long_name',
   locality: 'long_name',
-  postal_code: 'short_name'
+  postal_code: 'short_name',
+  country: 'long_name',
 };
 
 function initializeMutliAdresse() {
@@ -926,6 +927,10 @@ function remplirDictLieDtAdresse()
 
                  if($(this)[0].lieu_dit !== undefined && $(this)[0].lieu_dit != "")
                     $('input[lieuDit="lieuDit"]').eq(i).val($(this)[0].lieu_dit);
+
+
+                 if($(this)[0].country !== undefined && $(this)[0].cp != "")
+                    $('input[country="country"]').eq(i).val($(this)[0].cp);
                  
         });
 

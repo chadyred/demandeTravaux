@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Adresse
@@ -26,7 +27,10 @@ class Adresse
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroRue", type="string", length=255)
+     * Le numéro de rue n'est pas obliguatoire par qu'un travaux peut avoir lieu sur la même rue
+     * 
+     * @ORM\Column(name="numeroRue", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
      */
     private $numeroRue;
 
@@ -34,6 +38,7 @@ class Adresse
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
+     * @Groups({"dt"})
      */
     private $adresse;
 
@@ -41,6 +46,7 @@ class Adresse
      * @var string
      *
      * @ORM\Column(name="complementAdresse", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
      */
     private $complementAdresse;
 
@@ -48,12 +54,14 @@ class Adresse
      * @var string
      *
      * @ORM\Column(name="lieuDit", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
      */
     private $lieuDit;
 
     /**
      * @var type Personne
      * 
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Personne", mappedBy="adresse")
      */
     private $personne;
     
@@ -61,6 +69,10 @@ class Adresse
     /**
      * @var type Travaux
      * 
+     * Lorsque l'on supprime un travaux les adresses doivent être supprimé en cascade ceci est nécessaire avec les class abstraite, en l'occurance Travaux.
+     * 
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Travaux", inversedBy="adresses")
+     * @ORM\JoinColumn(name="travaux_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $travaux;
     
@@ -69,6 +81,7 @@ class Adresse
      * @var type Ville
      * 
      * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
      */
     private $ville;
 
@@ -76,8 +89,21 @@ class Adresse
      * @var type Ville
      *
      * @ORM\Column(name="cp", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
      */
     private $cp;
+
+    //Permet de récupérer l'adresse complète. Utilie pour l'introspection pour le publipostage
+    //des modèles d'arrêtés
+    private $adresseComplete;
+
+    /**
+     * @var type Ville
+     *
+     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
+     * @Groups({"dt"})
+     */
+    private $pays; 
     
     /**
      * Get id
@@ -209,16 +235,6 @@ class Adresse
     {
         return $this->getNumeroRue() . ", " . $this->getAdresse() . " " . $this->getComplementAdresse();
     }
-    
-    //Méthode personnalisé
-    public function getAdresseComplete()
-    {
-        $adresseComplete = "";
-        $adresseComplete .= $this->getNumeroRue() . ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse() . ' ';
-        $adresseComplete .= $this->getVille()->getVilleCp() . ' ' . $this->getVille()->getVilleNom();
-                
-        return $adresseComplete;       
-    }
 
     
     
@@ -251,7 +267,7 @@ class Adresse
      * @param \MairieVoreppe\DemandeTravauxBundle\Model\Travaux $travaux
      * @return Adresse
      */
-    public function setTravaux(\MairieVoreppe\DemandeTravauxBundle\Model\Travaux $travaux = null)
+    public function setTravaux(\MairieVoreppe\DemandeTravauxBundle\Model\Travaux $travaux)
     {
         $this->travaux = $travaux;
 
@@ -290,5 +306,40 @@ class Adresse
     public function getCp()
     {
         return $this->cp;
+    }
+
+
+    
+    //Méthode personnalisé
+    public function getAdresseCompleteAvecLieuDit()
+    {
+        $adresseComplete = "";
+        $adresseComplete .= $this->getNumeroRue();
+        $this->getLieuDit() != "" ? ($adresseComplete .=  ', ' . $this->getLieuDit()) : ($adresseComplete .=  ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse() . ' ');
+        $adresseComplete .= $this->getCp() . ' ' . $this->getVille();
+                
+        return $adresseComplete;       
+    }
+
+     //Méthode personnalisé
+    public function getAdresseCompleteSansLieuDit()
+    {
+        $adresseComplete = "";
+        $adresseComplete .= $this->getNumeroRue();
+        $adresseComplete .=  ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse() . ' ';
+        $adresseComplete .= $this->getCp() . ' ' . $this->getVille();
+                 
+    }
+
+
+     //Méthode personnalisé
+    public function getAdresseCompleteNumRueAdresse()
+    {
+         $adresseComplete = "";
+        $adresseComplete .= $this->getNumeroRue();
+        $adresseComplete .=  ', ' . $this->getAdresse() . ' ' . $this->getComplementAdresse();
+
+
+        return $adresseComplete;      
     }
 }

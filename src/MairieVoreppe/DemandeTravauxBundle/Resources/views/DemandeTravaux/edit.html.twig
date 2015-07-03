@@ -5,11 +5,25 @@
     <h1>DemandeTravaux edit</h1>
            <!--  -->
     <div class="row">
-        <div class="col-lg-3">
-            <a class="btn btn-md btn-info" href="{{ path('demandeintentionct_lie_dict_dt_new', {"id" : entity.id} ) }}">
-                Ajouter et lier une DICT <i class="fa fa-plus-circle"></i>
-            </a>
-         </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-lg-3">
+              <a class="btn btn-md btn-info" href="{{ path('demandeintentionct_lie_dict_dt_new', {"id" : entity.id} ) }}">
+                  Ajouter et lier une DICT <i class="fa fa-plus-circle"></i>
+              </a>
+           </div>
+          <div class="col-lg-3">
+              
+              {% if entity.recepisseDt == null %}
+                  <a href="{{ path('recepissedt_new', {'id_dt': entity.id}) }}" class="btn btn-default">
+                      Créer un récépissé
+                  </a>
+              {% else %}
+                  <a href="{{ path('recepissedt_edit', {'id': entity.recepisseDt.id}) }}" class="btn btn-success">
+                      Editer  le récépissé
+                  </a>
+              {% endif %}  
+           </div>
+      </div>            
     </div>
     <hr/>
       {# Indique un message lorsque la dict est est une dtDictLie#}
@@ -49,6 +63,7 @@
                              {{ form_row(adresseChamp.lieuDit) }}
                              {{ form_row(adresseChamp.ville) }}
                              {{ form_row(adresseChamp.cp) }}
+                            {{ form_row(adresseChamp.pays) }}
                              
                              
                               {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}

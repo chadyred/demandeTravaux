@@ -38,7 +38,7 @@ function typeReponse()
 
 
         //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
+        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
 
 		if($('ul#reponse li').length > 0)
 			$('ul#reponse li').remove();
@@ -58,139 +58,157 @@ function typeReponse()
 	*
 	*/
 	var serialisationReponse = $("select#proto-reponse").attr("data-reponse-prev");
-	var jsonToJavascriptObject = $.parseJSON(serialisationReponse);
 
-	switch(jsonToJavascriptObject.reponse.class)
+	//Il vaut null et est inexistant dans le cadre d'une création
+	if(serialisationReponse!= null)
 	{
-		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\NonConcerne":
+		var jsonToJavascriptObject = $.parseJSON(serialisationReponse);
+
+		switch(jsonToJavascriptObject.reponse.class)
 		{
-			/**
-			* Récupération et création de la sctructure
-			*/
-			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_nonconcerne").attr("data-prototype");
-			var distance = jsonToJavascriptObject.reponse.distance_n_c;
+			case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\NonConcerne":
+			{
+				/**
+				* Récupération et création de la sctructure
+				*/
+				var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_nonconcerne").attr("data-prototype");
+				var distance = jsonToJavascriptObject.reponse.distance_n_c;
 
-			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
+				 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+		        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
 
-			if($('ul#reponse li').length > 0)
-				$('ul#reponse li').remove();
+				if($('ul#reponse li').length > 0)
+					$('ul#reponse li').remove();
 
-	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+		        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
-	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
-	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+		        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+		        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
 
-	        console.log("distance => " + distance);
+		        console.log("distance => " + distance);
 
-			/**
-			* Insertion des données
-			*/
-			newLi.find('input#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_distanceNC').val(distance);
+				/**
+				* Insertion des données
+				*/
+				newLi.find('input#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_distanceNC').val(distance);
+				newLi.find('input#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_distanceNC').val(distance);
 
-			/**
-			* Affichage du formulaire
-			*/ 
-	        newLi.appendTo($('ul#reponse'));
+				/**
+				* Affichage du formulaire
+				*/ 
+		        newLi.appendTo($('ul#reponse'));
 
-	        break;
+		        break;
+			}
+
+			case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeImprecise":
+			{
+				/**
+				* Récupération et création de la sctructure
+				*/
+				var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_demandeimprecise").attr("data-prototype");
+				var description = jsonToJavascriptObject.reponse.description;
+
+				 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+		        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+
+				if($('ul#reponse li').length > 0)
+					$('ul#reponse li').remove();
+
+		        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+		        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+		        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+		        // console.log("description => " + description);
+		        
+				/**
+				* Insertion des données
+				*/
+				newLi.find('textarea#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_description').val(description);
+				newLi.find('textarea#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_description').val(description);
+
+				/**
+				* Affichage du formulaire
+				*/ 
+		        newLi.appendTo($('ul#reponse'));
+
+		        break;
+			}
+
+			case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\Concerne":
+			{
+				/**
+				* Récupération et création de la sctructure
+				*/
+				var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_concerne").attr("data-prototype");
+				var cat_roa = jsonToJavascriptObject.reponse.categorie_reseau_ouvrage;
+
+				 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+		        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+
+				if($('ul#reponse li').length > 0)
+					$('ul#reponse li').remove();
+
+		        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+		        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+		        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+		        console.log("description => " + cat_roa);
+		        
+				/**
+				* Insertion des données : ici on va récupérer les deux première lettre du toString qui est le code (solution trop dépendante
+				* TODO : une solution moins dépendante. Le problème est qu'un type entity vise une entité dont les attributs de clase ne peuvent pas avoir d'attribut 
+				* HTML...
+				*/
+				var inputCatRo;
+				if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input") != null)
+					inputCatRo = newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input");
+				else
+					if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_categorieReseauOuvrage input") != null)
+						inputCatRo = newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_categorieReseauOuvrage input");
+
+				$.each(inputCatRo, function(index, value){
+						var labelTypeReseau = $(this).parent().text();
+
+						var abreviation = $(this).parent().text().substr(0, 2);
+
+						for(i = 0;i < cat_roa.length;i++)
+						{					
+						console.log(cat_roa[i].code + "==" + abreviation );
+							if(cat_roa[i].code === abreviation)
+							{
+								// alert("trouve code => " + abreviation + "cat_roa =>" + cat_roa[i].code);
+								$(this).prop('checked', "checked");
+							}
+						}
+
+					});
+
+				/**
+				* Affichage du formulaire
+				*/ 
+		        newLi.appendTo($('ul#reponse'));
+
+		        break;
+			}
+			default: 
+			{
+				alert("dans la switch");
+				alert("pas de type de réponse identifiée");
+				break;
+			}
+
 		}
-
-		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeImprecise":
-		{
-			/**
-			* Récupération et création de la sctructure
-			*/
-			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_demandeimprecise").attr("data-prototype");
-			var description = jsonToJavascriptObject.reponse.description;
-
-			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
-
-			if($('ul#reponse li').length > 0)
-				$('ul#reponse li').remove();
-
-	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
-
-
-	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
-	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
-
-	        console.log("description => " + description);
-	        
-			/**
-			* Insertion des données
-			*/
-			newLi.find('textarea#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_description').val(description);
-
-			/**
-			* Affichage du formulaire
-			*/ 
-	        newLi.appendTo($('ul#reponse'));
-
-	        break;
-		}
-
-		case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\Concerne":
-		{
-			/**
-			* Récupération et création de la sctructure
-			*/
-			var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_concerne").attr("data-prototype");
-			var cat_roa = jsonToJavascriptObject.reponse.categorie_reseau_ouvrage;
-
-			 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
-	        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , 0);
-
-			if($('ul#reponse li').length > 0)
-				$('ul#reponse li').remove();
-
-	        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
-
-
-	        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
-	        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
-
-	        console.log("description => " + cat_roa);
-	        
-			/**
-			* Insertion des données
-			*/
-			$.each(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input"), function(index, value){
-				var labelTypeReseau = $(this).parent().text();
-
-				var abreviation = $(this).parent().text().substr(0, 2);
-				console.log(cat_roa.abreviation);
-
-				for(int i = 0;i < cat_roa.length;i++)
-				{					
-					if(cat_roa[i].abreviation == abreviation )
-					{
-						alert(trouve + "abreviation => " + abreviation + "cat_roa =>" + cat_roa[i].abreviation)
-						$(this).prop('checked', "checked");
-					}
-				}
-
-				});
-			});
-			/**
-			* Affichage du formulaire
-			*/ 
-	        newLi.appendTo($('ul#reponse'));
-
-	        break;
-		}
-		default: 
-		{
-			alert("dans la switch");
-			alert("pas de type de réponse identifiée");
-			break;
-		}
-
 	}
 
 }
+
+
 
 /**
 *
@@ -253,11 +271,11 @@ function emplacementChantier()
 }
 
 
-	/**
-	*
-	* Partie qui gère les différents type de rendez vous
-	*
-	*/
+/**
+*
+* Partie qui gère les différents type de rendez vous, ainsi que les prototypes liés au multiple prototype réalisé par l'infinitePolycolection
+*
+*/
 function typeRendezVous()
 {
 	$('#proto-rendez-vous').on('click', function(){
@@ -276,14 +294,14 @@ function typeRendezVous()
         //Je retire le label du début du prototype
         // prototypeDeChamps = prototypeDeChamps.replace(/<label(.*)<\/label>/ , "");
 
-		if($('#rendez-vous section').length > 0)
-			$('#rendez-vous section').remove();
-
+		if($('ul#rendez-vous li').length > 0)
+			$('ul#rendez-vous li').remove();
+ 
         ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
 
 
-        var newSection = $('<section></section>').html(ensembleDeChampConcret); 
-        newSection.appendTo($('#rendez-vous'));
+        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+        newLi.appendTo($('#rendez-vous'));
 	});
 
 	
@@ -297,4 +315,130 @@ function typeRendezVous()
    		 
 
 	});
+
+	/**
+	*
+	* Partie qui va créer l'entité qui correspond à l'édition
+	*
+	*/
+	var serialisationRdv = $("select#proto-rendez-vous").attr("data-rendez-vous-prev");
+
+	if(serialisationRdv != null)
+	{
+		var jsonToJavascriptObject = $.parseJSON(serialisationRdv);
+
+		switch(jsonToJavascriptObject.rendez_vous.class)
+		{
+			case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\CommunAccord":
+			{
+				/**
+				* Récupération et création de la sctructure
+				*/
+				var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_communaccord").attr("data-prototype");
+				var dateRetenue = jsonToJavascriptObject.rendez_vous.date_retenue;
+				//variable qui contient un tableau associatif des date heur et minute afin d'associer les bonnes informations aux bonnes listes.
+				var dateFinal = dateStringToInputFormDate(dateRetenue);
+
+
+				 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+		        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+
+				if($('ul#rendez-vous li').length > 0)
+					$('ul#rendez-vous li').remove();
+
+		        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+		        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+		        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+		        console.log(dateFinal);
+
+				/**
+				* Insertion des données
+				*/
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_day').val(dateFinal.day);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_month').val(dateFinal.month);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_year').val(dateFinal.year);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_hour').val(dateFinal.hour);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_minute').val(dateFinal.minute);
+
+				/**
+				* Affichage du formulaire
+				*/ 
+		        newLi.appendTo($('ul#rendez-vous'));
+
+		        break;
+			}
+
+			case "MairieVoreppe\\DemandeTravauxBundle\\Entity\\InitiativeDeclarant":
+			{
+				/**
+				* Récupération et création de la sctructure
+				*/
+				var prototypeDeChamps = $("select option#mairievoreppe_demandetravauxbundle_initiativedeclarant").attr("data-prototype");
+				var dateRetenue = jsonToJavascriptObject.rendez_vous.date_retenue;
+				//variable qui contient un tableau associatif des date heur et minute afin d'associer les bonnes informations aux bonnes listes.
+				var dateFinal = dateStringToInputFormDate(dateRetenue);
+
+
+					 //Je choisie de ne rien mettre en label globale, le type étant visible dans la liste
+		        prototypeDeChamps = prototypeDeChamps.replace(/__name__label__/ , "");
+
+				if($('ul#rendez-vous li').length > 0)
+					$('ul#rendez-vous li').remove();
+
+		        ensembleDeChampConcret = prototypeDeChamps.replace(/__name__/g, 0);
+
+
+		        // var newLi = $('<li id="' + $(this).val() + '"></li>').html(ensembleDeChampConcret); 
+		        var newLi = $('<li></li>').html(ensembleDeChampConcret); 
+
+		        
+		        console.log(dateFinal);
+
+				/**
+				* Insertion des données
+				*/
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_day').val(dateFinal.day);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_month').val(dateFinal.month);
+				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_year').val(dateFinal.year);
+
+
+				/**
+				* Affichage du formulaire
+				*/ 
+		        newLi.appendTo($('ul#rendez-vous'));
+
+		        break;
+			}
+			
+			default: 
+			{
+				alert("dans la switch");
+				alert("pas de type de rendezVous identifiée");
+				break;
+			}
+
+		}
+	}
+}
+
+
+function dateStringToInputFormDate(date)
+{
+
+        var objectDate = new Date(date);
+        var dateFinal = []
+
+        //On récupère chaque élément
+        var month = objectDate.getMonth() + 1;
+        var day = objectDate.getDate();
+        var year = objectDate.getFullYear();
+        var hour = objectDate.getHours();
+        var minute = objectDate.getMinutes();
+
+        dateFinal = {'day' : day, 'month': month, 'year': year, 'hour':hour, 'minute':minute };
+
+        return dateFinal;
 }

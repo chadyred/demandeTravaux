@@ -30,18 +30,19 @@
 					<h4>
 						Votre réponse au déclarant
 					</h4>
-					<select id="proto-reponse">
-						{# Liste les différente forme de réponse#}
-						{% for type, line in form.reponse.vars.prototypes %}
-							{% set twig_content_variable= type %}
-								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
-								{% set replace_with_value_var = '' %}
-
-							{# 	<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option> #} 	
-							<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable }}</option> 
-
-						{% endfor %}
 					
+					{# Liste les différente forme de réponse#}
+					{% set mairievoreppe_demandetravauxbundle_nonconcerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_nonconcerne') %}
+					{% set mairievoreppe_demandetravauxbundle_concerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_concerne') %}
+					{% set mairievoreppe_demandetravauxbundle_demandeimprecise = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_demandeimprecise') %}
+					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
+
+							
+
+							<option id="mairievoreppe_demandetravauxbundle_nonconcerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_nonconcerne) | escape }}">Non concerné</option>
+							<option id="mairievoreppe_demandetravauxbundle_concerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_concerne) | escape }}">Concerne</option>
+							<option id="mairievoreppe_demandetravauxbundle_demandeimprecise" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_demandeimprecise) | escape }}">Demande imprécise</option>
+
 
 					</select>
 				</div>
@@ -52,9 +53,9 @@
 						Elément généraux de réponse
 					</h4>
 					<ul class="list-unstyled" id="reponse">
-					<!-- {{ dump(form.reponse)}} -->
+						{{form_errors(form.reponse) }}
 						<li>
-							{{ form_widget(form.reponse) }}
+							{{ form_row(form.reponse) }}
 						</li>
 					</ul>
 
@@ -228,28 +229,32 @@
 						{{ form_row(form.priseRendezVous)}}	
 					</div>
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-						<select id="proto-rendez-vous">
+						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">>
 							
-						{# Liste les différentes forme de réponse. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme 
-						en jQuery #}
-							{% for type, line in form.rendezVous.vars.prototypes %}
+							{# Liste les différentes forme de rendez-vous. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme en jQuery #}
+								{# Liste les différente forme de rendez-vous#}
+							{% set mairievoreppe_demandetravauxbundle_communaccord = attribute(form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_communaccord') %}
+							{% set mairievoreppe_demandetravauxbundle_initiativedeclarant = attribute(form.rendezVous.vars.prototypes, 'mairievoreppe_demandetravauxbundle_initiativedeclarant') %}
 
+								
 
-								{% set twig_content_variable= type %}
-								{% set replace_value_var= 'mairievoreppe_demandetravauxbundle_' %}
-								{% set replace_with_value_var = '' %}
-								<option data-prototype="{{ form_row(line) | escape }}">{{ twig_content_variable|replace({ (replace_value_var): replace_with_value_var }) }}</option>
-							{% endfor %}
-						
+								<option id="mairievoreppe_demandetravauxbundle_communaccord" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_communaccord) | escape }}">Commun accord</option>
+								<option id="mairievoreppe_demandetravauxbundle_initiativedeclarant" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_initiativedeclarant) | escape }}">Initiative du déclarant</option>						
 
 						</select>
 						
 					</div>
-					<div class="col-offset-lg-3 col-lg-7" id="rendez-vous">		
+					
+					<div id="bloc-element-rendez-vous" class="col-offset-lg-3 col-lg-7">		
 						{# Affichage des informations sur le rendez-vous si un existe déjà, ce qui est le cas lors de la MAJ #}
-						<section>	
-							{{ form_widget(form.rendezVous[0]) }}
-						</section>
+						{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+						<ul  class="list-unstyled" id="rendez-vous">
+							{#Le poly collection retourne un tableau et je n'est besoin que d'une seul réponse: la première. #}
+							<li>
+								{{ form_row(form.rendezVous) }}						
+							
+							</li>
+						</ul>
 						
 					</div>
 				</div>

@@ -4,23 +4,25 @@
  {% block travaux_content %}
     <h1>DemandeIntentionCT edit</h1>
     <div class="row">
-        <div class="col-lg-3">
-            <a href="{{ path('arretepromulgue_new', {'id_dict': entity.id}) }}" class="btn btn-default">
-                Générer un arrêté
-            </a>
-        </div>       
-        <div class="col-lg-3">
-        {% if entity.recepisseDict == null %}
-            <a href="{{ path('recepissedict_new', {'id_dict': entity.id}) }}" class="btn btn-default">
-                Créer un récépissé
-            </a>
-        {% else %}
-            <a href="{{ path('recepissedict_edit', {'id': entity.recepisseDict.id}) }}" class="btn btn-success">
-                Editer  le récépissé
-            </a>
-        {% endif %}  
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">            
+            <div class="col-lg-3">
+                <a href="{{ path('arretepromulgue_new', {'id_dict': entity.id}) }}" class="btn btn-default">
+                    Générer un arrêté
+                </a>
+            </div>       
+            <div class="col-lg-3">
+            {% if entity.recepisseDict == null %}
+                <a href="{{ path('recepissedict_new', {'id_dict': entity.id}) }}" class="btn btn-default">
+                    Créer un récépissé
+                </a>
+            {% else %}
+                <a href="{{ path('recepissedict_edit', {'id': entity.recepisseDict.id}) }}" class="btn btn-success">
+                    Editer  le récépissé
+                </a>
+            {% endif %}  
 
-        </div>    
+            </div> 
+        </div>   
     </div>
     {# Indique un message lorsque la dict est est une dtDictLie. Celui-ci peut apparaitre si on choisie une DT déjà conjointe lors de l'action update qui rééxécute s
     se formulaire car la DICT sera tout de même hydratée par la DT.#}
@@ -82,6 +84,7 @@
                     {{ form_row(adresseChamp.lieuDit) }}
                     {{ form_row(adresseChamp.ville) }}
                     {{ form_row(adresseChamp.cp) }}
+                    {{ form_row(adresseChamp.pays) }}
                     {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
                     {% if adresseChamp.delete is defined %}
                         {{ form_row(adresseChamp.delete) }}

@@ -180,6 +180,7 @@ abstract class Recepisse
     * RecepisseDICT
     *
     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous", cascade={"persist"})
+    * @Groups({"rendezvous_recepisse"})
     *
     */
     protected $rendezVous;
@@ -206,9 +207,9 @@ abstract class Recepisse
     *
     * Liste des catégorie réseau concernée de l'exploitant Mairie
     *
-    * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite", inversedBy="recepisses")
+    * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite", inversedBy="recepisses")
     */
-    private $dispositifsSecurite;
+    private $dispositifSecurite;
 
     /**
      * Constructor
@@ -781,31 +782,22 @@ abstract class Recepisse
      *
      * @return Recepisse
      */
-    public function addDispositifsSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite)
+    public function setDispositifSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifSecurite)
     {
-        $this->dispositifsSecurite[] = $dispositifsSecurite;
-        $dispositifsSecurite->addRecepiss($this);
+        $this->dispositifSecurite = $dispositifSecurite;
+        $dispositifSecurite->addRecepiss($this);
 
         return $this;
     }
 
-    /**
-     * Remove dispositifsSecurite
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite
-     */
-    public function removeDispositifsSecurite(\MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite $dispositifsSecurite)
-    {
-        $this->dispositifsSecurite->removeElement($dispositifsSecurite);
-    }
 
     /**
      * Get dispositifsSecurite
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDispositifsSecurite()
+    public function getDispositifSecurite()
     {
-        return $this->dispositifsSecurite;
+        return $this->dispositifSecurite;
     }
 }

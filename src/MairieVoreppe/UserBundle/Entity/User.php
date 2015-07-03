@@ -160,4 +160,9 @@ class User extends BaseUser
     {
         return $this->travaux;
     }
+
+    public function __toString()
+    {
+        return $this->getCivilite()->getTitre() . " " . strtoupper($this->getFirstname()) . " " . $this->getLastname();
+    }
 }

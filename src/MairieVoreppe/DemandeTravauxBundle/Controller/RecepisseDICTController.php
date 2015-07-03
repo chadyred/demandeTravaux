@@ -14,7 +14,7 @@ use JMS\Serializer\SerializationContext;
  * RecepisseDICT controller.
  *
  */
-class RecepisseDICTController extends Controller
+class RecepisseDICTController extends RecepisseController
 {
 
     /**
@@ -164,8 +164,18 @@ class RecepisseDICTController extends Controller
 
 
         $serializer = $this->get('jms_serializer');
+
+         /**
+         * Sérialisation de la réponse et du rendez vous nécessaire afin d'enrichir les prototypes: 
+         * - lorsque l'on charge l'édition
+         * TODO - lorsque l'on change et que l'on revien sur le type de base
+         */       
         $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
+
+
+        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -175,7 +185,8 @@ class RecepisseDICTController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dict' => $entity->getDict(),
-            'reponse_recepisse_serialize' => $reponse_recepisse_serialize
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize,
+            'rendezvous_recepisse_serialize' => $rendezvous_recepisse_serialize
         ));
     }
 
@@ -218,20 +229,39 @@ class RecepisseDICTController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
+        
+        /**
+        * Sérialisation de la réponse et du rendez vous nécessaire afin d'enrichir les prototypes: 
+        * - lorsque l'on charge l'édition
+        * TODO - lorsque l'on change et que l'on revien sur le type de base
+        */
         $serializer = $this->get('jms_serializer');
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
+
+
+        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
 
         if ($editForm->isValid()) {
-
+            
+            //Seule solution trouvée : pas de mapping pour les champs reponse et rendez-vous sans quoi en remplacant sa structure attendun on aura une erreur/
             //si une réponse est donné on met à jour celle-ci sinon on ne touche rien
             $reponse = $editForm->get('reponse')->getData();
+            $rdv = $editForm->get('rendezVous')->getData();
 
             if($reponse != null) {
                 $ancienneReponse =  $entity->getReponse();
                 $em->remove($ancienneReponse[0]);
                  $entity->setReponse($reponse);
+            }
+
+            if($rdv != null) {
+                 $ancienneRdv =  $entity->getRendezVous();
+                $em->remove($ancienneRdv[0]);
+                 $entity->setRendezVous($rdv);
             }
 
             $em->flush();
@@ -247,7 +277,8 @@ class RecepisseDICTController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dict' => $entity->getDict(),
-            'reponse_recepisse_serialize' => $reponse_recepisse_serialize
+            'reponse_recepisse_serialize' => $reponse_recepisse_serialize,
+            'rendezvous_recepisse_serialize' => $rendezvous_recepisse_serialize
         ));
     }
     /**
@@ -290,4 +321,22 @@ class RecepisseDICTController extends Controller
             ->getForm()
         ;
     }
+
+     public function genererRecepisseAction(Request $request, $id)
+    {
+         $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MairieVoreppeDemandeTravauxBundle:RecepisseDICT')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ArretePromulgue entity.');
+        }
+        
+        $entityDict = $entity->getDict();
+        
+
+       $this->generationFullPdfExemple($entityDict);  
+    }
+
+
 }

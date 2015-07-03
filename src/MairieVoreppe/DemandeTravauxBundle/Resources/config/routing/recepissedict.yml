@@ -28,3 +28,7 @@ recepissedict_delete:
     path:     /{id}/delete
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDICT:delete" }
     methods:  [POST, DELETE]
+
+recepissedict_generer_recepisse:
+    path:     /{id}/generer-recepisse
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDICT:genererRecepisse" }

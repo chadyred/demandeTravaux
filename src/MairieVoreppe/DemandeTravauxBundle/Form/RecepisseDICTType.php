@@ -41,7 +41,7 @@ class RecepisseDICTType extends ReponseType
              //   'choices' => array( new NonConcerneType() => 'NC', new DemandeImpreciseType() => 'DI', new  ConcerneType() => "C")
               //  ))
             ->add('chantierSensible')             
-            ->add('extensionPrevue')
+            ->add('extensionPrevue', 'text', array('label' => "Extension dans un délai inférieur à 3 mois"))
             ->add('modificationEnCours')
             ->add('nomRepresentant')
             ->add('telephoneRepresentant', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
@@ -51,7 +51,7 @@ class RecepisseDICTType extends ReponseType
                 'allow_add' => true,
                 'allow_delete' => false,
                 'label' => false
-            ))
+            )) 
             ->add('priseRendezVous')
             ->add('rendezVous','infinite_form_polycollection', array(
                 'types' => array(
@@ -60,7 +60,8 @@ class RecepisseDICTType extends ReponseType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'by_reference' => false
+                    'by_reference' => false,
+                    'mapped' => false
                ))
             ->add('prendreEnCompteServitude')
             ->add('branchementRattache')
@@ -72,11 +73,8 @@ class RecepisseDICTType extends ReponseType
                 'multiple' => false,
                 'expanded' => false
             ))
-            ->add('dispositifsSecurite', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite",
-                "property" => 'description',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => false
+            ->add('dispositifSecurite', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite",
+                "property" => 'description'
             ))
             ->add('telServiceDegradation', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('serviceDepartementIncendieSecours')
@@ -85,21 +83,7 @@ class RecepisseDICTType extends ReponseType
             ->add('telResponsableDossier', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
         ;
 
-         /**
-         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est obligatoire
-         */
-         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $form = $event->getForm();
-                $reponse = $event->getData();
-
-                if( $this->entity != null)
-                    $form->add('reponse_edit', 'entity', array('class' => get_class($this->entity->getReponse()[0]),
-                        'mapped' => false, 
-                        'data' => $this->entity->getReponse()));
-
-
-       
-        });
+         
     }
     
     /**
