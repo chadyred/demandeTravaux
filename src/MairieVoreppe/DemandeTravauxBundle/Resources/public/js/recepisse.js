@@ -162,14 +162,14 @@ function typeReponse()
 		        
 				/**
 				* Insertion des données : ici on va récupérer les deux première lettre du toString qui est le code (solution trop dépendante
-				* TODO : une solution moins dépendante. Le problème est qu'un type entity vise une entité dont les attributs de clase ne peuvent pas avoir d'attribut 
+				* TODO : une solution moins dépendante. Le problème est qu'un type entity vise une entité dont les attributs de classe ne peuvent pas avoir d'attribut 
 				* HTML...
 				*/
 				var inputCatRo;
-				if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input") != null)
+				if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input").length)
 					inputCatRo = newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedict_reponse_0_categorieReseauOuvrage input");
 				else
-					if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_categorieReseauOuvrage input") != null)
+					if(newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_categorieReseauOuvrage input").length)
 						inputCatRo = newLi.find("div#mairievoreppe_demandetravauxbundle_recepissedt_reponse_0_categorieReseauOuvrage input");
 
 				$.each(inputCatRo, function(index, value){
@@ -198,8 +198,8 @@ function typeReponse()
 			}
 			default: 
 			{
-				alert("dans la switch");
-				alert("pas de type de réponse identifiée");
+				//alert("dans la switch");
+				// alert("pas de type de réponse identifiée");
 				break;
 			}
 
@@ -279,9 +279,18 @@ function emplacementChantier()
 function typeRendezVous()
 {
 	$('#proto-rendez-vous').on('click', function(){
+				// alert("prise de rendez vous");
 
 		//On coche la case si un choix se fait
-		$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', true);
+		if($("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").length){
+			$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', true);
+		}
+		else{
+			if($("#mairievoreppe_demandetravauxbundle_recepissedt_priseRendezVous").length){
+				// alert("prise de rendez vous dt");
+				$("#mairievoreppe_demandetravauxbundle_recepissedt_priseRendezVous").prop('checked', true);
+			}
+		}
 
 		var prototypeDeChamps = $(this).find('option:selected').attr('data-prototype');
 
@@ -305,16 +314,37 @@ function typeRendezVous()
 	});
 
 	
-	//Détection si la case n'est pas acoché afin de 
-	$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").click( function(){
-   		if($(this).is(':checked') == false ){
-   			// alert("décoché");
-   			$('#rendez-vous').empty();
-			$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', false);
-   		}
-   		 
+	/**
+	*
+	* Détection si la case n'est pas acoché afin de vider la prise de rendez-vous pour une dict oyu une DICT
+	*
+	*/
+	if($("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").length)
+	{
+		$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").click( function(){
+	   		if($(this).is(':checked') == false ){
+	   			// alert("décoché");
+	   			$('#rendez-vous').empty();
+				$("#mairievoreppe_demandetravauxbundle_recepissedict_priseRendezVous").prop('checked', false);
+	   		}   		 
 
-	});
+		});
+
+	}
+	else
+	{
+		if($("#mairievoreppe_demandetravauxbundle_recepissedt_priseRendezVous").length){
+			//Détection si la case n'est pas acoché afin de 
+			$("#mairievoreppe_demandetravauxbundle_recepissedt_priseRendezVous").click( function(){
+		   		if($(this).is(':checked') == false ){
+		   			// alert("décoché");
+		   			$('#rendez-vous').empty();
+					$("#mairievoreppe_demandetravauxbundle_recepissedt_priseRendezVous").prop('checked', false);
+		   		}   		 
+
+			});
+		}
+	}
 
 	/**
 	*
@@ -357,12 +387,24 @@ function typeRendezVous()
 				/**
 				* Insertion des données
 				*/
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_day').val(dateFinal.day);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_month').val(dateFinal.month);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_year').val(dateFinal.year);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_hour').val(dateFinal.hour);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_minute').val(dateFinal.minute);
-
+				if(newLi.find('div#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0').length){
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_day').val(dateFinal.day);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_month').val(dateFinal.month);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_date_year').val(dateFinal.year);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_hour').val(dateFinal.hour);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_time_minute').val(dateFinal.minute);
+				}
+				else
+				{
+					if(newLi.find('div#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0').length)
+					{
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_date_day').val(dateFinal.day);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_date_month').val(dateFinal.month);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_date_year').val(dateFinal.year);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_time_hour').val(dateFinal.hour);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_time_minute').val(dateFinal.minute);
+					}
+				}
 				/**
 				* Affichage du formulaire
 				*/ 
@@ -400,9 +442,23 @@ function typeRendezVous()
 				/**
 				* Insertion des données
 				*/
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_day').val(dateFinal.day);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_month').val(dateFinal.month);
-				newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_year').val(dateFinal.year);
+				if(newLi.find('div#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0').length){
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_day').val(dateFinal.day);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_month').val(dateFinal.month);
+					newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedict_rendezVous_0_dateRetenue_year').val(dateFinal.year);
+					// alert("dict rdv");
+				}
+				else
+				{
+					if(newLi.find('div#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0').length)
+					{
+						// alert("dt rdv");
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_day').val(dateFinal.day);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_month').val(dateFinal.month);
+						newLi.find('select#mairievoreppe_demandetravauxbundle_recepissedt_rendezVous_0_dateRetenue_year').val(dateFinal.year);
+
+					}
+				}
 
 
 				/**

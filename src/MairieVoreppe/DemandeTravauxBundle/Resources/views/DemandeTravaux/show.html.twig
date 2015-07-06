@@ -24,6 +24,37 @@
                     <td>{{ entity.numeroTeleservice }}</td>
                 </tr>
                 <tr>
+                    <th>Récépissé</th>
+                    <td>
+                         <div class="col-lg-4">
+                            {% if entity.recepisseDt != null %}
+                                <a target="_blank" href="{{ path('recepissedt_show', {'id': entity.recepissedt.id}) }}" class="btn btn-default">
+                                   <i class="fa fa-eye"></i> Voir le récépissé
+                                </a>
+                            {% endif %} 
+
+                        </div>
+                         <div class="col-lg-3">
+                         {% if entity.recepisseDt == null %}
+                              <a href="{{ path('recepissedt_new', {'id_dt': entity.id}) }}" class="btn btn-default">
+                                  Créer un récépissé
+                              </a>
+                          {% else %}
+                              <a href="{{ path('recepissedt_edit', {'id': entity.recepisseDt.id}) }}" class="btn btn-success">
+                                  Editer  le récépissé
+                              </a>
+                          {% endif %}  
+                    </td>
+                </tr>
+                <tr>
+                    <th>Gestionnaire du chantier</th>
+                    <td>{{ entity.user.firstName }}</td>
+                </tr>
+                <tr>
+                    <th>Service gestionnaire du chantier</th>
+                    <td>{{ entity.service.name }}</td>
+                </tr>
+                <tr>
                     <th>Datetravaux</th>
                     <td>{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}</td>
                 </tr>

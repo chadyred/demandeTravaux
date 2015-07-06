@@ -14,7 +14,7 @@ use JMS\Serializer\SerializationContext;
  * RecepisseDT controller.
  *
  */
-class RecepisseDTController extends Controller
+class RecepisseDTController extends RecepisseController
 {
 
     /**
@@ -48,11 +48,28 @@ class RecepisseDTController extends Controller
         }
 
         $entity = new RecepisseDT();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $dt);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
+             $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
+
+               //On écite de ce répéter: on a une persistence automatique (DRY)
+            $dt->setRecepisseDt($entity);
+
+           $eros = $entity->getEmplacementsReseauOuvrage();
+
+            //Une persistence qui ne se pas automatiquement...bizarre...
+            foreach($eros as $ero){
+                $entity->addEmplacementsReseauOuvrage($ero);
+            }
+
+
+            $reponse = $form->get('reponse')->getData();
+            $entity->setReponse($reponse);
+
+            
             $em->persist($entity);
             $em->flush();
 
@@ -165,7 +182,7 @@ class RecepisseDTController extends Controller
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:edit.html.twig', array(
@@ -225,7 +242,7 @@ class RecepisseDTController extends Controller
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
 
@@ -238,13 +255,20 @@ class RecepisseDTController extends Controller
 
             if($reponse != null) {
                 $ancienneReponse =  $entity->getReponse();
-                $em->remove($ancienneReponse[0]);
+                
+                 if($ancienneReponse[0] != null)
+                    $em->remove($ancienneReponse[0]);
+
                  $entity->setReponse($reponse);
             }
 
             if($rdv != null) {
-                 $ancienneRdv =  $entity->getRendezVous();
-                $em->remove($ancienneRdv[0]);
+                //On va supprimer le précédent rendez-vous parce que l'on bypass le Symfony-Way
+                 $ancienRdv =  $entity->getRendezVous();
+
+                 if($ancienRdv[0] != null)
+                    $em->remove($ancienRdv[0]);
+
                  $entity->setRendezVous($rdv);
             }
 
@@ -303,4 +327,21 @@ class RecepisseDTController extends Controller
             ->getForm()
         ;
     }
+
+    public function genererRecepisseDTAction(Request $request, $id)
+    {
+         $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MairieVoreppeDemandeTravauxBundle:RecepisseDT')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find RecepisseDT entity.');
+        }
+        
+        $entityDt = $entity->getDt();
+        
+
+       $this->generationFullPdfExemple($entityDt);  
+    }
+
 }

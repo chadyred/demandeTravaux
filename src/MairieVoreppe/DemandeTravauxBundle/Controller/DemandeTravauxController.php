@@ -262,7 +262,7 @@ class DemandeTravauxController extends Controller
                     if(isset($cu["delete"]) && $cu->get('delete')->isClicked())
                     {
                         //On récupère les données qui sont derrière l'instance de la structure parmis les adressses
-                        $entity->removeContactUrgent($cu->getData());
+                        $entity->removeContactsUrgent($cu->getData());
                     }
                 }          
             }

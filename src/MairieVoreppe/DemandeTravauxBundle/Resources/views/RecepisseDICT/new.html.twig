@@ -35,7 +35,7 @@
 					{% set mairievoreppe_demandetravauxbundle_nonconcerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_nonconcerne') %}
 					{% set mairievoreppe_demandetravauxbundle_concerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_concerne') %}
 					{% set mairievoreppe_demandetravauxbundle_demandeimprecise = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_demandeimprecise') %}
-					<select id="proto-reponse" data-reponse-prev="{{ reponse_recepisse_serialize }}">
+					<select id="proto-reponse">
 
 							
 
@@ -229,7 +229,7 @@
 						{{ form_row(form.priseRendezVous)}}	
 					</div>
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">>
+						<select id="proto-rendez-vous">
 							
 							{# Liste les différentes forme de rendez-vous. Cette forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en forme en jQuery #}
 								{# Liste les différente forme de rendez-vous#}
@@ -301,14 +301,9 @@
 		<h4>
 			Dispositifs important pour la sécurité
 		</h4>
-		<div class="form-inline">
+		<div class="form-inline">			
 			{# Label et erreur global du groupe de champs #}
-			{{ form_errors(form.dispositifsSecurite) }}
-			{{ form_label(form.dispositifsSecurite) }}
-			{% for elementFormDS in form.dispositifsSecurite %}
-				{{ form_label(elementFormDS) }}
-				{{ form_widget(elementFormDS) }}
-			{% endfor %}
+			{{ form_row(form.dispositifSecurite) }}
 		</div>
 		{{ form_row(form.rubriqueGuideTechSecurite) }}
 		{{ form_row(form.miseHorsTension) }}

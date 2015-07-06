@@ -28,3 +28,7 @@ recepissedt_delete:
     path:     /{id}/delete
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:delete" }
     methods:  [POST, DELETE]
+
+recepissedt_generer_recepisse:
+    path:     /{id}/generer-recepisse-dt
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:RecepisseDT:genererRecepisseDT" }

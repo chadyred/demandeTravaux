@@ -4,16 +4,29 @@
 
 
     {% block recepisse_content -%}
-        <h1>RecepisseDT</h1>
 
-        <table class="record_properties">
+    <section class="col-lg-8 table-responsive">
+        <hr/>
+        <caption>
+            <h1>RecepisseDT</h1>
+        </caption>
+        <table class="table table-bordered table-striped table-condensed">
             <tbody>
                 <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
-                </tr>
+                   <th>Id</th>
+                   <td>{{ entity.id }}</td>
+               </tr>
                 <tr>
-                    <th>Prevoirinvestiguation</th>
+                   <th>DT concerné</th>
+                   <td><a target="_blank" href="{{ path('demandetravaux_show', {'id' : entity.dt.id} ) }}">{{ entity.dt.id }}</a></td>
+               </tr>
+               </tr>
+                <tr>
+                    <th>Générer récépissé</th>
+                    <td><i class="fa fa-file-pdf-o"></i><a href="{{ path('recepissedt_generer_recepisse', {'id' : entity.id} ) }}">Télécharger</a></td>
+                </tr>                   
+                <tr>
+                    <th>Prevoir investiguation</th>
                     <td>{{ entity.prevoirInvestiguation }}</td>
                 </tr>
                 <tr>

@@ -32,7 +32,7 @@ class MiseHorsTension
    /**
     * Recepisse
     *
-    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="miseHorsTension")
+    * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="miseHorsTension", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $recepisses;

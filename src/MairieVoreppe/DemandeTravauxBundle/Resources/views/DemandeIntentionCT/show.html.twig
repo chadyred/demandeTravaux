@@ -23,6 +23,30 @@
                     <td>{{ entity.numeroTeleservice }}</td>
                 </tr>
                 <tr>
+                    <th>Récépissé</th>
+                    <td>
+                         <div class="col-lg-4">
+                            {% if entity.recepisseDict != null %}
+                                <a target="_blank" href="{{ path('recepissedict_show', {'id': entity.recepissedict.id}) }}" class="btn btn-default">
+                                   <i class="fa fa-eye"></i> Voir le récépissé
+                                </a>
+                            {% endif %} 
+
+                        </div>
+                         <div class="col-lg-3">
+                            {% if entity.recepisseDict == null %}
+                                <a href="{{ path('recepissedict_new', {'id_dict': entity.id}) }}" class="btn btn-default">
+                                    Créer un récépissé
+                                </a>
+                            {% else %}
+                                <a href="{{ path('recepissedict_edit', {'id': entity.recepisseDict.id}) }}" class="btn btn-success">
+                                    Editer  le récépissé
+                                </a>
+                            {% endif %} 
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <th>Datetravaux</th>
                     <td>{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}</td>
                 </tr>

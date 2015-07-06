@@ -13,7 +13,7 @@
 		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
 	</div>
 	<div class="col-lg-3">
-		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
+		Numéro de téléservice de création: {{ dt.numeroTeleservice }}				
 	</div>
 	<div class="col-lg-3 edit_form-group">
 		{{ form_row(edit_form.chantierSensible) }}
@@ -84,12 +84,12 @@
 		- Calendrier: date de début, durée, date de fin  #}
 		<div class="col-lg-offset-2 col-lg-10">			
 			<p>
-				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dict.canalReception.libelle }}
+				Reçu le : {{ dt.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dt.canalReception.libelle }}
 				<br/>
 				{# Les __toString() personnalise l'affichage #}
-				Déclarant : {{ dict.dt != null ? dict.dt.maitreOuvrage : dict.maitreOeuvre }}
+				Déclarant : {{ dt.maitreOuvrage }}
 				<br/>
-				Numéro d'affaire du déclarant : {{ dict.numeroAffaireDeclarant }}
+				Numéro d'affaire du déclarant : {{ dt.numeroAffaireDeclarant }}
 			</p>
 		</div>
 
@@ -100,11 +100,11 @@
 			</h6>	
 			<div class="col-lg-offset-1 col-lg-11">
 				<p>
-					Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+					Numéro de voie :  {{ dt.adresses[0].numeroRue }} 
 					<br/>
-					Commune : {{ dict.adresses[0].ville }} 
+					Commune : {{ dt.adresses[0].ville }} 
 					<br/>
-					Adresse : {{ dict.adresses[0].adresse }} 
+					Adresse : {{ dt.adresses[0].adresse }} 
 				</p>
 			</div>
 
@@ -117,11 +117,11 @@
 			</h6>	
 			<div class="col-lg-offset-1 col-lg-11">
 				<p>
-					Date de début :  {{ dict.dateDebutTravaux|date('d-m-Y H:i:s') }} 
+					Date de début :  {{ dt.dateDebutTravaux|date('d-m-Y H:i:s') }} 
 					<br/>
-					Durée : {{ dict.duree }} {{ dict.duree > 1 ? "jours" : "jour" }} 
+					Durée : {{ dt.duree }} {{ dt.duree > 1 ? "jours" : "jour" }} 
 					<br/>
-					Date de fin : {{ dict.adresses[0].adresse }} 
+					Date de fin : {{ dt.adresses[0].adresse }} 
 				</p>
 			</div>
 
@@ -135,7 +135,7 @@
 			</h6>	
 			<div class="col-lg-offset-1 col-lg-11">
 				<p>
-					{{ dict.descriptionTravaux }} 				
+					{{ dt.descriptionTravaux }} 				
 				</p>
 			</div>
 
@@ -219,7 +219,7 @@
 						{{ form_row(edit_form.priseRendezVous)}}	
 					</div>
 					<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">>
+						<select id="proto-rendez-vous" data-rendez-vous-prev="{{ rendezvous_recepisse_serialize }}">
 							
 							{# Liste les différentes edit_forme de rendez-vous. Cette edit_forme ne convient pas, il récupère simplement les prototype de chacun, à mettre en edit_forme en jQuery #}
 								{# Liste les différente edit_forme de rendez-vous#}
@@ -347,7 +347,7 @@
 
 <ul class="record_actions">
 	<li>
-		<a href="{{ path('recepissedict') }}">
+		<a href="{{ path('recepissedt') }}">
 			Back to the list
 		</a>
 	</li>

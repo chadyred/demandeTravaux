@@ -189,7 +189,6 @@ abstract class Recepisse
     * Recepisse
     *
     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse", cascade={"persist", "remove"})
-    * @ORM\JoinColumn(nullable=false)
     */
     protected $emplacementsReseauOuvrage;
 

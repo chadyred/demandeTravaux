@@ -80,7 +80,7 @@ security:
                 target:  fos_user_security_login
                 success_handler: mairie_voreppe_user_security.component.authentication.handler.logout_success_handler 
             remember_me: 
-                key: %secret%
+                secret: %secret%
     acl:
         connection: default
     # with these settings you can restrict or allow access for different parts

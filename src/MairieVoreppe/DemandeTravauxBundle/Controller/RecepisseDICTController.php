@@ -51,22 +51,31 @@ class RecepisseDICTController extends RecepisseController
 
         $form = $this->createCreateForm($entity, $dict);
 
-
-
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
              $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
-            
-            //On écite de ce répéter: on a une persistence automatique (DRY)
-            $dict->setRecepisseDict($entity);
 
+            $eros = $entity->getEmplacementsReseauOuvrage();
 
-            $reponse = $editForm->get('reponse')->getData();
+            //Une persistence qui ne se pas automatiquement...bizarre...
+            foreach($eros as $ero){
+                $entity->addEmplacementsReseauOuvrage($ero);
+            }
+
+            /**
+            *
+            * Ces deux élément sont des entité polymorphique. Symfony le gère au travers d'une bundle. ependant celui-ci créé un type de base, alors que l'on a 
+            * une OneToOne, ce type peut alors être modifier.
+            */
+            $reponse = $form->get('reponse')->getData();
             $entity->setReponse($reponse);
+
+
+
+            $reponse = $form->get('rendezVous')->getData();
+            $entity->setRendezVous($reponse);
 
             $em->flush();
 
@@ -220,9 +229,7 @@ class RecepisseDICTController extends RecepisseController
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
-        }
-
-        
+        }        
         
 
 
@@ -230,6 +237,7 @@ class RecepisseDICTController extends RecepisseController
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         
+      
         /**
         * Sérialisation de la réponse et du rendez vous nécessaire afin d'enrichir les prototypes: 
         * - lorsque l'on charge l'édition
@@ -241,7 +249,7 @@ class RecepisseDICTController extends RecepisseController
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
 
@@ -254,13 +262,20 @@ class RecepisseDICTController extends RecepisseController
 
             if($reponse != null) {
                 $ancienneReponse =  $entity->getReponse();
-                $em->remove($ancienneReponse[0]);
+                
+                 if($ancienneReponse[0] != null)
+                    $em->remove($ancienneReponse[0]);
+                
                  $entity->setReponse($reponse);
             }
 
             if($rdv != null) {
-                 $ancienneRdv =  $entity->getRendezVous();
-                $em->remove($ancienneRdv[0]);
+                //On va supprimer le précédent rendez-vous parce que l'on bypass le Symfony-Way
+                 $ancienRdv =  $entity->getRendezVous();
+
+                 if($ancienRdv[0] != null)
+                    $em->remove($ancienRdv[0]);
+
                  $entity->setRendezVous($rdv);
             }
 
@@ -322,14 +337,14 @@ class RecepisseDICTController extends RecepisseController
         ;
     }
 
-     public function genererRecepisseAction(Request $request, $id)
+     public function genererRecepisseDICTAction(Request $request, $id)
     {
          $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('MairieVoreppeDemandeTravauxBundle:RecepisseDICT')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArretePromulgue entity.');
+            throw $this->createNotFoundException('Unable to find RecepisseDICT entity.');
         }
         
         $entityDict = $entity->getDict();

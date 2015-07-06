@@ -81,7 +81,7 @@ class DemandeTravaux extends Travaux
    /**
     * RecepisseDt : récpissé résultant d'un traitement sur cette entité
     *
-    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT")
+    * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT", cascade={"persist"}, inversedBy="dt")
     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
     */
     private $recepisseDt;

@@ -23,18 +23,18 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('recepissedict_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td><a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>DT</td>
+                        <td></td>
                         <td>
                         <ul>
                             <li>
-                                <a href="{{ path('recepissedict_show', { 'id': entity.id }) }}">show</a>
+                                <a href="{{ path('recepissedt_show', { 'id': entity.id }) }}">show</a>
                             </li>
                             <li>
-                                <a href="{{ path('recepissedict_edit', { 'id': entity.id }) }}">edit</a>
+                                <a href="{{ path('recepissedt_edit', { 'id': entity.id }) }}">edit</a>
                             </li>
                         </ul>
                         </td>
