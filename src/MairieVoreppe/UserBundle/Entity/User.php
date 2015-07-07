@@ -166,3 +166,5 @@ class User extends BaseUser
         return $this->getCivilite()->getTitre() . " " . strtoupper($this->getFirstname()) . " " . $this->getLastname();
     }
 }
+
+

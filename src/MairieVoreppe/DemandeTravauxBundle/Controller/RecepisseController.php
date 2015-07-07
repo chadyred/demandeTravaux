@@ -520,7 +520,7 @@ class RecepisseController extends Controller
         $recepisse->getMiseHorsTension()->getLibelle() == "Possible" ? $mht = true : $mht = false;
         $pdf->securiteMiseHorsTension($mht);
 
-        //Partie dégradationqqqq
+        //Partie dégradation
         $pdf->degradationNumeroService($phoneUtil->format($recepisse->getTelServiceDegradation(), \libphonenumber\PhoneNumberFormat::NATIONAL));
         $pdf->securiteAnomalie($recepisse->getServiceDepartementIncendieSecours());
 

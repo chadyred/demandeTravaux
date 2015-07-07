@@ -145,6 +145,5 @@ class Civilite
     public function getPersonnePhysique()
     {
         return $this->personnePhysique;
-    }
-    
+    }    
 }

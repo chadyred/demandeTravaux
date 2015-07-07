@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#ckeditor_arrete_model select").on("click",function(){$.fn.insertAtCaret(this.value)})});$.fn.insertAtCaret=function(myValue){myValue=myValue.trim();if(CKEDITOR!==undefined)CKEDITOR.instances["mairievoreppe_demandetravauxbundle_arretemodel_contenu"].insertText(myValue);else console.log("Ckeditor n'est pas instancié !")};
