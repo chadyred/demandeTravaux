@@ -75,12 +75,13 @@ security:
                 success_handler: mairie_voreppe_user_security.component.authentication.handler.login_success_handler                
                 default_target_path: /accueil
                 csrf_provider: form.csrf_provider
+                remember_me: true
             logout:
                 path: fos_user_security_logout
                 target:  fos_user_security_login
                 success_handler: mairie_voreppe_user_security.component.authentication.handler.logout_success_handler 
-            remember_me: 
-                secret: %secret%
+             
+                
     acl:
         connection: default
     # with these settings you can restrict or allow access for different parts

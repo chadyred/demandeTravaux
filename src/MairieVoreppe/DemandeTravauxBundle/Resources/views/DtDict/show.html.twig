@@ -5,93 +5,86 @@
 
  {% block travaux_content %}
 <div class="row">  
-    <h1>
-        DT - DICT conjointe
-    </h1>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1>
+            DT - DICT conjointe
+        </h1>
 
-    <!-- Tableau de la DT -->
-    <div class="col-lg-6 table-responsive">
-        <caption>
-            <h4>        
-               Partie DT
-                 <br>
-            </h4>
-        </caption>
-        <table class="table table-bordered table-striped table-condensed">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td><a href={{ entity.dt.id }}</td>
-                </tr>
-                <tr>
-                    <th>Date reception de la demande</th>
-                    <td>{{ entity.dt.dateReceptionDemande|date('d-m-Y') }}</td>
-                </tr>
-                <tr>
-                    <th>Canal reception</th>
-                    <td>{{ entity.dt.canalReception.libelle }}</td>
-                </tr>
-                <tr>
-                    <th>Maitre ouvrage</th>
-                    <td>{{ entity.dt.maitreOuvrage }}</td>
-                </tr>
-                <tr>
-                    <th>Numéro téléservice</th>
-                    <td>{{ entity.dt.numeroTeleservice }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Tableau de la DT -->
+        <div class="col-lg-6 table-responsive">
+            <caption>
+                <h4>        
+                   Partie DT
+                     <br>
+                </h4>
+            </caption>
+            <table class="table table-bordered table-striped table-condensed">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td><a href={{ entity.dt.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date reception de la demande</th>
+                        <td>{{ entity.dt.dateReceptionDemande|date('d-m-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Canal reception</th>
+                        <td>{{ entity.dt.canalReception.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Maitre ouvrage</th>
+                        <td>{{ entity.dt.maitreOuvrage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Numéro téléservice</th>
+                        <td>{{ entity.dt.numeroTeleservice }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('dtdict') }}">
-                    Back to the list
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('dtdict_edit', { 'id': entity.id }) }}">
-                    Edit
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </ul>
+        </div>
+
+          <!-- Tableau de la DICT -->
+        <div class="col-lg-6 table-responsive">
+            <caption>
+                <h4>        
+                    Partie DICT 
+                     <br>
+                </h4>
+            </caption>
+            <table class="table table-bordered table-striped table-condensed">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Numéro téléservice</th>
+                        <td>{{ entity.dt.numeroTeleservice }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>        
+    </div> {# Fin cols 12 #}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">            
+            <ul class="record_actions">
+                <li>
+                    <a class="btn btn-success" href="{{ path('dtdict') }}">
+                       <span class="glyphicon glyphicon-fast-backward"></span> Retour à la liste des DT -DICT
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-success" href="{{ path('dtdict_edit', { 'id': entity.id }) }}">
+                       <span class="glyphicon glyphicon-edit"></span> Edit
+                    </a>
+                </li>
+                <li>{{ form(delete_form) }}</li>
+            </ul>    
+        </div>    
     </div>
-
-      <!-- Tableau de la DICT -->
-    <div class="col-lg-6 table-responsive">
-        <caption>
-            <h4>        
-                Partie DICT 
-                 <br>
-            </h4>
-        </caption>
-        <table class="table table-bordered table-striped table-condensed">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
-                </tr>
-                <tr>
-                    <th>Numéro téléservice</th>
-                    <td>{{ entity.dt.numeroTeleservice }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('dtdict') }}">
-                    Back to the list
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('dtdict_edit', { 'id': entity.id }) }}">
-                    Edit
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </ul>
-    </div>
-</div>
+</div>{#  Fin row #}
 
 {% endblock %}
