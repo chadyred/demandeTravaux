@@ -5,6 +5,8 @@ app/bootstrap*
 vendor/*
 */logs/*
 */cache/*
+
+# Ce dossier dépend directement de bower, sont installation ce fera directement sur le serveur.
 src/MairieVoreppe/DemandeTravauxBundle/Resources/public/components/*
 web/uploads/*
 web/bundles/*
