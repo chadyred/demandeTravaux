@@ -64,12 +64,16 @@ class GroupAdmin extends Admin
                     ->add('name')
                 ->end()
             ->end()
-            ->tab('Mairie')
+            ->tab('Exploitant')
                 ->with('General', array('class' => 'col-md-6'))
-                    ->add('mairie', 'entity', array('class' => 'MairieVoreppeDemandeTravauxBundle:Mairie',                 
-                        'property' => 'raisonSociale',
-                        'translation_domain' => $this->getTranslationDomain()
-                      ))
+                    ->add('exploitantsService',  'sonata_type_collection', array(
+                    // Prevents the "Delete" option from being displayed
+                    'type_options' => array('delete' => true)
+                ), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'position',
+                ))
                 ->end()
             ->end()
             ->tab('Security')

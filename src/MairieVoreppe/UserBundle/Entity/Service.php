@@ -45,9 +45,9 @@
         * Tableau de type DoctrineArray() qui contient les utilisateur du groupe. Le service du travaux est ajouter au sein du controller, grâce à la session sous laquel
         * il est connecté. 
         *
-        * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Mairie", inversedBy="services")
+        * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant", mappedBY="service")
         */
-        protected $mairie;
+        protected $servicesExploitant;
         
         public function __construct($name, $roles = array())
         {
@@ -55,6 +55,7 @@
             parent::__construct($name, $roles = array());
             $this->users = new \Doctrine\Common\Collections\ArrayCollection();
             $this->travaux = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->servicesExploitant = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
         /**
@@ -148,15 +149,29 @@
     
 
     /**
-     * Set mairie
+     * Set responsableExploitant
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant $serviceExploitant
      *
      * @return Service
      */
-    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie = null)
+    public function addServicesExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant $serviceExploitant = null)
     {
-        $this->mairie = $mairie;
+        $this->responsablesExploitant[] = $serviceExploitant;
+
+        return $this;
+    }
+
+    /**
+     * Set responsableExploitant
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant $serviceExploitant
+     *
+     * @return Service
+     */
+    public function removeServicesExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant $serviceExploitant = null)
+    {
+        $this->servicesExploitant->removeElement($serviceExploitant);
 
         return $this;
     }
@@ -164,10 +179,10 @@
     /**
      * Get mairie
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie
+     * @return array \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie
      */
-    public function getMairie()
+    public function getServicesExploitant()
     {
-        return $this->mairie;
+        return $this->servicesExploitant;
     }
 }

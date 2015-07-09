@@ -1,0 +1,9 @@
+services:
+    mairievoreppeadmin.admin.exploitantservice:
+        class: MairieVoreppe\AdminBundle\Admin\ServiceExploitantAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: ExploitantMairie, label: exploitantMairie }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant
+            - MairieVoreppeAdminBundle:ServiceExploitantAdmin

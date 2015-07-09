@@ -137,9 +137,9 @@ abstract class Travaux
      * 
      * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait lors de la connexion.
      * 
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\UserBundle\Entity\Service", inversedBy="travaux")
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\UserBundle\Entity\ServiceExploitant", inversedBy="travaux")
      */
-    protected $service;
+    protected $serviceExploitant;
 
     /**
     *
@@ -453,9 +453,9 @@ abstract class Travaux
      *
      * @return Travaux2
      */
-    public function setService(\MairieVoreppe\UserBundle\Entity\Service $service = null)
+    public function setServiceExploitant(\MairieVoreppe\UserBundle\Entity\ServiceExploitant $serviceExploitant)
     {
-        $this->service = $service;
+        $this->serviceExploitant = $serviceExploitant;
 
         return $this;
     }
@@ -465,9 +465,9 @@ abstract class Travaux
      *
      * @return \MairieVoreppe\UserBundle\Entity\Service
      */
-    public function getService()
+    public function getServiceExploitant()
     {
-        return $this->service;
+        return $this->serviceExploitant;
     }
 
     /**

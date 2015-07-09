@@ -56,7 +56,7 @@ class Logo
     
     
                           /*******************
-                            Upload Avatar
+                            Upload logo
                             *******************/
    /**
     * @var file
@@ -78,15 +78,15 @@ class Logo
     private $tempFilename;
 
      /**
-     * @var Mairie
+     * @var Exploitant
      *
-     * Je décide de mettre mon entité user comme entité propriétaire. Ainsi pour persisté un avatar pour une personne
+     * Je décide de mettre mon entité user comme entité propriétaire. Ainsi pour persisté un logo pour une personne
      * je le fait via l'accesseur 'setAvatar()' de user et ainsi de par l'association tissé entre User et avatar 
      * cette image sera persisté en cascade avec l'utilisateur
      *
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Mairie", mappedBy="logo")
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant", mappedBy="logo")
      */
-    private $mairie;
+    private $exploitant;
 
 
 
@@ -271,7 +271,7 @@ class Logo
     {
 
         // Si jamais il n'y a pas de fichier (champ facultatif)
-        if ($this->getFile() == null)
+        if ($this->getFie() == null)
         {
             return;
         }
@@ -329,7 +329,7 @@ class Logo
     public function getUploadDir()
     {
         // On retourne le chemin relatif vers l'image pour un navigateur
-        return 'uploads/logo_mairie';
+        return 'uploads/logo_exploitant';
     }
 
     public function getUploadRootDir()
@@ -355,12 +355,12 @@ class Logo
     /**
      * Set mairie
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
      * @return Logo
      */
-    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie = null)
+    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
     {
-        $this->mairie = $mairie;
+        $this->exploitant = $exploitant;
 
         return $this;
     }
@@ -368,11 +368,11 @@ class Logo
     /**
      * Get mairie
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie 
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant 
      */
-    public function getMairie()
+    public function getExploitant()
     {
-        return $this->mairie;
+        return $this->exploitant;
     }
     
     function deleteDirectory($dir) 
