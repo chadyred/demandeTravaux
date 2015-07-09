@@ -16,7 +16,6 @@
             <table class="table table-bordered table-striped table-condensed">
             <thead>
                 <tr>
-                    <th colspan="">
                     <th>Id dt</th>
                     <th>Id dict</th>
                     <th>Numero téléservice dt</th>
@@ -37,14 +36,14 @@
                     <td>{{ entity.dt.adresses|length > 0 ? entity.dt.adresses[0].ville : "-" }}</td>
                     <td>{{ entity.adresses|length > 0 ? entity.adresses[0].ville : "-" }}</td>
                     <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('dtdict_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('dtdict_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                        <ul>
+                            <li>
+                                <a href="{{ path('dtdict_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('dtdict_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
                     </td>
                 </tr>
             {% endfor %}

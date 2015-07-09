@@ -7,6 +7,11 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/css/*
+web/js/*
+web/font/*
+web/assetic/*
+web/bundles/*
 
 #Allow
 !web/uploads/pdf/*

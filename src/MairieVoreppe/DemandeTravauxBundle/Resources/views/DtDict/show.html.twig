@@ -22,7 +22,7 @@
                 <tbody>
                     <tr>
                         <th>Id</th>
-                        <td><a href={{ entity.dt.id }}</td>
+                        <td>{{ entity.dt.id }}</td>
                     </tr>
                     <tr>
                         <th>Date reception de la demande</th>
@@ -40,9 +40,58 @@
                         <th>Numéro téléservice</th>
                         <td>{{ entity.dt.numeroTeleservice }}</td>
                     </tr>
+                    <tr>
+                        <th>Description des travaux</th>
+                        <td>{{ entity.dt.descriptionTravaux }}</td>
+                    </tr>
+                    <tr>
+                        <th>Note complémentaire</th>
+                        <td>{{ entity.dt.noteComplementaire }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de début des travaux</th>
+                        <td>{{ entity.dt.dateDebutTravaux|date('d-m-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Durée</th>
+                        <td>{{ entity.dt.duree }} jour(s).</td>
+                    </tr>
+                    
                 </tbody>
             </table>
 
+            <caption>
+                <h4>        
+                   Adresse de la DT
+                     <br>
+                </h4>
+            </caption>
+             <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            Rue
+                        </td>
+                        <td>
+                            Adresse
+                        </td>
+                        <td>
+                            Complément adresse
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adresse in entity.dt.adresses %}
+                        <tr>
+                            <td>{{ adresse.numeroRue }}</td>
+                            <td>{{ adresse.adresse }}</td>
+                            <td>{{ adresse.complementAdresse }}</td>
+                        </tr>
+                    {% else %}
+                        - Aucune adresse -
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
 
           <!-- Tableau de la DICT -->
@@ -55,16 +104,79 @@
             </caption>
             <table class="table table-bordered table-striped table-condensed">
                 <tbody>
-                    <tr>
+                   <tr>
                         <th>Id</th>
                         <td>{{ entity.id }}</td>
                     </tr>
                     <tr>
+                        <th>Date reception de la demande</th>
+                        <td>{{ entity.dateReceptionDemande|date('d-m-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Canal reception</th>
+                        <td>{{ entity.canalReception.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Maitre oeuvre</th>
+                        <td>{{ entity.maitreOeuvre }}</td>
+                    </tr>
+                    <tr>
                         <th>Numéro téléservice</th>
-                        <td>{{ entity.dt.numeroTeleservice }}</td>
+                        <td>{{ entity.numeroTeleservice }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description des travaux</th>
+                        <td>{{ entity.descriptionTravaux }}</td>
+                    </tr>
+                    <tr>
+                        <th>Note complémentaire</th>
+                        <td>{{ entity.noteComplementaire }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de début des travaux</th>
+                        <td>{{ entity.dateDebutTravaux|date('d-m-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Durée</th>
+                        <td>{{ entity.duree }} jour(s).</td>
                     </tr>
                 </tbody>
             </table>
+
+
+            <caption>
+                <h4>        
+                   Adresse de la DICT
+                     <br>
+                </h4>
+            </caption>
+             <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            Rue
+                        </td>
+                        <td>
+                            Adresse
+                        </td>
+                        <td>
+                            Complément adresse
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adresse in entity.adresses %}
+                        <tr>
+                            <td>{{ adresse.numeroRue }}</td>
+                            <td>{{ adresse.adresse }}</td>
+                            <td>{{ adresse.complementAdresse }}</td>
+                        </tr>
+                    {% else %}
+                        - Aucune adresse -
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         </div>        
     </div> {# Fin cols 12 #}
