@@ -163,7 +163,10 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->getCivilite()->getTitre() . " " . strtoupper($this->getFirstname()) . " " . $this->getLastname();
+        if($this->getCivilite() != null)
+            return $this->getCivilite()->getTitre() . " " . strtoupper($this->getFirstname()) . " " . $this->getLastname();
+        else
+            return strtoupper($this->getFirstname()) . " " . $this->getLastname();
     }
 }
 
