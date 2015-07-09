@@ -12,10 +12,10 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({ 
  * "entreprise"="MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise", 
- * "mairie"="MairieVoreppe\DemandeTravauxBundle\Entity\Mairie",
+ * "mairie"="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant",
  * "civil"="MairieVoreppe\DemandeTravauxBundle\Entity\Civil", 
  * "gerant"="MairieVoreppe\DemandeTravauxBundle\Entity\Gerant", 
- * "maire"="MairieVoreppe\DemandeTravauxBundle\Entity\Maire",
+ * "maire"="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant",
  * "contact_urgent"="MairieVoreppe\DemandeTravauxBundle\Entity\ContactUrgent"
  *  })
  */

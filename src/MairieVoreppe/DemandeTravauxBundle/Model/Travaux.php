@@ -137,7 +137,7 @@ abstract class Travaux
      * 
      * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait lors de la connexion.
      * 
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\UserBundle\Entity\ServiceExploitant", inversedBy="travaux")
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant", inversedBy="travaux")
      */
     protected $serviceExploitant;
 

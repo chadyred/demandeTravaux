@@ -16,24 +16,23 @@ class Periode
     * @var \integeer
     * @ORM\Column(name="id", type="integer")
     * @ORM\Id
+    * @ORM\GeneratedValue(strategy="AUTO")
     */
     private $id;
     
      /**
-     * @var \DateTime
-     * 
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Maire", inversedBy="periodes", cascade={"persist"})
+     * @var \$maire 
+    * 
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant", inversedBy="periodes", cascade={"persist"})
      */
-    private $maire;
+    private $responsableExploitant;
     
      /**
-     * @var \DateTime
+     * @var \$mairie
       * 
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Mairie", inversedBy="periodes")
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant", inversedBy="periodes")
      */
-    private $mairie;
+    private $exploitant;
     
 
     /**
@@ -97,49 +96,62 @@ class Periode
         return $this->dateFin;
     }
 
-    /**
-     * Set maire
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Maire $maire
-     * @return Periode
-     */
-    public function setMaire(\MairieVoreppe\DemandeTravauxBundle\Entity\Maire $maire)
-    {
-        $this->maire = $maire;
-        
-        return $this;
-    }
 
     /**
-     * Get maire
+     * Get id
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Maire 
+     * @return integer 
      */
-    public function getMaire()
+    public function getId()
     {
-        return $this->maire;
-    }
+        return $this->id;
+    }    
 
     /**
-     * Set mairie
+     * Set responsableExploitant
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant $responsableExploitant
+     *
      * @return Periode
      */
-    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Mairie $mairie)
+    public function setResponsableExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant $responsableExploitant = null)
     {
-        $this->mairie = $mairie;
+        $this->responsableExploitant = $responsableExploitant;
 
         return $this;
     }
 
     /**
-     * Get mairie
+     * Get responsableExploitant
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Mairie 
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant
      */
-    public function getMairie()
+    public function getResponsableExploitant()
     {
-        return $this->mairie;
+        return $this->responsableExploitant;
+    }
+
+    /**
+     * Set exploitant
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
+     *
+     * @return Periode
+     */
+    public function setExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
+    {
+        $this->exploitant = $exploitant;
+
+        return $this;
+    }
+
+    /**
+     * Get exploitant
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant
+     */
+    public function getExploitant()
+    {
+        return $this->exploitant;
     }
 }

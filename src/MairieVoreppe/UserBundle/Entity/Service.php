@@ -45,7 +45,7 @@
         * Tableau de type DoctrineArray() qui contient les utilisateur du groupe. Le service du travaux est ajouter au sein du controller, grâce à la session sous laquel
         * il est connecté. 
         *
-        * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant", mappedBY="service")
+        * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant", mappedBy="service")
         */
         protected $servicesExploitant;
         
