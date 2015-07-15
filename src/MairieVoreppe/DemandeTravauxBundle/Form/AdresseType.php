@@ -23,7 +23,7 @@ class AdresseType extends AbstractType
     {
         $builder
             ->add('autocomplete', 'text', array('mapped' => false, 'required' => false,
-                "attr" => array('autocomplete' => '',
+                "attr" => array('autocomplete' => 'autocomplete',
                                 "onFocus" => "geolocate()",
                                 "placeholder" => "Saisissez une adresse")))
             ->add('numeroRue', 'text', array('attr' => array('street_number' => 'street_number')))

@@ -66,17 +66,17 @@ mairie_voreppe_demande_travaux_periode:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/periode.yml"
     prefix:   /periode
 
-mairie_voreppe_demande_travaux_maire:
-    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/maire.yml"
-    prefix:   /maire
+mairie_voreppe_demande_travaux_responsable_exploitant:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/responsable_exploitant.yml"
+    prefix:   /responsable-exploitant
 
 mairie_voreppe_demande_travaux_gerant:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/gerant.yml"
     prefix:   /gerant
 
-mairie_voreppe_demande_travaux_mairie:
-    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/mairie.yml"
-    prefix:   /mairie
+mairie_voreppe_demande_travaux_exploitant:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/exploitant.yml"
+    prefix:   /exploitant
 
 mairie_voreppe_demande_travaux_entreprise:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/entreprise.yml"

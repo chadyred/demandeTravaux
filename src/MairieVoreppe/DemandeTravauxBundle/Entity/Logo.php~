@@ -8,14 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 //On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
 use Symfony\Component\Validator\Constraints as Assert;
+
 //Permet de récupérer les valeur des objets en cours de vie dans notre classe
 use Symfony\Component\Validator\ExecutionContextInterface;
+
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Logo
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\LogoRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Logo
 {
@@ -45,14 +49,15 @@ class Logo
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="extension", type="string", length=255)
      */
     private $extension;
+
     
     
                           /*******************
-                            Upload Avatar
+                            Upload logo
                             *******************/
    /**
     * @var file
@@ -60,7 +65,8 @@ class Logo
     * Le fichier uploader hydratera cette attribut. Il n'est pas persisté puisuqe l'on en ércupère le nom, l'extension puis on le déplace
     */
     /**
-    * @Assert\Image(mimeTypes={"image/png", "image/jpeg"}, mimeTypesMessage="Le type du fichier n'est pas le bon. Veuillez mettre une image en .png ou .jpg")
+    * @Assert\Image(mimeTypes={"image/png", "image/jpeg"}, 
+    *  mimeTypesMessage="Le type du fichier n'est pas le bon. Veuillez mettre une image en .png ou .jpg")
     */
     private $file;
 
@@ -73,15 +79,15 @@ class Logo
     private $tempFilename;
 
      /**
-     * @var Mairie
+     * @var Exploitant
      *
-     * Je décide de mettre mon entité user comme entité propriétaire. Ainsi pour persisté un avatar pour une personne
+     * Je décide de mettre mon entité user comme entité propriétaire. Ainsi pour persisté un logo pour une personne
      * je le fait via l'accesseur 'setAvatar()' de user et ainsi de par l'association tissé entre User et avatar 
      * cette image sera persisté en cascade avec l'utilisateur
      *
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Mairie", mappedBy="logo")
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant", mappedBy="logo")
      */
-    private $mairie;
+    private $exploitant;
 
 
 
@@ -266,7 +272,7 @@ class Logo
     {
 
         // Si jamais il n'y a pas de fichier (champ facultatif)
-        if ($this->getFile() == null)
+        if ($this->getFie() == null)
         {
             return;
         }
@@ -274,9 +280,13 @@ class Logo
 
         //On déplace notre fichier où ont le désire dans le premier paramêtre, et on le renomme dans le second paramêtre
         //Rappel : $url contient un id aléatoire et unique. Si une erreur survient, celle ci sera lié à la non
-        //persistence de celle-ci en base de données
+        //persistence de celle-ci en base de données 
+        
+        
         $this->getFile()->move($this->getUploadRootDir(), $this->getUrl());
-        chmod($this->getUploadRootDir() . '/' . $this->getUrl(), 0777);
+        chmod($this->getUploadRootDir() . '/' . $this->getUrl(), 0700);
+        
+        
         //Si on a un nom de fichier temporaire, c'est qu'un fichier existe
         if($this->getTempFilename() != null)
         {
@@ -312,20 +322,91 @@ class Logo
         //Ici on a plus accès au nom du fichier, on va alors utiliser le nom du fichier enregistré dans notre tempFileName
         if(file_exists($this->getTempFilename()))
         {
-            //On supprime le fichier
-            unlink($this->getTempFilename());
+            //On supprime le fichier, puis le répertoire avant de supprimer le répertoire (voir cette foncton astuciese)
+            $this->deleteDirectory($this->getUploadRootDir());
         }
     }
-
+    
     public function getUploadDir()
     {
         // On retourne le chemin relatif vers l'image pour un navigateur
-        return 'uploads/logo_mairie/'. $this->getMairie()->getId();
+        return 'uploads/logo_exploitant';
     }
 
     public function getUploadRootDir()
     {
+        
         // On retourne le chemin relatif vers l'image pour notre code PHP
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
+
+
+    /**
+    * webPath
+    *
+    * Cette fonction va nous permettre de récupérer le chemin vers notre fichier
+    * 
+    * @return chemin de notre fichier de manière relative
+    */
+    public function getWebPath()
+    {
+        return $this->getUploadDir() . '/' . $this->getUrl();
+    }
+
+    /**
+     * Set mairie
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
+     * @return Logo
+     */
+    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
+    {
+        $this->exploitant = $exploitant;
+
+        return $this;
+    }
+
+    /**
+     * Get mairie
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant 
+     */
+    public function getExploitant()
+    {
+        return $this->exploitant;
+    }
+    
+    function deleteDirectory($dir) 
+    {
+        //Si ce n'est pas un fichier, c'est un dossier. On va alors vider l'ensemble de ses fichiers avec la fonction suivante
+        if (!file_exists($dir)) {
+            return true;
+        }
+        
+        //Si ce n'est pas un dossier, c'est un fichier on le supprimer
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            
+            //On supprimera les sous dossier avec tout les fichier en exécutant cette fonction
+            //de manière récurssive
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+
+        }
+
+        return rmdir($dir);
+    }
+    
+    public function __toString()
+    {
+        return '<img src="{{ asset("' . $this->getWebPath().'") }}"/>';
+    }
+
 }

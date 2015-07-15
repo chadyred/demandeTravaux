@@ -9,13 +9,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use libphonenumber\PhoneNumberFormat;
  
-class ServiceExploitantAdmin extends AbstractAdmin
+class AdresseAdmin extends AbstractAdmin
 {
 	 // setup the default sort column and order
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
-        '_sort_by' => 'name'
+        '_sort_by' => 'adresse'
     );
 
     
@@ -33,10 +34,18 @@ class ServiceExploitantAdmin extends AbstractAdmin
                     'placeholder' => 'No author selected',
                     'attr' => array('hidden' => true)
                 ))   */
-                ->add('exploitant', 'entity', array('class' => 'MairieVoreppeDemandeTravauxBundle:Exploitant',                 
-                        'property' => 'raisonSociale',
-                        'translation_domain' => $this->getTranslationDomain()
-                      ))   
+                
+                 ->add('autocomplete', 'text', array('mapped' => false, 'required' => false,
+                    "attr" => array('autocomplete' => 'autocomplete',
+                                    "onFocus" => "geolocate()",
+                                    "placeholder" => "Saisissez une adresse")))
+                    ->add('numeroRue', 'text', array('attr' => array('street_number' => 'street_number')))
+                    ->add('adresse', 'text', array('attr' => array('route' => 'route')))
+                    ->add('complementAdresse', 'text',  array('required' => false))
+                    ->add('lieuDit', 'text',  array('required' => false, 'attr' => array('lieuDit' => 'lieuDit')))       
+                    ->add('ville', 'text', array('attr' => array('locality' => 'locality')))
+                    ->add('cp', 'text', array('attr' => array('postal_code' => 'postal_code')))
+                    ->add('pays', 'text', array('attr' => array('country' => 'country')))
             ->end()
         ;
     }
@@ -50,7 +59,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('exploitant.raisonSociale')
+            ->add('adresse')
         ;
     }
  
@@ -62,7 +71,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('exploitant.raisonSociale')
+            ->add('adresse')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -80,7 +89,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('exploitant.raisonSociale')
+            ->add('adresse')
         ;
     }
 

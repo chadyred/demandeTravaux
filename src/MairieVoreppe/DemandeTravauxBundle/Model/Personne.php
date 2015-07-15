@@ -71,7 +71,7 @@ abstract class Personne
     public function setAdresse(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adresse)
     {
         $this->adresse = $adresse;
-
+        $adresse->setPersonne($this);
         return $this;
     }
     /**

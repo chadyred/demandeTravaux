@@ -53,6 +53,7 @@ class Logo
      * @ORM\Column(name="extension", type="string", length=255)
      */
     private $extension;
+
     
     
                           /*******************
@@ -271,7 +272,7 @@ class Logo
     {
 
         // Si jamais il n'y a pas de fichier (champ facultatif)
-        if ($this->getFie() == null)
+        if ($this->getFile() == null)
         {
             return;
         }
@@ -373,6 +374,20 @@ class Logo
     public function getExploitant()
     {
         return $this->exploitant;
+    }  
+
+    /**
+     * Set exploitant
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
+     *
+     * @return Logo
+     */
+    public function setExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
+    {
+        $this->exploitant = $exploitant;
+
+        return $this;
     }
     
     function deleteDirectory($dir) 
@@ -408,4 +423,6 @@ class Logo
         return '<img src="{{ asset("' . $this->getWebPath().'") }}"/>';
     }
 
+
+  
 }

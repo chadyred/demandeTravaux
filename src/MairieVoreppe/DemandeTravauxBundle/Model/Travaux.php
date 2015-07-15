@@ -453,7 +453,7 @@ abstract class Travaux
      *
      * @return Travaux2
      */
-    public function setServiceExploitant(\MairieVoreppe\UserBundle\Entity\ServiceExploitant $serviceExploitant)
+    public function setServiceExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant $serviceExploitant)
     {
         $this->serviceExploitant = $serviceExploitant;
 
