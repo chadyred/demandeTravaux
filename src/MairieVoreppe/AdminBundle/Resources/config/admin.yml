@@ -23,3 +23,11 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Adresse
             - MairieVoreppeAdminBundle:AdresseAdmin
+    mairievoreppeadmin.admin.logo:
+        class: MairieVoreppe\AdminBundle\Admin\LogoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Logo }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\Logo
+            - MairieVoreppeAdminBundle:LogoAdmin

@@ -58,13 +58,7 @@ class Adresse
      */
     private $lieuDit;
 
-    /**
-     * @var type Personne
-     * 
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Personne", mappedBy="adresse")
-     */
-    private $personne;
-    
+       
     
     /**
      * @var type Travaux
@@ -185,33 +179,12 @@ class Adresse
         return $this->lieuDit;
     }
 
-    /**
-     * Set personne
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne
-     * @return Adresse
-     */
-    public function setPersonne(\MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne = null)
-    {
-        $this->personne = $personne;
-
-        return $this;
-    }
-
-    /**
-     * Get personne
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Model\Personne 
-     */
-    public function getPersonne()
-    {
-        return $this->personne;
-    }
+    
 
     /**
      * Set ville
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Personne $ville
+     * @param  $ville
      * @return Adresse
      */
     public function setVille($ville = null)

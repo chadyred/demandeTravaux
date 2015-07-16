@@ -5,6 +5,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use JMS\Serializer\Annotation\Groups;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -35,7 +37,9 @@ abstract class Personne
      * 
      * Une personne n'a qu'une adresse. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Adresse", cascade={"persist", "remove"}, inversedBy="personne")
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Adresse", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
      */
     protected $adresse;    
     
@@ -71,7 +75,7 @@ abstract class Personne
     public function setAdresse(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adresse)
     {
         $this->adresse = $adresse;
-        $adresse->setPersonne($this);
+
         return $this;
     }
     /**

@@ -78,16 +78,7 @@ class Logo
     */
     private $tempFilename;
 
-     /**
-     * @var Exploitant
-     *
-     * Je décide de mettre mon entité user comme entité propriétaire. Ainsi pour persisté un logo pour une personne
-     * je le fait via l'accesseur 'setAvatar()' de user et ainsi de par l'association tissé entre User et avatar 
-     * cette image sera persisté en cascade avec l'utilisateur
-     *
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant", mappedBy="logo")
-     */
-    private $exploitant;
+ 
 
 
 
@@ -353,42 +344,10 @@ class Logo
         return $this->getUploadDir() . '/' . $this->getUrl();
     }
 
-    /**
-     * Set mairie
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
-     * @return Logo
-     */
-    public function setMairie(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
-    {
-        $this->exploitant = $exploitant;
+    
 
-        return $this;
-    }
 
-    /**
-     * Get mairie
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant 
-     */
-    public function getExploitant()
-    {
-        return $this->exploitant;
-    }  
-
-    /**
-     * Set exploitant
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant
-     *
-     * @return Logo
-     */
-    public function setExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
-    {
-        $this->exploitant = $exploitant;
-
-        return $this;
-    }
+   
     
     function deleteDirectory($dir) 
     {
