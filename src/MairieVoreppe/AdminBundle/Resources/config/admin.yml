@@ -15,6 +15,22 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant
             - MairieVoreppeAdminBundle:ServiceExploitantAdmin
+    mairievoreppeadmin.admin.personne:
+        class: MairieVoreppe\AdminBundle\Admin\PersonneAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Personne }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Model\Personne
+            - MairieVoreppeAdminBundle:PersonneAdmin
+    mairievoreppeadmin.admin.personnemorale:
+        class: MairieVoreppe\AdminBundle\Admin\PersonneMoraleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: PersonneMorale }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Model\PersonneMorale
+            - MairieVoreppeAdminBundle:PersonneMoraleAdmin
     mairievoreppeadmin.admin.adresse:
         class: MairieVoreppe\AdminBundle\Admin\AdresseAdmin
         tags:
@@ -23,27 +39,3 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Adresse
             - MairieVoreppeAdminBundle:AdresseAdmin
-    mairievoreppeadmin.admin.logo:
-        class: MairieVoreppe\AdminBundle\Admin\LogoAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Logo }
-        arguments:
-            - ~
-            - MairieVoreppe\DemandeTravauxBundle\Entity\Logo
-            - MairieVoreppeAdminBundle:LogoAdmin
-    mairievoreppeadmin.admin.personne:
-        class: MairieVoreppe\AdminBundle\Admin\PersonneAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Personne }
-        arguments:
-            - ~
-            - MairieVoreppe\DemandeTravauxBundle\Entity\Personne
-            - MairieVoreppeAdminBundle:PersonneAdmin
-    mairievoreppeadmin.admin.personnemorale:
-        class: MairieVoreppe\AdminBundle\Admin\PersonneMoraleAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: PersonneMorale }
-        arguments:
-            - ~
-            - MairieVoreppe\DemandeTravauxBundle\Entity\PersonneMorale
-            - MairieVoreppeAdminBundle:PersonneMoraleAdmin

@@ -41,7 +41,6 @@ class PersonneMoraleAdmin extends AbstractAdmin
                 ->add('raisonSociale')
                 ->add('complement', 'text', array('required' => false))
                 ->add('telFax', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL, 'required' => false))
-                ->add('telFixe', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL, 'required' => false))
             ->end()
         ;
     }

@@ -26,7 +26,7 @@ class SecurityFOSUser1Controller extends BaseController
         //Ne sachant pas dans quel service l'utilisateur se situe je propose l'ensemble des services
         
 
-        $services = $doctrine->getEntityManager()->getRepository('MairieVoreppeUserBundle:Service')->findAll();
+        $services = $doctrine->getEntityManager()->getRepository('ApplicationSonataUserBundle:Service')->findAll();
         
         /* @var $session \Symfony\Component\HttpFoundation\Session\Session */
 
@@ -67,11 +67,11 @@ class SecurityFOSUser1Controller extends BaseController
         
         if ('admin_login' === $requestAttributes->get('_route')) 
         {
-            $template = sprintf('MairieVoreppeUserBundle:Security:admin_login.html.twig');
+            $template = sprintf('ApplicationSonataUserBundle:Security:admin_login.html.twig');
         } 
         else 
         {
-            $template = sprintf('MairieVoreppeUserBundle:Security:login.html.twig');
+            $template = sprintf('ApplicationSonataUserBundle:Security:login.html.twig');
         }
 
         return $this->container->get('templating')->renderResponse($template, $data);

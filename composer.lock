@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6a4e008d90cc60f95edfa5467a0773e0",
+    "hash": "4b029cd83af14fd9e71edd04b772cea0",
     "packages": [
         {
             "name": "chadyred/fpdf-fpdi-symfony2",
@@ -1464,16 +1464,16 @@
         },
         {
             "name": "infinite-networks/form-bundle",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infinite-networks/InfiniteFormBundle.git",
-                "reference": "a521eadedb0b33fb5427baf9de780866b70bcc86"
+                "reference": "924e3f2c39bbe4f0609e14cb064dd046986d7440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infinite-networks/InfiniteFormBundle/zipball/a521eadedb0b33fb5427baf9de780866b70bcc86",
-                "reference": "a521eadedb0b33fb5427baf9de780866b70bcc86",
+                "url": "https://api.github.com/repos/infinite-networks/InfiniteFormBundle/zipball/924e3f2c39bbe4f0609e14cb064dd046986d7440",
+                "reference": "924e3f2c39bbe4f0609e14cb064dd046986d7440",
                 "shasum": ""
             },
             "require": {
@@ -1487,14 +1487,12 @@
                 "components/qunit": "*",
                 "doctrine/doctrine-bundle": "~1.2",
                 "doctrine/orm": "~2.3",
-                "robloach/component-installer": "~0.1.1",
-                "symfony/phpunit-bridge": "^2.7",
-                "symfony/symfony": "~2.3"
+                "symfony/symfony": "~2.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -1513,7 +1511,7 @@
                 }
             ],
             "description": "A collection of useful form types and extensions for Symfony2",
-            "time": "2015-06-18 23:07:37"
+            "time": "2014-12-10 21:45:49"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -4536,12 +4534,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "aefd16d4f3e33ce5e83ca061c74d73e0d1b6ba2c"
+                "reference": "5626d73992cf7fabe4e7be5f2c07cee34dab6e81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/aefd16d4f3e33ce5e83ca061c74d73e0d1b6ba2c",
-                "reference": "aefd16d4f3e33ce5e83ca061c74d73e0d1b6ba2c",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/5626d73992cf7fabe4e7be5f2c07cee34dab6e81",
+                "reference": "5626d73992cf7fabe4e7be5f2c07cee34dab6e81",
                 "shasum": ""
             },
             "require": {
@@ -4650,7 +4648,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-07-10 04:28:50"
+            "time": "2015-07-16 12:22:14"
         },
         {
             "name": "twig/extensions",
