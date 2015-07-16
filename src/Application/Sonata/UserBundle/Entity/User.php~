@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Sonata\UserBundle\Entity;
+namespace MairieVoreppe\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 //On va hériter de notre classe User présent dans le bundle FOSUser. C'est la classe mère : on peut ainsi
@@ -12,9 +12,9 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  * User
  *
  * @ORM\Table(name="utilisateur")
- * @ORM\Entity(repositoryClass="Application\Sonata\UserBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="MairieVoreppe\UserBundle\Entity\UserRepository")
  */
-class User extends BaseUser
+class User
 {
     /**
      * @var integer
@@ -39,7 +39,7 @@ class User extends BaseUser
      * Un utilisateur peut avoir plusieurs travaux. Il sera en quelquesorte propriétaire du travaux créé. On pourra alors récupérer ses travaux.
      * Les travaux existeront toujours même après son départ. Le changement de personne sur un travaux se fera par l'administrateur seulement.
      * 
-     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Travaux", cascade={"persist"}, mappedBy="user")
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Adresse", cascade={"persist"}, mappedBy="user")
      */
      protected $travaux;     
      
@@ -60,7 +60,7 @@ class User extends BaseUser
     * Relation Many User to Many groups. Cette attribut est déjà présent mais on redéfinis son association ici. On ne met pas les accesseurs (add,remove, get)
     * car ils sont déjà présent dans notre classe parent.
     *
-    * @ORM\ManyToMany(targetEntity="Application\Sonata\UserBundle\Entity\Service", inversedBy="users")
+    * @ORM\ManyToMany(targetEntity="MairieVoreppe\UserBundle\Entity\Service", inversedBy="users")
     */
     protected $services;
 
@@ -74,10 +74,10 @@ class User extends BaseUser
     /**
      * Add services
      *
-     * @param \Application\Sonata\UserBundle\Entity\Service $services
+     * @param \MairieVoreppe\UserBundle\Entity\Service $services
      * @return User
      */
-    public function addService(\Application\Sonata\UserBundle\Entity\Service $services)
+    public function addService(\MairieVoreppe\UserBundle\Entity\Service $services)
     {
         $this->services[] = $services;
 
@@ -87,9 +87,9 @@ class User extends BaseUser
     /**
      * Remove services
      *
-     * @param \Application\Sonata\UserBundle\Entity\Service $services
+     * @param \MairieVoreppe\UserBundle\Entity\Service $services
      */
-    public function removeService(\Application\Sonata\UserBundle\Entity\Service $services)
+    public function removeService(\MairieVoreppe\UserBundle\Entity\Service $services)
     {
         $this->services->removeElement($services);
     }
@@ -126,48 +126,4 @@ class User extends BaseUser
     {
         return $this->civilite;
     }
-
-    /**
-     * Add travaux
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux
-     *
-     * @return User
-     */
-    public function addTravaux(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux)
-    {
-        $this->travaux[] = $travaux;
-
-        return $this;
-    }
-
-    /**
-     * Remove travaux
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux
-     */
-    public function removeTravaux(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux)
-    {
-        $this->travaux->removeElement($travaux);
-    }
-
-    /**
-     * Get travaux
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTravaux()
-    {
-        return $this->travaux;
-    }
-
-    public function __toString()
-    {
-        if($this->getCivilite() != null)
-            return $this->getCivilite()->getTitre() . " " . strtoupper($this->getFirstname()) . " " . $this->getLastname();
-        else
-            return strtoupper($this->getFirstname()) . " " . $this->getLastname();
-    }
 }
-
-

@@ -127,7 +127,7 @@ abstract class Travaux
      * 
      * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait lors de la connexion.
      * 
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\UserBundle\Entity\User", inversedBy="travaux")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="travaux")
      */
     protected $user;
     
@@ -425,11 +425,11 @@ abstract class Travaux
     /**
      * Set user
      *
-     * @param \MairieVoreppe\UserBundle\Entity\User $user
+     * @param \Application\Sonata\UserBundle\Entity\User $user
      *
      * @return Travaux2
      */
-    public function setUser(\MairieVoreppe\UserBundle\Entity\User $user = null)
+    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -439,7 +439,7 @@ abstract class Travaux
     /**
      * Get user
      *
-     * @return \MairieVoreppe\UserBundle\Entity\User
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -449,7 +449,7 @@ abstract class Travaux
     /**
      * Set service
      *
-     * @param \MairieVoreppe\UserBundle\Entity\Service $service
+     * @param \Application\Sonata\UserBundle\Entity\Service $service
      *
      * @return Travaux2
      */
@@ -463,7 +463,7 @@ abstract class Travaux
     /**
      * Get service
      *
-     * @return \MairieVoreppe\UserBundle\Entity\Service
+     * @return \Application\Sonata\UserBundle\Entity\Service
      */
     public function getServiceExploitant()
     {

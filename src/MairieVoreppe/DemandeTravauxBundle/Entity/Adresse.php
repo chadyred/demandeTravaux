@@ -4,6 +4,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Adresse
@@ -33,6 +35,15 @@ class Adresse
      * @Groups({"dt"})
      */
     private $numeroRue;
+
+    /**
+     * @var string
+     *
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Personne", cascade={"persist", "remove"}, inversedBy="adresse")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
+     */
+    private $personne;
 
     /**
      * @var string
@@ -338,5 +349,30 @@ class Adresse
     public function getPays()
     {
         return $this->pays;
+    }
+
+    /**
+     * Set personne
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne
+     *
+     * @return Adresse
+     */
+    public function setPersonne(\MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne = null)
+    {
+        $this->personne = $personne;
+        $personne->setAdresse($this);
+
+        return $this;
+    }
+
+    /**
+     * Get personne
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Model\Personne
+     */
+    public function getPersonne()
+    {
+        return $this->personne;
     }
 }

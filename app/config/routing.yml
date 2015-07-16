@@ -26,7 +26,7 @@ mairie_voreppe_demande_travaux:
 
 #Route vers les différente page éclaté dans le FOSUserBundle qui nous seront utile
 sonata_user_security:
-    resource: "@MairieVoreppeUserBundle/Resources/config/routing/sonata_security_1.xml"
+    resource: "@ApplicationSonataUserBundle/Resources/config/routing/sonata_security_1.xml"
 
 #Je vais ici override le fichier mère dans le but de pouvoir rendre la route 'fos_user_profile_edit' utilisable dans notre FOSJsRoutingBundle
 #via <option key="expose">true</option>
@@ -51,7 +51,7 @@ sonata_user_change_password:
 
 admin_login:
     pattern:  /admin/login
-    defaults: { _controller: MairieVoreppeUserBundle:SecurityFOSUser1:login }
+    defaults: { _controller: ApplicationSonataUserBundle:SecurityFOSUser1:login }
 
 admin_check:
     pattern:  /admin/login_check

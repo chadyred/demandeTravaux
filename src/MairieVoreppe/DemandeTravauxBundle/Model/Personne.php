@@ -37,9 +37,6 @@ abstract class Personne
      * 
      * Une personne n'a qu'une adresse. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Adresse", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     * @Assert\Valid()
      */
     protected $adresse;    
     

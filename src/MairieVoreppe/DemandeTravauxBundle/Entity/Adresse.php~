@@ -4,6 +4,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Adresse
@@ -37,6 +39,15 @@ class Adresse
     /**
      * @var string
      *
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Personne", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid()
+     */
+    private $personne;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="adresse", type="string", length=255)
      * @Groups({"dt"})
      */
@@ -58,13 +69,7 @@ class Adresse
      */
     private $lieuDit;
 
-    /**
-     * @var type Personne
-     * 
-     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Personne", mappedBy="adresse")
-     */
-    private $personne;
-    
+       
     
     /**
      * @var type Travaux
@@ -185,33 +190,12 @@ class Adresse
         return $this->lieuDit;
     }
 
-    /**
-     * Set personne
-     *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne
-     * @return Adresse
-     */
-    public function setPersonne(\MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne = null)
-    {
-        $this->personne = $personne;
-
-        return $this;
-    }
-
-    /**
-     * Get personne
-     *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Model\Personne 
-     */
-    public function getPersonne()
-    {
-        return $this->personne;
-    }
+    
 
     /**
      * Set ville
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Personne $ville
+     * @param  $ville
      * @return Adresse
      */
     public function setVille($ville = null)
@@ -341,5 +325,29 @@ class Adresse
 
 
         return $adresseComplete;      
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return Adresse
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 }

@@ -1,0 +1,36 @@
+{# empty Twig template #}
+
+{% extends '::base.html.twig' %}
+
+{% block corps %}
+
+  <div class="row">
+    <div class="col-lg-12">
+        {% block menu_profile %}
+          {% include "MairieVoreppeUserBundle:Profile:action.html.twig" %}
+        {% endblock menu_profile %}
+    
+    </div>
+    <div class="col-lg-12">
+        {# S'il y a des messages des controleur tel que les erreurs qui seront créé en temps que message flash via les global session#}
+        {# on les affiche, on utilise la class alert du Framwork CSS bootstrap#}
+
+        <div class="row">
+             {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-warning col-xs-4 col-sm-4 col-md-4 col-lg-4 alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"><b>&times;</b></button>
+                            <div class="{{ type }}">
+                                {{ message|trans({}, 'FOSUserBundle') }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+        </div>
+
+        {# Ici on insérera tous le contenu de nos vues du fos user bundle#}
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}    
+    </div>
+  </div>
+{% endblock corps %}

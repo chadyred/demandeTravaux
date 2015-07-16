@@ -1,0 +1,36 @@
+{# src/MairieVoreppe/UserBundle/Resources/views/Recette/menu_profile.html.twig #}
+{% set route = app.request.attributes.get('_route') %}
+  
+  <nav class="navbar  navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+      <ul class="nav navbar-nav">
+        <li {{ route == "fos_user_profile_show" ? 'class="active"' : '' }}>
+          <a href="{{ path('sonata_user_profile_show') }}">
+           {{ 'Profile'|upper }}
+         </a>
+
+       </li>	
+       <li {{ route == "fos_user_profile_edit" ? 'class="active"' : '' }}>
+
+        <a href="{{ path('sonata_user_profile_edit') }}">
+          {{ 'Modifier information'|upper }}
+        </a>
+      </li>
+      <li {{ route == "fos_user_profile_edit_authentication" ? 'class="active"' : '' }}>
+        <a href="{{ path('sonata_user_profile_edit_authentication') }}">
+          {{ 'Modifier information authentification'|upper }}
+        </a>
+      </li>
+      <li {{ route == "fos_user_change_password" ? 'class="active"' : '' }}>
+        <a href="{{ path('sonata_user_change_password')}}">
+          {{ 'Modifier votre mot de passe'|upper}}
+        </a>
+      </li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
