@@ -66,14 +66,15 @@ class GroupAdmin extends Admin
             ->end()
             ->tab('Exploitant')
                 ->with('General', array('class' => 'col-md-6'))
-                    ->add('exploitantsService',  'sonata_type_collection', array(
+                     ->add('servicesExploitant', 'sonata_type_collection', array(
                     // Prevents the "Delete" option from being displayed
-                    'type_options' => array('delete' => true)
-                ), array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'sortable' => 'position',
-                ))
+                        'type_options' => array('delete' => true),
+                        'by_reference' => false
+                    ), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position',
+                    ))
                 ->end()
             ->end()
             ->tab('Security')

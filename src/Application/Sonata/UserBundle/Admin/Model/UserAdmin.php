@@ -198,7 +198,7 @@ class UserAdmin extends Admin
                     ->end()
                     ->with('Groups')
                         ->add('services', 'entity', array(
-                            'class' => 'MairieVoreppeUserBundle:Service',
+                            'class' => 'ApplicationSonataUserBundle:Service',
                             'property' => 'name',
                             'required' => false,
                             'expanded' => true,

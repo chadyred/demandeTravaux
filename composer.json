@@ -7,7 +7,7 @@
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
     "require": {
-        "php": ">=5.3.9",
+         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*@dev",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
@@ -34,7 +34,7 @@
         "sonata-project/block-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/user-bundle": "2.3.*@dev",
-        "sonata-project/datagrid-bundle": "dev-master",
+        "sonata-project/datagrid-bundle": "2.2.*@dev",
         "knplabs/gaufrette": "^0.1.9",
         "simplethings/entity-audit-bundle": "^0.7.0",
         "sonata-project/core-bundle": "dev-master",

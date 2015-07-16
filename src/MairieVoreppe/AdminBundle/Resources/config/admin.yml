@@ -1,8 +1,9 @@
+# Les audit sur les entité hérité sont supprimer car ce n'est pas géré par SimpleTHings bundle
 services:
     mairievoreppeadmin.admin.exploitant:
         class: MairieVoreppe\AdminBundle\Admin\ExploitantAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Exploitant }
+            - { name: sonata.admin, manager_type: orm, audit: false,group: Gestion des exploitants, label: Exploitant }
         arguments:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant
@@ -18,7 +19,7 @@ services:
     mairievoreppeadmin.admin.personne:
         class: MairieVoreppe\AdminBundle\Admin\PersonneAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Personne }
+            - { name: sonata.admin, manager_type: orm, , audit: false, group: Gestion des exploitants, label: Personne}
         arguments:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Model\Personne
@@ -26,7 +27,7 @@ services:
     mairievoreppeadmin.admin.personnemorale:
         class: MairieVoreppe\AdminBundle\Admin\PersonneMoraleAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: PersonneMorale }
+            - { name: sonata.admin, manager_type: orm, audit: false, group: Gestion des exploitants, label: PersonneMorale }
         arguments:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Model\PersonneMorale
@@ -39,3 +40,11 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Adresse
             - MairieVoreppeAdminBundle:AdresseAdmin
+    mairievoreppeadmin.admin.travaux:
+        class: MairieVoreppe\AdminBundle\Admin\TravauxAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Travaux }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Model\Travaux
+            - MairieVoreppeAdminBundle:TravauxAdmin

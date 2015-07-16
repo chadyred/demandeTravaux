@@ -9,13 +9,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use libphonenumber\PhoneNumberFormat;
  
-class ServiceExploitantAdmin extends AbstractAdmin
+class TravauxAdmin extends AbstractAdmin
 {
 	 // setup the default sort column and order
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
-        '_sort_by' => 'exploitant.raisonSociale'
+        '_sort_by' => 'id'
     );
 
     
@@ -33,14 +34,8 @@ class ServiceExploitantAdmin extends AbstractAdmin
                     'placeholder' => 'No author selected',
                     'attr' => array('hidden' => true)
                 ))   */
-                ->add('exploitant', 'entity', array('class' => 'MairieVoreppeDemandeTravauxBundle:Exploitant',                 
-                        'property' => 'raisonSociale',
-                        'translation_domain' => $this->getTranslationDomain()
-                      ))   
-                ->add('service', 'entity', array('class' => 'ApplicationSonataUserBundle:Service',                 
-                        'property' => 'name',
-                        'translation_domain' => $this->getTranslationDomain()
-                      ))   
+                
+                 ->add('numeroTeleservice')
             ->end()
         ;
     }
@@ -54,8 +49,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('exploitant.raisonSociale')
-            ->add('service.name')
+            ->add('numeroTeleservice')
         ;
     }
  
@@ -67,7 +61,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('exploitant.raisonSociale')
+            ->add('numeroTeleservice')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -85,8 +79,7 @@ class ServiceExploitantAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('exploitant.raisonSociale')
-            ->add('service.name')
+            ->add('numeroTeleservice')
         ;
     }
 
