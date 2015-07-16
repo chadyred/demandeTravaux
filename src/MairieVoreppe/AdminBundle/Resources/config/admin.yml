@@ -31,3 +31,19 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Logo
             - MairieVoreppeAdminBundle:LogoAdmin
+    mairievoreppeadmin.admin.personne:
+        class: MairieVoreppe\AdminBundle\Admin\PersonneAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: Personne }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\Personne
+            - MairieVoreppeAdminBundle:PersonneAdmin
+    mairievoreppeadmin.admin.personnemorale:
+        class: MairieVoreppe\AdminBundle\Admin\PersonneMoraleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des exploitants, label: PersonneMorale }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\PersonneMorale
+            - MairieVoreppeAdminBundle:PersonneMoraleAdmin
