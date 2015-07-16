@@ -138,7 +138,7 @@ fkr_css_url_rewrite:
 fos_user:
     db_driver: orm
     firewall_name: fos_userbundle
-    user_class: MairieVoreppe\UserBundle\Entity\User    
+    user_class: Application\Sonata\UserBundle\Entity\User    
     profile:  # Authentication Form(username, password) : nécessaire pour que les informations de base se distingue des informations classique
         form:
             type:               fos_user_profile
@@ -148,7 +148,7 @@ fos_user:
             # les informations d'authentification à souhait
             # validation_groups:  [Authentication]
     group:
-        group_class:   MairieVoreppe\UserBundle\Entity\Service
+        group_class:   Application\Sonata\UserBundle\Entity\Service
         #group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
     # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
     service:
@@ -158,15 +158,15 @@ sonata_user:
     security_acl: true #Access Control List : nécessaire pour les actions EDIT, CREATE etc. à voir plus tard
     manager_type: orm  # can be orm or mongodb
     class:
-        user: MairieVoreppe\UserBundle\Entity\User
-        group: MairieVoreppe\UserBundle\Entity\Service
+        user: Application\Sonata\UserBundle\Entity\User
+        group: Application\Sonata\UserBundle\Entity\Service
     admin:                  # Admin Classes
         user:
-            class:          MairieVoreppe\UserBundle\Admin\Model\UserAdmin
+            class:          Application\Sonata\UserBundle\Admin\Model\UserAdmin
             controller:     SonataAdminBundle:CRUD
             translation:    SonataUserBundle
         group:
-            class:          MairieVoreppe\UserBundle\Admin\Model\GroupAdmin
+            class:          Application\Sonata\UserBundle\Admin\Model\GroupAdmin
             controller:     SonataAdminBundle:CRUD
             translation:    SonataUserBundle
 

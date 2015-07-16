@@ -39,7 +39,7 @@ class AppKernel extends Kernel
             new MairieVoreppe\UsefulBundle\MairieVoreppeUsefulBundle(),
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
             new MairieVoreppe\SecurityBundle\MairieVoreppeSecurityBundle(),
-            new MairieVoreppe\UserBundle\MairieVoreppeUserBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             // new SC\DatetimepickerBundle\SCDatetimepickerBundle(), bundle mal pensé
