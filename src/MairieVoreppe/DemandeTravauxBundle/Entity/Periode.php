@@ -21,7 +21,7 @@ class Periode
     private $id;
     
      /**
-     * @var \$maire 
+     * @var \$responsableExploitant 
     * 
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant", inversedBy="periodes", cascade={"persist"})
      */
@@ -114,9 +114,11 @@ class Periode
      *
      * @return Periode
      */
-    public function setResponsableExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant $responsableExploitant = null)
+    public function setResponsableExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant $responsableExploitant)
     {
         $this->responsableExploitant = $responsableExploitant;
+        $responsableExploitant->addPeriodes($this);
+
 
         return $this;
     }
@@ -138,10 +140,9 @@ class Periode
      *
      * @return Periode
      */
-    public function setExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant = null)
+    public function setExploitant(\MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant $exploitant)
     {
         $this->exploitant = $exploitant;
-
         return $this;
     }
 

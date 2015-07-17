@@ -17,7 +17,7 @@ class PeriodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maire',  new MaireType())
+            ->add('responsableExploitant',  new ResponsableExploitantType())
             ->add('dateDebut',  'datetime')
             ->add('dateFin',  'datetime')
         ;

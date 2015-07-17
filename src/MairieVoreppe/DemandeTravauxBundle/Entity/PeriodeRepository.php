@@ -12,13 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class PeriodeRepository extends EntityRepository
 {
-     public function myFindByMairie($id_mairie)
+     public function myFindByExploitant($id_exploitant)
     {
         $createQueryBuilder = $this->_em->createQueryBuilder()
                                                     ->select('p')
                                                     ->from('MairieVoreppeDemandeTravauxBundle:Periode', 'p')
-                                                    ->where('p.mairie = :id_mairie')
-                                                    ->setParameter('id_mairie', $id_mairie);
+                                                    ->where('p.exploitant = :id_exploitant')
+                                                    ->setParameter('id_exploitant', $id_exploitant);
         
         $resultat = $createQueryBuilder->getQuery()->getResult();
 

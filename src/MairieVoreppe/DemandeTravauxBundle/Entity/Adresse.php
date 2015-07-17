@@ -68,7 +68,6 @@ class Adresse
      * @Groups({"dt"})
      */
     private $lieuDit;
-
        
     
     /**
@@ -361,7 +360,6 @@ class Adresse
     public function setPersonne(\MairieVoreppe\DemandeTravauxBundle\Model\Personne $personne = null)
     {
         $this->personne = $personne;
-        $personne->setAdresse($this);
 
         return $this;
     }

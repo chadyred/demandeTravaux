@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use MairieVoreppe\DemandeTravauxBundle\Entity\Periode;
 use MairieVoreppe\DemandeTravauxBundle\Form\PeriodeType;
-use MairieVoreppe\DemandeTravauxBundle\Entity\Mairie;
+use MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant;
 use MairieVoreppe\DemandeTravauxBundle\Entity\Maire;
 
 /**
@@ -20,15 +20,15 @@ class PeriodeController extends Controller
      * Lists Periode within a Mairie.
      *
      */
-    public function indexByMairieAction(Mairie $mairie)
+    public function indexByExploitantAction(Exploitant $exploitant)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Maire')->myFindByMairie($mairie->getId());
+        $entities = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Periode')->myFindByExploitant($exploitant->getId());
 
-        return $this->render('MairieVoreppeDemandeTravauxBundle:Periode:index_by_mairie.html.twig', array(
+        return $this->render('MairieVoreppeDemandeTravauxBundle:Periode:index_by_exploitant.html.twig', array(
             'entities' => $entities,
-            'mairie' => $mairie
+            'exploitant' => $exploitant
         ));
     }
     
@@ -37,26 +37,26 @@ class PeriodeController extends Controller
      * Creates a new Periode entity.
      *
      */
-    public function createAction(Request $request, Mairie $mairie)
+    public function createAction(Request $request, Exploitant $exploitant)
     {
         $entity = new Periode();
                 
-        $form = $this->createCreateForm($entity, $mairie);
+        $form = $this->createCreateForm($entity, $exploitant);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
                       
             //On eprsiste le maire dans un premier temps
-            $maire = $entity->getMaire();            
-            $em->persist($maire);
+            $responsableExploitant = $entity->getResponsableExploitant();            
+            $em->persist($responsableExploitant);
             $em->flush();
             
             //Puis la période ensuite afin que l'id du maire soit ciblable
-            $mairie->addPeriode($entity);            
+            $exploitant->addPeriode($entity);            
             $em->flush();
 
-            return $this->redirect($this->generateUrl('maire_show', array('id' => $maire->getId())));
+            return $this->redirect($this->generateUrl('responsable_exploitant_show', array('id' => $exploitant->getId())));
         }
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Periode:new.html.twig', array(
@@ -72,10 +72,10 @@ class PeriodeController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Periode $entity, Mairie $mairie)
+    private function createCreateForm(Periode $entity, Exploitant $exploitant)
     {
-        $form = $this->createForm(new PeriodeType($mairie), $entity, array(
-            'action' => $this->generateUrl('periode_create', array('id' => $mairie->getId())),
+        $form = $this->createForm(new PeriodeType($exploitant), $entity, array(
+            'action' => $this->generateUrl('periode_create', array('id' => $exploitant->getId())),
             'method' => 'POST',
         ));
 
@@ -88,15 +88,15 @@ class PeriodeController extends Controller
      * Displays a form to create a new Periode entity.
      *
      */
-    public function newAction(Mairie $mairie)
+    public function newAction(Exploitant $exploitant)
     {
         $entity = new Periode();
-        $form   = $this->createCreateForm($entity, $mairie);
+        $form   = $this->createCreateForm($entity, $exploitant);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Periode:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'mairie' => $mairie
+            'exploitant' => $exploitant
         ));
     }
 
@@ -104,7 +104,7 @@ class PeriodeController extends Controller
      * Finds and displays a Periode entity.
      *
      */
-    public function showAction($id, Mairie $mairie)
+    public function showAction($id, Exploitant $exploitant)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -126,7 +126,7 @@ class PeriodeController extends Controller
      * Displays a form to edit an existing Periode entity.
      *
      */
-    public function editAction($id, Mairie $mairie)
+    public function editAction($id, Exploitant $exploitant)
     {
         $em = $this->getDoctrine()->getManager();
 

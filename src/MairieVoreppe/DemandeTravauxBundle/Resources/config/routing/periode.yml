@@ -2,9 +2,9 @@ periode:
     path:     /
     defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:index" }
 
-periode_by_mairie:
-    path:     /{id}/by_mairie
-    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:indexByMairie" }
+periode_by_exploitant:
+    path:     /{id}/by_exploitant
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Periode:indexByExploitant" }
     
 periode_show:
     path:     /{id}/show
