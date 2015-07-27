@@ -71,15 +71,13 @@ security:
             provider: fos_userbundle
             form_login:
                 login_path: fos_user_security_login
-                check_path: fos_user_security_check  
-                success_handler: mairie_voreppe_user_security.component.authentication.handler.login_success_handler                
+                check_path: fos_user_security_check               
                 default_target_path: /accueil
                 csrf_provider: form.csrf_provider
                 remember_me: true
             logout:
                 path: fos_user_security_logout
                 target:  fos_user_security_login
-                success_handler: mairie_voreppe_user_security.component.authentication.handler.logout_success_handler 
              
                 
     acl:

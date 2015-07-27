@@ -1,7 +1,3 @@
-mairie_voreppe_security:
-    resource: "@MairieVoreppeSecurityBundle/Resources/config/routing.yml"
-    prefix:   /
-
 mairie_voreppe_useful:
     resource: "@MairieVoreppeUsefulBundle/Resources/config/routing.yml"
     prefix:   /

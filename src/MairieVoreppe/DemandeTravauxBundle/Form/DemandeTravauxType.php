@@ -7,9 +7,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Doctrine\ORM\EntityRepository;
 
 class DemandeTravauxType extends AbstractType
 {    
+
+    private $user;
+
+    //Le user vaut null lorsque l'on édit. en effet, on veut uniquement récupérer celui qui créer le travaux,
+    // afin de proposer UNIQUEMENT les services au seind esquels il travail
+    public function __construct($user = null)
+    {
+        $this->user = $user;
+    }
+
     
     /**
      * @param FormBuilderInterface $builder
@@ -18,6 +29,22 @@ class DemandeTravauxType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
+                "property" => 'exploitant.raisonSociale',
+                'multiple' => false,
+                'expanded' => false,
+                'empty_data' => false,
+                'placeholder' => '-',
+                //requête qui garde les exploitants dont les services sont similaires à ceux dans lesquelles sont les utilisateurs
+                'query_builder' => function (EntityRepository $er ) {
+                  return $er->createQueryBuilder('se')
+                            ->join('se.service', 's')
+                            ->addSelect('s')
+                            ->join('s.users', 'u')
+                            ->where('u.id = :user_id')
+                            ->setParameter('user_id', $this->user->getId());
+                }
+              ))
             ->add('numeroTeleservice')
             ->add('numeroAffaireDeclarant', 'text')
             ->add('dateDebutTravaux',  'datetime')

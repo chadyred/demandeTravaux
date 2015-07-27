@@ -50,24 +50,7 @@ class DemandeTravauxController extends Controller
             }
             
             //Si l'utilisateur à plusieurs service, il a du en choisir un après s'être connecté, il faut alors récupérer celui-ci sinon on récupère son unique service
-            if(count($this->getUser()->getServices()) > 1)
-            {
-                 $serviceId = $this->get('session')->get('service')->getId();
-                 $service = $em->getRepository('MairieVoreppeUserBundle:Service')->find($serviceId);
-
-
-                if (!$service) {
-                    throw $this->createNotFoundException('Unable to find Service entity.');
-                }
-                 
-            }
-            else
-            {
-                $service = $this->getUser()->getServices()->get(0);
-            }
             
-            $entity->setUser($this->getUser());
-            $entity->setService($service);
             
             $em->persist($entity);
             $em->flush();
@@ -88,9 +71,9 @@ class DemandeTravauxController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DemandeTravaux $entity)
+    private function createCreateForm(DemandeTravaux $entity, $user)
     {
-        $form = $this->createForm(new DemandeTravauxType(), $entity, array(
+        $form = $this->createForm(new DemandeTravauxType($user), $entity, array(
             'action' => $this->generateUrl('demandetravaux_create'),
             'method' => 'POST',
         ));
@@ -106,8 +89,9 @@ class DemandeTravauxController extends Controller
      */
     public function newAction()
     {
+        $user = $this->getUser();
         $entity = new DemandeTravaux();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $user);
         
         return $this->render('MairieVoreppeDemandeTravauxBundle:DemandeTravaux:new.html.twig', array(
             'entity' => $entity,

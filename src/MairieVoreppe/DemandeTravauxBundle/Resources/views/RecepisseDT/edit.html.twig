@@ -9,14 +9,16 @@
 {{ form_start(edit_form) }}
 {{ form_errors(edit_form) }}
 <div id="info-recepisse-creation" class="row">
-	<div class="col-lg-3">
-		Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
-	</div>
-	<div class="col-lg-3">
-		Numéro de téléservice de création: {{ dt.numeroTeleservice }}				
-	</div>
-	<div class="col-lg-3 edit_form-group">
-		{{ form_row(edit_form.chantierSensible) }}
+	<div class="col-lg-12"
+		<div class="col-lg-3">
+			Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
+		</div>
+		<div class="col-lg-3">
+			Numéro de téléservice de création: {{ dt.numeroTeleservice }}				
+		</div>
+		<div class="col-lg-3 edit_form-group">
+			{{ form_row(edit_form.chantierSensible) }}
+		</div>
 	</div>
 </div>
 

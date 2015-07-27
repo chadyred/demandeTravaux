@@ -38,7 +38,6 @@ class AppKernel extends Kernel
             new Shtumi\UsefulBundle\ShtumiUsefulBundle(),      
             new MairieVoreppe\UsefulBundle\MairieVoreppeUsefulBundle(),
             new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-            new MairieVoreppe\SecurityBundle\MairieVoreppeSecurityBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),

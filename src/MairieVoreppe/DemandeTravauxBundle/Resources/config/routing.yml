@@ -93,11 +93,3 @@ mairie_voreppe_demande_travaux_civil:
 mairie_voreppe_demande_travaux_homepage:
     path:     /accueil
     defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Accueil:index }
-
-mairie_voreppe_security_parametrage_service_new:
-    path: /choix-service/new
-    defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Parametrage:choixServiceNew }    
-    
-mairie_voreppe_security_parametrage_service_create:
-    path: /choix-service/create
-    defaults: { _controller: MairieVoreppeDemandeTravauxBundle:Parametrage:choixService }

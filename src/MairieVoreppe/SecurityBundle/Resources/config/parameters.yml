@@ -1,4 +1,0 @@
-parameters:
-    mairie_voreppe_user_security.component.authentication.handler.login_success_handler.class: MairieVoreppe\SecurityBundle\Component\Authentication\Handler\LoginSuccessHandler
-    mairie_voreppe_user_security.component.authentication.handler.logout_success_handler.class: MairieVoreppe\SecurityBundle\Component\Authentication\Handler\LogoutSuccessHandler
-    

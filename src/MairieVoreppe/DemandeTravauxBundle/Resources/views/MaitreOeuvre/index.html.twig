@@ -2,9 +2,13 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOeuvre:layout.html.twig' %}
 
  {% block moa_content %}
-    <h1>Maitre oeuvre liste</h1>
 
-    <table class="records_list">
+ <section class="table-responsive">
+    <hr/>
+    <caption>
+    <h1>Maitre oeuvre liste</h1>
+    </caption>
+    <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
                 <th>Id</th>
@@ -24,7 +28,11 @@
                     <td>Personne physique</td>
                     <td>{{ entity.civil }} </td>
                     <td>
-                        {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% if entity.civil.adresse != null%}
+                            {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
                     </td>
                     <td>{{ entity.civil.telFixe }}</td>
                     <td>
@@ -47,7 +55,11 @@
                             {{ entity.entreprise.raisonSociale }}                    
                     </td>
                     <td>
-                        {{ entity.entreprise.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.entreprise.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% if entity.entreprise.adresse != null%}
+                            {{ entity.entreprise.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.entreprise.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
                     </td>
                     <td>{{ entity.entreprise.telFixe }}</td>
                     <td>

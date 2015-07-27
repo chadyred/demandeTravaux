@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({ 
  * "entreprise"="MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise", 
- * "mairie"="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant",
+ * "exploitant"="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant",
  * "civil"="MairieVoreppe\DemandeTravauxBundle\Entity\Civil", 
  * "gerant"="MairieVoreppe\DemandeTravauxBundle\Entity\Gerant", 
- * "maire"="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant",
+ * "responsable_exploitant"="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant",
  * "contact_urgent"="MairieVoreppe\DemandeTravauxBundle\Entity\ContactUrgent"
  *  })
  */

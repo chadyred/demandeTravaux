@@ -29,6 +29,13 @@ class DemandeIntentionCTType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('exploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant",
+                "property" => 'libelle',
+                'multiple' => false,
+                'expanded' => false,
+                'empty_data' => false,
+                'placeholder' => '-'
+            ))
             ->add('numeroTeleservice', 'text', array('disabled' => $this->dtDict ))
             ->add('numeroAffaireDeclarant', 'text')
             ->add('dateDebutTravaux', 'datetime')

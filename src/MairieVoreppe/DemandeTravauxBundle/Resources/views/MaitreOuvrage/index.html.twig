@@ -24,7 +24,13 @@
                     <td><a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>Personne physique</td>
                     <td>{{ entity.civil }} </td>
-                    <td>{{ entity.civil.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit}}</td>
+                    <td>
+                        {% if entity.civil.adresse != null%}
+
+                           {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit}}</td>
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
                     <td>{{ entity.civil.telFixe }}</td>
                     <td>
                         <ul>
@@ -47,7 +53,12 @@
                     </td>
                     <td>
                         {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
-                        {{ entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% if entity.personneMorale.adresse != null%}
+                          {{ entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
+                        
                     </td>
                     <td>{{ entity.personneMorale.telFixe }}</td>
                     <td>

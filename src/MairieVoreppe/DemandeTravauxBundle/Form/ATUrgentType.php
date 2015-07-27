@@ -18,6 +18,13 @@ class ATUrgentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('exploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension",
+                "property" => 'libelle',
+                'multiple' => false,
+                'expanded' => false,
+                'empty_data' => false,
+                'placeholder' => '-'
+            ))
             ->add('numeroTeleservice')
             ->add('dateDebutTravaux', 'datetime')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
