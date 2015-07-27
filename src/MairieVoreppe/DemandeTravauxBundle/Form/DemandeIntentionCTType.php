@@ -8,18 +8,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Doctrine\ORM\EntityRepository;
 
 class DemandeIntentionCTType extends AbstractType
 {
     
+    private $user;
     /**
      * On peut préciser s'il d'agit d'une dict lié avec une DT, auquel cas le numéro de téléservice sera le même
      * ou bien on peut ajouter une DICT à une DT, on peut alors préciser laquelle au travers d'une liste
      */
-    public function __construct($dtDict = false, $dt= null)
+    public function __construct($dtDict = false, $dt= null, $user = null)
     {
         $this->dtDict = $dtDict;
         $this->dt = $dt;
+        $this->user = $user;
     }
     
     /**
@@ -29,13 +32,22 @@ class DemandeIntentionCTType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('exploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant",
-                "property" => 'libelle',
+            ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
+                "property" => 'exploitant.raisonSociale',
                 'multiple' => false,
                 'expanded' => false,
                 'empty_data' => false,
-                'placeholder' => '-'
-            ))
+                'placeholder' => '-',
+                //requête qui garde les exploitants dont les services sont similaires à ceux dans lesquelles sont les utilisateurs
+                'query_builder' => function (EntityRepository $er ) {
+                  return $er->createQueryBuilder('se')
+                            ->join('se.service', 's')
+                            ->addSelect('s')
+                            ->join('s.users', 'u')
+                            ->where('u.id = :user_id')
+                            ->setParameter('user_id', $this->user->getId());
+                }
+              ))
             ->add('numeroTeleservice', 'text', array('disabled' => $this->dtDict ))
             ->add('numeroAffaireDeclarant', 'text')
             ->add('dateDebutTravaux', 'datetime')

@@ -52,27 +52,7 @@ class DemandeIntentionCTController extends Controller
                 $uneAdresse->setTravaux($entity);
                 $em->persist($uneAdresse);
             }
-            
-//            
-            //Si l'utilisateur à plusieurs service, il a du en choisir un après s'être connecté, il faut alors récupérer celui-ci sinon on récupère son unique service
-            if(count($this->getUser()->getServices()) > 1)
-            {
-                 $serviceId = $this->get('session')->get('service')->getId();
-                 $service = $em->getRepository('MairieVoreppeUserBundle:Service')->find($serviceId);
-
-
-                if (!$service) {
-                    throw $this->createNotFoundException('Unable to find Service entity.');
-                }
-                 
-            }
-            else
-            {
-                $service = $this->getUser()->getServices()->get(0);
-            }
-            
-            $entity->setUser($this->getUser());
-            $entity->setService($service);
+       
             
             $em->persist($entity);
             $em->flush();
@@ -95,9 +75,9 @@ class DemandeIntentionCTController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DemandeIntentionCT $entity, DemandeTravaux $dt = null)
+    private function createCreateForm(DemandeIntentionCT $entity, DemandeTravaux $dt = null, $user)
     {
-        $form = $this->createForm(new DemandeIntentionCTType(false, $dt), $entity, array(
+        $form = $this->createForm(new DemandeIntentionCTType(false, $dt, $user), $entity, array(
             'action' => $this->generateUrl('demandeintentionct_create'),
             'method' => 'POST',
         ));
@@ -116,8 +96,11 @@ class DemandeIntentionCTController extends Controller
      */
     public function newAction(DemandeTravaux $dt = null)
     {
+        //On récupère l'utilisateur en cours
+        $user = $this->getUser();
+
         $entity = new DemandeIntentionCT();
-        $form   = $this->createCreateForm($entity, $dt);
+        $form   = $this->createCreateForm($entity, $dt, $user);
 
         $serializer = $this->get('jms_serializer');
         $dt_serialize = $serializer->serialize($dt, 'json', SerializationContext::create()->setGroups(array('dt')));

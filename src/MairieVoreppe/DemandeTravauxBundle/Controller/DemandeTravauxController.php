@@ -49,8 +49,6 @@ class DemandeTravauxController extends Controller
                 $em->persist($uneAdresse);
             }
             
-            //Si l'utilisateur à plusieurs service, il a du en choisir un après s'être connecté, il faut alors récupérer celui-ci sinon on récupère son unique service
-            
             
             $em->persist($entity);
             $em->flush();

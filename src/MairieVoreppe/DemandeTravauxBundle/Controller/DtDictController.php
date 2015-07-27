@@ -60,27 +60,7 @@ class DtDictController extends Controller
                 $entity->addAdress($adress);
                 $em->persist($adress);
             }
-            
-            //Si l'utilisateur à plusieurs service, il a du en choisir un après s'être connecté, il faut alors récupérer celui-ci sinon on récupère son unique service
-            if(count($this->getUser()->getServices()) > 1)
-            {
-                 $serviceId = $this->get('session')->get('service')->getId();
-                 $service = $em->getRepository('MairieVoreppeUserBundle:Service')->find($serviceId);
-
-
-                if (!$service) {
-                    throw $this->createNotFoundException('Unable to find Service entity.');
-                }
-                 
-            }
-            else
-            {
-                $service = $this->getUser()->getServices()->get(0);
-            }
-            
-            
-            $entity->setService($service);
-            $dt->setService($service);
+         
             
             //L'utilisateur qui créer le travaux lui est lié
             $dt->setUser($this->getUser());
@@ -112,9 +92,9 @@ class DtDictController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DemandeIntentionCT $entity)
+    private function createCreateForm(DemandeIntentionCT $entity, $user)
     {
-        $form = $this->createForm(new DtDictType(), $entity, array(
+        $form = $this->createForm(new DtDictType($user), $entity, array(
             'action' => $this->generateUrl('dtdict_create'),
             'method' => 'POST',
         ));
@@ -130,8 +110,10 @@ class DtDictController extends Controller
      */
     public function newAction()
     {
+        //On récupère l'utilisateur en cours
+        $user = $this->getUser();
         $entity = new DemandeIntentionCT();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $user);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:DtDict:new.html.twig', array(
             'entity' => $entity,

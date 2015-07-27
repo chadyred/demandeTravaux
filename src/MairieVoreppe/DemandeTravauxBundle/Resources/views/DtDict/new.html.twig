@@ -1,4 +1,4 @@
-{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{# Cette vue à pour but de créer une DT et une DICT. On peut choisir si elle est conjointe ou non, elle sera lié par défaut.#}
 {% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
 
  {% block travaux_content %}
@@ -13,7 +13,9 @@
                     Partie de la DT
                 </h2>
             <span class="information-base">
+                {{ form_row(form.dt.serviceExploitant) }}
                 {{ form_row(form.dt.numeroTeleservice) }}
+                {{ form_row(form.dt.numeroAffaireDeclarant) }}
                 {{ form_row(form.dt.dateDebutTravaux) }}
                 {{ form_row(form.dt.duree) }}
                 {{ form_row(form.dt.canalReception) }}
@@ -63,13 +65,15 @@
         <div class="col-lg-6" id="partie-dict">
             {#Partie de la DICT #}
             <h2>    
-                Partie de la DICT
+                Partie de la DICT - 
+                <a href="#" id="recuperer-info-dt" class="btn btn-success">Récupérer information de la DT</a>
             </h2>
             
             
             <span class="information-base">
-                <a href="#" id="recuperer-info-dt" class="btn btn-success">Récupérer information de la DT</a>
+                {{ form_row(form.serviceExploitant) }}
                 {{ form_row(form.numeroTeleservice) }}
+                {{ form_row(form.numeroAffaireDeclarant) }}
                 {{ form_row(form.dateDebutTravaux) }}
                 {{ form_row(form.duree) }}
                 {{ form_row(form.canalReception) }}
