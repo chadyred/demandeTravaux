@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 abstract class AbstractAdmin extends Admin
 {
+    //Classe qui me 
     /** @var int */
     protected $maxPerPage = 10;
     //other attributes

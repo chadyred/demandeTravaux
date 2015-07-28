@@ -41,7 +41,8 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    #Necessaire pour l'admin bundle afin qu'il puisse utiliser les assets de ce bundle
+    bundles:        [ MairieVoreppeAdminBundle ]
     #java: /usr/bin/java
     filters:  
         less:
@@ -190,9 +191,11 @@ sonata_user:
 
 
 sonata_admin:
+    title: 'Administration'
     title_logo: bundles/mairievoreppeadmin/images/logo_interface_admin/cones.png
     templates:
         show:       MairieVoreppeAdminBundle:Admin:Display_Client.html.twig
+        layout:     MairieVoreppeAdminBundle::standard_layout.html.twig
 
     dashboard:
         blocks:
@@ -217,6 +220,7 @@ sonata_block:
         sonata.user.block.menu:    # used to display the menu in profile pages
         sonata.user.block.account: # used to display menu option (login option)
         sonata.block.service.text: # used to if you plan to use Sonata user routes
+        sonata.admin.block.search_result:
 
 sonata_doctrine_orm_admin:
     # default value is null, so doctrine uses the value defined in the configuration
@@ -254,5 +258,3 @@ lexik_maintenance:
     response:
         code: 503
         status: "Service Temporarily Unavailable"    
-
-        

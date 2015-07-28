@@ -23,19 +23,23 @@ class LogoAdmin extends AbstractAdmin
     // L'ensemble des champs qui seront montrer lors de la création ou de la modification d'une entité
     protected function configureFormFields(FormMapper $formMapper)
     {
+        // get the current Image instance
+        $logo = $this->getSubject();
+
+        // use $fileFieldOptions so we can add other options to the field
+        $fileFieldOptions = array('required' => false);
+        if ($logo && ($webPath = $logo->getWebPath())) {
+            // get the container so the full path to the image can be set
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request')->getBasePath().'/'.$webPath;
+
+            // add a 'help' option containing the preview's img tag
+            $fileFieldOptions['help'] = '<img src="'.$fullPath.'" class="admin-preview" />';
+        }
+
         $formMapper
             ->with('General')
-                /*->add('user', 'sonata_type_model',  array(
-                    'btn_add'       => false,      //Ce bouton nous permet d'ajouter une entité dans la BDD
-                    'btn_list'      => false,     //which will be translated
-                    'btn_delete'    => false,             //or hide the button.
-                    'btn_catalogue' => 'SonataNewsBundle', //Custom translation domain for buttons
-                ), array(
-                    'placeholder' => 'No author selected',
-                    'attr' => array('hidden' => true)
-                ))   */
-                
-                ->add('file', 'file')                 
+                ->add('file', 'file', $fileFieldOptions)                
             ->end()
         ;
     }
@@ -60,7 +64,7 @@ class LogoAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
+            ->addIdentifier('id', null, array('route' => array('name' => 'show')))
             ->add('alt')
             ->add('_action', 'actions', array(
                 'actions' => array(

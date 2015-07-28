@@ -1234,12 +1234,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "2022ac8463a8c50dd631f93a17064bd41795fff2"
+                "reference": "6d6d636c2dbab0b58be01c51889b8a08e1af3d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/2022ac8463a8c50dd631f93a17064bd41795fff2",
-                "reference": "2022ac8463a8c50dd631f93a17064bd41795fff2",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6d6d636c2dbab0b58be01c51889b8a08e1af3d4d",
+                "reference": "6d6d636c2dbab0b58be01c51889b8a08e1af3d4d",
                 "shasum": ""
             },
             "require": {
@@ -1292,7 +1292,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-06-01 00:57:03"
+            "time": "2015-07-27 22:22:02"
         },
         {
             "name": "giggsey/libphonenumber-for-php",

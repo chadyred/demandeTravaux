@@ -199,8 +199,12 @@ abstract class PersonnePhysique extends Personne
         return $this->civilite;
     }
     
+    //L'interface admin requiert que la visualisation depuis cette methode magique de la classe object ne soit pas vide
     public function __toString()
-    {
-        return $this->getCivilite()->getTitre() . ' ' . strtoupper($this->getNom()) . " " . $this->getPrenom();
+    {   
+        if($this->getNom() != "")
+            return $this->getCivilite()->getTitre() . ' ' . strtoupper($this->getNom()) . " " . $this->getPrenom();
+        else 
+            return "";
     }
 }

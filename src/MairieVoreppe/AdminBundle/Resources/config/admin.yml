@@ -1,4 +1,4 @@
-# Les audit sur les entité hérité sont supprimer car ce n'est pas géré par SimpleTHings bundle
+# Les audits sur les entité hérité sont supprimer car ce n'est pas géré par SimpleTHings bundle
 services:
     mairievoreppeadmin.admin.exploitant:
         class: MairieVoreppe\AdminBundle\Admin\ExploitantAdmin
@@ -8,6 +8,30 @@ services:
             - ~
             - MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant
             - MairieVoreppeAdminBundle:ExploitantAdmin
+    mairievoreppeadmin.admin.logo:
+        class: MairieVoreppe\AdminBundle\Admin\LogoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, audit: false,group: Configuration, label: Logo des exploitants }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\Logo
+            - MairieVoreppeAdminBundle:LogoAdmin
+    mairievoreppeadmin.admin.responsableexploitant:
+        class: MairieVoreppe\AdminBundle\Admin\ResponsableExploitantAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, audit: false,group: Gestion des exploitants, label: Responsable d'exploitant }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant
+            - MairieVoreppeAdminBundle:ResponsableExploitantAdmin
+    mairievoreppeadmin.admin.periode:
+        class: MairieVoreppe\AdminBundle\Admin\PeriodeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, audit: false,group: Configuration, label: Responsable d'exploitant }
+        arguments:
+            - ~
+            - MairieVoreppe\DemandeTravauxBundle\Entity\Periode
+            - MairieVoreppeAdminBundle:PeriodeAdmin
     mairievoreppeadmin.admin.serviceexploitant:
         class: MairieVoreppe\AdminBundle\Admin\ServiceExploitantAdmin
         tags:

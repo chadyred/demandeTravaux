@@ -7,16 +7,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use MairieVoreppe\DemandeTravauxBundle\Form\ResponsableExploitantType;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use libphonenumber\PhoneNumberFormat;
  
-class AdresseAdmin extends AbstractAdmin
+class PeriodeAdmin extends AbstractAdmin
 {
 	 // setup the default sort column and order
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
-        '_sort_by' => 'adresse'
+        '_sort_by' => 'alt'
     );
 
     
@@ -34,18 +35,16 @@ class AdresseAdmin extends AbstractAdmin
                     'placeholder' => 'No author selected',
                     'attr' => array('hidden' => true)
                 ))   */
-                
-                 ->add('autocomplete', 'text', array('mapped' => false, 'required' => false,
-                    "attr" => array('autocomplete' => 'autocomplete',
-                                    "onFocus" => "geolocate()",
-                                    "placeholder" => "Saisissez une adresse")))
-                    ->add('numeroRue', 'text', array('attr' => array('street_number' => 'street_number')))
-                    ->add('adresse', 'text', array('attr' => array('route' => 'route')))
-                    ->add('complementAdresse', 'text',  array('required' => false))
-                    ->add('lieuDit', 'text',  array('required' => false, 'attr' => array('lieuDit' => 'lieuDit')))       
-                    ->add('ville', 'text', array('attr' => array('locality' => 'locality')))
-                    ->add('cp', 'text', array('attr' => array('postal_code' => 'postal_code')))
-                    ->add('pays', 'text', array('attr' => array('country' => 'country')))
+                ->add('exploitant', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant',
+                    'property' => 'raisonSociale'))
+                ->add('dateDebut', 'date', array(
+                        'pattern' => 'dd MMM Y G',
+                        'model_timezone' => 'Europe/Paris',
+                    ))
+                ->add('dateFin', 'date', array(
+                        'pattern' => 'dd MMM Y',
+                        'model_timezone' => 'Europe/Paris',
+                    ))              
             ->end()
         ;
     }
@@ -59,7 +58,7 @@ class AdresseAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('adresse')
+            ->add('responsableExploitant')
         ;
     }
  
@@ -71,7 +70,7 @@ class AdresseAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id', null, array('route' => array('name' => 'show')))
-            ->add('adresse')
+            ->add('responsableExploitant')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -89,7 +88,7 @@ class AdresseAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('adresse')
+            ->add('responsableExploitant')
         ;
     }
 

@@ -60,7 +60,7 @@ class TravauxAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
+            ->addIdentifier('id', null, array('route' => array('name' => 'show')))
             ->add('numeroTeleservice')
             ->add('_action', 'actions', array(
                 'actions' => array(

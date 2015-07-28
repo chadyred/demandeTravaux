@@ -1,0 +1,19 @@
+{% extends "SonataAdminBundle::standard_layout.html.twig" %}
+{% block javascripts %}
+    {% javascripts filter='uglifyjs'
+         "@jquery_js"
+         "@jquery_ui_js"
+         "@bootstrap_js"
+         '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/main.js'
+
+      %} 
+          <script type="text/javascript" src="{{ asset_url }}"></script> 
+      {% endjavascripts %}            
+{% endblock %}
+{% block side_bar_after_nav %} 
+        <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1">
+            <a target="_blank" class="btn btn-sm btn-lg btn-info" href="/app_dev.php/accueil">
+                Voir les modifications sur l'accueil !
+            </a>                
+        </div>
+{% endblock %}
