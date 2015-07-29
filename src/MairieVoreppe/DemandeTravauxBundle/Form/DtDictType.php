@@ -33,7 +33,6 @@ class DtDictType extends AbstractType
         $builder
             ->add('dt', new DemandeTravauxType($this->user), array('label' => false))    
             ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
-                "property" => 'exploitant.raisonSociale',
                 'multiple' => false,
                 'expanded' => false,
                 'empty_data' => false,
@@ -110,6 +109,20 @@ class DtDictType extends AbstractType
                 }
        
         });
+
+         $builder->get('serviceExploitant')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $form = $event->getForm();
+          if($this->user == null)
+          {
+            $form
+            ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
+                'multiple' => false,
+                'expanded' => false,
+                'empty_data' => false,
+                'placeholder' => '-',
+              ));
+            }
+        }); 
         
     }
     

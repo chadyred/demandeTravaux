@@ -36,6 +36,11 @@ class TravauxAdmin extends AbstractAdmin
                 ))   */
                 
                  ->add('numeroTeleservice')
+                 ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
+                'multiple' => false,
+                'expanded' => false,
+                'empty_data' => false,
+                'placeholder' => '-'))
             ->end()
         ;
     }

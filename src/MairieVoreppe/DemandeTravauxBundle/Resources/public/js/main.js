@@ -13,7 +13,7 @@ $(document).ready(function(){
       * Fenêtre pop-up qui permet de choisir son service s'il y en a plusieurs
       * 
       */
-     if($('.modal') !== undefined)
+     if($('.modal').length )
      {
         $('.modal').modal({         
            backdrop: 'static',

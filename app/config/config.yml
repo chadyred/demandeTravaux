@@ -42,7 +42,7 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     #Necessaire pour l'admin bundle afin qu'il puisse utiliser les assets de ce bundle
-    bundles:        [ MairieVoreppeAdminBundle ]
+    bundles:        [ MairieVoreppeAdminBundle, SonataAdminBundle ]
     #java: /usr/bin/java
     filters:  
         less:
@@ -195,7 +195,6 @@ sonata_admin:
     title_logo: bundles/mairievoreppeadmin/images/logo_interface_admin/cones.png
     templates:
         show:       MairieVoreppeAdminBundle:Admin:Display_Client.html.twig
-        layout:     MairieVoreppeAdminBundle::standard_layout.html.twig
 
     dashboard:
         blocks:

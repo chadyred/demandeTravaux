@@ -30,7 +30,6 @@ class DemandeTravauxType extends AbstractType
     {
         $builder
             ->add('serviceExploitant', "entity", array('class' => "MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant",
-                "property" => 'exploitant.raisonSociale',
                 'multiple' => false,
                 'expanded' => false,
                 'empty_data' => false,

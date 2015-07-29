@@ -204,8 +204,9 @@ class Periode
                     ->addViolation();
                 }
             }
-
         }
+
+        
     }
 
 }
