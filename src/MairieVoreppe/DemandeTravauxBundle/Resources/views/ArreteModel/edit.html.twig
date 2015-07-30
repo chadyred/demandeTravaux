@@ -29,27 +29,27 @@
         </div>
         <div class="row">
             <div class=" col-lg-12">
-            Information sur la Mairie : 
+            Information sur l'exploitant' : 
              <select>
-                  {% for propertyMairie in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Mairie'].properties %}
+                  {% for propertyExploitant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Exploitant'].properties %}
                         {# on retire les arrays collection#}
-                        {% if propertyMairie.name == "adresse" %}
+                        {% if propertyExploitant.name == "adresse" %}
                           {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
                                <option>
-                              {{  "{{ %s.service.mairie.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
+                              {{  "{{ %s.serviceExploitant.exploitant.adresse.%s }}"|format(edit_form.dict.vars.name, propertyAdresse.name) }}
                           </option>
                           {% endfor %}
                          {% else %}
-                            {% if propertyMairie.name == 'maireEnCours' %}
-                               {% for propertyMaire in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Maire'].properties %}
+                            {% if propertyExploitant.name == 'responsableExploitantEnCours' %}
+                               {% for propertyResponsableExploitant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\ResponsableExploitant'].properties %}
                                <option>
-                                  {{  "{{ %s.service.mairie.maireEnCours.%s }}"|format(edit_form.dict.vars.name, propertyMaire.name) }}
+                                  {{  "{{ %s.serviceExploitant.exploitant.responsableExploitantEnCours.%s }}"|format(edit_form.dict.vars.name, propertyMaire.name) }}
                                </option>
                                {% endfor %}
                             {% endif %}
-                            {% if propertyMairie.name|last != 's' %}
+                            {% if propertyExploitant.name|last != 's' %}
                               <option>
-                                  {{  "{{ %s.service.mairie.%s }}"|format(edit_form.dict.vars.name, propertyMairie.name) }}
+                                  {{  "{{ %s.serviceExploitant.exploitant.%s }}"|format(edit_form.dict.vars.name, propertyExploitant.name) }}
                               </option>
                             {% endif %}
                         {% endif %}
@@ -64,7 +64,7 @@
             <div class=" col-lg-12">
             Information sur le service : 
            <select>
-                  {% for propertyService in reflectionClass['MairieVoreppe\\UserBundle\\Entity\\Service'].properties %}
+                  {% for propertyService in reflectionClass['Application\\Sonata\\UserBundle\\Entity\\Service'].properties %}
                           {# on retire les arrays collection#}
                           {% if propertyService.name|last != 's' and propertyService.name|last != 'x' and propertyService.name != 'mairie' %}
                             <option>
@@ -219,6 +219,7 @@
                 {{ form_rest(edit_form) }}
             {{form_end(edit_form)}}
 </section>       
+    
         <ul class="record_actions">
             <li>
                 <a href="{{ path('arretemodel') }}">

@@ -33,6 +33,10 @@ class RecepisseDICT extends Recepisse
     */
     private $dict;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get id
@@ -67,4 +71,5 @@ class RecepisseDICT extends Recepisse
     {
         return $this->dict;
     }
+
 }

@@ -35,8 +35,11 @@ class DemandeTravauxController extends Controller
      */
     public function createAction(Request $request)
     {
+        //On récupère l'utilisateur en cours
+        $user = $this->getUser();
+
         $entity = new DemandeTravaux();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -49,6 +52,8 @@ class DemandeTravauxController extends Controller
                 $em->persist($uneAdresse);
             }
             
+            //On le donne à l'entité créée
+            $entity->setUser($user);
             
             $em->persist($entity);
             $em->flush();

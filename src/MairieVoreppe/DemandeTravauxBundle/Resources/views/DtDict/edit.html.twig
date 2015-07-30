@@ -14,7 +14,10 @@
                 </h2>
                 
                  <span class="information-base">
+                    {{ form_row(edit_form.dt.serviceExploitant) }}
                     {{ form_row(edit_form.dt.numeroTeleservice) }}
+                    {{ form_row(edit_form.dt.numeroAffaireDeclarant) }}
+
                     {{ form_row(edit_form.dt.dateDebutTravaux) }}
                     {{ form_row(edit_form.dt.duree) }}
                     {{ form_row(edit_form.dt.canalReception) }}
@@ -36,7 +39,7 @@
                                 {{ form_row(adresseChamp.lieuDit) }}
                                 {{ form_row(adresseChamp.ville) }}
                                 {{ form_row(adresseChamp.cp) }}      
-                                 {{ form_row(adresseChamp.pays) }}                           
+                                {{ form_row(adresseChamp.pays) }}                           
                                 
                        
                             {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
@@ -67,7 +70,10 @@
                 </h2>
                 <span class="information-base">
                     <a href="#" id="recuperer-info-dt" class="btn btn-success">Récupérer information de la DT</a>
+                    {{ form_row(edit_form.serviceExploitant) }}
                     {{ form_row(edit_form.numeroTeleservice) }}
+                    {{ form_row(edit_form.numeroAffaireDeclarant) }}
+
                     {{ form_row(edit_form.dateDebutTravaux) }}
                     {{ form_row(edit_form.duree) }}
                     {{ form_row(edit_form.canalReception) }}

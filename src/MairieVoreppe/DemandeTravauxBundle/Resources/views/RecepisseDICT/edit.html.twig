@@ -15,8 +15,11 @@
 	<div class="col-lg-3">
 		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
 	</div>
-	<div class="col-lg-3 edit_form-group">
+	<div class="col-lg-2 edit_form-group">
 		{{ form_row(edit_form.chantierSensible) }}
+	</div>
+	<div class="col-lg-3 edit_form-group">
+			Service : {{ entity.dict.serviceExploitant.service.name }} - Exploitant: {{ entity.dict.serviceExploitant.exploitant.raisonSociale }}
 	</div>
 </div>
 
@@ -77,7 +80,7 @@
 	</div><!--fin colonne de gauche qui prend 8 colonne-->
 	<div class="col-lg-4">
 		<h4>
-			Inedit_formation sur le chantier.
+			Information sur le chantier.
 		</h4>
 		{# reçu le...par canal, déclarant, numéro d'affaire du déclarant
 		- emplacement du chantier : numéro de voir, commune, adresse
@@ -161,6 +164,8 @@
 				{# Ligne contenant le tableau d'inedit_formations sur les REO #}
 				<section class="table-responsive">
 					<hr/>
+					
+        			<a class="btn btn-default" href="#" id="ajouter-emplacement-RO"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle ligne d'emplacement de réseau ou ouvrage</a>
 					<table class="table table-bordered table-striped table-condensed" id="list-emplacement-reseau-ouvrage" prototype-reo="{{ form_widget(edit_form.emplacementsReseauOuvrage.vars.prototype) | e('html') }}">
 						<thead>
 							<tr>
@@ -338,13 +343,21 @@
 		</div>
 	</div>
 </div>
-{{ form_rest(edit_form) }}
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		{{ form_widget(edit_form.submit)}}	
+        <a class="btn btn-info" href="{{ path('recepissedict_generer_recepisse', {'id' : entity.id} ) }}"><i class="fa fa-file-pdf-o"></i> Télécharger</a>
+	</div>
+</div>
+
+	{{ form_rest(edit_form) }}
 {{ form_end(edit_form) }}
 
 <ul class="record_actions">
 	<li>
 		<a href="{{ path('recepissedict') }}">
-			Back to the list
+			Revenir à la liste des récepissés de DICT
 		</a>
 	</li>
 </ul>

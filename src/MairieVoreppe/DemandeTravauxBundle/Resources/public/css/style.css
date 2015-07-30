@@ -484,3 +484,11 @@ border-bottom-width:4px;
     height: 500px;
     overflow: auto;
 }
+
+/**
+* Les disabled de boostrap sont illisible
+*/
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control, .select2-search input[type="text"][disabled], .select2-search input[type="text"][readonly], fieldset[disabled] .select2-search input[type="text"] {
+    color: #7D8181;
+    /* any other styles */
+}

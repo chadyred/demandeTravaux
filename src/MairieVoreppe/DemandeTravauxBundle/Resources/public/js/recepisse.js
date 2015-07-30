@@ -224,50 +224,57 @@ function emplacementChantier()
 	// console.log(prototypeDeChampsRO);
 
 	//On souhaite avoir deux ligne
-	var nombreDeChamps = 2, i = 0;
+	var nombreMaxDeChamps = 2;
 
-	while(i < nombreDeChamps - nbChampsROExistant)
-	{
-        unChamp = prototypeDeChampsRO.replace(/__name__/g, i);
+	$('#ajouter-emplacement-RO').on("click", function(e){
+		e.preventDefault(); // évite qu'un # apparaisse dans l'URL
 
-        // unChamp = unChamp.replace(/<label(.*)<\/label>/, "");
+		var nbChampsROExistant= $("table#list-emplacement-reseau-ouvrage tbody tr").length;
+
+		if(nbChampsROExistant < nombreMaxDeChamps)
+		{
+	        unChamp = prototypeDeChampsRO.replace(/__name__/g, nbChampsROExistant + 1);
+
+	        // unChamp = unChamp.replace(/<label(.*)<\/label>/, "");
 
 
-		console.log(unChamp);
+			console.log(unChamp);
 
-        var newTr = $('<tr id="RO_' + i + '"></tr>');
-		var containerHtml = $("<div></div>").html(unChamp);
+	        var newTr = $('<tr id="RO_' + nbChampsROExistant + 1 + '"></tr>');
+			var containerHtml = $("<div></div>").html(unChamp);
 
-		//Je recupère tout le block des champs : le champs et le <div> qui le contient (nécessaire puisqu'il est définit avec bootstrap)
-		var inputReference = containerHtml.find('input[field="reference"]').parent();
-		var inputEchelle = containerHtml.find('input[field="echelle"]').parent();
-		//Pour ce champ, la date est contenu dans un bloc avec l'id du champ placé dans le formType
-		var inputDateEdition = containerHtml.find('div[field="dateEdition"]'); 
-		var inputSensible = containerHtml.find('input[field="sensible"]').parent();
-		var inputProfondeurReglMini = containerHtml.find('input[field="profondeurReglMini"]').parent();
-		var inputMateriauxReseau = containerHtml.find('input[field="materiauxReseau"]').parent();
+			//Je recupère tout le block des champs : le champs et le <div> qui le contient (nécessaire puisqu'il est définit avec bootstrap)
+			var inputReference = containerHtml.find('input[field="reference"]').parent();
+			var inputEchelle = containerHtml.find('input[field="echelle"]').parent();
+			//Pour ce champ, la date est contenu dans un bloc avec l'id du champ placé dans le formType
+			var inputDateEdition = containerHtml.find('div[field="dateEdition"]'); 
+			var inputSensible = containerHtml.find('input[field="sensible"]').parent();
+			var inputProfondeurReglMini = containerHtml.find('input[field="profondeurReglMini"]').parent();
+			var inputMateriauxReseau = containerHtml.find('input[field="materiauxReseau"]').parent();
 
-		//Je créé un td pour chaque information
-		var tdReference = $("<td></td>").html(inputReference);
-		var tdEchelle = $("<td></td>").html(inputEchelle);
-		var tdDateEdition = $("<td></td>").html(inputDateEdition);
-		var tdSensible = $("<td></td>").html(inputSensible);
-		var tdProfondeurReglMini = $("<td></td>").html(inputProfondeurReglMini);
-		var tdMateriauxReseau = $("<td></td>").html(inputMateriauxReseau);
+			//Je créé un td pour chaque information
+			var tdReference = $("<td></td>").html(inputReference);
+			var tdEchelle = $("<td></td>").html(inputEchelle);
+			var tdDateEdition = $("<td></td>").html(inputDateEdition);
+			var tdSensible = $("<td></td>").html(inputSensible);
+			var tdProfondeurReglMini = $("<td></td>").html(inputProfondeurReglMini);
+			var tdMateriauxReseau = $("<td></td>").html(inputMateriauxReseau);
 
-		//Je met les TD dans la ligne nouvellement créé
-		tdReference.appendTo(newTr);
-		tdEchelle.appendTo(newTr);
-		tdDateEdition.appendTo(newTr);
-		tdSensible.appendTo(newTr);
-		tdProfondeurReglMini.appendTo(newTr);
-		tdMateriauxReseau.appendTo(newTr);
+			//Je met les TD dans la ligne nouvellement créé
+			tdReference.appendTo(newTr);
+			tdEchelle.appendTo(newTr);
+			tdDateEdition.appendTo(newTr);
+			tdSensible.appendTo(newTr);
+			tdProfondeurReglMini.appendTo(newTr);
+			tdMateriauxReseau.appendTo(newTr);
 
-		//J'insère la ligne dans le corps du tableau
-		newTr.appendTo($("table#list-emplacement-reseau-ouvrage tbody"));
+			//J'insère la ligne dans le corps du tableau
+			newTr.appendTo($("table#list-emplacement-reseau-ouvrage tbody"));
+			addDeleteLink(newTr);
 
-		i++;
-	}
+		}
+
+	});
 }
 
 
@@ -498,3 +505,20 @@ function dateStringToInputFormDate(date)
 
         return dateFinal;
 }
+
+
+// La fonction qui ajoute un lien de suppression d'une catégorie
+function addDeleteLink(prototype) {
+  // Création du lien
+  var deleteLink = jQuery('<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>');
+
+  // Ajout du lien
+  prototype.append(deleteLink);
+
+  // Ajout du listener sur le clic du lien
+  deleteLink.click(function(e) {
+    prototype.remove();
+    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+    return false;
+  });
+ }

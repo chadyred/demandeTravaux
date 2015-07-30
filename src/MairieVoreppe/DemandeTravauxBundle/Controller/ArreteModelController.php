@@ -100,6 +100,18 @@ class ArreteModelController extends Controller
     {
         $entity = new ArreteModel();
         $form   = $this->createCreateForm($entity);
+        
+        //Ces instance sont nécessaire pour la réflexivité sans quoi elle ne seront pas trouvée 
+        $pma = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonneMorale();
+        $pme = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique();
+        $pmi = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale();
+        $pms = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique();
+        $pmd = new \MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant();
+        $pmr = new \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant();
+        
+        $classeArreteModel = new \ReflectionClass('MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT');
+        
+        $attributes = $this->reflection($classeArreteModel);  
        
         
         $classeArreteModel = new \ReflectionClass('MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT');
@@ -108,7 +120,9 @@ class ArreteModelController extends Controller
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:ArreteModel:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'reflectionClass' => $this->reflectionClass,
+            'attributes' => $attributes
         ));
     }
 
@@ -148,7 +162,8 @@ class ArreteModelController extends Controller
         $pme = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique();
         $pmi = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale();
         $pms = new \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique();
-        $pmd = new \MairieVoreppe\DemandeTravauxBundle\Entity\Maire();
+        $pmd = new \MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant();
+        $pmr = new \MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant();
         
         $classeArreteModel = new \ReflectionClass('MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT');
         

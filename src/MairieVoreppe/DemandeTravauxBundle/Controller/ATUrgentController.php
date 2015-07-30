@@ -87,9 +87,9 @@ class ATUrgentController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ATUrgent $entity)
+    private function createCreateForm(ATUrgent $entity, $user)
     {
-        $form = $this->createForm(new ATUrgentType(), $entity, array(
+        $form = $this->createForm(new ATUrgentType($user), $entity, array(
             'action' => $this->generateUrl('aturgent_create'),
             'method' => 'POST',
         ));
@@ -105,8 +105,9 @@ class ATUrgentController extends Controller
      */
     public function newAction()
     {
+        $user = $this->getUser();
         $entity = new ATUrgent();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $user);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:ATUrgent:new.html.twig', array(
             'entity' => $entity,

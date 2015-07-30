@@ -19,8 +19,8 @@ class ContactUrgentType extends AbstractType
         $builder
             ->add('civilite', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Civilite',
                 'property' => 'abreviation'))
-            ->add('nom')
-            ->add('prenom')
+            ->add('nom', 'text', array('required' => true))
+            ->add('prenom', 'text', array('required' => true))
             ->add('telFixe', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('telMobile', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('email')

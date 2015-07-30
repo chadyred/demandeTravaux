@@ -5,6 +5,8 @@ namespace MairieVoreppe\DemandeTravauxBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use JMS\Serializer\Annotation\Groups;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -37,14 +39,14 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="extensionPrevue", type="text")
+     * @ORM\Column(name="extensionPrevue", type="text", nullable=true)
      */
     protected $extensionPrevue;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="modificationEnCours", type="boolean")
+     * @ORM\Column(name="modificationEnCours", type="boolean", nullable=true)
      */
     protected $modificationEnCours;
 
@@ -54,7 +56,7 @@ abstract class Recepisse
      *
      * Permet de voir rapidement si le chantier est sensible ou non
      *
-     * @ORM\Column(name="chantierSensible", type="boolean")
+     * @ORM\Column(name="chantierSensible", type="boolean", nullable=true)
      */
     protected $chantierSensible;
 
@@ -62,7 +64,7 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="nomRepresentant", type="string", length=255)
+     * @ORM\Column(name="nomRepresentant", type="string", length=255, nullable=true)
      */
     protected $nomRepresentant;
 
@@ -72,14 +74,14 @@ abstract class Recepisse
      *
      * Permet de valider la prise de rendez-vous (un rendez-vous est facultatif si décoché les rendez vous ne sont pas prise en compte à vérifier dans le controller)
      *
-     * @ORM\Column(name="priseRendezVous", type="boolean")
+     * @ORM\Column(name="priseRendezVous", type="boolean", nullable=true)
      */
     protected $priseRendezVous;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephoneRepresentant", type="phone_number", length=255)
+     * @ORM\Column(name="telephoneRepresentant", type="phone_number", length=255, nullable=true)
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telephoneRepresentant;
@@ -87,49 +89,49 @@ abstract class Recepisse
     /**
      * @var boolean
      *
-     * @ORM\Column(name="planJoint", type="boolean")
+     * @ORM\Column(name="planJoint", type="boolean", nullable=true)
      */
     protected $planJoint;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="prendreEnCompteServitude", type="boolean")
+     * @ORM\Column(name="prendreEnCompteServitude", type="boolean", nullable=true)
      */
     protected $prendreEnCompteServitude;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="branchementRattache", type="boolean")
+     * @ORM\Column(name="branchementRattache", type="boolean", nullable=true)
      */
     protected $branchementRattache;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="recommandationSecurite", type="text")
+     * @ORM\Column(name="recommandationSecurite", type="text", nullable=true)
      */
     protected $recommandationSecurite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rubriqueGuideTechSecurite", type="text")
+     * @ORM\Column(name="rubriqueGuideTechSecurite", type="text", nullable=true)
      */
     protected $rubriqueGuideTechSecurite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mesureSecurite", type="text")
+     * @ORM\Column(name="mesureSecurite", type="text", nullable=true)
      */
     protected $mesureSecurite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telServiceDegradation", type="phone_number", length=255)
+     * @ORM\Column(name="telServiceDegradation", type="phone_number", length=255, nullable=true)
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telServiceDegradation;
@@ -137,14 +139,14 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="serviceDepartementIncendieSecours", type="string", length=255)
+     * @ORM\Column(name="serviceDepartementIncendieSecours", type="string", length=255, nullable=true)
      */
     protected $serviceDepartementIncendieSecours;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telServiceDepartementIncendieSecours", type="phone_number", length=255)
+     * @ORM\Column(name="telServiceDepartementIncendieSecours", type="phone_number", length=255, nullable=true)
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telServiceDepartementIncendieSecours;
@@ -152,14 +154,14 @@ abstract class Recepisse
     /**
      * @var string
      *
-     * @ORM\Column(name="responsableDossier", type="string", length=255)
+     * @ORM\Column(name="responsableDossier", type="string", length=255, nullable=true)
      */
     protected $responsableDossier;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telResponsableDossier", type="phone_number", length=255)
+     * @ORM\Column(name="telResponsableDossier", type="phone_number", length=255, nullable=true)
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     protected $telResponsableDossier;
@@ -180,6 +182,7 @@ abstract class Recepisse
     * RecepisseDICT
     *
     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\RendezVous", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=true)
     * @Groups({"rendezvous_recepisse"})
     *
     */
@@ -189,6 +192,8 @@ abstract class Recepisse
     * Recepisse
     *
     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\EmplacementReseauOuvrage", mappedBy="recepisse", cascade={"persist", "remove"})
+    * @ORM\JoinColumn(nullable=true)
+    * @Assert\Valid()
     */
     protected $emplacementsReseauOuvrage;
 
@@ -197,6 +202,7 @@ abstract class Recepisse
     * Recepisse
     *
     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MiseHorsTension", inversedBy="recepisses")
+    * @ORM\JoinColumn(nullable=true)
     */
     protected $miseHorsTension;
 
@@ -207,6 +213,7 @@ abstract class Recepisse
     * Liste des catégorie réseau concernée de l'exploitant Mairie
     *
     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DispositifSecurite", inversedBy="recepisses")
+    * @ORM\JoinColumn(nullable=true)
     */
     private $dispositifSecurite;
 
@@ -672,7 +679,9 @@ abstract class Recepisse
      */
     public function setReponse(array $types = null, \MairieVoreppe\DemandeTravauxBundle\Model\Reponse $reponse = null)
     {
-        $this->reponse = $types[0];
+        if(isset($types[0]))
+            $this->reponse = $types[0];
+
 
         return $this;
     }
@@ -799,4 +808,5 @@ abstract class Recepisse
     {
         return $this->dispositifSecurite;
     }
+
 }

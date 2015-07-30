@@ -30,6 +30,11 @@ class RecepisseDT extends Recepisse
      */
     private $prevoirInvestiguation;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     
    /**
     * RecepisseDT
@@ -47,6 +52,7 @@ class RecepisseDT extends Recepisse
     {
         return $this->id;
     }
+
 
     /**
      * Set prevoirInvestiguation
@@ -95,4 +101,7 @@ class RecepisseDT extends Recepisse
     {
         return $this->dt;
     }
+
+    
+   
 }

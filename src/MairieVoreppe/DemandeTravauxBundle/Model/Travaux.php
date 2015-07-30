@@ -99,7 +99,9 @@ abstract class Travaux
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateReponseDemande", type="datetime")
+     * Est null lorsque la réponse n'est pas encore émise
+     *
+     * @ORM\Column(name="dateReponseDemande", type="datetime", nullable=true)
      */
      protected $dateReponseDemande;
     

@@ -3,6 +3,8 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * EmplacementReseauOuvrage
@@ -25,6 +27,7 @@ class EmplacementReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="reference", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $reference;
 
@@ -32,6 +35,7 @@ class EmplacementReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="echelle", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $echelle;
 
@@ -39,6 +43,7 @@ class EmplacementReseauOuvrage
      * @var \DateTime
      *
      * @ORM\Column(name="dateEdition", type="datetime")
+     * @Assert\NotBlank
      */
     private $dateEdition;
 
@@ -46,6 +51,7 @@ class EmplacementReseauOuvrage
      * @var boolean
      *
      * @ORM\Column(name="sensible", type="boolean")
+     * @Assert\NotBlank
      */
     private $sensible;
 
@@ -53,6 +59,7 @@ class EmplacementReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="profondeurReglMini", type="decimal")
+     * @Assert\NotBlank
      */
     private $profondeurReglMini;
 
@@ -60,6 +67,7 @@ class EmplacementReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="materiauxReseau", type="text")
+     * @Assert\NotBlank
      */
     private $materiauxReseau;
 

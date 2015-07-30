@@ -76,6 +76,13 @@ class RecepisseDICTController extends RecepisseController
 
             $reponse = $form->get('rendezVous')->getData();
             $entity->setRendezVous($reponse);
+            
+            $dict->setDateReponseDemande($entity->getDateCreation());
+
+            
+            //Ne ce perssiste une nouvelle fois pas tout le temps...peut être du au fait qu'il faille le faire dans une entité concrête et non abstraite?
+            foreach($entity->getEmplacementsReseauOuvrage() as $ero)
+                $entity->addEmplacementsReseauOuvrage($ero);
 
             $em->flush();
 
@@ -179,7 +186,9 @@ class RecepisseDICTController extends RecepisseController
          * - lorsque l'on charge l'édition
          * TODO - lorsque l'on change et que l'on revien sur le type de base
          */       
-        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+        if($entity->getReponse()[0] != null)
+            $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
@@ -245,7 +254,10 @@ class RecepisseDICTController extends RecepisseController
         */
         $serializer = $this->get('jms_serializer');
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+
+        if($entity->getReponse()[0] != null)
+            $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
@@ -278,6 +290,11 @@ class RecepisseDICTController extends RecepisseController
 
                  $entity->setRendezVous($rdv);
             }
+
+
+            //Ne ce perssiste une nouvelle fois pas tout le temps...peut être du au fait qu'il faille le faire dans une entité concrête et non abstraite?
+            foreach($entity->getEmplacementsReseauOuvrage() as $ero)
+                $entity->addEmplacementsReseauOuvrage($ero);
 
             $em->flush();
 

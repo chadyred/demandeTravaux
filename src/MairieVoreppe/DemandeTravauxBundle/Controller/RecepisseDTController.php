@@ -55,7 +55,7 @@ class RecepisseDTController extends RecepisseController
 
              $this->get('session')->getFlashBag()->add('notice', 'Confirmation de l\'ajout du récépissé');
 
-               //On écite de ce répéter: on a une persistence automatique (DRY)
+               //On écitdateReceptionDemandee de ce répéter: on a une persistence automatique (DRY)
             $dt->setRecepisseDt($entity);
 
            $eros = $entity->getEmplacementsReseauOuvrage();
@@ -69,6 +69,12 @@ class RecepisseDTController extends RecepisseController
             $reponse = $form->get('reponse')->getData();
             $entity->setReponse($reponse);
 
+            $dt->setDateReponseDemande($entity->getDateCreation());
+            
+
+            //Ne ce perssiste une nouvelle fois pas tout le temps...peut être du au fait qu'il faille le faire dans une entité concrête et non abstraite?
+            foreach($entity->getEmplacementsReseauOuvrage() as $ero)
+                $entity->addEmplacementsReseauOuvrage($ero);
             
             $em->persist($entity);
             $em->flush();
@@ -178,11 +184,15 @@ class RecepisseDTController extends RecepisseController
         */
         $serializer = $this->get('jms_serializer');
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+        if($entity->getReponse()[0] != null)
+            $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
-        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        if($entity->getRendezVous()[0] != null)
+            $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:edit.html.twig', array(
@@ -238,11 +248,14 @@ class RecepisseDTController extends RecepisseController
         */
         $serializer = $this->get('jms_serializer');
 
-        $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+        if($entity->getReponse()[0] != null)
+            $entity->getReponse()[0]->setClass(get_class($entity->getReponse()[0]));
+
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
+        if($entity->getRendezVous()[0] != null)
+            $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
 
-        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
 
@@ -271,6 +284,10 @@ class RecepisseDTController extends RecepisseController
 
                  $entity->setRendezVous($rdv);
             }
+
+            //Ne ce perssiste une nouvelle fois pas tout le temps...peut être du au fait qu'il faille le faire dans une entité concrête et non abstraite?
+            foreach($entity->getEmplacementsReseauOuvrage() as $ero)
+                $entity->addEmplacementsReseauOuvrage($ero);
 
             $em->flush();
 

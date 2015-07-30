@@ -45,14 +45,15 @@ class RecepisseController extends Controller
     public function generationFullPdfExemple(Travaux $demande)
     {
 
-        // initiate FPDI
-        $pdf = new Pdf();
+       $pdf = new Pdf();
+       $phoneUtil = PhoneNumberUtil::getInstance();
+        /*
+        // Test avant mise en place initiate FPDI
         $dt = new \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux();
         $recepisseDT = new \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT();
         $reponse = new \MairieVoreppe\DemandeTravauxBundle\Entity\NonConcerne();
 
         $numeroTelephone = "+334 76 91 12 38";
-        $phoneUtil = PhoneNumberUtil::getInstance();
 
         try {
             $numeroTelephoneProto = $phoneUtil->parse($numeroTelephone, "FR");
@@ -63,7 +64,7 @@ class RecepisseController extends Controller
 
         $recepisseDT->setTelephoneRepresentant($numeroTelephoneProto);
         $recepisseDT->setReponse(null, $reponse);
-        $dt->setRecepisseDt($recepisseDT);
+        $dt->setRecepisseDt($recepisseDT);*/
 
 
         // add a page
@@ -120,14 +121,14 @@ class RecepisseController extends Controller
                     }
                 }
 
-                //Si la DT n'est conjointe à une DICT, on coche la première case
+                //Si la DT n'est conjointe à une DICT, on coche la première case et le destinataire sera celui de la DT
                 if($dictConjointe === NULL) {
                     $pdf->checkboxDemandeDt();
-                    $destinataireDemande = $dictConjointe->getMaitreOeuvre();
+                    $destinataireDemande = $demande->getMaitreOuvrage();
                 }
                 else {
                     $pdf->checkboxDemandeDtDictConjointe();
-                    $destinataireDemande = $demande->getMaitreOuvrage();
+                    $destinataireDemande = $dictConjointe->getMaitreOeuvre();
                 }
 
                 //cas uniquement dans une DT - Partie : Emplaement de nos réseaux / ouvrages
@@ -204,11 +205,14 @@ class RecepisseController extends Controller
 
                         $adresse = $destinataireDemande->getCivil()->getAdresse();
 
-                        $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
-                        $pdf->destinataireLieuDitBp($adresse->getLieuDit());
-                        $pdf->destinataireCodePostal($adresse->getCp());
-                        $pdf->destinataireCommune($adresse->getVille());
-                        $pdf->destinataireVille($adresse->getPays());
+                        if($adresse !== null)
+                        {
+                            $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
+                            $pdf->destinataireLieuDitBp($adresse->getLieuDit());
+                            $pdf->destinataireCodePostal($adresse->getCp());
+                            $pdf->destinataireCommune($adresse->getVille());
+                            $pdf->destinataireVille($adresse->getPays());
+                        }
 
                         /**
                         *
@@ -423,8 +427,8 @@ class RecepisseController extends Controller
         * Partie exploitant
         *
         */
-        //TODO : remplacer mairie par exploitant.
-        $exploitant = $demande->getService()->getMairie();
+        //DO : remplacer mairie par exploitant.
+        $exploitant = $demande->getServiceExploitant()->getExploitant();
         $pdf->exploitantRS($exploitant->getRaisonSociale());
 
         //Personne à contacté: l'utilisateur qui a créé le travaux. Seul l'administrateur peut changer ce dernier.
@@ -467,7 +471,9 @@ class RecepisseController extends Controller
             $pdf->modificationCheckboxOuvrageEnCours();
 
         $pdf->modificationContactRepresentant($recepisse->getNomRepresentant());
-        $pdf->modificationAjouterNumeroRepresentant($phoneUtil->format($recepisse->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
+
+        if($recepisse->getTelephoneRepresentant() !== null)
+            $pdf->modificationAjouterNumeroRepresentant($phoneUtil->format($recepisse->getTelephoneRepresentant(), \libphonenumber\PhoneNumberFormat::NATIONAL));
         
         //Partie Emplacement réseaux et ouvrages
         if($recepisse->getPlanJoint())
@@ -478,24 +484,30 @@ class RecepisseController extends Controller
         $ero2 = $recepisse->getEmplacementsReseauOuvrage()[1];
 
         //Première ligne
-        $pdf->reseauPremiereReference($ero1->getReference());
-        $pdf->reseauPremiereEchelle($ero1->getEchelle());
-        $pdf->reseauPremiereDateEditionPlan($ero1->getDateEdition());
-        if($ero1->getSensible())
-            $pdf->reseauPremiereCheckboxSensible();
-        $pdf->reseauPremiereProfReglMini($ero1->getProfondeurReglMini());
-        $pdf->reseauPremiereMateriaux($ero1->getMateriauxReseau());
+        if($ero1 !== null)
+        {
+            $pdf->reseauPremiereReference($ero1->getReference());
+            $pdf->reseauPremiereEchelle($ero1->getEchelle());
+            $pdf->reseauPremiereDateEditionPlan($ero1->getDateEdition());
+            if($ero1->getSensible())
+                $pdf->reseauPremiereCheckboxSensible();
+            $pdf->reseauPremiereProfReglMini($ero1->getProfondeurReglMini());
+            $pdf->reseauPremiereMateriaux($ero1->getMateriauxReseau());
+        }
 
         //Deuxième ligne
-        $pdf->reseauDeuxiemeReference($ero2->getReference());
-        $pdf->reseauDeuxiemeEchelle($ero2->getEchelle());
-        $pdf->reseauDeuxiemeDateEditionPlan($ero2->getDateEdition());
-        
-        if($ero1->getSensible())
-            $pdf->reseauDeuxiemeCheckboxSensible();
+        if($ero2 !== null)
+        {
+            $pdf->reseauDeuxiemeReference($ero2->getReference());
+            $pdf->reseauDeuxiemeEchelle($ero2->getEchelle());
+            $pdf->reseauDeuxiemeDateEditionPlan($ero2->getDateEdition());
+            
+            if($ero2->getSensible())
+                $pdf->reseauDeuxiemeCheckboxSensible();
 
-        $pdf->reseauDeuxiemeProfReglMini($ero2->getProfondeurReglMini());
-        $pdf->reseauDeuxiemeMateriaux($ero2->getMateriauxReseau());
+            $pdf->reseauDeuxiemeProfReglMini($ero2->getProfondeurReglMini());
+            $pdf->reseauDeuxiemeMateriaux($ero2->getMateriauxReseau());
+        }
 
         //Gestion des rendez-vous
         if($recepisse->getPriseRendezVous())
@@ -514,19 +526,23 @@ class RecepisseController extends Controller
         $pdf->securiteRecommandationTechnique($recepisse->getRecommandationSecurite());
         $pdf->securiteRubriqueGuideTechnique($recepisse->getRubriqueGuideTechSecurite());
         $pdf->securiteMesureMettreEnOeuvre($recepisse->getMesureSecurite());
-        $pdf->securiteDispositifImportant($recepisse->getDispositifSecurite()->getDescription());
+
+        if($recepisse->getDispositifSecurite() != null)
+            $pdf->securiteDispositifImportant($recepisse->getDispositifSecurite()->getDescription());
 
         //gestion de la mise hors tension
         $recepisse->getMiseHorsTension()->getLibelle() == "Possible" ? $mht = true : $mht = false;
         $pdf->securiteMiseHorsTension($mht);
 
         //Partie dégradation
-        $pdf->degradationNumeroService($phoneUtil->format($recepisse->getTelServiceDegradation(), \libphonenumber\PhoneNumberFormat::NATIONAL));
+        if($recepisse->getTelServiceDegradation() !== null)
+            $pdf->degradationNumeroService($phoneUtil->format($recepisse->getTelServiceDegradation(), \libphonenumber\PhoneNumberFormat::NATIONAL));
+
         $pdf->securiteAnomalie($recepisse->getServiceDepartementIncendieSecours());
 
         //Partie responsable projet
         $pdf->responsableDossierNom($demande->getUser());
-        $pdf->designationService($demande->getService()->getName());
+        $pdf->designationService($demande->getServiceExploitant()->getService()->getName());
         //Dans le FOSUSerBundle, le téléphone est définis comme un simple champs de type chaine.
         $pdf->numServiceResponsable = $demande->getUser()->getPhone();
 
