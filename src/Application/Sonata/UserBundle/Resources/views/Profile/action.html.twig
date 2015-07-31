@@ -11,10 +11,10 @@ file that was distributed with this source code.
 
 {% block sonata_page_breadcrumb %}
     {% if breadcrumb_context is not defined %}
-    				{% set breadcrumb_context = 'user_index' %}
+    		{% set breadcrumb_context = 'user_index' %}
     {% endif %}
 {% endblock %}
 
 {% block sonata_profile_menu %}
-    {% include "MairieVoreppeUserBundle:Profile:menu_profile.html.twig" %}
+    {% include "ApplicationSonataUserBundle:Profile:menu_profile.html.twig" %}
 {% endblock sonata_profile_menu %}
