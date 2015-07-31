@@ -1,6 +1,10 @@
 {# Cette vue à pour but de listé l'ensemble des récépissés, c'est-à-dire ceux de DT et de DICT #}
 {% extends 'MairieVoreppeDemandeTravauxBundle:Recepisse:layout.html.twig' %}
 
+{# Variable afin de voir si la dt à une dict conjointe. Si c'est cas on récupérera les informations de celle-ci #}
+{% set dictConjointe = null %}
+{% set destinataireDemande = null %}
+
 {% block recepisse_content -%}
    
 
@@ -37,7 +41,32 @@
 
                         </td>
                         <td></td>
-                        <td></td>
+                        <td>              
+                
+                            {# Une DT/DICT conjointe = adresse d’envoi => celle de la DICT #}
+                            
+
+                            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
+
+                                {% if entity.dt.dicts|length > 0 %}                 
+                                    {% for dict in entity.dt.dicts %}
+                                        {% if dict.dtDictConjointe  %}
+                                            {% set dictConjointe = dict %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {# Si la DT n'est conjointe à une DICT, on coche la première case et le destinataire sera celui de la DT #}
+                                {% if dictConjointe == NULL %} 
+                                    {% set destinataireDemande = demande.maitreOuvrage  %}                           
+                                {% else %}
+                                    {% set destinataireDemande = dictConjointe.maitreOeuvre  %}
+                                {% endif %}
+
+                                {# Affichage de la valeur #}
+                                {{ destinataireDemande }}
+                            {% endif %}
+                        </td>
                         <td></td>
                         <td>
                              {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}

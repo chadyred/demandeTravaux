@@ -25,6 +25,7 @@ class RecepisseDTController extends RecepisseController
     {
         $em = $this->getDoctrine()->getManager();
 
+        
         $entities = $em->getRepository('MairieVoreppeDemandeTravauxBundle:RecepisseDT')->findAll();
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:RecepisseDT:index.html.twig', array(
