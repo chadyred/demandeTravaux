@@ -1,6 +1,6 @@
 <?php
 
-namespace MairieVoreppe\UserBundle\Form\Type;
+namespace Application\Sonata\UserBundle\Form\Type;
 
 use Sonata\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use Symfony\Component\Form\AbstractType;
@@ -34,7 +34,7 @@ class RegistrationFormType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\UserBundle\Entity\User'
+            'data_class' => 'Application\Sonata\UserBundle\Entity\User'
         ));
     }
 

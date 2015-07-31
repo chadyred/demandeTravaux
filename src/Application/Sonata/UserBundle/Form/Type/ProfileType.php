@@ -4,7 +4,7 @@
     On hérite du contructeur de formulaire du bundle parent (FOSUserBundle) qui permet ainsi de rajouter ce que l'on désire au profil
  */
 
-namespace MairieVoreppe\UserBundle\Form\Type;
+namespace Application\Sonata\UserBundle\Form\Type;
 
 use Sonata\UserBundle\Form\Type\ProfileType as BaseType;
 use Symfony\Component\Form\AbstractType;
@@ -30,8 +30,8 @@ class ProfileType extends BaseType
              ->add('civilite', 'entity', array(                 
                 'label'    => 'Civilité',
                  'class' => 'MairieVoreppeDemandeTravauxBundle:Civilite',                 
-                 'property' => 'abreviation',
-                 ))                
+                 'property' => 'abreviation'
+                ))                
             ->remove('gender')
             ->remove('website')
             ->remove('biography')
@@ -48,7 +48,7 @@ class ProfileType extends BaseType
     {
         //On définie notre classe qui va nous permettre ici de récupérer l'ensembled es attribut
         $resolver->setDefaults(array(
-            'data_class' => 'MairieVoreppe\UserBundle\Entity\User'
+            'data_class' => 'Application\Sonata\UserBundle\Entity\User'
         ));
     }
        

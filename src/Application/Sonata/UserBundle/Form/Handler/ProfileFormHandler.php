@@ -10,7 +10,7 @@
  *
  */
 
-namespace MairieVoreppe\UserBundle\Form\Handler;
+namespace Application\Sonata\UserBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;

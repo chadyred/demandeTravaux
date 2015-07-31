@@ -4,19 +4,19 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
     mairievoreppe_user.registration.form.type:
-        class: MairieVoreppe\UserBundle\Form\Type\RegistrationFormType
+        class: Application\Sonata\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: mairievoreppe_user_registration }
 
     mairievoreppe_user.profile.form.type:
-        class: MairieVoreppe\UserBundle\Form\Type\ProfileType
+        class: Application\Sonata\UserBundle\Form\Type\ProfileType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: mairievoreppe_user_profile }
 
     mairievoreppe_user.form.handler.profile:
-        class: MairieVoreppe\UserBundle\Form\Handler\ProfileFormHandler
+        class: Application\Sonata\UserBundle\Form\Handler\ProfileFormHandler
         arguments: ["@sonata_user.profile.form", "@request", "@fos_user.user_manager", "@ewz_search.lucene"]
         scope: request
         public: false
