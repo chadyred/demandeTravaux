@@ -33,6 +33,15 @@ class MOEPersonneMorale extends MaitreOeuvre
     protected $entreprise;    
 
     /**
+    * @var boolean
+    *
+    *
+    * @ORM\column(name="prestataire_dict", type="boolean", nullable=false)
+    *
+    */
+    private $prestataireDICT;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -77,5 +86,29 @@ class MOEPersonneMorale extends MaitreOeuvre
         
         
         return $toString;
+    }
+
+    /**
+     * Set prestataireDICT
+     *
+     * @param boolean $prestataireDICT
+     *
+     * @return MOEPersonneMorale
+     */
+    public function setPrestataireDICT($prestataireDICT)
+    {
+        $this->prestataireDICT = $prestataireDICT;
+
+        return $this;
+    }
+
+    /**
+     * Get prestataireDICT
+     *
+     * @return boolean
+     */
+    public function getPrestataireDICT()
+    {
+        return $this->prestataireDICT;
     }
 }

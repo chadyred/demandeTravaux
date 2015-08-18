@@ -23,6 +23,21 @@ class Entreprise extends PersonneMorale
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var type Ville
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT", mappedBy="entreprise")
+     */
+    protected $dicts;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
      
    
      /**
@@ -104,5 +119,38 @@ class Entreprise extends PersonneMorale
     public function getStatutJuridique()
     {
         return $this->statutJuridique;
+    } 
+
+    /**
+     * Add dict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
+     * @return DemandeIntentionCT
+     */
+    public function addDicts(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
+    {
+        $this->dicts[] = $dict;
+
+        return $this;
+    }
+
+    /**
+     * Remove dict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
+     */
+    public function removeDicts(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
+    {
+        $this->dicts->removeElement($dict);
+    }
+
+    /**
+     * Get dtDict
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDicts()
+    {
+        return $this->dicts;
     }
 }

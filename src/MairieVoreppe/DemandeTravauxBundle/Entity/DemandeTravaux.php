@@ -72,11 +72,11 @@ class DemandeTravaux extends Travaux
     private $dicts;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\MaitreOuvrage", inversedBy="dts")
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Declarant", inversedBy="dts")
      * 
      * @var type 
      */
-    private $maitreOuvrage;
+    private $declarant;
    
    /**
     * RecepisseDt : récpissé résultant d'un traitement sur cette entité
@@ -85,6 +85,7 @@ class DemandeTravaux extends Travaux
     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
     */
     private $recepisseDt;
+    
     
     /**
      * Constructor
@@ -106,14 +107,14 @@ class DemandeTravaux extends Travaux
 
    
     /**
-     * Add maitreOuvrage
+     * Add declarant
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\MaitresOuvrage $maitreOuvrage
+     * @param \MairieVoreppe\DemandeTravauxBundle\Model\Declarant $declarant
      * @return DemandeTravaux
      */
-    public function setMaitreOuvrage(\MairieVoreppe\DemandeTravauxBundle\Model\MaitreOuvrage $maitreOuvrage)
+    public function setDeclarant(\MairieVoreppe\DemandeTravauxBundle\Model\Declarant $declarant)
     {
-        $this->maitreOuvrage = $maitreOuvrage;
+        $this->declarant = $declarant;
 
         return $this;
     }
@@ -123,7 +124,7 @@ class DemandeTravaux extends Travaux
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMaitreOuvrage()
+    public function getDeclarant()
     {
         return $this->maitreOuvrage;
     }

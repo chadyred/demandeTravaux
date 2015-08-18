@@ -38,7 +38,7 @@ class DemandeTravauxType extends AbstractType
                 'empty_data' => false,
                 'placeholder' => '-'
               ))
-            ->add('maitreOuvrage', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Model\MaitreOuvrage',
+            ->add('declarant', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Model\Declarant',
                 'empty_data' => false,
                 'placeholder' => '-'
               ))            

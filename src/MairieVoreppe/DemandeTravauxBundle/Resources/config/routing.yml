@@ -42,10 +42,14 @@ mairie_voreppe_demande_travaux_moepersonnephysique:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moepersonnephysique.yml"
     prefix:   /moepersonnephysique
 
+mairie_voreppe_demande_travaux_declarant:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/declarant.yml"
+    prefix:   /declarant
+
 mairie_voreppe_demande_travaux_maitre_oeuvre:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/maitre_oeuvre.yml"
     prefix:   /maitre-oeuvre
-    
+
 mairie_voreppe_demande_travaux_moapersonnemorale:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/moapersonnemorale.yml"
     prefix:   /moapersonnemorale

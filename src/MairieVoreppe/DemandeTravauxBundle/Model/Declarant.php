@@ -26,8 +26,25 @@ abstract class Declarant
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
- 
+    
+    
+    
+    /**
+     * @var type Ville
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux", mappedBy="maitreOuvrage")
+     */
+    protected $dts;    
+    
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
        
     /**
      * Get id
@@ -38,5 +55,40 @@ abstract class Declarant
     {
         return $this->id;
     }
+
+
+    /**
+     * Add dts
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dts
+     * @return MaitreOuvrage
+     */
+    public function addDt(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dts)
+    {
+        $this->dts[] = $dts;
+
+        return $this;
+    }
+
+    /**
+     * Remove dts
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dts
+     */
+    public function removeDt(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux $dts)
+    {
+        $this->dts->removeElement($dts);
+    }
+
+    /**
+     * Get dts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDts()
+    {
+        return $this->dts;
+    }
+    
 
 }

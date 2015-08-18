@@ -1,0 +1,34 @@
+<nav class="navbar  navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse-01">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('declarant') }}">
+                    {{ "Les déclarants"|upper }}
+            </a>
+	</li>	
+        <li>
+            <a href="{{ path('maitre_ouvrage') }}">
+                    {{ "Maître d'ouvrage"|upper }}
+            </a>
+	</li>	
+	<li>
+            <a href="{{ path('maitre_oeuvre') }}">
+                 {{ "Maître d'oeuvre"|upper }}
+            </a>
+        </li>        
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+<!--  -->
+<div class="row">
+  <div class="col-lg-offset-9">
+      <a class="btn btn-md btn-info" href="{{ path('declarant_ajouter_menu') }}">
+          Ajouter un déclarant <i class="fa fa-plus-circle"></i>
+      </a>
+  </div>
+</div>

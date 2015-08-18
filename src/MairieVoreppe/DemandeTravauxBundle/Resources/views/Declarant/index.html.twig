@@ -1,0 +1,141 @@
+{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{% extends 'MairieVoreppeDemandeTravauxBundle:Declarant:layout.html.twig' %}
+
+ {% block declarant_content %}
+
+ <section class="table-responsive">
+    <hr/>
+    <caption>
+    <h1>Déclarant liste</h1>
+    </caption>
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Déclarant</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}            
+            {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonnePhysique') %}
+                 <tr>
+                    <td><a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Maitre d'oeuvre en tant que personne physique</td>
+                    <td>{{ entity.civil }} </td>
+                    <td>
+                        {% if entity.civil.adresse != null%}
+                            {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
+                    </td>
+                    <td>{{ entity.civil.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonneMorale') %}
+                <tr>
+                    <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Maitre d'oeuvre en tant que personne morale</td>
+                    <td>
+                            {{ entity.entreprise.raisonSociale }}                    
+                    </td>
+                    <td>
+                        {% if entity.entreprise.adresse != null%}
+                            {{ entity.entreprise.adresse.getAdresseCompleteAvecLieuDit()|length > 50 ? entity.entreprise.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.entreprise.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
+                    </td>
+                    <td>{{ entity.entreprise.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+
+             {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonnePhysique') %}
+                 <tr>
+                    <td><a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Maitre d'ouvrage en tant que personne physique</td>
+                    <td>{{ entity.civil }} </td>
+                    <td>
+                        {% if entity.civil.adresse != null%}
+
+                           {{ entity.civil.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.civil.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.civil.adresse.getAdresseCompleteAvecLieuDit}}</td>
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
+                    <td>{{ entity.civil.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonneMorale') %}
+                <tr>
+                    <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>Maitre d'ouvrage en tant que personne morale</td>
+                    <td>
+                            {{ entity.personneMorale.raisonSociale }}                    
+                    </td>
+                    <td>
+                        {# Limitation du nombvre de caractère maximal affiché dans la liste, sans quoi il y aurait un décallage au vue de la longueur de l'adresse #}
+                        {% if entity.personneMorale.adresse != null%}
+                          {{ entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|length > 50 ? entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit|slice(0, 50) ~ "..." : entity.personneMorale.adresse.getAdresseCompleteAvecLieuDit }}
+                        {% else %}
+                            Pas d'adresse
+                        {% endif %}
+                        
+                    </td>
+                    <td>{{ entity.personneMorale.telFixe }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>                                
+                                {# instance of est une extension persionnalisé afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
+                                {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
+                                    <a href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">edit</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

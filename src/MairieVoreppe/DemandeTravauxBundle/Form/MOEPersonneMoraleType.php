@@ -18,6 +18,7 @@ class MOEPersonneMoraleType extends DeclarantType
         parent::buildForm($builder, $options);
         $builder
             ->add('entreprise', new EntrepriseType())
+            ->add('prestataireDICT', 'checkbox', array('required' => "false"))
         ;
     }
     

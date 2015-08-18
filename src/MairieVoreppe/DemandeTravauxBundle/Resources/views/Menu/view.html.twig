@@ -20,10 +20,10 @@
                             <a href="{{ path('mairie_voreppe_demande_travaux_homepage') }}">Accueil</a>
                     </li>
                     <li {{ route == "maitre_ouvrage" ? 'class="active"' : '' }} >
-                        <a href="{{ path('maitre_ouvrage') }}">Maître d'ouvrage</a>
+                        <a href="{{ path('declarant') }}">Déclarant</a>
                     </li>
-                    <li {{ route == "maitre_oeuvre" ? 'class="active"' : '' }} >
-                            <a href="{{ path('maitre_oeuvre') }}">Maître d'oeuvre</a>
+                    <li {{ route == "entreprise" ? 'class="active"' : '' }} >
+                            <a href="{{ path('entreprise') }}">Entreprise</a>
                     </li>
                     <li {{ route == "travaux" ? 'class="active"' : '' }} >
                             <a href="{{ path('travaux') }}">Travaux</a>

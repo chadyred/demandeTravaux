@@ -31,19 +31,20 @@ class DemandeIntentionCT extends Travaux
     /**
      * On garde les dicts même si l'entreprise est supprimée ! Si on decide de réutiliser ce dernier, on choisira une autre entreprise.
      * 
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre", inversedBy="dicts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise", inversedBy="dicts", cascade={"persist"})
      * 
      * @var type 
      */
-    private $maitreOeuvre;
+    private $entreprise;
     
-      /**
+    /**
+     * @var type
+     *
      * Doctrine Array
      * 
-     * Une ville contient plusieurs adresse. On persiste l'ajout de coordonnées à une ville (DRY), la persistence ce fait dans le controller
+     * Une dt et dict est conjointe lorsque les demande sont reçu sur le même formulaire.
      *      
-     * @ORM\Column(name="dtDictConjointe", type="boolean")
-     * @var type 
+     * @ORM\Column(name="dtDictConjointe", type="boolean") 
      */
     private $dtDictConjointe;
     
@@ -103,12 +104,12 @@ class DemandeIntentionCT extends Travaux
     /**
      * Add maitresOeuvre
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Model\MaitressOeuvre $maitreOeuvre
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise $entreprise
      * @return DemandeIntentionCT
      */
-    public function setMaitreOeuvre(\MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre $maitreOeuvre)
+    public function setEntreprise(\MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise $entreprise)
     {
-        $this->maitreOeuvre = $maitreOeuvre;
+        $this->entreprise = $entreprise;
 
         return $this;
     }
@@ -116,11 +117,11 @@ class DemandeIntentionCT extends Travaux
     /**
      * Get maitresOeuvre
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Model\MaitressOeuvre $maitreOeuvre
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise $entreprise
      */
-    public function getMaitreOeuvre()
+    public function getEntreprise()
     {
-        return $this->maitreOeuvre;
+        return $this->entreprise;
     }
    
 

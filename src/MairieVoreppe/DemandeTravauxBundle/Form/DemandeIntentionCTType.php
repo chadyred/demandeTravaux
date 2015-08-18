@@ -40,7 +40,7 @@ class DemandeIntentionCTType extends AbstractType
                 'property' => 'libelle',
                 'empty_data' => false,
                 'placeholder' => '-'))
-            ->add('maitreOeuvre', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre',
+            ->add('entreprise', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise',
                 'empty_data' => false,
                 'placeholder' => '-'))
             ->add('adresses', 'collection', array('type' => new AdresseType(),

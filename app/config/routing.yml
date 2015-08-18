@@ -69,6 +69,6 @@ _sonata_admin:
 sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /admin
-    
+
 shtumi_useful:
     resource: '@ShtumiUsefulBundle/Resources/config/routing.xml'

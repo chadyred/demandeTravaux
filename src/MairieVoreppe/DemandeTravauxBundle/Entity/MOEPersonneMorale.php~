@@ -33,6 +33,15 @@ class MOEPersonneMorale extends MaitreOeuvre
     protected $entreprise;    
 
     /**
+    * @var boolean
+    *
+    *
+    * @ORM\column(name="prestataire_dict", type="boolean", nullable=false)
+    *
+    */
+    private $prestataireDICT;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -40,5 +49,42 @@ class MOEPersonneMorale extends MaitreOeuvre
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set entreprise
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise $entreprise
+     * @return MOEPersonneMorale
+     */
+    public function setEntreprise(\MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise $entreprise = null)
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    /**
+     * Get entreprise
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise 
+     */
+    public function getEntreprise()
+    {
+        return $this->entreprise;
+    }
+    
+    /**
+     * Un maitre d'oeuvre en tant que personne morale ne peut être qu'une entreprise
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        $toString = "";
+        $toString = $this->getEntreprise()->getRaisonSociale() . ' ' . $this->getEntreprise()->getStatutJuridique()->getAbreviation();
+        
+        
+        return $toString;
     }
 }

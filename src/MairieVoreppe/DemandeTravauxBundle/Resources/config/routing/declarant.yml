@@ -1,0 +1,7 @@
+declarant_ajouter_menu:
+    path:     /ajout-menu-declarant
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Declarant:ajouter" }
+    
+declarant:
+    path:     /
+    defaults: { _controller: "MairieVoreppeDemandeTravauxBundle:Declarant:index" }
