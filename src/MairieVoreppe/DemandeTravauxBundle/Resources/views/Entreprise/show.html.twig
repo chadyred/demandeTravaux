@@ -1,0 +1,57 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+      <div class="row">    
+
+        <div class="col-lg-8 table-responsive">
+            <hr/>
+            <caption>
+                  <h1>Exploitant list</h1>
+            </caption>
+            <table class="records_list table table-bordered table-striped table-condensed">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ entity.siret }}</td>
+            </tr>
+            <tr>
+                <th>Raisonsociale</th>
+                <td>{{ entity.raisonSociale }}</td>
+            </tr>
+            <tr>
+                <th>Complement</th>
+                <td>{{ entity.complement }}</td>
+            </tr>
+            <tr>
+                <th>Service</th>
+                <td>{{ entity.service }}</td>
+            </tr>
+            <tr>
+                <th>Telfax</th>
+                <td>{{ entity.telFax }}</td>
+            </tr>
+            <tr>
+                <th>Telfixe</th>
+                <td>{{ entity.telFixe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="list-unstyled">
+            <li>
+                <a  type="button" class="btn btn-default" href="{{ path('entreprise') }}">
+                    <i class="fa fa-backward"></i> Retourner à la liste des entreprises
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('entreprise_edit', { 'id': entity.id }) }}">
+                    Modifier l'entreprise !
+                </a>
+            </li>
+         <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

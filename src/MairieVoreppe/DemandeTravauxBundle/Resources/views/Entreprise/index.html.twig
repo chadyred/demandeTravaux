@@ -1,0 +1,57 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+
+<div class="row">    
+
+    <div class="col-lg-8 table-responsive">
+        <hr/>
+        <caption>
+          <h1>Liste des entreprises</h1>
+      </caption>
+      <table class="records_list table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Siret</th>
+                <th>Raisonsociale</th>
+                <th>Complement</th>
+                <th>Service</th>
+                <th>Telfax</th>
+                <th>Telfixe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.siret }}</td>
+                <td>{{ entity.raisonSociale }}</td>
+                <td>{{ entity.complement }}</td>
+                <td>{{ entity.service }}</td>
+                <td>{{ entity.telFax }}</td>
+                <td>{{ entity.telFixe }}</td>
+                <td>
+                    <ul class="list-unstyled list-inline">
+                        <li>
+                            <a href="{{ path('entreprise_show', { 'id': entity.id }) }}">Voir</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('entreprise_edit', { 'id': entity.id }) }}">Modifier</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <ul class="list-unstyled">
+        <li>
+            <a type="button" class="btn btn-default" href="{{ path('entreprise_new') }}">
+             <i class="fa fa-plus"></i> Créer une nouvelle entreprise
+         </a>
+     </li>
+ </ul>
+{% endblock %}

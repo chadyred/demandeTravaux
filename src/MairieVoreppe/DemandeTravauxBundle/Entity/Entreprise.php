@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Entreprise
  *
+ * Classe qui représente une entreprise.
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\EntrepriseRepository")
  */
@@ -30,14 +32,6 @@ class Entreprise extends PersonneMorale
      * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT", mappedBy="entreprise")
      */
     protected $dicts;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
-    }
      
    
      /**
@@ -60,6 +54,24 @@ class Entreprise extends PersonneMorale
     private $statutJuridique;
     
     
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection() 
+     * 
+     * Une MOE en tant que personne morale ne peut être qu'une entreprise, d'où la présence de cette relation ici.
+     * Détermine si l'entreprise est un maitre do'euvre. Le maitre d'ouvrage quand à lui sera une entreprise ou autre chose. Ce lien apparait dans 
+     * la classe mère personne morale.
+     * 
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale", cascade={"remove", "persist"}, orphanRemoval=true)
+     */
+    private $moePersonneMorale; 
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -152,5 +164,63 @@ class Entreprise extends PersonneMorale
     public function getDicts()
     {
         return $this->dicts;
+    }
+
+    public function __toString()
+    {
+        $toString = "";
+
+        $toString = $this->getRaisonSociale() . ' ' . $this->getStatutJuridique()->getAbreviation();
+
+        return $toString;
+        
+    }
+
+    /**
+     * Add dict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
+     *
+     * @return Entreprise
+     */
+    public function addDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
+    {
+        $this->dicts[] = $dict;
+
+        return $this;
+    }
+
+    /**
+     * Remove dict
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
+     */
+    public function removeDict(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
+    {
+        $this->dicts->removeElement($dict);
+    }
+
+    /**
+     * Set moePersonneMorale
+     *
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale $moePersonneMorale
+     *
+     * @return Entreprise
+     */
+    public function setMoePersonneMorale(\MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale $moePersonneMorale = null)
+    {
+        $this->moePersonneMorale = $moePersonneMorale;
+
+        return $this;
+    }
+
+    /**
+     * Get moePersonneMorale
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale
+     */
+    public function getMoePersonneMorale()
+    {
+        return $this->moePersonneMorale;
     }
 }

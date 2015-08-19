@@ -1,0 +1,23 @@
+{% extends 'MairieVoreppeDemandeTravauxBundle::layout.html.twig' %}
+
+{% block main_content %}
+
+	<div class="row">  
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+			<h1>Entreprise edit</h1>
+
+			{{ form(edit_form) }}
+
+			
+			<ul class="list-unstyled">
+				<li>
+					<a  type="button" class="btn btn-default" href="{{ path('entreprise') }}">
+						<i class="fa fa-backward"></i> Retourner à la liste des entreprises
+					</a>
+				</li>
+				<li>{{ form(delete_form) }}</li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}

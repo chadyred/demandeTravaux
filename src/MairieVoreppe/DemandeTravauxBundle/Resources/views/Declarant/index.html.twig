@@ -101,7 +101,7 @@
                     </td>
                 </tr>
             {% endif %}
-            {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonneMorale') %}
+           {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOAPersonneMorale') %}
                 <tr>
                     <td><a href="{{ path('entreprise_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>Maitre d'ouvrage en tant que personne morale</td>
@@ -133,6 +133,7 @@
                     </td>
                 </tr>
             {% endif %}
+
         {% endfor %}
         </tbody>
     </table>

@@ -4,9 +4,13 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\PersonneMorale;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Entreprise
+ *
+ * Classe qui représente une entreprise.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MairieVoreppe\DemandeTravauxBundle\Entity\EntrepriseRepository")
@@ -21,14 +25,30 @@ class Entreprise extends PersonneMorale
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var type Ville
+     * 
+     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT", mappedBy="entreprise")
+     */
+    protected $dicts;
     
-    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+     
+   
      /**
      * @var \
      * 
      * Privé à cette classe.
       * 
-     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Gerant", inversedBy="entreprise")
+     * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Gerant", inversedBy="entreprise", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $gerant;
     
@@ -42,6 +62,14 @@ class Entreprise extends PersonneMorale
     private $statutJuridique;
     
     
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection() 
+     * 
+     * Une MOE en tant que personne morale ne peut être qu'une entreprise, d'où la présence de cette relation ici.
+     * 
+     * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale", cascade={"persist", "remove"})
+     */
+    protected $moePersonneMorale; 
 
     /**
      * Get id
@@ -57,11 +85,15 @@ class Entreprise extends PersonneMorale
      * Set gerant
      *
      * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Gerant $gerant
+     * 
+     * On ajoute un gérant à l'entreprise, il sera persisté en cascade lorsque l'entité sera hydratée
+     * 
      * @return Entreprise
      */
     public function setGerant(\MairieVoreppe\DemandeTravauxBundle\Entity\Gerant $gerant = null)
     {
         $this->gerant = $gerant;
+        $gerant->addEntreprises($this);
 
         return $this;
     }
@@ -97,28 +129,48 @@ class Entreprise extends PersonneMorale
     public function getStatutJuridique()
     {
         return $this->statutJuridique;
-    }
+    } 
 
     /**
-     * Set adresse
+     * Add dict
      *
-     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adresse
-     * @return Entreprise
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
+     * @return DemandeIntentionCT
      */
-    public function setAdresse(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adresse = null)
+    public function addDicts(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
     {
-        $this->adresse = $adresse;
+        $this->dicts[] = $dict;
 
         return $this;
     }
 
     /**
-     * Get adresse
+     * Remove dict
      *
-     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse 
+     * @param \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict
      */
-    public function getAdresse()
+    public function removeDicts(\MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT $dict)
     {
-        return $this->adresse;
+        $this->dicts->removeElement($dict);
+    }
+
+    /**
+     * Get dtDict
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDicts()
+    {
+        return $this->dicts;
+    }
+
+    public function __toString()
+    {
+        $toString = "";
+
+        $toString = $this->getRaisonSociale() . ' ' . $this->getStatutJuridique()->getAbreviation();
+
+        return $toString;
+        
     }
 }

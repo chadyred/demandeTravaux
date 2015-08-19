@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise;
 use MairieVoreppe\DemandeTravauxBundle\Form\EntrepriseType;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * Entreprise controller.
  *
@@ -25,9 +23,9 @@ class EntrepriseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise')->findAll();
-        
-        
+        //On récupère les entreprise qui ne sont pas MOE et les MOE qui sont également apt à faire des DICTs.
+        $entities = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->myFindAllEntreprise();
+
         return $this->render('MairieVoreppeDemandeTravauxBundle:Entreprise:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -144,9 +142,7 @@ class EntrepriseController extends Controller
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Entreprise $entity)
-    {     
-        
-        
+    {
         $form = $this->createForm(new EntrepriseType(), $entity, array(
             'action' => $this->generateUrl('entreprise_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -203,8 +199,21 @@ class EntrepriseController extends Controller
                 throw $this->createNotFoundException('Unable to find Entreprise entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            if($entity->getMoePersonneMorale() != null)
+            {   
+                $moePersonneMorale = $entity->getMoePersonneMorale();
+                $moePersonneMorale->setEntreprise(null);
+                $em->flush();
+                $em->remove($moePersonneMorale);
+                $em->remove($entity);
+                $em->flush();
+            }
+            else
+            {       
+                $em->remove($entity);
+                $em->flush();
+            }
+
         }
 
         return $this->redirect($this->generateUrl('entreprise'));

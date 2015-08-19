@@ -1,3 +1,7 @@
+mairie_voreppe_demande_travaux_entreprise:
+    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/entreprise.yml"
+    prefix:   /entreprise
+
 mairie_voreppe_demande_travaux_recepisse:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/recepisse.yml"
     prefix:   /recepisse
@@ -81,10 +85,6 @@ mairie_voreppe_demande_travaux_gerant:
 mairie_voreppe_demande_travaux_exploitant:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/exploitant.yml"
     prefix:   /exploitant
-
-mairie_voreppe_demande_travaux_entreprise:
-    resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/entreprise.yml"
-    prefix:   /entreprise
 
 mairie_voreppe_demande_travaux_adresse:
     resource: "@MairieVoreppeDemandeTravauxBundle/Resources/config/routing/adresse.yml"

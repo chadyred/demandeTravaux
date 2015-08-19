@@ -48,7 +48,8 @@
         "symfony/intl": "2.8.*@dev",
         "chadyred/fpdf-fpdi-symfony2": "dev-lib",
         "lexik/maintenance-bundle": "1.0.*@dev",
-        "infinite-networks/form-bundle": "1.0.*@dev"
+        "infinite-networks/form-bundle": "1.0.*@dev",
+        "symfony/security-acl": "v2.7.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

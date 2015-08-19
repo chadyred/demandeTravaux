@@ -14,15 +14,22 @@ class DemandeIntentionCTType extends AbstractType
 {
     
     private $user;
+    private $dt;
+    private $dtDict;
+
+    // Permet de récupérer les entreprise au travers d'une requête. Cette dernière est appelé au sein du controller de la DICT.
+    private $entreprises;
+
     /**
      * On peut préciser s'il d'agit d'une dict lié avec une DT, auquel cas le numéro de téléservice sera le même
      * ou bien on peut ajouter une DICT à une DT, on peut alors préciser laquelle au travers d'une liste
      */
-    public function __construct($dtDict = false, $dt= null, $user = null)
+    public function __construct($dtDict = false, $dt= null, $user = null, $entreprises)
     {
         $this->dtDict = $dtDict;
         $this->dt = $dt;
         $this->user = $user;
+        $this->entreprises = $entreprises;
     }
     
     /**
@@ -42,7 +49,11 @@ class DemandeIntentionCTType extends AbstractType
                 'placeholder' => '-'))
             ->add('entreprise', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise',
                 'empty_data' => false,
-                'placeholder' => '-'))
+                'placeholder' => '-',
+                 'query_builder' => function (EntityRepository $er ) {
+                        return $er->getEntrepriseAvecMoePMorale();
+                            }
+                        ))
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
                 'allow_delete' => true,

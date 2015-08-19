@@ -12,4 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntrepriseRepository extends EntityRepository
 {
+	/**
+	* Fonction qui permet de récupérer les entreprise n'étant pas un maître d'oeuvre ou celles qui le sont, doivent être habilité à
+	* être prestataire de DICT
+	*
+	*/
+	public function getEntrepriseAvecMoePMorale() 
+	{
+        /**
+        * Récupérer depuis le controller les entreprise n'ayant pas de maitre d'oeuvre et celles qui en on un avec l'autorisation d'apparaitre dans les DICT dont
+        */
+        $query_builder =  $this->createQueryBuilder("e")
+    							->leftjoin('e.moePersonneMorale', 'moe_pm')
+                         			->where('moe_pm.prestataireDICT = true OR e.moePersonneMorale IS NULL');
+
+
+         return $query_builder;
+    }
+
+
+	public function myFindAllEntreprise() 
+	{
+
+		 $query_builder =  $this->createQueryBuilder("e")
+							->leftjoin('e.moePersonneMorale', 'moe_pm')
+                     			->where('moe_pm.prestataireDICT = true OR e.moePersonneMorale IS NULL');
+
+        $results = $query_builder->getQuery()->getResult();
+                         			
+         return $results;
+    }
 }

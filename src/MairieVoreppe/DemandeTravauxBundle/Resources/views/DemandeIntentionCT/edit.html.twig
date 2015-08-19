@@ -47,7 +47,7 @@
             </div>             
         {% endif %}    
         {{ form_row(edit_form.serviceExploitant) }}
-        {{ form_row(edit_form.maitreOeuvre) }}
+        {{ form_row(edit_form.entreprise) }}
         {{ form_row(edit_form.numeroAffaireDeclarant) }}
         
         {{ form_row(edit_form.dateDebutTravaux) }}
@@ -57,7 +57,7 @@
         {{ form_row(edit_form.noteComplementaire) }}
         {{ form_row(edit_form.dateReceptionDemande) }}
         {{ form_row(edit_form.dateReponseDemande) }}
-        {{ form_row(edit_form.maitreOeuvre) }}
+        {{ form_row(edit_form.entreprise) }}
         
         {#Il est nécessaire de redéfinir le block en lui même de twig sur les block, ainsi on peut appliquer un filtre pour interprété le HTML retiré au sen d'une erreur
         en l'occurence c'est le lien de la DT conjointe vers laquelle la DICT pointe#}

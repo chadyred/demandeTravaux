@@ -149,7 +149,20 @@ class DemandeIntentionCTController extends Controller
             throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        //  $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->findAll();
+        // $entreprisesPrestataires = new \Doctrine\Common\Collections\ArrayCollection();
+
+        // foreach($entreprises as $e)
+        // {
+        //     if($e->getMoePersonneMorale() != null)
+        //         if($e->getMoePersonneMorale()->getPrestataireDICT())
+        //             $entreprisesPrestataires[] = $e;
+
+        // }
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntrepriseAvecMoePMorale();
+
+        $editForm = $this->createEditForm($entity, $entreprises);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT:edit.html.twig', array(
@@ -166,9 +179,9 @@ class DemandeIntentionCTController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(DemandeIntentionCT $entity)
+    private function createEditForm(DemandeIntentionCT $entity, $entreprises)
     {
-        $form = $this->createForm(new DemandeIntentionCTType($entity->getDtDictConjointe(), $entity->getDt()), $entity, array(
+        $form = $this->createForm(new DemandeIntentionCTType($entity->getDtDictConjointe(), $entity->getDt(), null, $entreprises), $entity, array(
             'action' => $this->generateUrl('demandeintentionct_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

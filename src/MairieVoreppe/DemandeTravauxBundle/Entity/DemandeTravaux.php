@@ -126,7 +126,7 @@ class DemandeTravaux extends Travaux
      */
     public function getDeclarant()
     {
-        return $this->maitreOuvrage;
+        return $this->declarant;
     }
    
 

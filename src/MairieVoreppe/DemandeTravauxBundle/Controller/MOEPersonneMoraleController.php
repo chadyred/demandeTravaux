@@ -203,6 +203,12 @@ class MOEPersonneMoraleController extends Controller
                 throw $this->createNotFoundException('Unable to find MOEPersonneMorale entity.');
             }
 
+            // LOrsque l'on supprime un maître do'euvre en tant que personne morale, une one to one entreprise existe. De chaque côté on a une clé étrangère afin de récupéré
+            // du conté inverse, l'owner side. Sans cela une onetoone ne fonctionnerai pas lorsque l'on souhaite
+            $entrepriseMoe = $entity->getEntreprise();
+            $entity->setEntreprise(null);
+            $em->flush();
+            $em->remove($entrepriseMoe);
             $em->remove($entity);
             $em->flush();
         }

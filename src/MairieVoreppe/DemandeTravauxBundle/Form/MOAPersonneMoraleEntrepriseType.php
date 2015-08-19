@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-//Un epersonne morale en tant que maitre d'oeuvre constitut uniquement pour l'instant une
 class MOAPersonneMoraleEntrepriseType extends DeclarantType
 {
     protected $class = 'MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonneMorale';
