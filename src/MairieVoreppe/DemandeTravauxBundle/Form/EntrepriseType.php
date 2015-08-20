@@ -6,10 +6,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use libphonenumber\PhoneNumberFormat;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 class EntrepriseType extends AbstractType
 {
-     
+      private $entrepriseDict;
+
+      public function __construct($entrepriseDict = false)
+      {
+        $this->entrepriseDict = $entrepriseDict;
+      }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -29,6 +37,29 @@ class EntrepriseType extends AbstractType
             ->add('adresse', new AdresseType())
             ->add('gerant', new GerantType())
         ;
+
+         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+
+            $form = $event->getForm();
+
+            if($this->entrepriseDict == false)
+            {
+                $form
+                    ->add('prestataireDICT', 'checkbox', array(
+                        'label' => "Prestataire DICT?",
+                        "required" => false));
+            }
+            else
+            {
+                 $form
+                    ->add('prestataireDICT', 'checkbox', array(
+                        'label' => false,
+                        'data' => $this->entrepriseDict,
+                        "attr" => array("hidden" => "hidden"),
+                        "required" => false));
+            }
+        });
+
     }
     
     /**

@@ -204,7 +204,7 @@ class MOEPersonneMoraleController extends Controller
             }
 
             // LOrsque l'on supprime un maître do'euvre en tant que personne morale, une one to one entreprise existe. De chaque côté on a une clé étrangère afin de récupéré
-            // du conté inverse, l'owner side. Sans cela une onetoone ne fonctionnerai pas lorsque l'on souhaite
+            // du coté inverse, l'owner side. Sans cela une onetoone ne fonctionnerai pas lorsque l'on souhaite
             $entrepriseMoe = $entity->getEntreprise();
             $entity->setEntreprise(null);
             $em->flush();

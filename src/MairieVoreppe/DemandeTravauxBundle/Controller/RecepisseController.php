@@ -319,7 +319,7 @@ class RecepisseController extends Controller
 
 
                 //On récupère le déclarant qui est forcement un maître d'oeuvre
-                $classeTypeDeclarant = get_class($demande->getMaitreOeuvre());
+                $classeTypeDeclarant = get_class($demande->getEntreprise());
 
                 //Variable qui contiendra le déclarant
                 $declarant = "";

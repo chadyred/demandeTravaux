@@ -59,6 +59,10 @@ class RecepisseDICTController extends RecepisseController
 
             $eros = $entity->getEmplacementsReseauOuvrage();
 
+
+            $dict->setRecepisseDict($entity);
+        
+
             //Une persistence qui ne se pas automatiquement...bizarre...
             foreach($eros as $ero){
                 $entity->addEmplacementsReseauOuvrage($ero);
@@ -191,8 +195,11 @@ class RecepisseDICTController extends RecepisseController
 
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
-
-        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        //Si on a un rendez-vous on récupère le type de rendez vous hérité
+        if($entity->getRendezVous()[0] != null){
+            $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        }
+        
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
         $editForm = $this->createEditForm($entity);

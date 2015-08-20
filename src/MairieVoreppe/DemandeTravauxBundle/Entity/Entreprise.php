@@ -57,14 +57,24 @@ class Entreprise extends PersonneMorale
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection() 
      * 
-     * Une MOE en tant que personne morale ne peut être qu'une entreprise, d'où la présence de cette relation ici.
-     * Détermine si l'entreprise est un maitre do'euvre. Le maitre d'ouvrage quand à lui sera une entreprise ou autre chose. Ce lien apparait dans 
-     * la classe mère personne morale.
+     * 
      * 
      * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale", cascade={"remove", "persist"}, orphanRemoval=true)
      */
     private $moePersonneMorale; 
     
+
+    /**
+    * @var boolean
+    *
+    *
+    * Toute entreprise peut prétendre à être prestataire ou non ! Les entreprise créé par défaut le son par défaut.
+    *
+    * @ORM\column(name="prestataire_dict", type="boolean", nullable=false)
+    *
+    */
+    private $prestataireDICT;
+
     /**
      * Constructor
      */
@@ -222,5 +232,29 @@ class Entreprise extends PersonneMorale
     public function getMoePersonneMorale()
     {
         return $this->moePersonneMorale;
+    }
+
+     /**
+     * Set prestataireDICT
+     *
+     * @param boolean $prestataireDICT
+     *
+     * @return MOEPersonneMorale
+     */
+    public function setPrestataireDICT($prestataireDICT)
+    {
+        $this->prestataireDICT = $prestataireDICT;
+
+        return $this;
+    }
+
+    /**
+     * Get prestataireDICT
+     *
+     * @return boolean
+     */
+    public function getPrestataireDICT()
+    {
+        return $this->prestataireDICT;
     }
 }

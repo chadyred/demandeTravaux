@@ -51,7 +51,7 @@ class DemandeIntentionCTType extends AbstractType
                 'empty_data' => false,
                 'placeholder' => '-',
                  'query_builder' => function (EntityRepository $er ) {
-                        return $er->getEntrepriseAvecMoePMorale();
+                        return $er->getEntreprisePrestataire();
                             }
                         ))
             ->add('adresses', 'collection', array('type' => new AdresseType(),

@@ -1,4 +1,4 @@
-{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+
 {% extends 'MairieVoreppeDemandeTravauxBundle:Recepisse:layout.html.twig' %}
 {% block main_content %}
 
@@ -9,9 +9,8 @@
 {{ form_start(edit_form) }}
 {{ form_errors(edit_form) }}
 <div id="info-recepisse-creation" class="row">
-	<div class="col-lg-12"
 		<div class="col-lg-3">
-			Entity de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
+			Date de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
 		</div>
 		<div class="col-lg-3">
 			Numéro de téléservice de création: {{ dt.numeroTeleservice }}				
@@ -91,7 +90,7 @@
 				Reçu le : {{ dt.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dt.canalReception.libelle }}
 				<br/>
 				{# Les __toString() personnalise l'affichage #}
-				Déclarant : {{ dt.maitreOuvrage }}
+				Déclarant : {{ dt.declarant }}
 				<br/>
 				Numéro d'affaire du déclarant : {{ dt.numeroAffaireDeclarant }}
 			</p>

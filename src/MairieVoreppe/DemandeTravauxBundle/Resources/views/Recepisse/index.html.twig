@@ -43,32 +43,44 @@
                         <td></td>
                         <td>              
                 
-                            {# Une DT/DICT conjointe = adresse d’envoi => celle de la DICT #}
-                            
+                            {# Une DT/DICT conjointe = adresse d’envoi => celle de la DICT #}                            
 
                             {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
 
                                 {% if entity.dt.dicts|length > 0 %}                 
                                     {% for dict in entity.dt.dicts %}
-                                        {% if dict.dtDictConjointe  %}
+                                        {% if dict.dtDictConjointe == true  %}
                                             {% set dictConjointe = dict %}
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
 
-                                {# Si la DT n'est conjointe à une DICT, on coche la première case et le destinataire sera celui de la DT #}
+                                {# Si la DT n'est pas conjointe à une DICT, on coche la première case et le destinataire sera celui de la DT #}
                                 {% if dictConjointe == NULL %} 
-                                    {% set destinataireDemande = demande.maitreOuvrage  %}                           
+                                    {% set destinataireDemande = entity.dt.declarant  %}                           
                                 {% else %}
-                                    {% set destinataireDemande = dictConjointe.maitreOeuvre  %}
+                                    {% set destinataireDemande = dictConjointe.entreprise  %}
                                 {% endif %}
 
                                 {# Affichage de la valeur #}
                                 {{ destinataireDemande }}
+                            {% else %}
+                                {# Dans le cas d'un récépissé de DICT on prend systématiqueent l'entreprise en destiataire #}
+                                {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT') %}
+                                            {{ entity.dict.entreprise }}
+                                {% endif %}
                             {% endif %}
                         </td>
-                        <td></td>
                         <td>
+                        {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
+                                {{ entity.dt.descriptionTravaux }}
+                             {% else %}
+                                {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT') %}
+                                        {{ entity.dict.descriptionTravaux }}
+                                {% endif %}
+                             {% endif %}</td>
+                        <td>
+                             
                              {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDT') %}
                                 DT
                              {% else %}

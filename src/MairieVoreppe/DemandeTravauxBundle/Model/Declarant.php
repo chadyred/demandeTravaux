@@ -26,9 +26,7 @@ abstract class Declarant
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    
-    
+        
     /**
      * @var type Ville
      * 

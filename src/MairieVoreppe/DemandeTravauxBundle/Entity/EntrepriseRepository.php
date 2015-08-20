@@ -17,14 +17,13 @@ class EntrepriseRepository extends EntityRepository
 	* être prestataire de DICT
 	*
 	*/
-	public function getEntrepriseAvecMoePMorale() 
+	public function getEntreprisePrestataire() 
 	{
         /**
         * Récupérer depuis le controller les entreprise n'ayant pas de maitre d'oeuvre et celles qui en on un avec l'autorisation d'apparaitre dans les DICT dont
         */
         $query_builder =  $this->createQueryBuilder("e")
-    							->leftjoin('e.moePersonneMorale', 'moe_pm')
-                         			->where('moe_pm.prestataireDICT = true OR e.moePersonneMorale IS NULL');
+                         			->where('e.prestataireDICT = true');
 
 
          return $query_builder;
@@ -35,8 +34,7 @@ class EntrepriseRepository extends EntityRepository
 	{
 
 		 $query_builder =  $this->createQueryBuilder("e")
-							->leftjoin('e.moePersonneMorale', 'moe_pm')
-                     			->where('moe_pm.prestataireDICT = true OR e.moePersonneMorale IS NULL');
+                                    ->where('e.prestataireDICT = true');
 
         $results = $query_builder->getQuery()->getResult();
                          			

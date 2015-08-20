@@ -87,7 +87,7 @@
 				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dict.canalReception.libelle }}
 				<br/>
 				{# Les __toString() personnalise l'affichage #}
-				Déclarant : {{ dict.dt != null ? dict.dt.maitreOuvrage : dict.maitreOeuvre }}
+				Déclarant : {{ dict.dt != null ? dict.dt.declarant : dict.entreprise }}
 				<br/>
 				Numéro d'affaire du déclarant : {{ dict.numeroAffaireDeclarant }}
 			</p>

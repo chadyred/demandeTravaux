@@ -149,18 +149,8 @@ class DemandeIntentionCTController extends Controller
             throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
         }
 
-        //  $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->findAll();
-        // $entreprisesPrestataires = new \Doctrine\Common\Collections\ArrayCollection();
 
-        // foreach($entreprises as $e)
-        // {
-        //     if($e->getMoePersonneMorale() != null)
-        //         if($e->getMoePersonneMorale()->getPrestataireDICT())
-        //             $entreprisesPrestataires[] = $e;
-
-        // }
-
-        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntrepriseAvecMoePMorale();
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
 
         $editForm = $this->createEditForm($entity, $entreprises);
         $deleteForm = $this->createDeleteForm($id);
@@ -204,8 +194,10 @@ class DemandeIntentionCTController extends Controller
             throw $this->createNotFoundException('Unable to find DemandeIntentionCT entity.');
         }
         
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $entreprises);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {

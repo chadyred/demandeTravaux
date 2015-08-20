@@ -743,7 +743,10 @@ abstract class Recepisse
      */
     public function setRendezVous(array $rendezVous = null)
     {
-        $this->rendezVous = $rendezVous[0];
+        if(isset($rendezVous[0]))
+            $this->rendezVous = $rendezVous[0];
+        else
+             $this->rendezVous = null;    
 
         return $this;
     }

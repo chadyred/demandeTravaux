@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormEvent;
 use MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDICT;
 
 
-class RecepisseDICTType extends ReponseType
+class RecepisseDICTType extends RecepisseType
 {
     protected $dataClass = 'MairieVoreppe\\DemandeTravauxBundle\\Entity\\RecepisseDICT';
 

@@ -3,9 +3,13 @@
 
 
  {% block moa_content %}
-    <h1>Maitre ouvrage liste</h1>
 
-    <table class="records_list">
+<section class="table-responsive">
+    <hr/>
+    <caption>        
+        <h1>Maitre ouvrage liste</h1>
+    </caption>
+    <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
                 <th>Id</th>
@@ -79,6 +83,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+</section>
 
 {% endblock %}

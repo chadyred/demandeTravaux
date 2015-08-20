@@ -30,6 +30,7 @@ class EntrepriseController extends Controller
             'entities' => $entities,
         ));
     }
+    
     /**
      * Creates a new Entreprise entity.
      *
@@ -37,11 +38,17 @@ class EntrepriseController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Entreprise();
-        $form = $this->createCreateForm($entity);
+
+        //True indique que l'on créé une véritable entreprise et non en passant par un déclarant, ce en vue de cacher la case à coché étant donné
+        //qu'elle l'est directement
+        $form = $this->createCreateForm($entity, true);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $entity->setPrestataireDICT(true);
             $em->persist($entity);
             $em->flush();
 
@@ -61,9 +68,9 @@ class EntrepriseController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Entreprise $entity)
+    private function createCreateForm(Entreprise $entity, $entrepriseDict)
     {
-        $form = $this->createForm(new EntrepriseType(), $entity, array(
+        $form = $this->createForm(new EntrepriseType($entrepriseDict), $entity, array(
             'action' => $this->generateUrl('entreprise_create'),
             'method' => 'POST',
         ));
@@ -80,7 +87,10 @@ class EntrepriseController extends Controller
     public function newAction()
     {
         $entity = new Entreprise();
-        $form   = $this->createCreateForm($entity);
+        
+        //True indique que l'on créé une véritable entreprise et non en passant par un déclarant, ce en vue de cacher la case à coché étant donné
+        //qu'elle l'est directement
+        $form   = $this->createCreateForm($entity, true);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:Entreprise:new.html.twig', array(
             'entity' => $entity,
