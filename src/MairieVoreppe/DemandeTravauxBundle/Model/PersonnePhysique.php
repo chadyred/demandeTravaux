@@ -28,6 +28,8 @@ abstract class PersonnePhysique extends Personne
     /**
      * @var string
      *
+     * Le nom suffit
+     *
      * @ORM\Column(name="nom", type="string", length=255)
      * @Groups({"dt"})
      */
@@ -36,7 +38,7 @@ abstract class PersonnePhysique extends Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      * @Groups({"dt"})
      */
     protected $prenom;

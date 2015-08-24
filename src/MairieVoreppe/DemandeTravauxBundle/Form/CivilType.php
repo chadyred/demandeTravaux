@@ -18,12 +18,16 @@ class CivilType extends AbstractType
     {
         $builder
             ->add('civilite', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Civilite',
-                'property' => 'abreviation'))
+                'property' => 'abreviation',
+                "empty_data" => false,
+                "placeholder" => "-"))
             ->add('nom')
             ->add('prenom')
                 //Type phone_number
-            ->add('telFixe', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
-            ->add('telMobile', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
+            ->add('telFixe', 'tel', array('default_region' => 'FR', 
+                'format' => PhoneNumberFormat::NATIONAL))
+            ->add('telMobile', 'tel', array('default_region' => 'FR', 
+                'format' => PhoneNumberFormat::NATIONAL))
             ->add('email')
             ->add('adresse', new AdresseType())
         ;

@@ -5,6 +5,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * DemandeImprecise
@@ -27,7 +28,8 @@ class DemandeImprecise extends Reponse
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-    * @Groups({"reponse_recepisse"})
+     * @Assert\NotBlank()
+     * @Groups({"reponse_recepisse"})
      */
     private $description;
 

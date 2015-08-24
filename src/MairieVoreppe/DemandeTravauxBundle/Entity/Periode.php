@@ -27,8 +27,8 @@ class Periode
     
      /**
      * @var \$responsableExploitant 
-     * @Assert\Valid()
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ResponsableExploitant", inversedBy="periodes", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $responsableExploitant;
     
@@ -36,6 +36,7 @@ class Periode
      * @var \$mairie
       * 
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant", inversedBy="periodes")
+     * @Assert\Valid()
      */
     private $exploitant;
     

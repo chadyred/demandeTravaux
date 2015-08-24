@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -27,6 +28,7 @@ class ArreteModel
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;

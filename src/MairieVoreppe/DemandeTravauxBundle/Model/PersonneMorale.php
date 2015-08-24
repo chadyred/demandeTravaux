@@ -26,12 +26,14 @@ abstract class PersonneMorale extends Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="siret", type="string", length=255)
+     * @ORM\Column(name="siret", type="string", length=255, nullable=true)
      */
     protected $siret;
 
     /**
      * @var string
+     *
+     * Il suffit qu'elle est un nom au moins
      *
      * @ORM\Column(name="raisonSociale", type="string", length=255)
      */

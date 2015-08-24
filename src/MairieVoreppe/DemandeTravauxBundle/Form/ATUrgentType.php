@@ -27,17 +27,18 @@ class ATUrgentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numeroTeleservice')
+            ->add('numeroTeleservice', null, array("required" => true))
             ->add('dateDebutTravaux', 'datetime')
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             //placeholder remplace empty_value de 2.6
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
                 'empty_data' => false,
-                'placeholder' => '-'))         
-            ->add('descriptionTravaux')
-            ->add('noteComplementaire')
-            ->add('dateReceptionDemande', 'datetime')
+                'placeholder' => '-', 
+                "required" => false))         
+            ->add('descriptionTravaux', null, array("required" => false))
+            ->add('noteComplementaire', null, array("required" => false))
+            ->add('dateReceptionDemande', 'datetime', array("required" => true))
             ->add('dateReponseDemande',  'datetime')
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,

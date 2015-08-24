@@ -29,10 +29,16 @@ class PeriodeEditType extends PeriodeType
                 'property' => 'nom',
                 'data' => $this->exploitant,
                 'attr' => array('class' => 'hidden'),//Je cache ce champ puisque chaque periode créé correspondra au MAIRE constement en cours d'édition
-                'label' => false)) //'label' => false permet de retirer le nom de l'entité qui apparait puisuq'ici on cache le maire puisque l'on a les info au dessus
+                'label' => false,
+                "empty_data" => false,
+                "placeholder" => "-"
+                )) //'label' => false permet de retirer le nom de l'entité qui apparait puisuq'ici on cache le maire puisque l'on a les info au dessus
             ->add('mairie', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Exploitant',
                 'property' => 'raisonSociale',
-                'label' => 'de la mairie'))
+                'label' => 'de la mairie',
+                "empty_data" => false,
+                "placeholder" => "-"
+                ))
              ->add('delete', 'submit')
         ;
         

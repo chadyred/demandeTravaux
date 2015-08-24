@@ -13,12 +13,15 @@ class DtDictType extends AbstractType
 {
     
     private $user;
+    // Permet de récupérer les entreprise au travers d'une requête. Cette dernière est appelé au sein du controller de la DICT.
+    private $entreprises;
 
     //Le user vaut null lorsque l'on édit. en effet, on veut uniquement récupérer celui qui créer le travaux,
     // afin de proposer UNIQUEMENT les services au seind esquels il travail
-    public function __construct($user = null)
+    public function __construct($user = null, $entreprises)
     {
         $this->user = $user;
+        $this->entreprises = $entreprises;
     }
 
     /**
@@ -30,18 +33,23 @@ class DtDictType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /**
+        * On ajoute les information de la DT 
+        * puis tous les éléments de la DICT
+        */
         $builder
             ->add('dt', new DemandeTravauxType($this->user), array('label' => false))          
              ->add('numeroTeleservice', 'text', array('disabled' => true ))
-            ->add('numeroAffaireDeclarant', 'text')
-            ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
-            ->add('dateDebutTravaux',  'datetime')
+            ->add('numeroAffaireDeclarant', 'text', array("required" => false))
+            ->add('duree', 'integer', array('required' => false, 'label' => 'Indiquez la durée en jour'))
+            ->add('dateDebutTravaux',  'datetime', array('required' => false ))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
                 'empty_data' => false,
                 'placeholder' => '-'))
-            ->add('maitreOeuvre', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Model\MaitreOeuvre',
+            ->add('entreprise', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise',
                 'empty_data' => false,
+                'data' => $this->entreprises,
                 'placeholder' => '-'))
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
@@ -49,10 +57,10 @@ class DtDictType extends AbstractType
                 'options' => array('required' => false),
                 'label' => false
               ))            
-            ->add('descriptionTravaux')
-            ->add('noteComplementaire')
+            ->add('descriptionTravaux', 'text', array("required" => false))
+            ->add('noteComplementaire', 'text', array("required" => false))
             ->add('dateReceptionDemande',  'datetime')
-            ->add('dateReponseDemande',  'datetime')
+            ->add('dateReponseDemande',  'datetime', array("required" => false))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,

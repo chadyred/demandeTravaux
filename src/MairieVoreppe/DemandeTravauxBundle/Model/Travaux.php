@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Travaux
@@ -36,7 +37,7 @@ abstract class Travaux
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroTeleservice", type="string", length=255)
+     * @ORM\Column(name="numeroTeleservice", type="string", length=255, nullable=true)
      */
     protected $numeroTeleservice;
 
@@ -45,16 +46,22 @@ abstract class Travaux
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroAffaireDeclarant", type="string", length=255)
+     * @ORM\Column(name="numeroAffaireDeclarant", type="string", length=255, nullable=true)
      */
     protected $numeroAffaireDeclarant;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDebutTravaux", type="datetime")
+     * @ORM\Column(name="dateDebutTravaux", type="datetime", nullable=true)
      */
     protected $dateDebutTravaux;
+
+    /**
+     * @var \DateTime
+     *
+     */
+    protected $dateFinTravaux;
 
     /**
      * @var int
@@ -66,7 +73,7 @@ abstract class Travaux
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptionTravaux", type="text")
+     * @ORM\Column(name="descriptionTravaux", type="text", nullable=true)
      */
     protected $descriptionTravaux;
     
@@ -74,7 +81,7 @@ abstract class Travaux
     /**
      * @var string
      *
-     * @ORM\Column(name="noteComplementaire", type="text")
+     * @ORM\Column(name="noteComplementaire", type="text", nullable=true)
      */
     protected $noteComplementaire;
     
@@ -86,13 +93,16 @@ abstract class Travaux
      * Une personne n'a qu'une contactUrgent. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
      * @ORM\ManyToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ContactUrgent", cascade={"persist", "remove"}, inversedBy="travaux")
+     * @ORM\JoinColumn(nullable=true) 
      */
     protected $contactsUrgent; 
     
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateReceptionDemande", type="datetime")
+     * La date est inscript sur l'enveloppe, le mail ou le fax
+     *
+     * @ORM\Column(name="dateReceptionDemande", type="datetime", nullable=false)
      */
     protected $dateReceptionDemande;
     
@@ -111,6 +121,7 @@ abstract class Travaux
      * 
      * Une personne n'a qu'une contactUrgent. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception", inversedBy="travaux")
      */
     protected $canalReception; 
@@ -122,7 +133,7 @@ abstract class Travaux
      * 
      * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Adresse", cascade={"persist", "remove"}, orphanRemoval=true, mappedBy="travaux")
      */
-    protected $adresses; 
+    protected $adresses;
     
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection() 
@@ -130,6 +141,7 @@ abstract class Travaux
      * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait lors de la connexion.
      * 
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="travaux")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $user;
     
@@ -137,10 +149,11 @@ abstract class Travaux
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection() 
      * 
-     * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait lors de la connexion.
+     * Un travaux est créé par un user au sein d'un service, qui est celui pour lequel il est connecté. Ce choix se fait au sein d'une liste
+     * 
      * 
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\ServiceExploitant", inversedBy="travaux")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $serviceExploitant;
 
@@ -211,6 +224,27 @@ abstract class Travaux
     {
         return $this->dateDebutTravaux;
     }
+
+    /**
+     * Get dateDebutTravaux
+     *
+     * @return \DateTime 
+     */
+    public function getDateFinTravaux()
+    {   
+         $this->dateFinTravaux = null;
+         
+        if($this->duree != "")
+        {
+              $this->dateFinTravaux = new \DateTime($this->dateDebutTravaux);
+              // $this->dateFinTravaux = $this->dateDebutTravaux;
+              $this->dateFinTravaux->add(new \DateInterval('P' . $this->duree . 'D'));    
+        }
+
+        return $this->dateFinTravaux;
+        
+    }
+
 
     /**
      * Set descriptionTravaux
@@ -395,12 +429,16 @@ abstract class Travaux
      *
      * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adress
      *
+     * Un travaux peut être commencé et enregistré sans pour autant avoir d'adresse, tel un brouillon dans le workflow.
+     *
      * @return Travaux2
      */
-    public function addAdress(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adress)
+    public function addAdress(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adress = null)
     {
-        $this->adresses[] = $adress;
-        $adress->setTravaux($this);
+        if($adress != null){
+            $this->adresses[] = $adress;
+            $adress->setTravaux($this);
+        }
 
         return $this;
     }

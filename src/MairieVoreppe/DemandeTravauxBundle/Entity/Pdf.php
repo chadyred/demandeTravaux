@@ -909,8 +909,7 @@ class Pdf extends \FPDI
 	* Partie cas 'Signature exploitant représentant'
 	*
 	******/
-	//Numéro de téléphone du service responsable du dossier
-	public function signatureExploitantReprésentant($string)
+	public function signatureExploitantRepresentant($string)
 	{
 		$this->SetXY(135, 268.3);
 		$this->Cell(140,4,utf8_decode($string), 0, 0,'l',0); 
@@ -933,7 +932,7 @@ class Pdf extends \FPDI
 	public function getUploadDir()
     {
         // On retourne le chemin relatif vers l'image pour un navigateur
-        return 'uploads/pdf';
+        return 'bundles/mairievoreppedemandetravaux/pdf';
     }
 
     public function getUploadRootDir()

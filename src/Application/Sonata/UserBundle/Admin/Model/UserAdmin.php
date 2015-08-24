@@ -134,13 +134,13 @@ class UserAdmin extends Admin
         // define group zoning
         $formMapper
             ->tab('User')
-                ->with('Profile', array('class' => 'col-md-6'))->end()
                 ->with('General', array('class' => 'col-md-6'))->end()
+                ->with('Profile', array('class' => 'col-md-6'))->end()
+                ->with('Groups', array('class' => 'col-md-6'))->end()
                 ->with('Social', array('class' => 'col-md-6'))->end()
             ->end()
             ->tab('Security')
                 ->with('Status', array('class' => 'col-md-4'))->end()
-                ->with('Groups', array('class' => 'col-md-4'))->end()
                 ->with('Keys', array('class' => 'col-md-4'))->end()
             ->end()
         ;
@@ -176,6 +176,15 @@ class UserAdmin extends Admin
                     ->add('timezone', 'timezone', array('required' => false))
                     ->add('phone', null, array('required' => false))
                 ->end()
+                ->with('Groups')
+                    ->add('services', 'entity', array(
+                        'class' => 'ApplicationSonataUserBundle:Service',
+                        'property' => 'name',
+                        'required' => false,
+                        'expanded' => true,
+                        'multiple' => true
+                    ))
+                ->end()
                 ->with('Social')
                     ->add('facebookUid', null, array('required' => false))
                     ->add('facebookName', null, array('required' => false))
@@ -195,16 +204,7 @@ class UserAdmin extends Admin
                         ->add('expired', null, array('required' => false))
                         ->add('enabled', null, array('required' => false))
                         ->add('credentialsExpired', null, array('required' => false))
-                    ->end()
-                    ->with('Groups')
-                        ->add('services', 'entity', array(
-                            'class' => 'ApplicationSonataUserBundle:Service',
-                            'property' => 'name',
-                            'required' => false,
-                            'expanded' => true,
-                            'multiple' => true
-                        ))
-                    ->end()
+                    ->end()                    
                     ->with('Rôles')
                         ->add('roles', 'sonata_security_roles', array(
                             'label'    => 'form.label_roles',

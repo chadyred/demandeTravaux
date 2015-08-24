@@ -25,6 +25,7 @@ class ArretePromulgue
      * @var DemandeIntentionCT
      *
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT", inversedBy="arretesPromulgues")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $dict;
 

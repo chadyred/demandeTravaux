@@ -1,8 +1,7 @@
 {# src/MairieVoreppe/DemandeTravauxBundle/Resources/views/ArreteModel/index.html.twig #}
-    
 {% extends "::base.html.twig" %}
 {% block corps %}
-    <h1>ArreteModel new</h1> 
+    <h1>ArreteModel edit</h1> 
     
 {# {{ dump(reflectionClass) }} #}
 <section id="ckeditor_arrete_model">
@@ -17,19 +16,20 @@
                           </option>
                         {% else %}
                           {# on retire les arrays collection, aisni que le debutDateTravaux qui est un DAteTime (les filtre bug sous ckeditor car les guillement de ('Y-m-d') sont encrypter) #}
-                          {% if propertyDict.name != 'dateDebutTravaux' and propertyDict.name|last != 's' and propertyDict.name != 'maitreOeuvre' and propertyDict.name != 'user' and propertyDict.name != 'service' %}
+                          {% if propertyDict.name != 'dateDebutTravaux' and propertyDict.name|last != 's' and propertyDict.name != 'entreprise' and propertyDict.name != 'user' and propertyDict.name != 'serviceExploitant' %}
                               <option>
                                   {{  "{{ %s.%s }}"|format(form.dict.vars.name, propertyDict.name) }}
                               </option>
                           {% endif %}
                         {% endif %}
                   {% endfor %}
-              </select>              
+              </select>
+              
             </div>
         </div>
         <div class="row">
             <div class=" col-lg-12">
-            Information sur l'exploitant : 
+            Information sur l'exploitant: 
              <select>
                   {% for propertyExploitant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Exploitant'].properties %}
                         {# on retire les arrays collection#}
@@ -42,9 +42,9 @@
                          {% else %}
                             {% if propertyExploitant.name == 'responsableExploitantEnCours' %}
                                {% for propertyResponsableExploitant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\ResponsableExploitant'].properties %}
-                               <option>
-                                  {{  "{{ %s.serviceExploitant.exploitant.responsableExploitantEnCours.%s }}"|format(form.dict.vars.name, propertyMaire.name) }}
-                               </option>
+                                 <option>
+                                    {{ "{{ %s.serviceExploitant.exploitant.responsableExploitantEnCours.%s }}"|format(form.dict.vars.name, propertyMaire.name) }}
+                                 </option>
                                {% endfor %}
                             {% endif %}
                             {% if propertyExploitant.name|last != 's' %}
@@ -68,7 +68,7 @@
                           {# on retire les arrays collection#}
                           {% if propertyService.name|last != 's' and propertyService.name|last != 'x' and propertyService.name != 'mairie' %}
                             <option>
-                                {{  "{{ %s.service.%s }}"|format(form.dict.vars.name, propertyService.name) }}
+                                {{  "{{ %s.serviceExploitant.service.%s }}"|format(form.dict.vars.name, propertyService.name) }}
                             </option>
                           {% endif %}
                   {% endfor %}
@@ -88,7 +88,7 @@
                                         {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
                                             {% if propertyAdresse.name|last != 's' and propertyAdresse.name|last != 'x' and propertyAdresse.name != 'personne' %}
                                                 <option>
-                                                    {{  "{{ %s.maitreOeuvre.entreprise.adresse.%s }}"|format(form.dict.vars.name, propertyAdresse.name) }}
+                                                    {{  "{{ %s.dt.declarant.adresse.%s }}"|format(form.dict.vars.name, propertyAdresse.name) }}
                                                 </option>
                                             {% endif %}  
                                         {% endfor %}                       
@@ -97,18 +97,18 @@
                                             {% for propertyGerant in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Gerant'].properties %}
                                                 {% if propertyGerant.name|last != 's' and propertyGerant.name|last != 'x' and propertyGerant.name != 'personne' %}
                                                     <option>
-                                                        {{  "{{ %s.maitreOeuvre.entreprise.gerant.%s }}"|format(form.dict.vars.name, propertyGerant.name) }}
+                                                        {{  "{{ %s.entreprise.gerant.%s }}"|format(form.dict.vars.name, propertyGerant.name) }}
                                                     </option>
                                                 {% endif %}  
                                             {% endfor %}                       
                                         {% else %} 
                                             {% if propertyEntreprise.name|last != 's' and propertyEntreprise.name|last != 'x' and propertyEntreprise.name != 'mairie' %}
                                                <option>
-                                                   {{  "{{ %s.maitreOeuvre.entreprise.%s }}"|format(form.dict.vars.name, propertyEntreprise.name) }}
+                                                   {{  "{{ %s.entreprise.%s }}"|format(form.dict.vars.name, propertyEntreprise.name) }}
                                                </option>
                                              {% endif %}    
                                         {% endif %}     
-                                    {% endif %}                               
+                                    {% endif %}
                              {% endfor %}
                           {#Sinon il s'agit des autres propriétés pour l'entreprise#}
                         {% else %}                            
@@ -124,27 +124,27 @@
         </div>
         <div class="row">
             <div class=" col-lg-12">
-            Information sur le maitre d'oeuvre en tant que personne physique : 
-           <select>               
-                  {% for propertyMaitreOeuvre in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonnePhysique'].properties %}
-                       {% if propertyMaitreOeuvre.name == "civil" %}
-                            {% for propertyCivil in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Civil'].properties %}
-                                {# on retire les arrays collection#}
-                                {% if propertyCivil.name|last != 's' and propertyCivil.name|last != 'x' and propertyCivil.name != 'mairie' %}
+                Information sur le maitre d'oeuvre en tant que personne physique : 
+               <select>               
+                      {% for propertyMaitreOeuvre in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\MOEPersonnePhysique'].properties %}
+                           {% if propertyMaitreOeuvre.name == "civil" %}
+                                {% for propertyCivil in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Civil'].properties %}
+                                    {# on retire les arrays collection#}
+                                    {% if propertyCivil.name|last != 's' and propertyCivil.name|last != 'x' and propertyCivil.name != 'mairie' %}
+                                      <option>
+                                          {{  "{{ %s.maitreOeuvre.civil.%s }}"|format(form.dict.vars.name, propertyCivil.name) }}
+                                      </option>
+                                    {% endif %}
+                                {% endfor %}                            
+                            {% else %}                            
+                                {% if propertyMaitreOeuvre.name|last != 's' and propertyMaitreOeuvre.name|last != 'x' and propertyMaitreOeuvre.name != 'mairie' %}
                                   <option>
-                                      {{  "{{ %s.maitreOeuvre.civil.%s }}"|format(form.dict.vars.name, propertyCivil.name) }}
+                                      {{  "{{ %s.maitreOeuvre.%s }}"|format(form.dict.vars.name, propertyMaitreOeuvre.name) }}
                                   </option>
                                 {% endif %}
-                            {% endfor %}                            
-                        {% else %}                            
-                            {% if propertyMaitreOeuvre.name|last != 's' and propertyMaitreOeuvre.name|last != 'x' and propertyMaitreOeuvre.name != 'mairie' %}
-                              <option>
-                                  {{  "{{ %s.maitreOeuvre.%s }}"|format(form.dict.vars.name, propertyMaitreOeuvre.name) }}
-                              </option>
                             {% endif %}
-                        {% endif %}
-                  {% endfor %}
-              </select>
+                      {% endfor %}
+                  </select>
             </div>
         </div>
         <div class="row">
@@ -186,7 +186,7 @@
                                         {% for propertyAdresse in reflectionClass['MairieVoreppe\\DemandeTravauxBundle\\Entity\\Adresse'].properties %}
                                             {% if propertyAdresse.name|last != 's' and propertyAdresse.name|last != 'x' and propertyAdresse.name != 'personne' %}
                                                 <option>
-                                                    {{  "{{ %s.dt.maitreOuvrage.personneMorale.adresse.%s }}"|format(form.dict.vars.name, propertyAdresse.name) }}
+                                                    {{ "{{ %s.dt.maitreOuvrage.personneMorale.adresse.%s }}"|format(form.dict.vars.name, propertyAdresse.name) }}
                                                 </option>
                                             {% endif %}  
                                         {% endfor %} 
@@ -218,7 +218,7 @@
         </div>
                 {{ form_rest(form) }}
             {{form_end(form)}}
-</section>       
+</section>        
 
         <ul class="record_actions list-unstyled">
           <li>

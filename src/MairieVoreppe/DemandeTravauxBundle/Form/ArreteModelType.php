@@ -15,7 +15,7 @@ class ArreteModelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
+            ->add('titre', null, array("required" => true))
             //Dans la config au sein du type utilisé par un champs, on retrouve config array('skin' => 'office2013', config.colorUi...parser en JS, devenant config.skin
             //cette configuration peut être facilement centralisée au sein du fichier de configuration
             ->add('contenu', 'ckeditor', array('required' => true, 

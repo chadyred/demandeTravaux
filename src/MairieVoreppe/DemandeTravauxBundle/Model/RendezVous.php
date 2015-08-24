@@ -29,6 +29,8 @@ abstract class RendezVous
 
 
     /**
+    * Attribut qui permet de déterminer le type pour la polycollection gérer en javascript
+    *
     * @Groups({"rendezvous_recepisse"})
     */
     protected $class;

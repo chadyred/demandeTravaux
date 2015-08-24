@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -27,7 +28,8 @@ class CategorieReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
-    * @Groups({"reponse_recepisse"})
+     * @Assert\NotBlank()
+     * @Groups({"reponse_recepisse"})
      */
     private $code;
 
@@ -35,7 +37,8 @@ class CategorieReseauOuvrage
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-    * @Groups({"reponse_recepisse"})
+     * @Assert\NotBlank()
+     * @Groups({"reponse_recepisse"})
      */
     private $description;
 

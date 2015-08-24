@@ -204,7 +204,10 @@ sonata_admin:
           settings:
             content: >
                 <h1>Bienvenue sur le panneau d'administration</h1>
-                <p>Ici vous pouvez administrer les services et les utilisateurs de l'application Demande Travaux</p> 
+                <div><p>Ici vous pouvez administrer les services, les utilisateurs de l'application.</p> <p>Il est également possible d'ajouter
+                des exploitants tel que la Mairie, de modifier cet exploitant etc. </p> 
+                <p> Un exploitant contient plusieurs services. Il faut rajouter ces derniers à l'exploitant lors de sa création.</p>
+                <p> Les responsables d'exploitant sont également à ajouter à l'exploitant, en indiquant sa période de début, de fin. </div> 
         - { position: right, type: sonata.admin.block.admin_list }
 
 sonata_block:

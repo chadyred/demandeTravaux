@@ -1,4 +1,4 @@
-{# Cette vue à pour but de listé l'ensemble des maitre d'ouvrage, c'est-à-dire physiques ou moraux #}
+{# Cette vue à pour but de permettre d'éditer les informations sur la DtDict, c'est-à-dire physiques ou moraux #}
 {% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
 
  {% block travaux_content %}
@@ -25,7 +25,7 @@
                     {{ form_row(edit_form.dt.noteComplementaire) }}
                     {{ form_row(edit_form.dt.dateReceptionDemande) }}
                     {{ form_row(edit_form.dt.dateReponseDemande) }}
-                    {{ form_row(edit_form.dt.maitreOuvrage) }}
+                    {{ form_row(edit_form.dt.declarant) }}
                  </span>
 
                     <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
@@ -81,7 +81,7 @@
                     {{ form_row(edit_form.noteComplementaire) }}
                     {{ form_row(edit_form.dateReceptionDemande) }}
                     {{ form_row(edit_form.dateReponseDemande) }}
-                    {{ form_row(edit_form.maitreOeuvre) }}
+                    {{ form_row(edit_form.entreprise) }}
                 </span>
 
                 <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>

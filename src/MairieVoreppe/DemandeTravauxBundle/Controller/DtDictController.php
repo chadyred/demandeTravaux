@@ -41,7 +41,7 @@ class DtDictController extends Controller
     public function createAction(Request $request)
     {
         $entity = new DemandeIntentionCT();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $this->getUser());
         $form->handleRequest($request);
         
             
@@ -54,12 +54,18 @@ class DtDictController extends Controller
             //On affecte le même numéro de dt à celui de la DICT
             $entity->setNumeroTeleservice($dt->getNumeroTeleservice());
             
-            //Les adresse ne se persiste toujours pas avec la DICT
-            foreach($entity->getAdresses() as $adress)
+            var_dump(count($entity->getAdresses()));
+            // Les adresses ne se persiste toujours pas avec la DICT. Si aucune information n'est saisie avec un type collection, les données ne seront pas
+            //persisté
+            if(count($entity->getAdresses()) > 0)
             {
-                $entity->addAdress($adress);
-                $em->persist($adress);
+                foreach($entity->getAdresses() as $adress)
+                {
+                    $entity->addAdress($adress);
+                    $em->persist($adress);
+                }
             }
+            
          
             
             //L'utilisateur qui créer le travaux lui est lié
@@ -193,6 +199,7 @@ class DtDictController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        //On récupère la DICT créé
         $entity = $em->getRepository('MairieVoreppeDemandeTravauxBundle:DemandeIntentionCT')->find($id);
 
         if (!$entity) {
@@ -220,18 +227,29 @@ class DtDictController extends Controller
             //On affecte le même numéro de dt à celui de la DICT
             $dict->setNumeroTeleservice($dt->getNumeroTeleservice());
             
-             //Les adresse ne se persiste toujours pas avec la DT
-            foreach($dict->getAdresses() as $adress)
+            var_dump("Dict adressse" . count($dict->getAdresses()));
+             //Les adresse ne se persiste toujours pas avec la DICT et il se peut qu'il y en est pas non plus 
+            if(count($dict->getAdresses()) > 0)
             {
-                $dict->addAdress($adress);
-                $em->persist($adress);
+                foreach($dict->getAdresses() as $adress)
+                {
+                    $dict->addAdress($adress);
+                    $em->persist($adress);
+                }
             }
+
+
+            var_dump("Dt adressse" . count($dt->getAdresses()));
             
-             //Les adresse ne se persiste toujours pas avec la DICT
-            foreach($dt->getAdresses() as $adress)
+            //Les adresse ne se persiste toujours pas avec la DT et il se peut qu'il y en est pas non plus 
+            if(count($dt->getAdresses()) > 0)
             {
-                $dt->addAdress($adress);
-                $em->persist($adress);
+                 //Les adresse ne se persiste toujours pas avec la DT
+                foreach($dt->getAdresses() as $adress)
+                {
+                    $dt->addAdress($adress);
+                    $em->persist($adress);
+                }
             }
             
             //La suppression d'une adresse s'effectuera ici, après la persistence des éventuelle nouvelle créées

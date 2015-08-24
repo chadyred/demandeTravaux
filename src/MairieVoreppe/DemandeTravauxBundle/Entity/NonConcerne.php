@@ -26,8 +26,10 @@ class NonConcerne extends Reponse
     /**
      * @var string
      *
-     * @ORM\Column(name="distanceNC", type="decimal")
-    * @Groups({"reponse_recepisse"})
+     * La distance est requise dans le cadre d'une réponse non concerné
+     *
+     * @ORM\Column(name="distanceNC", type="decimal", nullable=false)
+     * @Groups({"reponse_recepisse"})
      */
     private $distanceNC;
 

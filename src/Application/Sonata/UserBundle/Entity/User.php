@@ -134,9 +134,10 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addTravaux(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux)
+    public function addTravaux(\MairieVoreppe\DemandeTravauxBundle\Model\Travaux $travaux)
     {
         $this->travaux[] = $travaux;
+        $travaux->setUser($this);
 
         return $this;
     }
@@ -146,7 +147,7 @@ class User extends BaseUser
      *
      * @param \MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux
      */
-    public function removeTravaux(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $travaux)
+    public function removeTravaux(\MairieVoreppe\DemandeTravauxBundle\Model\Travaux $travaux)
     {
         $this->travaux->removeElement($travaux);
     }

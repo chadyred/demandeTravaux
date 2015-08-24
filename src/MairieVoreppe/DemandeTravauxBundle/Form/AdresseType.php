@@ -27,12 +27,12 @@ class AdresseType extends AbstractType
                                 "onFocus" => "geolocate()",
                                 "placeholder" => "Saisissez une adresse")))
             ->add('numeroRue', 'text', array('attr' => array('street_number' => 'street_number')))
-            ->add('adresse', 'text', array('attr' => array('route' => 'route')))
+            ->add('adresse', 'text', array('attr' => array("required" => false, 'route' => 'route')))
             ->add('complementAdresse', 'text',  array('required' => false))
             ->add('lieuDit', 'text',  array('required' => false, 'attr' => array('lieuDit' => 'lieuDit')))       
-            ->add('ville', 'text', array('attr' => array('locality' => 'locality')))
-            ->add('cp', 'text', array('attr' => array('postal_code' => 'postal_code')))
-            ->add('pays', 'text', array('attr' => array('country' => 'country')))
+            ->add('ville', 'text', array('required' => false, 'attr' => array('locality' => 'locality')))
+            ->add('cp', 'text', array('required' => false, 'attr' => array('postal_code' => 'postal_code')))
+            ->add('pays', 'text', array('required' => false, 'attr' => array('country' => 'country')))
         ;
                 
           

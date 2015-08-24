@@ -5,6 +5,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Travaux;
 use JMS\Serializer\Annotation\Groups;
+    use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * DemandeTravaux
@@ -29,7 +30,7 @@ class DemandeTravaux extends Travaux
     protected $dateDebutTravaux;
 
      /**
-     * @Groups({"dt"})
+     * @Groups({"dateDeb"})
      */
     protected $duree;
 

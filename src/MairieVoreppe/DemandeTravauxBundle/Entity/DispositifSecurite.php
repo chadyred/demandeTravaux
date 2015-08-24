@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * DispositifSecurite
@@ -24,7 +25,8 @@ class DispositifSecurite
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=false)
+     * @Assert\NotBlank()
      */
     private $description;
 

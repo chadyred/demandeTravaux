@@ -3,6 +3,8 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * StatutJuridique
@@ -25,6 +27,7 @@ class StatutJuridique
      * @var string
      *
      * @ORM\Column(name="abreviation", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $abreviation;
 
@@ -32,6 +35,7 @@ class StatutJuridique
      * @var string
      *
      * @ORM\Column(name="libelle", type="text")
+     * @Assert\NotBlank()
      */
     private $libelle;
 

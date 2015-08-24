@@ -100,11 +100,41 @@
 			</h6>	
 			<div class="col-lg-offset-1 col-lg-11">
 				<p>
-					Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
-					<br/>
-					Commune : {{ dict.adresses[0].ville }} 
-					<br/>
-					Adresse : {{ dict.adresses[0].adresse }} 
+					{# Vérification si on a une adresse #}
+						{% if dict.adresses|length > 0 %}
+						{# Dans le cas où on a plusieurs adresses, on prend la première #}
+							{% if dict.adresses|length > 1 %}
+								<div class="alert alert-warning">
+								    <strong>Adresses multiple</strong> Il y a plusieurs adresses, la première sera prise par défaut!
+								</div>
+
+								Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+								<br/>
+								Commune : {{ dict.adresses[0].ville }} 
+								<br/>
+								Adresse : {{ dict.adresses[0].adresse }} 
+							{% else %}
+								{# Cas où l'on a une seule adresse #}
+								{% if dict.adresses|length == 1 %}
+									Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+									<br/>
+									Commune : {{ dict.adresses[0].ville }} 
+									<br/>
+									Adresse : {{ dict.adresses[0].adresse }} 
+								{# TODO choix d'une adresse parmis plusieurs #}
+								{% else %}
+									Numéro de voie :  {{ dict.adresses[0].numeroRue }} 
+									<br/>
+									Commune : {{ dict.adresses[0].ville }} 
+									<br/>
+									Adresse : {{ dict.adresses[0].adresse }} 
+								{% endif %}
+							{% endif %}
+						{% else %}
+							<div class="alert alert-info">
+							    <strong>Aucune adresse</strong> Une adresse doit être présente en temps normal.
+							</div>
+						{% endif %}
 				</p>
 			</div>
 
@@ -121,7 +151,7 @@
 					<br/>
 					Durée : {{ dict.duree }} {{ dict.duree > 1 ? "jours" : "jour" }} 
 					<br/>
-					Date de fin : {{ dict.adresses[0].adresse }} 
+					Date de fin : {{ dict.dateFinTravaux|date('d-m-Y H:i:s') }}  
 				</p>
 			</div>
 

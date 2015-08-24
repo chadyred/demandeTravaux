@@ -5,6 +5,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\RendezVous;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CommunAccord
@@ -27,6 +28,7 @@ class CommunAccord extends RendezVous
      * @var \DateTime
      *
      * @ORM\Column(name="dateRetenue", type="datetime") 
+     * @Assert\NotBlank()
      * @Groups({"rendezvous_recepisse"})
      */
     private $dateRetenue;

@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CanalReception
@@ -26,6 +27,7 @@ class CanalReception
      * @var string
      * 
      * @ORM\Column(name="libelle", type="string", length=255)
+     * @Assert\NotBlank()
      * @Groups({"dt"})
      */
     private $libelle;

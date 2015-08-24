@@ -30,8 +30,10 @@ class DemandeIntentionCT extends Travaux
     
     /**
      * On garde les dicts même si l'entreprise est supprimée ! Si on decide de réutiliser ce dernier, on choisira une autre entreprise.
-     * 
+     * Une entreprise doit être ciblé 
+     *
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise", inversedBy="dicts", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      * 
      * @var type 
      */
@@ -85,14 +87,13 @@ class DemandeIntentionCT extends Travaux
     public function __construct()
     {
         $this->arretesPromulgues = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->dtDictConjointe = false;
     }
     
     
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

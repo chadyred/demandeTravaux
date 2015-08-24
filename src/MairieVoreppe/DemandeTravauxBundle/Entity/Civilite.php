@@ -4,6 +4,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Civilite
@@ -26,6 +27,7 @@ class Civilite
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Assert\NotBlank()
      * @Groups({"dt"})
      */
     private $titre;
@@ -34,6 +36,7 @@ class Civilite
      * @var string
      *
      * @ORM\Column(name="abreviation", type="string", length=255)
+     * @Assert\NotBlank()
      * @Groups({"dt"})
      */
     private $abreviation;

@@ -49,6 +49,7 @@ class RecepisseController extends Controller
        $phoneUtil = PhoneNumberUtil::getInstance();
         /*
         // Test avant mise en place initiate FPDI
+        
         $dt = new \MairieVoreppe\DemandeTravauxBundle\Entity\DemandeTravaux();
         $recepisseDT = new \MairieVoreppe\DemandeTravauxBundle\Entity\RecepisseDT();
         $reponse = new \MairieVoreppe\DemandeTravauxBundle\Entity\NonConcerne();

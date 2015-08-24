@@ -50,6 +50,7 @@ class Entreprise extends PersonneMorale
      * Privé à cette classe.
       * 
      * @ORM\ManyToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\StatutJuridique", inversedBy="entreprises")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $statutJuridique;
     

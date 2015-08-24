@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use MairieVoreppe\DemandeTravauxBundle\Model\Recepisse;
 use JMS\Serializer\Annotation\Groups;
+//On va mettre le namespace de notre méthode Classe interface Constraints de notre validator
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RecepisseDICT
@@ -23,8 +25,6 @@ class RecepisseDICT extends Recepisse
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-
     
     /**
     * RecepisseDICT

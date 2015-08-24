@@ -28,6 +28,7 @@ class MOEPersonnePhysique extends MaitreOeuvre
      * Une personne n'a qu'une contactUrgent. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
      * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Entity\Civil", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $civil;    
     

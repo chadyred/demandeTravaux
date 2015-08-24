@@ -5,6 +5,7 @@ namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use MairieVoreppe\DemandeTravauxBundle\Model\Reponse;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Concerne

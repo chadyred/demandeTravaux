@@ -17,7 +17,7 @@ class DemandeImpreciseType extends ReponseType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('description')
+            ->add('description', 'text', array("required" => true))
         ;
     }
     

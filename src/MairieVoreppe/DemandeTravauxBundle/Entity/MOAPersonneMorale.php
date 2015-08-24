@@ -29,6 +29,7 @@ class MOAPersonneMorale extends MaitreOuvrage
      * Une personne n'a qu'une contactUrgent. Elle sera remplit et complétée lors de la création de celui-ci.
      * 
      * @ORM\OneToOne(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\PersonneMorale", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $personneMorale;  
 

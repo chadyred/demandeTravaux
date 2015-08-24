@@ -3,6 +3,7 @@
 namespace MairieVoreppe\DemandeTravauxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MiseHorsTension
@@ -25,6 +26,8 @@ class MiseHorsTension
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $libelle;
 
@@ -33,7 +36,6 @@ class MiseHorsTension
     * Recepisse
     *
     * @ORM\OneToMany(targetEntity="MairieVoreppe\DemandeTravauxBundle\Model\Recepisse", mappedBy="miseHorsTension", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
     */
     private $recepisses;
 

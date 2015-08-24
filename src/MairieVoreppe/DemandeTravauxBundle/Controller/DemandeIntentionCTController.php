@@ -39,22 +39,34 @@ class DemandeIntentionCTController extends Controller
      */
     public function createAction(Request $request)
     {
+
+        $em = $this->getDoctrine()->getManager();
+
+        //L'utilisateur est nécessaire afin de récupérer ls service dans lequel il se situe
+        $user = $this->getUser();
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
         $entity = new DemandeIntentionCT();
-        $form = $this->createCreateForm($entity);
+
+        $form = $this->createCreateForm($entity, null, $user, $entreprises);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             
-            
-            foreach($entity->getAdresses() as $uneAdresse)
+            if(count($entity->getAdresses()) > 0) 
             {
-                $uneAdresse->setTravaux($entity);
-                $em->persist($uneAdresse);
+                foreach($entity->getAdresses() as $uneAdresse)
+                {
+                    $uneAdresse->setTravaux($entity);
+                    $em->persist($uneAdresse);
+                }
             }
-       
             
-            $em->persist($entity);
+            //On persist le travaux au travers de la relation avec l'utilisateur
+            $user->addTravaux($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('demandeintentionct_show', array('id' => $entity->getId())));
@@ -75,9 +87,9 @@ class DemandeIntentionCTController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DemandeIntentionCT $entity, DemandeTravaux $dt = null, $user)
+    private function createCreateForm(DemandeIntentionCT $entity, DemandeTravaux $dt = null, $user, $entreprises)
     {
-        $form = $this->createForm(new DemandeIntentionCTType(false, $dt, $user), $entity, array(
+        $form = $this->createForm(new DemandeIntentionCTType(false, $dt, $user, $entreprises), $entity, array(
             'action' => $this->generateUrl('demandeintentionct_create'),
             'method' => 'POST',
         ));
@@ -100,7 +112,12 @@ class DemandeIntentionCTController extends Controller
         $user = $this->getUser();
 
         $entity = new DemandeIntentionCT();
-        $form   = $this->createCreateForm($entity, $dt, $user);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
+        $form   = $this->createCreateForm($entity, $dt, $user, $entreprises);
 
         $serializer = $this->get('jms_serializer');
         $dt_serialize = $serializer->serialize($dt, 'json', SerializationContext::create()->setGroups(array('dt')));
@@ -202,11 +219,14 @@ class DemandeIntentionCTController extends Controller
 
         if ($editForm->isValid()) {
             
-            //Persistance des adresse qui ne se fond pas en cascade
-            foreach($entity->getAdresses() as $uneAdresse)
+            if(count($entity->getAdresses()) > 0)
             {
-                $uneAdresse->setTravaux($entity);
-                $em->persist($uneAdresse);
+                //Persistance des adresse qui ne se fond pas en cascade
+                foreach($entity->getAdresses() as $uneAdresse)
+                {
+                    $uneAdresse->setTravaux($entity);
+                    $em->persist($uneAdresse);
+                }
             }
             
             //On va mettre le numéro de téléservice à jour de la DICT si une elle est conjointe à une DT

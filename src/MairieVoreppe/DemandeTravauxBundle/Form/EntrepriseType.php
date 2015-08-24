@@ -33,7 +33,9 @@ class EntrepriseType extends AbstractType
             ->add('telFax', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('telFixe', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL))
             ->add('statutJuridique', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\StatutJuridique',
-                'property' => 'abreviation'))
+                'property' => 'abreviation',
+                'empty_data' => true,
+                'placeholder' => '-'))
             ->add('adresse', new AdresseType())
             ->add('gerant', new GerantType())
         ;

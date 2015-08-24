@@ -16,10 +16,14 @@ class PeriodeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /**
+        *
+        * La date de fin n'est pas obligatoire
+        */
         $builder
             ->add('responsableExploitant',  new ResponsableExploitantType())
-            ->add('dateDebut',  'datetime')
-            ->add('dateFin',  'datetime')
+            ->add('dateDebut',  'datetime', array("required" => true))
+            ->add('dateFin',  'datetime', array("required" => false))
         ;
     }
     

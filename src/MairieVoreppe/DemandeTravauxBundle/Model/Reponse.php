@@ -32,6 +32,7 @@ abstract class Reponse
 
     /**
     * @Groups({"reponse_recepisse"})
+    * Attribut qui permet de déterminer le type pour la polycollection gérer en javascript
     */
     protected $class;
 

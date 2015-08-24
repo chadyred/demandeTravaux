@@ -7,4 +7,4 @@ security:
         submit: Connexion
         username_admin: "Nom d'utilisateur"
         password_admin: "Mot de passe"
-        submit_admin: Connexion au dashboard
+        submit_admin: Connexion à l'interface d'administration

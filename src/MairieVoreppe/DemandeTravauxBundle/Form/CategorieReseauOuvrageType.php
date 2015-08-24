@@ -15,8 +15,8 @@ class CategorieReseauOuvrageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code', 'text', array('attr' => array('code' => 'qsd')))
-            ->add('description', 'text', array('attr' => array('description' => 'qsd')))
+            ->add('code', 'text', array('attr' => array('code' => 'qsd', "required" => true)))
+            ->add('description', 'text', array('attr' => array('description' => 'qsd', "required" => true)))
         ;
     }
     
