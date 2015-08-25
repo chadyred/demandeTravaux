@@ -81,7 +81,7 @@ class DemandeTravauxController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer !'));
 
         return $form;
     }
@@ -162,7 +162,7 @@ class DemandeTravauxController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }
@@ -191,8 +191,12 @@ class DemandeTravauxController extends Controller
             //Persistance des adresse qui ne se fond pas en cascade
             foreach($entity->getAdresses() as $uneAdresse)
             {
-                $uneAdresse->setTravaux($entity);
-                $em->persist($uneAdresse);
+                    //Afin d'insiter l'utilisateur à saisir une adresse, j'ajoute un prototype même lors de l'update. Or, cela va créé une entité
+                    //null. Elle sera prise en compte.
+                     if($uneAdresse != null){
+                            $uneAdresse->setTravaux($entity);
+                            $em->persist($uneAdresse);
+                        }
             }
             
             //On va mettre le numéro de téléservice à jour de la DICT lié si il y a en a une bien évidemment

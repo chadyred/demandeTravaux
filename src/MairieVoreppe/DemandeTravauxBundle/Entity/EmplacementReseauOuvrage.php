@@ -26,48 +26,42 @@ class EmplacementReseauOuvrage
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true)
      */
     private $reference;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="echelle", type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(name="echelle", type="string", length=255, nullable=true)
      */
     private $echelle;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEdition", type="datetime")
-     * @Assert\NotBlank
+     * @ORM\Column(name="dateEdition", type="datetime", nullable=true)
      */
     private $dateEdition;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="sensible", type="boolean")
-     * @Assert\NotBlank
+     * @ORM\Column(name="sensible", type="boolean", nullable=true)
      */
     private $sensible;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="profondeurReglMini", type="decimal")
-     * @Assert\NotBlank
+     * @ORM\Column(name="profondeurReglMini", type="decimal", nullable=true)
      */
     private $profondeurReglMini;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="materiauxReseau", type="text")
-     * @Assert\NotBlank
+     * @ORM\Column(name="materiauxReseau", type="text", nullable=true)
      */
     private $materiauxReseau;
 

@@ -27,8 +27,8 @@
                 {{ form_row(form.dt.declarant) }}
 
             </span>
-            <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
-            <ul id="adresse-fields-list" data-prototype="{{ form_widget(form.dt.adresses.vars.prototype) | e('html') }}">
+            <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+            <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.dt.adresses.vars.prototype) | e('html') }}">
                 {% for adresseChamp in form.dt.adresses %}
                     <li>
                         {{ form_row(adresseChamp.autocomplete) }}
@@ -49,8 +49,8 @@
                    </li>
                 {% endfor %}
             </ul>
-             <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
-            <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.dt.contactsUrgent.vars.prototype) | e('html') }}">
+             <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+            <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.dt.contactsUrgent.vars.prototype) | e('html') }}">
                 {% for contactUrgentChamp in form.dt.contactsUrgent %}
                     <li>
                         {{ form_row(contactUrgentChamp.civilite) }}
@@ -85,8 +85,8 @@
                 {{ form_row(form.entreprise) }}
 
             </span>
-            <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
-            <ul id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
+            <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+            <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
                 {% for adresseChamp in form.adresses %}
                     <li>
                            {{ form_row(adresseChamp.autocomplete) }}
@@ -100,8 +100,8 @@
                    </li>
                 {% endfor %}
             </ul>
-             <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
-            <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
+             <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+            <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
                 {% for contactUrgentChamp in form.contactsUrgent %}
                     <li>
                         {{ form_row(contactUrgentChamp.civilite) }}
@@ -121,14 +121,15 @@
         </div>
     </div>
         
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('dtdict') }}">
-            Back to the list
-        </a>
+    <ul class="list-unstyled list-inline record_actions">
+      <li>
+        <a class="btn btn-info" href="{{ path('dtdict') }}">
+          <i class="fa fa-backward"></i>
+                Retour à la liste des DtDict
+            </a>
+        </li>
         <span class="image-loading-dt-dict">
-            <img src="{{ asset('bundles/mairievoreppedemandetravaux/img/loading/adresseDtToDict.gif') }}"
+            <img src="{{ asset('bundles/mairievoreppedemandetravaux/img/loading/adresseDtToDict.gif') }}"/>
         </span>
-    </li>
-</ul>
+    </ul>
 {% endblock %}

@@ -35,8 +35,11 @@ class ATUrgentController extends Controller
      */
     public function createAction(Request $request)
     {
+        $user = $this->getUser();
+
         $entity = new ATUrgent();
-        $form = $this->createCreateForm($entity);
+
+        $form = $this->createCreateForm($entity, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -45,28 +48,16 @@ class ATUrgentController extends Controller
 
             foreach($entity->getAdresses() as $uneAdresse)
             {
-                $uneAdresse->setTravaux($entity);
-                $em->persist($uneAdresse);
-            }
-            
-            if(count($this->getUser()->getServices()) > 1)
-            {
-                 $serviceId = $this->get('session')->get('service')->getId();
-                 $service = $em->getRepository('MairieVoreppeUserBundle:Service')->find($serviceId);
-
-
-                if (!$service) {
-                    throw $this->createNotFoundException('Unable to find Service entity.');
+                //Afin d'insiter l'utilisateur à saisir une adresse, j'ajoute un prototype même lors de l'update. Or, cela va créé une entité
+                //null. Elle sera prise en compte.
+                 if($uneAdresse != null) {
+                    $uneAdresse->setTravaux($entity);
+                    $em->persist($uneAdresse);
                 }
-                 
-            }
-            else
-            {
-                $service = $this->getUser()->getServices()->get(0);
             }
             
-            $entity->setUser($this->getUser());
-            $entity->setService($service);
+            
+            $entity->setUser($user);
             
             $em->persist($entity);
             $em->flush();
@@ -74,7 +65,7 @@ class ATUrgentController extends Controller
             return $this->redirect($this->generateUrl('aturgent_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('MairieVoreppeDemandeTravauxBundle:ATUrgent:new.html.twig', array(
+        return $this->render("MairieVoreppeDemandeTravauxBundle:ATUrgent:new.html.twig", array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -94,7 +85,7 @@ class ATUrgentController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer !'));
 
         return $form;
     }
@@ -106,7 +97,9 @@ class ATUrgentController extends Controller
     public function newAction()
     {
         $user = $this->getUser();
+
         $entity = new ATUrgent();
+
         $form   = $this->createCreateForm($entity, $user);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:ATUrgent:new.html.twig', array(
@@ -175,7 +168,7 @@ class ATUrgentController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }
@@ -199,12 +192,19 @@ class ATUrgentController extends Controller
 
         if ($editForm->isValid()) {
 
-            foreach($entity->getAdresses() as $uneAdresse)
+            if(count($entity->getAdresses()) > 0)
             {
-                $uneAdresse->setTravaux($entity);
-                $em->persist($uneAdresse);
+                foreach($entity->getAdresses() as $uneAdresse)
+                {
+                    //Afin d'insiter l'utilisateur à saisir une adresse, j'ajoute un prototype même lors de l'update. Or, cela va créé une entité
+                    //null. Elle sera prise en compte.
+                     if($uneAdresse != null) {
+                        $uneAdresse->setTravaux($entity);
+                        $em->persist($uneAdresse);
+                    }
+                }
             }
-            
+
             //La suppression d'une adresse s'effectuera ici, après la persistence des éventuelle nouvelle créée
             if(count($entity->getAdresses()) > 0)
             {

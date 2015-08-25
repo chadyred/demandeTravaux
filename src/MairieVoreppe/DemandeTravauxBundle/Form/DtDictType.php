@@ -49,14 +49,16 @@ class DtDictType extends AbstractType
                 'placeholder' => '-'))
             ->add('entreprise', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise',
                 'empty_data' => false,
-                'data' => $this->entreprises,
-                'placeholder' => '-'))
+                'placeholder' => '-',
+                 'query_builder' => function (EntityRepository $er ) {
+                        return $er->getEntreprisePrestataire();
+                            }
+                        ))
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
                 'label' => false
-              ))            
+              ))
             ->add('descriptionTravaux', 'text', array("required" => false))
             ->add('noteComplementaire', 'text', array("required" => false))
             ->add('dateReceptionDemande',  'datetime')
@@ -74,13 +76,14 @@ class DtDictType extends AbstractType
         ;
         
          /**
-         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est obligatoire
+         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est vcensé être obligatoire
+         * mais pas trop...sorte de technique de brouillon. On va alors peremttre sa suppression mais on en aura toujours une par défaut
          */
          $builder->get('adresses')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $adresses = $event->getData();
                 $form = $event->getForm();
                 
-                for($i = 1;count($adresses) > $i;$i++)
+                for($i = 0;count($adresses) > $i;$i++)
                 {
                      $form->get($i)
                           ->add('delete', 'submit');

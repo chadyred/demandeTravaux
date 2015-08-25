@@ -60,7 +60,6 @@ class DemandeIntentionCTType extends AbstractType
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
                 'label' => false
               ))            
             ->add('descriptionTravaux', 'text', array("required" => false))
@@ -139,7 +138,7 @@ class DemandeIntentionCTType extends AbstractType
                 $adresses = $event->getData();
                 $form = $event->getForm();
                 
-                for($i = 1;count($adresses) > $i;$i++)
+                for($i = 0;count($adresses) > $i;$i++)
                 {
                      $form->get($i)
                           ->add('delete', 'submit');

@@ -2,7 +2,7 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
 
  {% block travaux_content %}
-    <h1>ATUrgent</h1>
+    <h1>ATU</h1>
 
     <table class="record_properties">
         <tbody>
@@ -11,43 +11,44 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Numeroteleservice</th>
+                <th>Numero téléservice</th>
                 <td>{{ entity.numeroTeleservice }}</td>
             </tr>
             <tr>
-                <th>Datetravaux</th>
+                <th>Date travaux</th>
                 <td>{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Descriptiontravaux</th>
+                <th>Description travaux</th>
                 <td>{{ entity.descriptionTravaux }}</td>
             </tr>
             <tr>
-                <th>Notecomplementaire</th>
+                <th>Note complémentaire</th>
                 <td>{{ entity.noteComplementaire }}</td>
             </tr>
             <tr>
-                <th>Datereceptiondemande</th>
+                <th>Date réception demande</th>
                 <td>{{ entity.dateReceptionDemande|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Datereponsedemande</th>
+                <th>Date réponse demande</th>
                 <td>{{ entity.dateReponseDemande|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('aturgent') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('aturgent_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('aturgent') }}">
+                <i class="fa fa-backward"></i>
+                Révenir à la liste des ATU
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-success" href="{{ path('aturgent_edit', { 'id': entity.id }) }}">
+                Modifier
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

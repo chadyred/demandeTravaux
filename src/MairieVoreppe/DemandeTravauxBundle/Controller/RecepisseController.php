@@ -489,7 +489,7 @@ class RecepisseController extends Controller
         {
             $pdf->reseauPremiereReference($ero1->getReference());
             $pdf->reseauPremiereEchelle($ero1->getEchelle());
-            $pdf->reseauPremiereDateEditionPlan($ero1->getDateEdition());
+            $ero1->getDateEdition() != NULL ? $pdf->reseauPremiereDateEditionPlan($ero1->getDateEdition()) : "";
             if($ero1->getSensible())
                 $pdf->reseauPremiereCheckboxSensible();
             $pdf->reseauPremiereProfReglMini($ero1->getProfondeurReglMini());

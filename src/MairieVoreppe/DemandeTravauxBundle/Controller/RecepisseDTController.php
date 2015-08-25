@@ -104,7 +104,7 @@ class RecepisseDTController extends RecepisseController
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer !'));
 
         return $form;
     }
@@ -220,7 +220,7 @@ class RecepisseDTController extends RecepisseController
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }

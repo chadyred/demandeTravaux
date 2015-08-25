@@ -16,12 +16,12 @@ class EmplacementReseauOuvrageType extends AbstractType
     {
         //Ajout du calendrier français de bootstrap (Rappel : le type="date" n'est pas compatible sur Firefox, Explorer, Safari etc etc ...)
         $builder
-            ->add('reference', 'text', array("label" => false, "attr" => array("field" => "reference"), 'required' => false))
-            ->add('echelle','text' , array("label" => false, "attr" => array("field" => "echelle"), 'required' => false))
-            ->add('dateEdition', 'date', array("label" => false, "attr" => array("field" => "dateEdition"), 'required' => false))
-            ->add('sensible',"checkbox", array("label" => false, "attr" => array("field" => "sensible"), 'required' => false))
-            ->add('profondeurReglMini', "number", array("label" => false, "attr" => array("field" => "profondeurReglMini"), 'required' => false))
-            ->add('materiauxReseau', "text", array("label" => false, "attr" => array("field" => "materiauxReseau"), 'required' => false))
+            ->add('reference', 'text', array("required" => false, "label" => false, "attr" => array("field" => "reference"), 'required' => false))
+            ->add('echelle','text' , array("required" => false, "label" => false, "attr" => array("field" => "echelle"), 'required' => false))
+            ->add('dateEdition', 'date', array("required" => false, "label" => false, "attr" => array("field" => "dateEdition"), 'required' => false))
+            ->add('sensible',"checkbox", array("required" => false, "label" => false, "attr" => array("field" => "sensible"), 'required' => false))
+            ->add('profondeurReglMini', "number", array("required" => false, "label" => false, "attr" => array("field" => "profondeurReglMini"), 'required' => false))
+            ->add('materiauxReseau', "text", array("required" => false, "label" => false, "attr" => array("field" => "materiauxReseau"), 'required' => false))
         ;
     }
     /**

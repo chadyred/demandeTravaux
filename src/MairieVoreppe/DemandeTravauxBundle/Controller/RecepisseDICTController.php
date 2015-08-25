@@ -104,7 +104,7 @@ class RecepisseDICTController extends RecepisseController
      * Creates a form to create a RecepisseDICT entity.
      *
      * @param RecepisseDICT $entity The entity
-     *
+     *271
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(RecepisseDICT $entity, DemandeIntentionCT $dict)
@@ -114,7 +114,7 @@ class RecepisseDICTController extends RecepisseController
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer !'));
 
         return $form;
     }
@@ -229,7 +229,7 @@ class RecepisseDICTController extends RecepisseController
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }
@@ -268,7 +268,11 @@ class RecepisseDICTController extends RecepisseController
         $reponse_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('reponse_recepisse')));
 
 
-        $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        //Si on a un rendez-vous on récupère le type de rendez vous hérité
+        if($entity->getRendezVous()[0] != null){
+         $entity->getRendezVous()[0]->setClass(get_class($entity->getRendezVous()[0]));
+        }
+        
         $rendezvous_recepisse_serialize = $serializer->serialize($entity, 'json', SerializationContext::create()->setGroups(array('rendezvous_recepisse')));
         
 

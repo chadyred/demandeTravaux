@@ -431,7 +431,7 @@ abstract class Travaux
      *
      * Un travaux peut être commencé et enregistré sans pour autant avoir d'adresse, tel un brouillon dans le workflow.
      *
-     * @return Travaux2
+     * @return Travaux
      */
     public function addAdress(\MairieVoreppe\DemandeTravauxBundle\Entity\Adresse $adress = null)
     {

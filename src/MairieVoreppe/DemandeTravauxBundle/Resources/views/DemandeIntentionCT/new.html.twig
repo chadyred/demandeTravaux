@@ -49,8 +49,8 @@
                     {{ form_row(form.dt) }}
                 </span>
                 
-                <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
-                <ul id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
+                <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+                <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
                     {% for adresseChamp in form.adresses %}
                         <li>
                             {{ form_row(adresseChamp.autocomplete) }}
@@ -65,8 +65,8 @@
                        </li>
                     {% endfor %}
                 </ul>
-                <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
-                <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
+                <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+                <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
                     {% for contactUrgentChamp in form.contactsUrgent %}
                         <li>
                             {{ form_row(contactUrgentChamp.civilite) }}
@@ -83,10 +83,11 @@
             
         </div><!-- fin col -->
     </div><!-- fin row -->
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('demandeintentionct') }}">
-                Back to the list
+    <ul class="list-unstyled list-inline record_actions">
+      <li>
+        <a class="btn btn-info" href="{{ path('demandeintentionct') }}">
+          <i class="fa fa-backward"></i>
+                Retour à la liste des DICT
             </a>
         </li>
     </ul>

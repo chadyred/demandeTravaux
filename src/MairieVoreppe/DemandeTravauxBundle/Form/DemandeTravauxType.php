@@ -45,7 +45,6 @@ class DemandeTravauxType extends AbstractType
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
                 'label' => false,
               ))            
             ->add('descriptionTravaux', 'text', array("required" => false))
@@ -65,13 +64,14 @@ class DemandeTravauxType extends AbstractType
         ;
         
         /**
-         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est obligatoire
+         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est censé être obligatoire
+         * mais bon
          */
          $builder->get('adresses')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $adresses = $event->getData();
                 $form = $event->getForm();
                 
-                for($i = 1;count($adresses) > $i;$i++)
+                for($i = 0;count($adresses) > $i;$i++)
                 {
                      $form->get($i)
                           ->add('delete', 'submit');

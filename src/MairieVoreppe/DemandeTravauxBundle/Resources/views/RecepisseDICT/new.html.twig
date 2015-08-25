@@ -35,9 +35,7 @@
 					{% set mairievoreppe_demandetravauxbundle_nonconcerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_nonconcerne') %}
 					{% set mairievoreppe_demandetravauxbundle_concerne = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_concerne') %}
 					{% set mairievoreppe_demandetravauxbundle_demandeimprecise = attribute(form.reponse.vars.prototypes, 'mairievoreppe_demandetravauxbundle_demandeimprecise') %}
-					<select id="proto-reponse">
-
-							
+					<select id="proto-reponse">							
 
 							<option id="mairievoreppe_demandetravauxbundle_nonconcerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_nonconcerne) | escape }}">Non concerné</option>
 							<option id="mairievoreppe_demandetravauxbundle_concerne" data-prototype="{{ form_row(mairievoreppe_demandetravauxbundle_concerne) | escape }}">Concerne</option>
@@ -223,28 +221,18 @@
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.reference) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.echelle) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.dateEdition) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.sensible) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.profondeurReglMini) }}
 									</td>
-								</tr>
-								<tr>
 									<td>
 										{{ form_row(champsEmplacementReseauOuvrage.materiauxReseau) }}
 									</td>

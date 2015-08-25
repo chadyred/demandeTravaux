@@ -65,7 +65,6 @@ $(document).ready(function(){
             gestionPrototypeAdresse($(this),numInstance, 1);
             numInstance++;
           });
-       
         
       }
       else
@@ -190,7 +189,7 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
         var nombreAleatoire = genererNombreAleatoire();
         
         // On créer un nouvelle élément de la lsite puis on ajoute ce dernier à la liste. Son id sera le I champs combiner avec la I instance d'une liste
-        var newLi = jQuery('<li id="adresse_'+ nombreAleatoire +'_' + adresseCount + '_' + index + '"></li>').html(unChamp);        
+        var newLi = jQuery('<li class="border-dark" id="adresse_'+ nombreAleatoire +'_' + adresseCount + '_' + index + '"></li>').html(unChamp);        
         autocompletesWraps.push("adresse_" + nombreAleatoire + '_' + adresseCount + '_' + index);
                  
 
@@ -217,7 +216,6 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
     
         //Au click sur le bouton précédant l'instance en cours qui permet d'ajouter une adresse
         instance.prev('#ajouter-adresse').click(function() {
-
              // garde une trace du nombre d'adresse qui ont été affichés
             var adresseCount = instance.find('li').length;
             
@@ -240,7 +238,7 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
             var nombreAleatoire = genererNombreAleatoire();
             
             // créer une nouvelle liste d'éléments et l'ajoute à notre liste
-            var newLi = jQuery('<li id="adresse_'+ nombreAleatoire +'_' + adresseCount + '_' + index + '"></li>').html(newWidget);
+            var newLi = jQuery('<li class="border-dark" id="adresse_'+ nombreAleatoire +'_' + adresseCount + '_' + index + '"></li>').html(newWidget);
             autocompletesWraps.push("adresse_" + nombreAleatoire + '_' + adresseCount + '_' + index);
             
             // console.log(autocompletesWraps);            
@@ -515,7 +513,7 @@ function ajouterContactUrgent(instance, index)
                 contactUrgentCount++;
                 
                 // créer une nouvelle liste d'éléments et l'ajoute à notre liste
-                var newLi = $('<li id="contact_urgent_' + contactUrgentCount + '_' + index + '"></li>').html(newWidget);
+                var newLi = $('<li class="border-dark" id="contact_urgent_' + contactUrgentCount + '_' + index + '"></li>').html(newWidget);
                 addDeleteLink(newLi);
                 newLi.appendTo(instance);
                 
@@ -636,7 +634,7 @@ function remplirDtDictAdresse()
             var nombreAleatoire = genererNombreAleatoire();
         
             // créer une nouvelle liste d'éléments et l'ajoute à notre liste qui est la deuxième liste d'adresse (les adresses de la dict) dont l'index vaux 1
-            var newLi = jQuery('<li id="adresse_'+ nombreAleatoire +'_' + nombreAdresseDict + '_' + 1 + '"></li>').html(newWidget);
+            var newLi = jQuery('<li class="border-dark" id="adresse_'+ nombreAleatoire +'_' + nombreAdresseDict + '_' + 1 + '"></li>').html(newWidget);
             autocompletesWraps.push("adresse_" + nombreAleatoire +"_" + nombreAdresseDict + "_" + 1);
             
             // console.log(autocompletesWraps);
@@ -730,7 +728,7 @@ function remplirDtDictContactUrgent()
             var nombreAleatoire = genererNombreAleatoire();
         
             // créer une nouvelle liste d'éléments et l'ajoute à notre liste qui est la deuxième liste d'adresse (les adresses de la dict) dont l'index vaux 1
-            var newLi = jQuery('<li id="contact_urgent_'+ nombreAleatoire +'_' + nombreCuDict + '_' + 1 + '"></li>').html(newWidget);
+            var newLi = jQuery('<li class="border-dark" id="contact_urgent_'+ nombreAleatoire +'_' + nombreCuDict + '_' + 1 + '"></li>').html(newWidget);
             
             // console.log(autocompletesWraps);
             
@@ -879,7 +877,7 @@ function remplirDictLieDtAdresse()
         var nombreAleatoire = genererNombreAleatoire();
     
         // créer une nouvelle liste d'éléments et l'ajoute à notre liste qui est la deuxième liste d'adresse (les adresses de la dict) dont l'index vaux 1
-        var newLi = jQuery('<li id="adresse_'+ nombreAleatoire +'_' + nombreAdresseDict + '_' + 0 + '"></li>').html(newWidget);
+        var newLi = jQuery('<li class="border-dark" id="adresse_'+ nombreAleatoire +'_' + nombreAdresseDict + '_' + 0 + '"></li>').html(newWidget);
         autocompletesWraps.push("adresse_" + nombreAleatoire +"_" + nombreAdresseDict + "_" + 0);
         
         // console.log(autocompletesWraps);
@@ -1003,7 +1001,7 @@ function remplirDtDictLieContactUrgent()
             var nombreAleatoire = genererNombreAleatoire();
         
             // Il n'y a ici que des DICT, on est alors à l'instance 0. L'homogénétité et la logique est conservé.
-            var newLi = jQuery('<li id="contact_urgent_'+ nombreAleatoire +'_' + nombreCuDict + '_' + 0 + '"></li>').html(newWidget);
+            var newLi = jQuery('<li class="border-dark" id="contact_urgent_'+ nombreAleatoire +'_' + nombreCuDict + '_' + 0 + '"></li>').html(newWidget);
             
             console.log(autocompletesWraps);
             

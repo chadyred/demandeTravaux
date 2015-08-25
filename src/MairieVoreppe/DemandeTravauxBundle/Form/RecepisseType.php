@@ -77,6 +77,21 @@ class RecepisseType extends AbstractType
             ->add('telResponsableDossier', 'tel', array('default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL, 'required' => false))
         ;
 
+        /**
+         * Ceci va permettre de mettre un lien de suppression uniquement sur les autres car la première adresse est obligatoire
+         */
+         $builder->get('rendezVous')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $rendezVous = $event->getData();
+                $form = $event->getForm();
+                
+                for($i = 0;count($rendezVous) > $i;$i++)
+                {
+                     $form->get($i)
+                          ->add('delete', 'submit');
+                }
+       
+        });
+
     }
     
     /**

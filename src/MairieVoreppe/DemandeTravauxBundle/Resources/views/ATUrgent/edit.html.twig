@@ -2,23 +2,24 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:Travaux:layout.html.twig' %}
 
  {% block travaux_content %}
-    <h1>ATUrgent creation</h1>
+    <h1>Edition d'ATU</h1>
     
     {{ form_start(edit_form) }}
         
-        {{ form_row(form.serviceExploitant) }}
+        {{ form_row(edit_form.serviceExploitant) }}
         {{ form_row(edit_form.numeroTeleservice) }}
         {{ form_row(edit_form.dateDebutTravaux) }}
+        {{ form_row(edit_form.duree) }}
         {{ form_row(edit_form.canalReception) }}
         {{ form_row(edit_form.descriptionTravaux) }}
         {{ form_row(edit_form.noteComplementaire) }}
         {{ form_row(edit_form.dateReceptionDemande) }}
         {{ form_row(edit_form.dateReponseDemande) }}
         
-        <a href="#" id="ajouter-adresse">Ajouter une nouvelle adresse à ce travaux</a>
-        <ul id="adresse-fields-list" data-prototype="{{ form_widget(edit_form.adresses.vars.prototype) | e('html') }}">
+        <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+        <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(edit_form.adresses.vars.prototype) | e('html') }}">
             {% for adresseChamp in edit_form.adresses %}
-                <li>
+                <li class="border-dark">
                        {{ form_row(adresseChamp.autocomplete) }}
                        {{ form_row(adresseChamp.numeroRue) }}
                        {{ form_row(adresseChamp.adresse) }}
@@ -26,17 +27,19 @@
                        {{ form_row(adresseChamp.lieuDit) }}
                        {{ form_row(adresseChamp.ville) }}
                        {{ form_row(adresseChamp.cp) }}   
-                        {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
-                        {% if adresseChamp.delete is defined %}
-                            {{ form_row(adresseChamp.delete) }}
-                        {% endif %}
+                       {{ form_row(adresseChamp.pays) }}  
+                       
+                    {#Evènement qui ajoute un boutton delete uniquement les autre champs que le premier #}
+                    {% if adresseChamp.delete is defined %}
+                        {{ form_row(adresseChamp.delete) }}
+                    {% endif %} 
                </li>
             {% endfor %}
         </ul>
-         <a href="#" id="ajouter-contact-urgent">Ajouter un contact urgent</a>
-        <ul id="contact-urgent-fields-list" data-prototype="{{ form_widget(edit_form.contactsUrgent.vars.prototype) | e('html') }}">
+         <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+        <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(edit_form.contactsUrgent.vars.prototype) | e('html') }}">
             {% for contactUrgentChamp in edit_form.contactsUrgent %}
-                <li>
+                <li class="border-dark">
                     {{ form_row(contactUrgentChamp.civilite) }}
                     {{ form_row(contactUrgentChamp.nom) }}
                     {{ form_row(contactUrgentChamp.prenom) }}
@@ -49,10 +52,11 @@
         </ul>
         {{ form_rest(edit_form) }}
     {{ form_end(edit_form) }}
-     <ul class="record_actions">
-    <li>
-        <a href="{{ path('aturgent') }}">
-            Back to the list
+
+    <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('aturgent') }}">
+            Revenir à la liste des ATU
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

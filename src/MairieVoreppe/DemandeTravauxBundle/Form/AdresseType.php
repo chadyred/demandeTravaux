@@ -26,8 +26,8 @@ class AdresseType extends AbstractType
                 "attr" => array('autocomplete' => 'autocomplete',
                                 "onFocus" => "geolocate()",
                                 "placeholder" => "Saisissez une adresse")))
-            ->add('numeroRue', 'text', array('attr' => array('street_number' => 'street_number')))
-            ->add('adresse', 'text', array('attr' => array("required" => false, 'route' => 'route')))
+            ->add('numeroRue', 'text', array("required" => false, 'attr' => array('street_number' => 'street_number')))
+            ->add('adresse', 'text', array("required" => false, 'attr' => array('route' => 'route')))
             ->add('complementAdresse', 'text',  array('required' => false))
             ->add('lieuDit', 'text',  array('required' => false, 'attr' => array('lieuDit' => 'lieuDit')))       
             ->add('ville', 'text', array('required' => false, 'attr' => array('locality' => 'locality')))

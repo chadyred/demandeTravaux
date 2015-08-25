@@ -40,8 +40,16 @@ class DtDictController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        //L'utilisateur est nécessaire afin de récupérer ls service dans lequel il se situe
+        $user = $this->getUser();
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
         $entity = new DemandeIntentionCT();
-        $form = $this->createCreateForm($entity, $this->getUser());
+
+        $form = $this->createCreateForm($entity, $user, $entreprises);
         $form->handleRequest($request);
         
             
@@ -98,14 +106,14 @@ class DtDictController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DemandeIntentionCT $entity, $user)
+    private function createCreateForm(DemandeIntentionCT $entity, $user, $entreprises)
     {
-        $form = $this->createForm(new DtDictType($user), $entity, array(
+        $form = $this->createForm(new DtDictType($user, $entreprises), $entity, array(
             'action' => $this->generateUrl('dtdict_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer !'));
 
         return $form;
     }
@@ -118,8 +126,14 @@ class DtDictController extends Controller
     {
         //On récupère l'utilisateur en cours
         $user = $this->getUser();
+
         $entity = new DemandeIntentionCT();
-        $form   = $this->createCreateForm($entity, $user);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
+        $form   = $this->createCreateForm($entity, $user, $entreprises);
 
         return $this->render('MairieVoreppeDemandeTravauxBundle:DtDict:new.html.twig', array(
             'entity' => $entity,
@@ -162,8 +176,12 @@ class DtDictController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find DtDict entity.');
         }
+
+
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
         
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $entreprises);
+
         $deleteForm = $this->createDeleteForm($id);
         
         return $this->render('MairieVoreppeDemandeTravauxBundle:DtDict:edit.html.twig', array(
@@ -180,14 +198,15 @@ class DtDictController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(DemandeIntentionCT $entity)
+    private function createEditForm(DemandeIntentionCT $entity, $entreprises)
     {
-        $form = $this->createForm(new DtDictType(), $entity, array(
+        //Pas de USER lors de l'édition, seul celui ayant créé la DICT peut l'éditer
+        $form = $this->createForm(new DtDictType(null, $entreprises), $entity, array(
             'action' => $this->generateUrl('dtdict_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
 
         return $form;
     }
@@ -207,8 +226,10 @@ class DtDictController extends Controller
         }
         
         
+        $entreprises = $em->getRepository('MairieVoreppeDemandeTravauxBundle:Entreprise')->getEntreprisePrestataire();
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $entreprises);
         
         //editForm possédera l'ensemble des information de la dict
         $editForm->handleRequest($request);

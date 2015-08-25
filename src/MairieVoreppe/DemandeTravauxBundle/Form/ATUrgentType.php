@@ -43,13 +43,11 @@ class ATUrgentType extends AbstractType
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
                 'label' => false,
               ))    
             ->add('adresses', 'collection', array('type' => new AdresseType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'options' => array('required' => false),
                 'label' => false,
               ))  
         ;

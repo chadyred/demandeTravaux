@@ -8,7 +8,7 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "symfony/symfony": "v2.7.3",
+        "symfony/symfony": "2.8.x-dev",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/dbal":"~2.2",
@@ -48,7 +48,8 @@
         "symfony/intl": "2.8.*@dev",
         "chadyred/fpdf-fpdi-symfony2": "dev-lib",
         "lexik/maintenance-bundle": "1.0.*@dev",
-        "infinite-networks/form-bundle": "1.0.*@dev"
+        "infinite-networks/form-bundle": "1.0.*@dev",
+        "symfony/security-acl": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
