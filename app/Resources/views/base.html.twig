@@ -11,6 +11,7 @@
                 '@components_font_awesome_css'
                 '@eonasdan_bootstrap_datetimepicker_css'
                 '@MairieVoreppeDemandeTravauxBundle/Resources/public/css/style.css' 
+                '@ApplicationSonataUserBundle/Resources/public/css/style-sonata-user.css'
         %}			
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
         {% endstylesheets %}
@@ -41,6 +42,7 @@
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/ckeditor_content.js'
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/main.js'
                  '@MairieVoreppeDemandeTravauxBundle/Resources/public/js/recepisse.js'
+                 '@ApplicationSonataUserBundle/Resources/public/js/main-user.js'
 
               %} 
                   <script type="text/javascript" src="{{ asset_url }}"></script> 
@@ -49,14 +51,12 @@
             <!-- Le paramètre "sensor" indique si cette application utilise détecteur pour déterminer la position de l'utilisateur -->
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     </head>
-    <body>
-        {% block body %}  
+{% block body %} 
+    <body> 
             {#Block qui englobe tout#}
             <div class="container-fluid">
 
-                {% if app.session.get('service') == true %}
-                    Vous travaillez pour le service {{ app.session.get('service') }}.
-                {% endif %}
+                
                 <section id="menu">
                     {% block menu %}
                         {# Ici on va passer le 'path' de la route volontairement pour personnaliser le surlignage du menu #}
@@ -72,14 +72,14 @@
             <footer class="row">
                 <div class="col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-lg-offset-5 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <span class="label label-default">
-                            <span class="fa fa-train"></span> Application ADTU
+                            <a href="#" class="destroy-me"><span class="fa fa-train"></span></a> Application ADTU
                         </span>
                 </div>	
             </footer> 
             {#image de chargement caché#}
             <!-- <span class="image-loading-dt-dict">
                 <img src="{{ asset('bundles/mairievoreppedemandetravaux/img/loading/adresseDtToDict.gif') }}"
-            </span>   -->                  
-        {% endblock body %}
-    </body>
+            </span>   -->     
+    </body>             
+{% endblock body %}
 </html>

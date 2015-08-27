@@ -7,31 +7,39 @@ ce qui nous permet de profiter de l'ensemble des CSS et JS mis à disposition #}
 
 
 {% block body %}
-    {% if error %}
-        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-    {% endif %}
+    <body class="page_connexion">
+        {% if error %}
+            <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+        {% endif %}
+        <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-lg-offset-5 col-lg-3">
-            <p class="text-center">
-                Connexion à l'application Demande Travaux
-            </p>
-            <form class="well" action="{{ path("fos_user_security_check") }}" method="post">
-                
-                {# Le service choisi sera retenue en session #}               
-                
-                <label for="username">{{ 'security.login.username'|trans }}</label>
-                <input type="text"  class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" />
+                <div class="row">
+                    <div class="col-lg-2 voffset2 logo">
+                        <img src="{{ asset('bundles/applicationsonatauser/img/voreppe.png')}}" alt="">
+                    </div>                 
+                </div> 
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-lg-offset-4 col-lg-4 voffset5">
+                        <form class="well form-login" action="{{ path("fos_user_security_check") }}" method="post">
+                            
+                            {# Le service choisi sera retenue en session #}               
+                            
+                            <label for="username">{{ 'security.login.username'|trans }}</label>
+                            <input type="text"  class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" />
 
-                <label for="password">{{ 'security.login.password'|trans }}</label>
-                <input type="password"  class="form-control" id="password" name="_password" required="required" />
+                            <label for="password">{{ 'security.login.password'|trans }}</label>
+                            <input type="password"  class="form-control" id="password" name="_password" required="required" />
 
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                <button class="btn btn-block btn-lg btn-info" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }} </button>
-            </form>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <button class="btn btn-block btn-lg btn-info" type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }} </button>
+                        </form>
+                    </div>        
+                </div>
+            </div>
         </div>
-    </div>
+   </body>
 {% endblock body %}
