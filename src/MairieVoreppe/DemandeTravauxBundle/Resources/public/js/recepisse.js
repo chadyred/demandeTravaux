@@ -508,7 +508,7 @@ function dateStringToInputFormDate(date)
 
 
 // La fonction qui ajoute un lien de suppression d'une catégorie
-private function addDeleteLinkRecepisse(prototype) {
+function addDeleteLinkRecepisse(prototype) {
   // Création du lien
   var deleteLink = jQuery('<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>');
 
