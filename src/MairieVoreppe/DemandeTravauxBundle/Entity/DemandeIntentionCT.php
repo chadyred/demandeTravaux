@@ -86,6 +86,7 @@ class DemandeIntentionCT extends Travaux
      */
     public function __construct()
     {
+        parent::__construct();
         $this->arretesPromulgues = new \Doctrine\Common\Collections\ArrayCollection();
     }
     

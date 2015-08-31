@@ -93,6 +93,7 @@ class DemandeTravaux extends Travaux
      */
     public function __construct()
     {
+        parent::__construct();
         $this->dicts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

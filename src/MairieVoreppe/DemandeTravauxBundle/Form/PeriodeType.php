@@ -22,8 +22,8 @@ class PeriodeType extends AbstractType
         */
         $builder
             ->add('responsableExploitant',  new ResponsableExploitantType())
-            ->add('dateDebut',  'datetime', array("required" => true))
-            ->add('dateFin',  'datetime', array("required" => false))
+            ->add('dateDebut',  'date', array("required" => true, 'format' => 'dd-MM-yyyy'))
+            ->add('dateFin',  'date', array("required" => false, 'format' => 'dd-MM-yyyy'))
         ;
     }
     

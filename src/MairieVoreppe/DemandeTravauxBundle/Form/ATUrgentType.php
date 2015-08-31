@@ -28,7 +28,7 @@ class ATUrgentType extends AbstractType
     {
         $builder
             ->add('numeroTeleservice', null, array("required" => true))
-            ->add('dateDebutTravaux', 'datetime')
+            ->add('dateDebutTravaux', 'date', array("required" => false, 'format' => 'dd-MM-yyyy'))
             ->add('duree', 'integer', array('required' => true, 'label' => 'Indiquez la durée en jour'))
             //placeholder remplace empty_value de 2.6
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
@@ -38,8 +38,8 @@ class ATUrgentType extends AbstractType
                 "required" => false))         
             ->add('descriptionTravaux', null, array("required" => false))
             ->add('noteComplementaire', null, array("required" => false))
-            ->add('dateReceptionDemande', 'datetime', array("required" => true))
-            ->add('dateReponseDemande',  'datetime')
+            ->add('dateReceptionDemande', 'date', array("required" => true, 'format' => 'dd-MM-yyyy'))
+            ->add('dateReponseDemande',  'date', array("required" => false, 'format' => 'dd-MM-yyyy'))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,

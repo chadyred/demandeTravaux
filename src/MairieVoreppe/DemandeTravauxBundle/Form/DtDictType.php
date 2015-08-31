@@ -42,7 +42,7 @@ class DtDictType extends AbstractType
              ->add('numeroTeleservice', 'text', array('disabled' => true ))
             ->add('numeroAffaireDeclarant', 'text', array("required" => false))
             ->add('duree', 'integer', array('required' => false, 'label' => 'Indiquez la durée en jour'))
-            ->add('dateDebutTravaux',  'datetime', array('required' => false ))
+            ->add('dateDebutTravaux',  'date', array('required' => false, 'format' => 'dd-MM-yyyy' ))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
                 'empty_data' => false,
@@ -61,11 +61,12 @@ class DtDictType extends AbstractType
               ))
             ->add('descriptionTravaux', 'text', array("required" => false))
             ->add('noteComplementaire', 'text', array("required" => false))
-            ->add('dateReceptionDemande',  'datetime')
-            ->add('dateReponseDemande', 'datetime', array('disabled'=> true, 
+            ->add('dateReceptionDemande',  'date', array('format' => 'dd-MM-yyyy'))
+            ->add('dateReponseDemande', 'date', array('disabled'=> true, 
                 "read_only"=> true, 
                 'empty_data' => true,
-                'placeholder' => '-'
+                'placeholder' => '-',
+                'format' => 'dd-MM-yyyy'
               ))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,

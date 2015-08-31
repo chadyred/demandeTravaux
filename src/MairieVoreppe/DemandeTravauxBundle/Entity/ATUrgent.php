@@ -22,6 +22,13 @@ class ATUrgent extends Travaux
      */
     protected $id;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get id

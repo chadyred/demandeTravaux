@@ -41,14 +41,14 @@
         </tbody>
     </table>
 
-        <ul class="list-unstyled">
+        <ul class="list-unstyled list-inline">
             <li>
                 <a  type="button" class="btn btn-info"  href="{{ path('entreprise') }}">
                     <i class="fa fa-backward"></i> Retourner à la liste des entreprises
                 </a>
             </li>
             <li>
-                <a href="{{ path('entreprise_edit', { 'id': entity.id }) }}">
+                <a type="button" class="btn btn-success"  href="{{ path('entreprise_edit', { 'id': entity.id }) }}">
                     Modifier l'entreprise !
                 </a>
             </li>

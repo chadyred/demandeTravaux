@@ -17,7 +17,7 @@ class CommunAccordType extends RendezVousType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('dateRetenue', 'datetime', array('label' => false,
+            ->add('dateRetenue', 'date', array('label' => false,'format' => 'dd-MM-yyyy',
              'attr' => array('class' => 'datetimepicker'),
              "required" => true
                 ))

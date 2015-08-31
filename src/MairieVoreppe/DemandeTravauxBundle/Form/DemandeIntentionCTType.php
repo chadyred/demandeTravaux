@@ -42,8 +42,8 @@ class DemandeIntentionCTType extends AbstractType
             ->add('numeroTeleservice', 'text', array('disabled' => $this->dtDict, "required" => true ))
             ->add('numeroAffaireDeclarant', 'text', array(
                 "required" => false ))
-            ->add('dateDebutTravaux', 'datetime', array(
-                            "required" => false ))
+            ->add('dateDebutTravaux', 'date', array(
+                            "required" => false, 'format' => 'dd-MM-yyyy' ))
             ->add('duree', 'integer', array('required' => false, 
               'label' => 'Indiquez la durée en jour'))
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
@@ -64,14 +64,16 @@ class DemandeIntentionCTType extends AbstractType
               ))            
             ->add('descriptionTravaux', 'text', array("required" => false))
             ->add('noteComplementaire', 'text', array("required" => false))
-            ->add('dateReceptionDemande','datetime', array( 
+            ->add('dateReceptionDemande','date', array( 
+              "required" => true, 'format' => 'dd-MM-yyyy',
               "attr" => array('data-provide'=>"datepicker", 
                 "data-date-format"=>"dd/mm/yyyy", "data-date-language" => "fr")
               ))
-            ->add('dateReponseDemande', 'datetime', array('disabled'=> true, 
+            ->add('dateReponseDemande', 'date', array('disabled'=> true, 
                 "read_only"=> true, 
                 'empty_data' => true,
-                'placeholder' => '-'
+                'placeholder' => '-',
+                'format' => 'dd-MM-yyyy'
               ))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,

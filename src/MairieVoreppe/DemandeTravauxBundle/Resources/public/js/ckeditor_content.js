@@ -7,7 +7,7 @@
 
 $(document).ready(function(){
     //alert("document prêt");
-    $('#ckeditor_arrete_model select').on('click', function() {
+    $('#ckeditor_arrete_model select').on('change', function() {
     $.fn.insertAtCaret(this.value); // or $(this).val()
     });
     

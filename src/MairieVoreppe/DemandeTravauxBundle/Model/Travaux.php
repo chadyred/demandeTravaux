@@ -168,6 +168,7 @@ abstract class Travaux
     {
         $this->contactsUrgent = new \Doctrine\Common\Collections\ArrayCollection();
         $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dateReceptionDemande = new \DateTime('now');
     }
     /**
      * Get id
