@@ -7,10 +7,10 @@
     </p>
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
+        <ul class="list-unstyled list-inline">
     <li>
-        <a href="{{ path('arretepromulgue') }}">
-            Back to the list
+        <a class="btn btn-info" href="{{ path('arretepromulgue') }}">
+            Retour à la liste des arrêtés promulgués
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

@@ -300,7 +300,7 @@ class ATUrgentController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('aturgent_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Supprimer', "attr" => array("class" => "btn btn-danger")))
             ->getForm()
         ;
     }

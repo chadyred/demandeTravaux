@@ -27,12 +27,12 @@
     <ul class="list-unstyled list-inline record_actions">
         <li>
             <a class="btn btn-info" href="{{ path('arretemodel') }}">
-                Back to the list
+                Retour à la liste des modèles d'arrêté
             </a>
         </li>
         <li>
-            <a href="{{ path('arretemodel_edit', { 'id': entity.id }) }}">
-                Edit
+            <a class="btn btn-success" href="{{ path('arretemodel_edit', { 'id': entity.id }) }}">
+                Modifier
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>
