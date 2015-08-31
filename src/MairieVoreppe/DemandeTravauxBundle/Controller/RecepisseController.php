@@ -365,6 +365,12 @@ class RecepisseController extends Controller
                             $destinataireDemande = $demande->getDt()->getDeclarant();
                             //Variable qui contiendra le déclarant
                             $declarant = "";
+
+
+                            //Le destinataire de la demande est relatif au lien tissé entre une DT avec une DICT : conjointe => le MOE, pas conjointe ou inexistant:
+                            //Soit un MOA soit un MOE
+                            $classeTypeDeclarant = get_class($destinataireDemande);
+                            
                             switch($classeTypeDeclarant)
                             {
                                 //La MOE personne physique existe dans le cas où l'on récupère ls informations de la DICT lorsque la DT est conjointe à celle-ci
