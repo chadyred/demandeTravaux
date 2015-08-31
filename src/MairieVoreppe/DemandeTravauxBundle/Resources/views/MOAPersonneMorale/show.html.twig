@@ -1,27 +1,38 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
 
  {% block moa_content %}
-    <h1>MOAPersonneMorale</h1>
+    <div class="row">
+        <div class="col-lg-12 table-responsive">
+            <hr/>
+            <caption>
+                <h4>Un maitre d'ouvrage en tant que persone morale
+                    <br></h4>
+                </caption>
+                <table class="table table-bordered table-striped table-condensed">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ entity.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Raison social</th>
+                            <td>{{ entity.personneMorale.raisonSociale }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('moapersonnemorale') }}">
-            Back to the list
+    <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('moapersonnemorale') }}">
+            Retour à la liste des maîtres d'ouvrage en tant que personne morale
         </a>
     </li>
     <li>
         {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
-            <a href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">
-                Edit
+            <a class="btn btn-success" href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">
+                Edition
             </a>
         {% endif %}
     </li>

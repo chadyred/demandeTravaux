@@ -10,7 +10,7 @@
 {{ form_errors(edit_form) }}
 <div id="info-recepisse-creation" class="row">
 	<div class="col-lg-3">
-		Date de création: {{ entity.dateCreation|date('d-m-Y H:i:s') }}
+		Date de création: {{ entity.dateCreation|date('d-m-Y H:i') }}
 	</div>
 	<div class="col-lg-3">
 		Numéro de téléservice de création: {{ dict.numeroTeleservice }}				
@@ -87,7 +87,7 @@
 		- Calendrier: date de début, durée, date de fin  #}
 		<div class="col-lg-offset-2 col-lg-10">			
 			<p>
-				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i:s') }} par {{ dict.canalReception.libelle }}
+				Reçu le : {{ dict.dateReceptionDemande|date('d-m-Y H:i') }} par {{ dict.canalReception.libelle }}
 				<br/>
 				{# Les __toString() personnalise l'affichage #}
 				Déclarant : {{ dict.dt != null ? dict.dt.declarant : dict.entreprise }}
@@ -120,11 +120,11 @@
 			</h6>	
 			<div class="col-lg-offset-1 col-lg-11">
 				<p>
-					Date de début :  {{ dict.dateDebutTravaux|date('d-m-Y H:i:s') }} 
+					Date de début :  {{ dict.dateDebutTravaux|date('d-m-Y') }} 
 					<br/>
 					Durée : {{ dict.duree }} {{ dict.duree > 1 ? "jours" : "jour" }} 
 					<br/>
-					Date de fin : {{ dict.adresses[0].adresse }} 
+					Date de fin :  {{ dict.dateFinTravaux|date('d-m-Y') }} 
 				</p>
 			</div>
 

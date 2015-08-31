@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Groups;
  * PersonnePhysique
  *
  * @ORM\Entity
- * })
+ * 
  */
 abstract class PersonnePhysique extends Personne
 {

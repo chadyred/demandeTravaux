@@ -1,9 +1,17 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOeuvre:layout.html.twig' %}
 
- {% block moa_content %}
-    <h1>MOEPersonnePhysique</h1>
-
-    <table class="record_properties">
+ {% block moa_content %}   
+ <div class="row">
+     
+    <div class="col-lg-12 table-responsive">
+        <hr/>
+        <caption>
+            <h4>        
+                MOEPersonnePhysique
+             <br>
+         </h4>
+        </caption>
+        <table class="table table-bordered table-striped table-condensed">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -11,16 +19,18 @@
             </tr>
         </tbody>
     </table>
+    </div>
+ </div> 
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('moepersonnephysique') }}">
-            Back to the list
+       <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('moepersonnephysique') }}">
+            Retour à la liste des maîtres d'oeuvre en tant que personne physique
         </a>
     </li>
     <li>
-        <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">
-            Edit
+        <a class="btn btn-success" href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">
+            Edition
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

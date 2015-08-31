@@ -38,10 +38,10 @@
                     <td>
                         <ul>
                             <li>
-                                <a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>
-                                <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-success" href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>
@@ -63,12 +63,12 @@
                     </td>
                     <td>{{ entity.entreprise.telFixe }}</td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyed list-inline">
                             <li>
-                                <a href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>
-                                <a href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-success" href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>
@@ -90,12 +90,12 @@
                         {% endif %}
                     <td>{{ entity.civil.telFixe }}</td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyed list-inline">
                             <li>
-                                <a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>
-                                <a href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-success" href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>
@@ -118,15 +118,15 @@
                         
                     </td>
                     <td>{{ entity.personneMorale.telFixe }}</td>
-                    <td>
-                        <ul>
+                    <td>                        
+                        <ul class="list-unstyed list-inline">
                             <li>
-                                <a href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>                                
                                 {# instance of est une extension persionnalisé afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
                                 {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
-                                    <a href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">edit</a>
+                                    <a <a class="btn btn-success" href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}">Modifier</a>
                                 {% endif %}
                             </li>
                         </ul>

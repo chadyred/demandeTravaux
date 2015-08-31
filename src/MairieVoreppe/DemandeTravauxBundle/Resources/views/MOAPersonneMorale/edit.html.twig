@@ -1,7 +1,7 @@
 {% extends 'MairieVoreppeDemandeTravauxBundle:MaitreOuvrage:layout.html.twig' %}
 
  {% block moa_content %}
-    <h1>MOAPersonneMorale edit</h1>
+    <h1>Edition d'un maître d'ouvrage en tant que personne morale</h1>
     
     
     {# instance of est une extension persionnaliser afin de distinguer sur la classe mère ces enfants et personnaliser les liens #}
@@ -17,10 +17,10 @@
         </div>
 
     <div class="row">
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('moapersonnemorale') }}">
-                    Back to the list
+    <ul class="list-unstyled list-inline record_actions">
+        <li>                
+            <a class="btn btn-info"  href="{{ path('moapersonnemorale') }}">
+                    Retour à la liste des maîtres d'ouvrage en tant que personne morale
                 </a>
             </li>
             <li>{{ form(delete_form) }}</li>

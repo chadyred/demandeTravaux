@@ -13,7 +13,7 @@
             <tr>
                 <th>Id</th>
                 <th>Type</th>
-                <th>Maitre d'ouvrage</th>
+                <th>Maître d'ouvrage</th>
                 <th>Adresse</th>
                 <th>Téléphone</th>
                 <th>Actions</th>
@@ -35,13 +35,13 @@
                         {% endif %}
                     </td>
                     <td>{{ entity.civil.telFixe }}</td>
-                    <td>
-                        <ul>
+                    <td>                    
+                        <ul class="list-unstyled list-inline">
                             <li>
-                                <a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>
-                                <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                                <a  class="btn btn-success" href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>
@@ -62,13 +62,16 @@
                         {% endif %}
                     </td>
                     <td>{{ entity.entreprise.telFixe }}</td>
-                    <td>
-                        <ul>
+                    <td>                        
+                        <ul class="list-unstyled list-inline">
                             <li>
-                                <a href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('moepersonnemorale_show', { 'id': entity.id }) }}">
+                                    Voir
+                                </a>
                             </li>
                             <li>
-                                <a href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-success" href="{{ path('moepersonnemorale_edit', { 'id': entity.id }) }}">        Modifier
+                                </a>
                             </li>
                         </ul>
                     </td>

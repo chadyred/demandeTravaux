@@ -437,12 +437,15 @@ class RecepisseController extends Controller
 
         $adresseExploitant = $exploitant->getAdresse();
 
-        $pdf->exploitantNumeroVoie($adresseExploitant->getAdresseCompleteNumRueAdresse());
+        if($adresseExploitant != NULL) {
+            $pdf->exploitantNumeroVoie($adresseExploitant->getAdresseCompleteNumRueAdresse());
 
-        //TODO: Le BP n'est pas encore géré
-        $pdf->exploitantLieuDitBp($adresseExploitant->getLieuDit());
-        $pdf->exploitantCp($adresseExploitant->getCp());
-        $pdf->exploitantCommune($adresseExploitant->getVille());
+            //TODO: Le BP n'est pas encore géré
+            $pdf->exploitantLieuDitBp($adresseExploitant->getLieuDit());
+            $pdf->exploitantCp($adresseExploitant->getCp());
+            $pdf->exploitantCommune($adresseExploitant->getVille());
+        }
+
 
         /**
         *
@@ -528,15 +531,17 @@ class RecepisseController extends Controller
         $pdf->securiteRubriqueGuideTechnique($recepisse->getRubriqueGuideTechSecurite());
         $pdf->securiteMesureMettreEnOeuvre($recepisse->getMesureSecurite());
 
-        if($recepisse->getDispositifSecurite() != null)
+        if($recepisse->getDispositifSecurite() != NULL)
             $pdf->securiteDispositifImportant($recepisse->getDispositifSecurite()->getDescription());
 
         //gestion de la mise hors tension
-        $recepisse->getMiseHorsTension()->getLibelle() == "Possible" ? $mht = true : $mht = false;
-        $pdf->securiteMiseHorsTension($mht);
+        if($recepisse->getMiseHorsTension() != NULL){
+            $recepisse->getMiseHorsTension()->getLibelle() == "Possible" ? $mht = true : $mht = false;
+            $pdf->securiteMiseHorsTension($mht);
+        }
 
         //Partie dégradation
-        if($recepisse->getTelServiceDegradation() !== null)
+        if($recepisse->getTelServiceDegradation() !== NULL)
             $pdf->degradationNumeroService($phoneUtil->format($recepisse->getTelServiceDegradation(), \libphonenumber\PhoneNumberFormat::NATIONAL));
 
         $pdf->securiteAnomalie($recepisse->getServiceDepartementIncendieSecours());

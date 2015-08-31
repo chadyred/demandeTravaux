@@ -62,7 +62,11 @@ class DtDictType extends AbstractType
             ->add('descriptionTravaux', 'text', array("required" => false))
             ->add('noteComplementaire', 'text', array("required" => false))
             ->add('dateReceptionDemande',  'datetime')
-            ->add('dateReponseDemande',  'datetime', array("required" => false))
+            ->add('dateReponseDemande', 'datetime', array('disabled'=> true, 
+                "read_only"=> true, 
+                'empty_data' => true,
+                'placeholder' => '-'
+              ))
             ->add('contactsUrgent', 'collection', array('type' => new ContactUrgentType(),
                 'allow_add' => true,
                 'allow_delete' => true,

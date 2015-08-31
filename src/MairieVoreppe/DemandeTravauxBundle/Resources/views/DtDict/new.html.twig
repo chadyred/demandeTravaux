@@ -4,117 +4,128 @@
  {% block travaux_content %}
     <h1>DtDict creation</h1>
     <div class="row">
-        {#ATTENTION : L'ENTETE SE FERME TOUT LE TEMPS LORSQUE LE BLOCK DIV DANS LEQUEL ELLE SE SITUE SE FERME #}
-            {{ form_start(form) }}
-        <div class="col-lg-6" id="partie-dt">
-
-            {# Partie de la DT #}
-                <h2>    
-                    Partie de la DT
-                </h2>
-            <span class="information-base">
-                {{ form_row(form.dt.serviceExploitant) }}
-                {{ form_row(form.dt.numeroTeleservice) }}
-                {{ form_row(form.dt.numeroAffaireDeclarant) }}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {#ATTENTION : L'ENTETE SE FERME TOUT LE TEMPS LORSQUE LE BLOCK DIV DANS LEQUEL ELLE SE SITUE SE FERME #}
+                {{ form_start(form) }}
+            <div class="col-lg-6" id="partie-dt">
+                {# Partie de la DT #}
+                <div class="row">       
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">             
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <h4>    
+                                Partie DT
+                            </h4>                    
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a href="#" id="recuperer-info-dt" class="btn btn-success"><i class="fa fa-arrow-right"></i>Récupérer information de la DT<i class="fa fa-arrow-right"></i></a>
+                        </div>  
+                    </div>  
+                </div>
                 
-                {{ form_row(form.dt.dateDebutTravaux) }}
-                {{ form_row(form.dt.duree) }}
-                {{ form_row(form.dt.canalReception) }}
-                {{ form_row(form.dt.descriptionTravaux) }}
-                {{ form_row(form.dt.noteComplementaire) }}
-                {{ form_row(form.dt.dateReceptionDemande) }}
-                {{ form_row(form.dt.dateReponseDemande) }}
-                {{ form_row(form.dt.declarant) }}
+                    
+                <span class="information-base">
+                    {{ form_row(form.dt.serviceExploitant) }}
+                    {{ form_row(form.dt.numeroTeleservice) }}
+                    {{ form_row(form.dt.numeroAffaireDeclarant) }}
+                    
+                    {{ form_row(form.dt.dateDebutTravaux) }}
+                    {{ form_row(form.dt.duree) }}
+                    {{ form_row(form.dt.canalReception) }}
+                    {{ form_row(form.dt.descriptionTravaux) }}
+                    {{ form_row(form.dt.noteComplementaire) }}
+                    {{ form_row(form.dt.dateReceptionDemande) }}
+                    {{ form_row(form.dt.dateReponseDemande) }}
+                    {{ form_row(form.dt.declarant) }}
 
-            </span>
-            <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
-            <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.dt.adresses.vars.prototype) | e('html') }}">
-                {% for adresseChamp in form.dt.adresses %}
-                    <li>
-                        {{ form_row(adresseChamp.autocomplete) }}
-                        {{ form_row(adresseChamp.numeroRue) }}
-                        {{ form_row(adresseChamp.adresse) }}
-                        {{ form_row(adresseChamp.complementAdresse) }}
-                        {{ form_row(adresseChamp.lieuDit) }}
-                        {{ form_row(adresseChamp.ville) }}
-                        {{ form_row(adresseChamp.cp) }}
-                        {{ form_row(adresseChamp.pays) }}
-                        
-                        {# Necessaire afin de garder la première adresse et que ce boutton ne s'affiche pas en bas#}
-                        {% if not loop.first %}
-                           {{  form_row(adresseChamp.delete)  }}
-                        {% else %}
-                            <div hidden>{{ form_row(adresseChamp.delete) }}</div> 
-                        {% endif %}
-                   </li>
-                {% endfor %}
-            </ul>
-             <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
-            <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.dt.contactsUrgent.vars.prototype) | e('html') }}">
-                {% for contactUrgentChamp in form.dt.contactsUrgent %}
-                    <li>
-                        {{ form_row(contactUrgentChamp.civilite) }}
-                        {{ form_row(contactUrgentChamp.nom) }}
-                        {{ form_row(contactUrgentChamp.prenom) }}
-                        {{ form_row(contactUrgentChamp.telMobile) }}
-                        {{ form_row(contactUrgentChamp.telFixe) }}
-                        {{ form_row(contactUrgentChamp.email) }}
-                   </li>
-                {% endfor %}
-            </ul>
-        </div>                
-        <div class="col-lg-6" id="partie-dict">
-            {#Partie de la DICT #}
-            <h2>    
-                Partie de la DICT - 
-                <a href="#" id="recuperer-info-dt" class="btn btn-success">Récupérer information de la DT</a>
-            </h2>
-            
-            
-            <span class="information-base">
-                {{ form_row(form.serviceExploitant) }}
-                {{ form_row(form.numeroTeleservice) }}
-                {{ form_row(form.numeroAffaireDeclarant) }}
-                {{ form_row(form.dateDebutTravaux) }}
-                {{ form_row(form.duree) }}
-                {{ form_row(form.canalReception) }}
-                {{ form_row(form.descriptionTravaux) }}
-                {{ form_row(form.noteComplementaire) }}
-                {{ form_row(form.dateReceptionDemande) }}
-                {{ form_row(form.dateReponseDemande) }}
-                {{ form_row(form.entreprise) }}
+                </span>
+                <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+                <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.dt.adresses.vars.prototype) | e('html') }}">
+                    {% for adresseChamp in form.dt.adresses %}
+                        <li>
+                            {{ form_row(adresseChamp.autocomplete) }}
+                            {{ form_row(adresseChamp.numeroRue) }}
+                            {{ form_row(adresseChamp.adresse) }}
+                            {{ form_row(adresseChamp.complementAdresse) }}
+                            {{ form_row(adresseChamp.lieuDit) }}
+                            {{ form_row(adresseChamp.ville) }}
+                            {{ form_row(adresseChamp.cp) }}
+                            {{ form_row(adresseChamp.pays) }}
+                            
+                            {# Necessaire afin de garder la première adresse et que ce boutton ne s'affiche pas en bas#}
+                            {% if not loop.first %}
+                               {{  form_row(adresseChamp.delete)  }}
+                            {% else %}
+                                <div hidden>{{ form_row(adresseChamp.delete) }}</div> 
+                            {% endif %}
+                       </li>
+                    {% endfor %}
+                </ul>
+                 <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+                <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.dt.contactsUrgent.vars.prototype) | e('html') }}">
+                    {% for contactUrgentChamp in form.dt.contactsUrgent %}
+                        <li>
+                            {{ form_row(contactUrgentChamp.civilite) }}
+                            {{ form_row(contactUrgentChamp.nom) }}
+                            {{ form_row(contactUrgentChamp.prenom) }}
+                            {{ form_row(contactUrgentChamp.telMobile) }}
+                            {{ form_row(contactUrgentChamp.telFixe) }}
+                            {{ form_row(contactUrgentChamp.email) }}
+                       </li>
+                    {% endfor %}
+                </ul>
+            </div>                
+            <div class="col-lg-6" id="partie-dict">
+                {#Partie de la DICT #}
+                <h4>    
+                    Partie de la DICT
+                </h4>
+                
+                
+                <span class="information-base">
+                    {{ form_row(form.serviceExploitant) }}
+                    {{ form_row(form.numeroTeleservice) }}
+                    {{ form_row(form.numeroAffaireDeclarant) }}
+                    {{ form_row(form.dateDebutTravaux) }}
+                    {{ form_row(form.duree) }}
+                    {{ form_row(form.canalReception) }}
+                    {{ form_row(form.descriptionTravaux) }}
+                    {{ form_row(form.noteComplementaire) }}
+                    {{ form_row(form.dateReceptionDemande) }}
+                    {{ form_row(form.dateReponseDemande) }}
+                    {{ form_row(form.entreprise) }}
 
-            </span>
-            <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
-            <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
-                {% for adresseChamp in form.adresses %}
-                    <li>
-                           {{ form_row(adresseChamp.autocomplete) }}
-                           {{ form_row(adresseChamp.numeroRue) }}
-                           {{ form_row(adresseChamp.adresse) }}
-                           {{ form_row(adresseChamp.complementAdresse) }}
-                           {{ form_row(adresseChamp.lieuDit) }}
-                           {{ form_row(adresseChamp.ville) }}
-                           {{ form_row(adresseChamp.cp) }}
-                           {{ form_row(adresseChamp.pays) }}
-                   </li>
-                {% endfor %}
-            </ul>
-             <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
-            <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
-                {% for contactUrgentChamp in form.contactsUrgent %}
-                    <li>
-                        {{ form_row(contactUrgentChamp.civilite) }}
-                        {{ form_row(contactUrgentChamp.nom) }}
-                        {{ form_row(contactUrgentChamp.prenom) }}
-                        {{ form_row(contactUrgentChamp.telMobile) }}
-                        {{ form_row(contactUrgentChamp.telFixe) }}
-                        {{ form_row(contactUrgentChamp.email) }}
-                    {{  form_row(contactUrgentChamp.delete)  }}
-                   </li>
-                {% endfor %}
-            </ul>
-        </div>
+                </span>
+                <a class="btn btn-md btn-info" href="#" id="ajouter-adresse"><i class="fa fa-plus-circle"></i> Ajouter une nouvelle adresse à ce travaux</a>
+                <ul class="border-double list-unstyled" id="adresse-fields-list" data-prototype="{{ form_widget(form.adresses.vars.prototype) | e('html') }}">
+                    {% for adresseChamp in form.adresses %}
+                        <li>
+                               {{ form_row(adresseChamp.autocomplete) }}
+                               {{ form_row(adresseChamp.numeroRue) }}
+                               {{ form_row(adresseChamp.adresse) }}
+                               {{ form_row(adresseChamp.complementAdresse) }}
+                               {{ form_row(adresseChamp.lieuDit) }}
+                               {{ form_row(adresseChamp.ville) }}
+                               {{ form_row(adresseChamp.cp) }}
+                               {{ form_row(adresseChamp.pays) }}
+                       </li>
+                    {% endfor %}
+                </ul>
+                 <a class="btn btn-md btn-info" href="#" id="ajouter-contact-urgent"><i class="fa fa-plus-circle"></i> Ajouter un contact urgent</a>
+                <ul class="border-double list-unstyled" id="contact-urgent-fields-list" data-prototype="{{ form_widget(form.contactsUrgent.vars.prototype) | e('html') }}">
+                    {% for contactUrgentChamp in form.contactsUrgent %}
+                        <li>
+                            {{ form_row(contactUrgentChamp.civilite) }}
+                            {{ form_row(contactUrgentChamp.nom) }}
+                            {{ form_row(contactUrgentChamp.prenom) }}
+                            {{ form_row(contactUrgentChamp.telMobile) }}
+                            {{ form_row(contactUrgentChamp.telFixe) }}
+                            {{ form_row(contactUrgentChamp.email) }}
+                        {{  form_row(contactUrgentChamp.delete)  }}
+                       </li>
+                    {% endfor %}
+                </ul>
+            </div>{# Fin de la colone DICT#}           
+        </div>{# Fin des deux colonne#}
         <div class="col-lg-12">
             {{ form_rest(form) }}
         {{ form_end(form) }}

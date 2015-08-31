@@ -26,16 +26,16 @@
 
                 <td>{{ entity.personneMorale.raisonSociale }}</td>
                 <td>
-                <ul class="list-unstyled list-inline">
-                    <li>
-                        <a class="btn btn-info  btn3d" href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-eye-open"></span> Voir</a>
-                    </li>
-                    <li>
-                        {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
-                             <a class="btn btn-success btn3d" href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}"><i class="fa fa-pencil-square-o"></i>modifier</a>
-                        {% endif %}
-                    </li>
-                </ul>
+                    <ul class="list-unstyled list-inline">
+                        <li>
+                                    <a class="btn btn-info"  href="{{ path('moapersonnemorale_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-eye-open"></span> Voir</a>
+                        </li>
+                        <li>
+                            {% if entity.personneMorale is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\Entreprise') %}
+                                 <a class="btn btn-success" href="{{ path('moapersonnemorale_edit_entreprise', { 'id': entity.id }) }}"><i class="fa fa-pencil-square-o"></i>modifier</a>
+                            {% endif %}
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}

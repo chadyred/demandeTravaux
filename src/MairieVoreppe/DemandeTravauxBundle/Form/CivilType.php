@@ -21,14 +21,14 @@ class CivilType extends AbstractType
                 'property' => 'abreviation',
                 "empty_data" => false,
                 "placeholder" => "-"))
-            ->add('nom')
-            ->add('prenom')
+            ->add('nom', 'text', array("required" => false))
+            ->add('prenom', 'text', array("required" => false))
                 //Type phone_number
             ->add('telFixe', 'tel', array('default_region' => 'FR', 
-                'format' => PhoneNumberFormat::NATIONAL))
+                'format' => PhoneNumberFormat::NATIONAL, 'required' => false))
             ->add('telMobile', 'tel', array('default_region' => 'FR', 
-                'format' => PhoneNumberFormat::NATIONAL))
-            ->add('email')
+                'format' => PhoneNumberFormat::NATIONAL, 'required' => false))
+            ->add('email', 'text', array("required" => false))
             ->add('adresse', new AdresseType())
         ;
     }

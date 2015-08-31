@@ -22,14 +22,16 @@ class ArretePromulgueType extends AbstractType
         $builder
             ->add('arreteModel', 'entity', array('class' => 'MairieVoreppeDemandeTravauxBundle:ArreteModel',
             'property' => 'titre',
-            "required" => true))
+            "required" => true,
+            "empty_data" => false,
+            "empty_value" => "-"))
             ->add('dict', 'entity', array('attr' => array('class' => 'hidden'),
                 'label' => false,
                 'class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\DemandeIntentionCT',
                 'property' => 'id',
                 'data' => $this->entityDict->getId(),
                 "required" => true))
-            ->add('submit', 'submit', array('label' => 'Generer'))
+            ->add('submit', 'submit', array('label' => 'Générer'))
         ;
     }
     

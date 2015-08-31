@@ -22,12 +22,12 @@
 
                 <td>{{ entity.civil }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                <ul class="list-unstyled list-inline">
+                        <li>
+                                    <a class="btn btn-info"  href="{{ path('moapersonnephysique_show', { 'id': entity.id }) }}">Voir</a>
                     </li>
                     <li>
-                        <a href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-success" href="{{ path('moapersonnephysique_edit', { 'id': entity.id }) }}">Modifier</a>
                     </li>
                 </ul>
                 </td>

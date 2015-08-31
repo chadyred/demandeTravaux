@@ -39,12 +39,13 @@
                        {% endif %}
                     </td>
                     <td>
-                        <ul>
+                        
+                        <ul class="list-unstyled list-inline">
                             <li>
-                                <a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>
-                                <a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-success" href="{{ path('demandetravaux_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>
@@ -53,7 +54,7 @@
             {% if entity is instanceof('MairieVoreppe\\DemandeTravauxBundle\\Entity\\DemandeIntentionCT') %}
                 <tr>
                     <td><a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>Demande intention commencement de travaux (DICT)</td>
+                    <td>Demande intention de commencement de travaux (DICT)</td>
                     <td>
                             {{ entity.numeroTeleservice }}                    
                     </td>
@@ -66,12 +67,12 @@
                        {% endif %}
                     </td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyled list-inline">
                             <li>
-                                <a href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">show</a>
+                                <a class="btn btn-info" href="{{ path('demandeintentionct_show', { 'id': entity.id }) }}">Voir</a>
                             </li>
                             <li>                                
-                                 <a href="{{ path('demandeintentionct_edit', { 'id': entity.id }) }}">edit</a>
+                                 <a class="btn btn-success" href="{{ path('demandeintentionct_edit', { 'id': entity.id }) }}">Modifier</a>
                             </li>
                         </ul>
                     </td>

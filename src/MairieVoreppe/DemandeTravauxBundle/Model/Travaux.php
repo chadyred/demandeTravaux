@@ -228,6 +228,8 @@ abstract class Travaux
     /**
      * Get dateDebutTravaux
      *
+     * Fonction qui ajoute la durée à la date de début. Elle est seulement en RO. 
+     *
      * @return \DateTime 
      */
     public function getDateFinTravaux()
@@ -236,8 +238,7 @@ abstract class Travaux
          
         if($this->duree != "")
         {
-              $this->dateFinTravaux = new \DateTime($this->dateDebutTravaux);
-              // $this->dateFinTravaux = $this->dateDebutTravaux;
+              $this->dateFinTravaux = $this->dateDebutTravaux;
               $this->dateFinTravaux->add(new \DateInterval('P' . $this->duree . 'D'));    
         }
 

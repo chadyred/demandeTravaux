@@ -3,14 +3,15 @@
 
  {% block moa_content %}
      
-    <h1>Edition -MOA - Personne physique</h1>
+    <h1>Edition - MOA - Personne physique</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('moapersonnephysique') }}">
-            Back to the list
+        
+    <ul class="list-unstyled list-inline record_actions">
+        <li>                
+            <a class="btn btn-info" href="{{ path('moapersonnephysique') }}">
+            Retour à la liste des maîtres d'ouvrage en tant que personne physique
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

@@ -21,13 +21,13 @@
             <tr>
                 <td><a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.civil }}</td>
-                <td>
-                    <ul>
+                <td>                    
+                    <ul class="list-unstyled list-inline">
                         <li>
-                            <a href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
+                            <a class="btn btn-info" href="{{ path('moepersonnephysique_show', { 'id': entity.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
+                            <a class="btn btn-success" href="{{ path('moepersonnephysique_edit', { 'id': entity.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>

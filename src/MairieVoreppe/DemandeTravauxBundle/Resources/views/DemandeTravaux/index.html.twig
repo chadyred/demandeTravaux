@@ -15,7 +15,6 @@
             <tr>
                 <th>Id</th>
                 <th>Numeroteleservice</th>
-                <th>Date début travaux</th>
                 <th>Descriptiontravaux</th>
                 <th>Notecomplementaire</th>
                 <th>Datereceptiondemande</th>
@@ -28,18 +27,17 @@
             <tr>
                 <td><a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.numeroTeleservice }}</td>
-                <td>{% if entity.dateDebutTravaux %}{{ entity.dateDebutTravaux|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.descriptionTravaux }}</td>
                 <td>{{ entity.noteComplementaire }}</td>
                 <td>{% if entity.dateReceptionDemande %}{{ entity.dateReceptionDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.dateReponseDemande %}{{ entity.dateReponseDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">show</a>
+              <ul class="list-unstyed list-inline">
+                        <li>
+                            <a class="btn btn-info" href="{{ path('demandetravaux_show', { 'id': entity.id }) }}">Voir</a>
                     </li>
                     <li>
-                        <a href="{{ path('demandetravaux_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-success" href="{{ path('demandetravaux_edit', { 'id': entity.id }) }}">Modifier</a>
                     </li>
                 </ul>
                 </td>

@@ -35,6 +35,11 @@ class MOEPersonneMorale extends MaitreOeuvre
      */
     protected $entreprise;
 
+    /**
+    * Champ pratique pour simplifier les arrêté. Il contient simplement l'entreprise. Ce champ étant similaire à celui
+    * des maître d'ouvrage en tant que personne morale, on aura tout ce qu'il faut pour ne pas se répéter
+    */
+    protected $personneMorale;
 
     /**
      * Get id
@@ -88,6 +93,16 @@ class MOEPersonneMorale extends MaitreOeuvre
         
         
         return $toString;
+    }
+
+    /**
+     * Get personneMorale
+     *
+     * @return \MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise
+     */
+    public function getPersonneMorale()
+    {
+        return $this->entreprise;
     }
 
    

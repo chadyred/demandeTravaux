@@ -24,17 +24,17 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('arretemodel') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('arretemodel_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('arretemodel') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('arretemodel_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
