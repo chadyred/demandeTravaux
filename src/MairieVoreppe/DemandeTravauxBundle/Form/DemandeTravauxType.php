@@ -25,6 +25,10 @@ class DemandeTravauxType extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     *
+     * - Lorsque l'on a une dt_dict ensemble on devra récupérer toute les informations de la DT. Pour les zone de choix on récupérera le choix SAUF
+     * pour le déclarant. En effet, la DICT comporte une entreprise dont seul l'utilisateur doit avoir le choix.
+     *
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -36,7 +40,8 @@ class DemandeTravauxType extends AbstractType
             ->add('canalReception', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Entity\CanalReception',
                 'property' => 'libelle',
                 'empty_data' => false,
-                'placeholder' => '-'
+                'placeholder' => '-',
+                'attr' => array("recuperer-info" => "recuperer-info")
               ))
             ->add('declarant', 'entity', array('class' => 'MairieVoreppe\DemandeTravauxBundle\Model\Declarant',
                 'empty_data' => false,
@@ -49,7 +54,9 @@ class DemandeTravauxType extends AbstractType
               ))            
             ->add('descriptionTravaux', 'text', array("required" => false))
             ->add('noteComplementaire', 'text', array("required" => false))
-            ->add('dateReceptionDemande', 'datetime')
+            ->add('dateReceptionDemande', 'datetime', array(
+                'attr' => array("recuperer-info" => "recuperer-info")
+                ))
             ->add('dateReponseDemande', 'datetime', array('disabled'=> true, 
                 "read_only"=> true, 
                 'empty_data' => true,
@@ -108,7 +115,8 @@ class DemandeTravauxType extends AbstractType
                 'empty_data' => false,
                 'placeholder' => '-',
                 'read_only' => true,
-                'disabled' => true
+                'disabled' => true,
+                'attr' => array("recuperer-info" => "recuperer-info")
               ))
             ;
           }
@@ -120,6 +128,7 @@ class DemandeTravauxType extends AbstractType
                     'expanded' => false,
                     'empty_data' => false,
                     'placeholder' => '-',
+                    'attr' => array("recuperer-info" => "recuperer-info"),
                     //requête qui garde les exploitants dont les services sont similaires à ceux dans lesquelles sont les utilisateurs
                     'query_builder' => function (EntityRepository $er ) {
                       return $er->createQueryBuilder('se')

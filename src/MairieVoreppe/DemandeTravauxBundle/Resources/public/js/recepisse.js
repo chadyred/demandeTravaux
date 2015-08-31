@@ -270,7 +270,7 @@ function emplacementChantier()
 
 			//J'insère la ligne dans le corps du tableau
 			newTr.appendTo($("table#list-emplacement-reseau-ouvrage tbody"));
-			addDeleteLink(newTr);
+			addDeleteLinkRecepisse(newTr);
 
 		}
 
@@ -508,7 +508,7 @@ function dateStringToInputFormDate(date)
 
 
 // La fonction qui ajoute un lien de suppression d'une catégorie
-function addDeleteLink(prototype) {
+private function addDeleteLinkRecepisse(prototype) {
   // Création du lien
   var deleteLink = jQuery('<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>');
 

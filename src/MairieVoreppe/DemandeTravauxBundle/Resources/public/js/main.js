@@ -257,7 +257,7 @@ function gestionPrototypeAdresse(instance, index, nbreDeChampsAdresse)
 // La fonction qui ajoute un lien de suppression d'une catégorie
 function addDeleteLink(prototype) {
   // Création du lien
-  var deleteLink = jQuery('<a href="#" class="btn btn-danger">Supprimer</a>');
+  var deleteLink = jQuery('<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Fermer</a>');
 
   // Ajout du lien
   prototype.append(deleteLink);
@@ -553,7 +553,7 @@ function remplirDtDictInformationBase()
 {
         var form = $('form[name=mairievoreppe_demandetravauxbundle_dtdict]');
         var inputs = form.find('#partie-dt .information-base input, #partie-dt .information-base textarea');
-        var select = form.find('#partie-dt .information-base select');
+        var selects = form.find('#partie-dt .information-base select[recuperer-info=recuperer-info], #partie-dt .information-base div[recuperer-info=recuperer-info] select');
         
         inputs.each(function () {
             if($(this).val() !== '')
@@ -566,12 +566,16 @@ function remplirDtDictInformationBase()
             }
         });
         
-        //Je ne parcours pas les selects volontairement: seul le premier sera pris en compte. EN effet, le maire d'oeuvre et d'ouvrage étant différent
-        // c'est à l'utilisateur de les définirs dans chacun des cas
-        var valueOptionSelected = select.find(':selected').val();
-        var idSource = select.attr('id');
-        var idCible =  idSource.replace(/_dt_/, "_");
-        $('#' + idCible).val(valueOptionSelected);   
+        //Je ne parcours pas les selects volontairement: seul ceux ayant 'recuperer-info=recuperer-info' seront pris en compte. En effet, le maitre d'oeuvre et d'ouvrage
+        // étant différent, c'est à l'utilisateur de les définirs dans chacun des cas
+        selects.each(function () {
+          var valueOptionSelected = $(this).find(':selected').val();
+          var idSource = $(this).attr('id');
+          console.log("idSource" + idSource);
+          var idCible =  idSource.replace(/_dt_/, "_");
+          $('#' + idCible).val(valueOptionSelected);   
+               
+        });
         
         
 }
