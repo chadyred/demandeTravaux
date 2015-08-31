@@ -125,11 +125,11 @@ class RecepisseController extends Controller
                 //Si la DT n'est conjointe à une DICT, on coche la première case et le destinataire sera celui de la DT
                 if($dictConjointe === NULL) {
                     $pdf->checkboxDemandeDt();
-                    $destinataireDemande = $demande->getMaitreOuvrage();
+                    $destinataireDemande = $demande->getDeclarant();
                 }
                 else {
                     $pdf->checkboxDemandeDtDictConjointe();
-                    $destinataireDemande = $dictConjointe->getMaitreOeuvre();
+                    $destinataireDemande = $dictConjointe->getEntreprise();
                 }
 
                 //cas uniquement dans une DT - Partie : Emplaement de nos réseaux / ouvrages
