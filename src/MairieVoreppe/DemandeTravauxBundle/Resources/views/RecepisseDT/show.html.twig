@@ -96,15 +96,15 @@
             </tbody>
         </table>
 
-            <ul class="record_actions">
+            <ul class="list-unstyled list-inline">
         <li>
-            <a href="{{ path('recepissedt') }}">
-                Back to the list
+            <a class="btn btn-info" href="{{ path('recepissedt') }}">
+                Retour à la liste des récepissés de DT
             </a>
         </li>
         <li>
-            <a href="{{ path('recepissedt_edit', { 'id': entity.id }) }}">
-                Edit
+            <a class="btn btn-success" href="{{ path('recepissedt_edit', { 'id': entity.id }) }}">
+                Modifier
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

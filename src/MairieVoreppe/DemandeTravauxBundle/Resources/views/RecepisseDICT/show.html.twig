@@ -96,15 +96,16 @@
             </tbody>
         </table>
 
-            <ul class="record_actions">
+            <ul class="list-unstyled list-inline">
         <li>
-            <a href="{{ path('recepissedict') }}">
-                Back to the list
+            <a class="btn btn-info" href="{{ path('recepissedict') }}">
+                
+             Retour à la liste des récépissés de DICT
             </a>
         </li>
         <li>
-            <a href="{{ path('recepissedict_edit', { 'id': entity.id }) }}">
-                Edit
+            <a class="btn btn-success" href="{{ path('recepissedict_edit', { 'id': entity.id }) }}">
+                Modifier
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>
