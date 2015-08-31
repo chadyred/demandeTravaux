@@ -319,7 +319,7 @@ class RecepisseController extends Controller
                     $pdf->checkboxDemandeDict();
 
 
-                //On récupère le déclarant qui est forcement un maître d'oeuvre
+                //On récupère le déclarant qui est forcement une entreprise
                 $classeTypeDeclarant = get_class($demande->getEntreprise());
 
                 //Variable qui contiendra le déclarant
@@ -327,77 +327,207 @@ class RecepisseController extends Controller
 
                 switch($classeTypeDeclarant)
                 {
-                    case 'MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique':
+                    //Une entreprise
+                    case 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise':
                     {
-                        /**
-                        *
-                        * Partie destinataire
-                        * Rappel: Une DT/DICT conjointe = adresse d’envoi => celle de la DICT
-                        *
-                        */
+                        //S'il n'y a pas de DT on prend les information de l'entreprise sinon celle de la DT
+                        if($demande->getDt() == NULL) {
+                             //On récupère la personne morale
+                            $entreprise = $demande->getEntreprise();
 
-                        //On stock le déclarant
-                        $declarant = $demande->getMaitreOeuvre()->getCivil();
+                            //On récupère son type                        
+                            $entreprise = get_class($entreprise);
+
+                            //On stock le déclarant
+                            $pdf->destinataireDenomination($entreprise->getRaisonSociale());
+                            $pdf->destinataireComplement("");
+
+                            $adresse = $entreprise->getAdresse();
+
+                            $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
+                            $pdf->destinataireLieuDitBp($adresse->getLieuDit());
+                            $pdf->destinataireCodePostal($adresse->getCp());
+                            $pdf->destinataireCommune($adresse->getVille());
+                            $pdf->destinataireVille($adresse->getPays());
+
+                            /**
+                            *
+                            * Partie information général
+                            *
+                            */
+                             // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
+                            $pdf->infoNumTeleservice($demande->getNumeroTeleservice()); 
+                            $pdf->infoRefExploitant("");
+                            $pdf->infoNumeroAffaireDeclarant("");
+                        }
+                        else
+                        {
+                            $destinataireDemande = $demande->getDt()->getDeclarant();
+                            //Variable qui contiendra le déclarant
+                            $declarant = "";
+                            switch($classeTypeDeclarant)
+                            {
+                                //La MOE personne physique existe dans le cas où l'on récupère ls informations de la DICT lorsque la DT est conjointe à celle-ci
+                                case 'MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonnePhysique':
+                                {
+                                    /**
+                                    *
+                                    * Partie destinataire
+                                    * Rappel: Une DT/DICT conjointe = adresse d’envoi => celle de la DICT
+                                    *
+                                    */
+
+                                    //On stock le déclarant
+                                    $declarant = $destinataireDemande->getMaitreOeuvre()->getCivil();
 
 
-                        $pdf->destinataireDenomination($declarant);
-                        $pdf->destinataireComplement("");
+                                    $pdf->destinataireDenomination($declarant);
+                                    $pdf->destinataireComplement("");
 
-                        $adresse = $demande->getMaitreOeuvre()->getCivil()->getAdresse();
+                                    $adresse = $destinataireDemande->getMaitreOeuvre()->getCivil()->getAdresse();
 
-                        $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
-                        $pdf->destinataireLieuDitBp($adresse->getLieuDit());
-                        $pdf->destinataireCodePostal($adresse->getCp());
-                        $pdf->destinataireCommune($adresse->getVille());
-                        $pdf->destinataireVille($adresse->getPays());
+                                    $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
+                                    $pdf->destinataireLieuDitBp($adresse->getLieuDit());
+                                    $pdf->destinataireCodePostal($adresse->getCp());
+                                    $pdf->destinataireCommune($adresse->getVille());
+                                    $pdf->destinataireVille($adresse->getPays());
 
-                        /**
-                        *
-                        * Partie information général
-                        *
-                        */
-                         // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
-                        $pdf->infoNumTeleservice($demande->getNumeroTeleservice()); 
-                        $pdf->infoRefExploitant("");
-                        $pdf->infoNumeroAffaireDeclarant("");
-                        $pdf->infoPersonneAContacterDeclarant(strtoupper($declarant->getNom()) . ' ' . $declarant->getPrenom());
-                        $pdf->infoDateReceptionDeclaration($demande->getDateReceptionDemande());
-                        $pdf->infoCommunePrincipalTravaux($demande->getAdresses()[0]->getVille());
-                        $pdf->infoAdresseTravauxPrevus($demande->getAdresses()[0]->getAdresseCompleteNumRueAdresse());
+                                    /**
+                                    *
+                                    * Partie information général
+                                    *
+                                    */
+                                     // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
+                                    $pdf->infoNumTeleservice($declarant->getNumeroTeleservice()); 
+                                    $pdf->infoRefExploitant("");
+                                    $pdf->infoNumeroAffaireDeclarant("");
+                                    $pdf->infoPersonneAContacterDeclarant(strtoupper($declarant->getNom()) . ' ' . $declarant->getPrenom());
+                                    $pdf->infoDateReceptionDeclaration($declarant->getDateReceptionDemande());
+                                    $pdf->infoCommunePrincipalTravaux($declarant->getAdresses()[0]->getVille());
+                                    $pdf->infoAdresseTravauxPrevus($declarant->getAdresses()[0]->getAdresseCompleteNumRueAdresse());      
 
-                        break;
-                    }
-                    //Une MOE Persoone morale est forcement une entreprise
-                    case 'MairieVoreppe\DemandeTravauxBundle\Entity\MOEPersonneMorale':
-                    {
-                         //On récupère la personne morale
-                        $declarantPersonneMorale = $demande->getMaitreOeuvre()->getEntreprise();
 
-                        //On récupère son type                        
-                        $classeTypePersonneMorale = get_class($declarantPersonneMorale);
 
-                        //On stock le déclarant
 
-                        $pdf->destinataireDenomination($declarantPersonneMorale->getRaisonSociale());
-                        $pdf->destinataireComplement("");
+                                    break;
+                                }
+                                case 'MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonnePhysique':
+                                {
+                                    /**
+                                    *
+                                    * Partie destinataire
+                                    * Rappel: Une DT/DICT conjointe = adresse d’envoi => celle de la DICT
+                                    *
+                                    */
 
-                        $adresse = $declarantPersonneMorale->getAdresse();
+                                    //On stock le déclarant
+                                    $declarant = $destinataireDemande->getCivil();
 
-                        $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
-                        $pdf->destinataireLieuDitBp($adresse->getLieuDit());
-                        $pdf->destinataireCodePostal($adresse->getCp());
-                        $pdf->destinataireCommune($adresse->getVille());
-                        $pdf->destinataireVille($adresse->getPays());
 
-                        /**
-                        *
-                        * Partie information général
-                        *
-                        */
-                         // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
-                        $pdf->infoNumTeleservice($demande->getNumeroTeleservice()); 
-                        $pdf->infoRefExploitant("");
-                        $pdf->infoNumeroAffaireDeclarant("");
+                                    $pdf->destinataireDenomination($declarant);
+                                    $pdf->destinataireComplement("");
+
+                                    $adresse = $destinataireDemande->getCivil()->getAdresse();
+
+                                    if($adresse !== null)
+                                    {
+                                        $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
+                                        $pdf->destinataireLieuDitBp($adresse->getLieuDit());
+                                        $pdf->destinataireCodePostal($adresse->getCp());
+                                        $pdf->destinataireCommune($adresse->getVille());
+                                        $pdf->destinataireVille($adresse->getPays());
+                                    }
+
+                                    /**
+                                    *
+                                    * Partie information général
+                                    *
+                                    */
+                                     // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
+                                    $pdf->infoNumTeleservice($demande->getNumeroTeleservice()); 
+                                    $pdf->infoRefExploitant("");
+                                    $pdf->infoNumeroAffaireDeclarant("");
+                                    $pdf->infoPersonneAContacterDeclarant(strtoupper($declarant->getNom()) . ' ' . $declarant->getPrenom());
+                                    $pdf->infoDateReceptionDeclaration($demande->getDateReceptionDemande());
+                                    $pdf->infoCommunePrincipalTravaux($demande->getAdresses()[0]->getVille());
+                                    $pdf->infoAdresseTravauxPrevus($demande->getAdresses()[0]->getAdresseCompleteNumRueAdresse());      
+
+
+
+
+                                    break;
+                                }
+
+                                 case 'MairieVoreppe\DemandeTravauxBundle\Entity\MOAPersonneMorale':
+                                {
+                                    /**
+                                    *
+                                    * Partie destinataire
+                                    * Rappel: Une DT/DICT conjointe = adresse d’envoi => celle de la DICT
+                                    *
+                                    */
+                                    //On récupère la personne morale
+                                    $declarantPersonneMorale = $destinataireDemande->getPersonneMorale();
+
+                                    //On récupère son type                        
+                                    $classeTypePersonneMorale = get_class($declarantPersonneMorale);
+
+                                    switch($classeTypePersonneMorale)
+                                    {
+                                        //S'il s'agit d'une entreprise
+                                         case 'MairieVoreppe\DemandeTravauxBundle\Entity\Entreprise':
+                                         {
+                                             //On stock le déclarant
+
+                                                $pdf->destinataireDenomination($declarantPersonneMorale->getRaisonSociale());
+                                                $pdf->destinataireComplement("");
+
+                                                $adresse = $declarantPersonneMorale->getAdresse();
+
+                                                $pdf->destinataireNumeroRueTravaux($adresse->getAdresseCompleteNumRueAdresse());
+                                                $pdf->destinataireLieuDitBp($adresse->getLieuDit());
+                                                $pdf->destinataireCodePostal($adresse->getCp());
+                                                $pdf->destinataireCommune($adresse->getVille());
+                                                $pdf->destinataireVille($adresse->getPays());
+
+                                                /**
+                                                *
+                                                * Partie information général
+                                                *
+                                                */
+                                                 // Rappel: DICT conjointe => Lorsque l'on fera DT ce sera son adresse qu'il faudra prendre
+                                                $pdf->infoNumTeleservice($demande->getNumeroTeleservice()); 
+                                                $pdf->infoRefExploitant("");
+                                                $pdf->infoNumeroAffaireDeclarant("");
+
+                                                //TODO : les personnes à contacter peuvent être nombreuse. On prend la première de la pile. S'il n'y en a pas on prend le gérant.
+                                                if(count($demande->getContactsUrgent()) > 0)
+                                                {
+                                                    $pdf->infoPersonneAContacterDeclarant(strtoupper($demande->getContactsUrgent()[0]->getNom()) . ' ' . $demande->getContactsUrgent()[0]->getPrenom());
+                                                }
+                                                else
+                                                {
+                                                    $pdf->infoPersonneAContacterDeclarant(strtoupper($declarantPersonneMorale->getGerant()->getNom()) . ' ' . $declarantPersonneMorale->getGerant()->getPrenom());
+                                                }
+                                                    
+                                                $pdf->infoDateReceptionDeclaration($demande->getDateReceptionDemande());
+                                                $pdf->infoCommunePrincipalTravaux($demande->getAdresses()[0]->getVille());
+                                                $pdf->infoAdresseTravauxPrevus($demande->getAdresses()[0]->getAdresseCompleteNumRueAdresse());  
+
+                                                break;
+                                         }
+                                         default:
+                                         {
+                                            echo "C'est un personne morale mais le type n'a pas pu être déterminé !";
+                                            break;
+                                         }
+
+                                    } 
+
+                                    break;
+                                } //Fin du case
+                            } //Fin du switch
+                        } //Fin du sinon
 
                         //TODO : les personnes à contacter peuvent être nombreuse. On prend la première de la pile. S'il n'y en a pas on prend le gérant.
                         if(count($demande->getContactsUrgent()) > 0)
@@ -415,9 +545,9 @@ class RecepisseController extends Controller
 
                    
                         break;
-                    }
+                    } //Fin du case
                 
-                }
+                } //Fin du switch
                 break;
             }// -- Fin du case DICT
         }
