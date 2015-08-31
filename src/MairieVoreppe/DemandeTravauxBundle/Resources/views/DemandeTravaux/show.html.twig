@@ -126,15 +126,15 @@
             </table>
         </div>
 </div>
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('demandetravaux') }}">
-            Back to the list
+      <ul class="list-unstyled list-inline record_actions">
+        <li>
+            <a class="btn btn-info" href="{{ path('demandetravaux') }}">
+            Retour à la liste des DT
         </a>
     </li>
     <li>
-        <a href="{{ path('demandetravaux_edit', { 'id': entity.id }) }}">
-            Edit
+        <a class="btn btn-success" href="{{ path('demandetravaux_edit', { 'id': entity.id }) }}">
+            Modifier
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
